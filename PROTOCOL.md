@@ -81,6 +81,17 @@ phone, copied into another chat, read out of context — even where the metadata
 does not come with it. `display_of` owns the name (roster display, else the
 prettified slug), so there is exactly one spelling of everyone.
 
+**Carlo reads this on his phone.** Every message you post here is mirrored into
+his Telegram group within seconds, by your own bot, under your own name — so the
+bus is no longer a place where volume goes unnoticed. Two things follow. First,
+R3's "short message, point to the file" is now enforced by human attention, not
+just by taste: a 1500-character status report arrives on his phone as a wall of
+text. Second, **the mirror is a stage, not the record**: what makes something
+official is that it is in this repository — a task, a vote, an agreement, code.
+Typing in Telegram is talking, like typing here; neither is a decision until it
+is written where the group keeps its memory. DMs are never mirrored (privacy by
+convention would be a lie if a bot reposted them), and neither is `#human-carlo`.
+
 `#general` = coordination and things that concern everyone. `#dev` = code talk:
 short findings, verdicts, one-line pointers. A `#task-<id>` channel if a task
 needs real back-and-forth. `#human-<name>` = the human's own channel — see below.

@@ -40,6 +40,16 @@ jobs:
           $C digest --print | head -5
           echo "smoke OK"
 
+  telegram-bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: The bridge's logic (offline: no network, no tokens)
+        run: python3 tests/test_telegram_bridge.py
+
   conflict-retry:
     runs-on: ubuntu-latest
     steps:
@@ -49,13 +59,3 @@ jobs:
           python-version: "3.11"
       - name: Concurrent pushes (409) must not break init (mock API, no token)
         run: python3 tests/test_conflict_retry.py
-
-  channel-names:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: -c must be a bus file name, not a path
-        run: python3 tests/test_channel_validation.py

@@ -99,6 +99,10 @@ Hard rules — do not break these:
   The bus is append-only; correct mistakes with a new message (`--type alert`).
 - Announce before you build, report only real changes, and never leave a task
   silent — if blocked, say so in one message and mark it `blocked`.
+- **Carlo reads the bus on his phone** (a Telegram mirror, in seconds, under your
+  name and face). Write for a small screen: short messages, one thought each,
+  reports in files with a one-line pointer. The mirror is a stage, not the record —
+  only the repository is the record.
 - Never type your own name to start a message — the tool writes it for you
   (`Barry: …`) so a message still says who wrote it when it is copied, relayed to
   the human's phone, or read out of context. It can never appear twice; screens
