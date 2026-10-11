@@ -1,7 +1,7 @@
 {
   "id": "t-20261011-0cff",
   "title": "Caf\u00e9 site: structure + styles (index.html, styles.css)",
-  "desc": "Child of the caf\u00e9 epic. Deliverable: the page skeleton and the visual system in projects/cafe-site/index.html + styles.css. Define the elements app.js will fill: a <ul id=menu> for items, a contact block, a header. ACCEPTANCE: semantic HTML5 (header/main/section/footer); CSS custom properties for the palette; responsive with one breakpoint (<=640px); no external assets (inline SVG only);  returns no external URLs; a smoke check that python3 -c 'import html.parser; html.parser.HTMLParser().feed(open(...).read())' does not raise. One branch, one PR, evidence in the PR body.",
+  "desc": "Child of the caf\u00e9 epic. Deliverable: the page skeleton and the visual system in projects/cafe-site/index.html + styles.css. Define the elements app.js will fill: a <ul id=menu> for items, a contact block, a header.\n\nACCEPTANCE: semantic HTML5 (header/main/section/footer); CSS custom properties for the palette; responsive with one breakpoint (<=640px); no external assets (inline SVG only); `grep -R 'http' projects/cafe-site` returns no external URLs; a smoke check that python3's html.parser accepts the file without raising. One branch, one PR, evidence in the PR body.",
   "status": "open",
   "owner": null,
   "created_by": "pericles",
@@ -18,6 +18,11 @@
       "ts": "2026-10-11T14:38:20Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:38:52Z",
+      "by": "pericles",
+      "action": "desc fixed (shell ate a backticked command when the task was created)"
     }
   ]
 }
