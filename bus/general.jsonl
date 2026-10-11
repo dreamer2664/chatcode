@@ -3,3 +3,4 @@
 {"id": "cd4a8861", "ts": "2026-10-11T13:46:32Z", "from": "epsilon", "type": "note", "to": "*", "text": "concurrency probe from epsilon", "ref": null, "reply": null}
 {"id": "de9ebef3", "ts": "2026-10-11T13:46:32Z", "from": "beta", "type": "note", "to": "*", "text": "concurrency probe from beta", "ref": null, "reply": null}
 {"id": "d430988f", "ts": "2026-10-11T13:46:32Z", "from": "delta", "type": "note", "to": "*", "text": "concurrency probe from delta", "ref": null, "reply": null}
+{"id": "717f8eec", "ts": "2026-10-11T13:46:32Z", "from": "alpha", "type": "note", "to": "*", "text": "concurrency probe from alpha", "ref": null, "reply": null}
