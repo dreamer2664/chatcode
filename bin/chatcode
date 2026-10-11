@@ -188,7 +188,8 @@ class Ctx:
         self.dry_run = bool(getattr(args, "dry_run", False))
         if self.agent and not NAME_RE.match(self.agent):
             die(f"invalid agent name {self.agent!r} — use 2-32 chars of [a-z0-9._-], starting alnum")
-        self.api = (LocalRepo(self.local) if self.local
+        self.api = (LocalRepo(self.local, dry_run=self.dry_run, verbose=self.dry_run and False)
+                    if self.local
                     else Repo(self.repo, self.token, self.branch, dry_run=self.dry_run))
         self._tasks_cache = None
         self._agents_cache = None
@@ -445,12 +446,12 @@ class LocalRepo:
     behave the same either way.
     """
 
-    def __init__(self, root: str):
+    def __init__(self, root: str, dry_run: bool = False, verbose: bool = False):
         self.local = root
         self.repo = root
         self.branch = "local"
-        self.verbose = False
-        self.dry_run = False
+        self.verbose = verbose
+        self.dry_run = dry_run
         self._cache: dict = {}
 
     def _full(self, path: str) -> str:
@@ -477,15 +478,20 @@ class LocalRepo:
         p = self._full(path)
         if create_only and os.path.exists(p):
             raise AlreadyExists(p)
+        if self.dry_run:
+            print(color(f"[dry-run] would write {path} ({len(text)} bytes)", C_Y))
+            return {}
         os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
         with open(p, "w", encoding="utf-8") as fh:
             fh.write(text)
-        if self.dry_run:
-            print(color(f"[dry-run] wrote {path}", C_Y))
         return {"path": path}
 
     def delete_file(self, path: str, message: str = ""):
         p = self._full(path)
+        if self.dry_run:
+            if os.path.exists(p):
+                print(color(f"[dry-run] would delete {path}", C_Y))
+            return
         if os.path.exists(p):
             os.remove(p)
 
@@ -503,6 +509,9 @@ class LocalRepo:
     def append_lines(self, path: str, lines: list[str], message: str = "",
                      attempts: int = 6) -> int:
         block = "".join(l.rstrip("\n") + "\n" for l in lines)
+        if self.dry_run:
+            print(color(f"[dry-run] would append {len(lines)} message(s) to {path}", C_Y))
+            return -1
         p = self._full(path)
         os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
         existing = ""
@@ -1066,9 +1075,12 @@ def cmd_init(ctx: Ctx, args):
             args.greeting or f"{me} online ({args.kind}"
             + (f"/{args.model}" if args.model else "") + "). Ready to help.",
             mtype="join", channel=ctx.channel, extra={"caps": args.caps} if args.caps else None)
-        ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                             f"bus: {me} join {ctx.channel}")
-        print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
+        n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: {me} join {ctx.channel}")
+        if n < 0:
+            print(color(f"• join message #{msg['id']} not posted (dry-run)", C_Y))
+        else:
+            print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
     # remember who you are locally, so the next command knows without env vars
     cfg = load_config()
     changed = {}
@@ -1265,9 +1277,10 @@ def cmd_tasks(ctx: Ctx, args):
             msg = make_message(ctx.agent, f"new task {t['id']}: {t['title']}"
                                + (f" — {t['desc']}" if t['desc'] else ""),
                                mtype="task", channel=ctx.channel, ref=t["id"])
-            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: announce {t['id']}")
-            print(f"  announced on #{msg['id']} (bus/{ctx.channel}.jsonl)")
+            n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                     f"bus: announce {t['id']}")
+            print(color(f"  announced on #{msg['id']} (bus/{ctx.channel}.jsonl)", C_DIM)
+                  if n >= 0 else color(f"  not announced (dry-run)", C_Y))
         return
     if sub == "claim" and not args.id:
         die("usage: chatcode tasks claim <task-id>")
@@ -1282,7 +1295,7 @@ def cmd_tasks(ctx: Ctx, args):
             msg = make_message(ctx.agent, f"claiming {t['id']}: {t['title']}",
                                mtype="claim", channel=ctx.channel, ref=t["id"])
             ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: claim {t['id']}")
+                                 f"bus: claim {t['id']}")  # best-effort announcement
         return
     if sub in ("status", "update", "block", "unblock", "done", "drop"):
         if not args.id:
@@ -1323,7 +1336,7 @@ def cmd_tasks(ctx: Ctx, args):
                                mtype=("done" if t["status"] == "done" else "status"),
                                channel=ctx.channel, ref=t["id"])
             ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: {t['id']} {t['status']}")
+                                 f"bus: {t['id']} {t['status']}")  # best-effort announcement
         return
     die(f"unknown tasks action {sub!r}")
 
