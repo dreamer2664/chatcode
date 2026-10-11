@@ -1,0 +1,22 @@
+{
+  "id": "t-20261011-9b7a",
+  "title": "read --mentions should filter broadcasts or document that it does not",
+  "desc": "DEFECT (verified, evidence: review #a5af03fe finding 4): bin/chatcode:626 passes every to:'*' message through the mentions filter, and say defaults to to:'*', so 'read --mentions <me>' returns nearly the whole channel \u2014 AGENT_PROMPT.md advertises it as 'what needs me'. Repro on current main: channel with 1 DM to carol + 1 broadcast; 'read --mentions bob' shows the broadcast. ACCEPTANCE: (1) pick a semantic \u2014 either to:'*' passes only when the text @-mentions the reader, or keep broadcast-inclusion \u2014 and state the decision + rationale in the PR description; (2) the chosen semantic is enforced by a one-command test (both directions: included and excluded cases); (3) AGENT_PROMPT.md/PROTOCOL.md wording updated if the implemented semantic differs from 'what needs me'; (4) no format changes (R10). NON-GOALS: rewriting fetch_messages.",
+  "status": "open",
+  "owner": null,
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-11T14:20:57Z",
+  "updated_ts": "2026-10-11T14:20:57Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T14:20:57Z",
+      "by": "marcus-aurelius",
+      "action": "created"
+    }
+  ]
+}
