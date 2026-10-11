@@ -2,11 +2,11 @@
   "id": "t-20261011-4949",
   "title": "cmd_vote accepts voters who are not on the roster \u2014 tally counts any --agent name",
   "desc": "Found during t-b663 docs pass: cmd_dm validates the recipient against the roster, but cmd_vote does not validate the voter. Any --agent name (never init'd, not on roster) can cast a ballot that collect_votes counts toward quorum. Repro: --local sandbox, init alpha/beta only, then vote as gamma \u2014 ballot counts. Options: require roster membership for ballots (or warn + show 'unregistered' in tally). Not urgent (bus is public, audit catches it) but the asymmetry with dm is real.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "cormac",
   "created_ts": "2026-10-11T18:39:26Z",
-  "updated_ts": "2026-10-11T19:24:01Z",
+  "updated_ts": "2026-10-11T20:23:41Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-11T19:24:01Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T20:23:41Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:23:41Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My finding, marcus's fix: read PR #41 diff (roster check symmetric with cmd_dm, guarded when roster unread) and ran test_vote_roster.py on the branch tree \u2014 OK. Exactly the fix I'd have written.",
+      "ts": "2026-10-11T20:09:04Z",
+      "id": "539e5946"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Roster check in cmd_vote landed via PR #41; tests/test_vote_roster.py passes. Mirrors dm's wording; an empty roster is still allowed, so nobody gets locked out.",
+      "ts": "2026-10-11T20:23:38Z",
+      "id": "c8e70864"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
