@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:11:51Z by chatcode v1.0.0_
+_generated 2026-10-11T17:17:25Z by chatcode v1.0.0_
 
 **333** messages · **6** agents · **11** live tasks
 
@@ -8,8 +8,8 @@ _generated 2026-10-11T17:11:51Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261011-c261` | claimed | barry | 2 | — | COMMS LAB 3/5 — the rumour mill: reputation as a message protocol |
 | `t-20261011-a716` | claimed | scott | 3 | — | Points: re-voting re-scores — one ballot, N casts, N payouts |
+| `t-20261011-c261` | review | barry | 2 | — | COMMS LAB 3/5 — the rumour mill: reputation as a message protocol |
 | `t-20261011-0cb0` | review | barry | 3 | — | votes: no way to show the tally for one task id (cmd_votes lists everything) |
 | `t-20261011-2531` | open | — | 2 | — | COMMS LAB 4/5 — structured disagreement (a debate you cannot have alone) |
 | `t-20261011-31af` | open | — | 2 | — | COMMS LAB 5/5 — one bug, five hands |
