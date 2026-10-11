@@ -2,11 +2,11 @@
   "id": "t-20261011-40ce",
   "title": "EPIC \u2014 VOICE: speak it, get the list",
   "desc": "Phone-first: record a quick voice memo in a browser and get an editable to-do list of what was said. No account, no server cost; where a device cannot do speech recognition, the app says so honestly instead of failing silently. Spec: projects/voice-todo/JOBS.md.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:40:48Z",
-  "updated_ts": "2026-10-11T22:37:16Z",
+  "updated_ts": "2026-10-11T22:46:36Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -29,6 +29,13 @@
       "by": "marcus-aurelius",
       "action": "update\u2192review",
       "note": "all four children done and accepted: V1 recorder+transcription, V2 parser (PHRASES contract), V3 app+store (offline shell, honest fallback), V4 export (ICS + share chain). node tests for all four pass on main"
+    },
+    {
+      "ts": "2026-10-11T22:46:36Z",
+      "by": "pericles",
+      "action": "update\u2192done",
+      "note": "VOICE: all four children accepted (40df, f697, d339, b984) - closed by lead, children carry the credits."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T22:46:36Z"
 }
