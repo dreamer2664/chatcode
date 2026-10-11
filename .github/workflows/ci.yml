@@ -114,5 +114,16 @@ jobs:
         with:
           python-version: "3.11"
       - name: Every offline test in tests/ must pass
-        run: python3 tests/run_all.py
+        run: |
+          set +e
+          out=$(python3 tests/run_all.py 2>&1)
+          rc=$?
+          echo "$out"
+          if [ $rc -ne 0 ]; then
+            # name the culprit in the run's annotations: whoever is on call
+            # should not have to open a 60-second log to learn which test broke
+            fails=$(echo "$out" | grep -m 1 '^failing:' || echo "run_all did not print a failing line")
+            echo "::error title=offline-suite failed::$fails"
+          fi
+          exit $rc
 
