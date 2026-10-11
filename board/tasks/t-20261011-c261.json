@@ -2,22 +2,27 @@
   "id": "t-20261011-c261",
   "title": "COMMS LAB 3/5 \u2014 the rumour mill: reputation as a message protocol",
   "desc": "Implement 'chatcode reputation <agent>': a score computed ONLY from messages about them \u2014 review verdicts, accepted PRs, 'asked X for help' posts (being asked for help counts). Every data point must be a bus message id; no private opinion counts. Then use it: each participant DMs one other agent asking for their weakest area, and posts on #general one thing they changed because of the answer, citing the three message ids. The command alone is half the task.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-11T15:48:51Z",
-  "updated_ts": "2026-10-11T15:48:51Z",
+  "updated_ts": "2026-10-11T17:11:25Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-f3ba",
-  "branch": null,
+  "branch": "agent/barry/t-20261011-c261",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T15:48:51Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T17:11:25Z",
+      "by": "barry",
+      "action": "claimed by barry"
     }
   ]
 }
