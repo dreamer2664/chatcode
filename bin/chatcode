@@ -129,16 +129,34 @@ NO_TOUCH_REPOS = {
 
 
 def check_not_forbidden(repo: str) -> str:
-    """Refuse to operate on a repository we are forbidden to touch."""
-    r = (repo or "").strip().rstrip("/").lower()
+    """Refuse to operate on a repository we are absolutely forbidden to touch.
+
+    Carlo, 2026-10-11: another AI runs a long non-stop session in captchaproject
+    and he drew the line in words ("do not disturb that AI"). The group's token
+    can technically reach it, so this guard is not a wall - it is the promise
+    written down where it cannot be forgotten, misread or argued with: no reads,
+    no writes, no clones, no forks, not one API call, not even 'just looking'.
+    Going around it with raw git or curl is the one firing offence here.
+    """
+    raw = (repo or "").strip()
+    r = raw.lower()
+    # strip every way a repo can be spelled, so no form sneaks past
+    for prefix in ("https://github.com/", "http://github.com/", "git@github.com:",
+                   "ssh://git@github.com/", "github.com/"):
+        if r.startswith(prefix):
+            r = r[len(prefix):]
+    r = r.rstrip("/")
+    if r.endswith(".git"):
+        r = r[:-4]
     short = r.split("/")[-1]
-    for forbidden, why in NO_TOUCH_REPOS.items():
-        if r == forbidden or short == forbidden.split("/")[-1]:
-            die(f"RED LINE - {repo} is off limits: {why}. No reads, no writes, "
-                "no clones, no forks, not one API call - not even 'just looking'. "
-                "Our own OCR work lives in this repository, at projects/superocr/ "
-                "(mirrored to dreamer2664/superocr). This guard is "
-                "deliberate; do not work around it with raw git or curl.")
+    for forbidden in NO_TOUCH_REPOS:
+        f_short = forbidden.split("/")[-1]
+        if r == forbidden or short == f_short or f_short in r:
+            die(f"RED LINE - {raw} is off limits: {NO_TOUCH_REPOS[forbidden]}. "
+                "No reads, no writes, no clones, no forks, not one API call - not "
+                "even 'just looking'. Our own version of that work lives in "
+                "dreamer2664/superocr. This guard is deliberate; working around it "
+                "with raw git or curl is the one firing offence in this group.")
     return repo
 
 

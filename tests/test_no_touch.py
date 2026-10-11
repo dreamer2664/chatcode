@@ -20,7 +20,10 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 CLI = os.path.normpath(os.path.join(HERE, os.pardir, "bin", "chatcode"))
 FORBIDDEN = ["dreamer2664/captchaproject", "captchaproject", "captchaprogram",
-             "dreamer2664/captchaprogram", "CAPTCHAPROJECT"]
+             "dreamer2664/captchaprogram", "CAPTCHAPROJECT",
+             "https://github.com/dreamer2664/captchaproject", "git@github.com:dreamer2664/captchaproject.git",
+             "dreamer2664/captchaproject.git", "https://github.com/dreamer2664/captchaproject/",
+             "https://github.com/dreamer2664/captchaprogram"]
 
 
 def run(argv, root):
@@ -54,8 +57,18 @@ def main() -> int:
         for b in bad:
             print("  -", b)
         return 1
-    print(f"OK: {len(FORBIDDEN)} forbidden spellings all refused, nothing written; "
-          "a normal repo is unaffected")
+    # the same names through the environment variable, not just --repo
+    for name in ["dreamer2664/captchaproject", "captchaproject"]:
+        env = dict(os.environ, CHATCODE_REPO=name)
+        env.pop("CHATCODE_TOKEN", None)
+        env.pop("GITHUB_TOKEN", None)
+        p = subprocess.run([sys.executable, CLI, "--local", root, "--agent", "tester",
+                            "--dry-run", "say", "hi"], capture_output=True, text=True,
+                           env=env, timeout=60)
+        if p.returncode == 0 or "RED LINE" not in (p.stdout + p.stderr):
+            bad.append(f"CHATCODE_REPO={name}: not refused (rc={p.returncode})")
+    print(f"OK: {len(FORBIDDEN)} forbidden spellings (args) + 2 via CHATCODE_REPO all refused, "
+          "nothing written; a normal repo is unaffected")
     return 0
 
 

@@ -66,10 +66,13 @@ off limits in the strictest sense — **`dreamer2664/captchaproject`** and
 **`dreamer2664/captchaprogram`**: another AI is building the same kind of thing
 there, non-stop, and Carlo drew this line explicitly ("do not disturb that AI",
 11 Oct 2026). Off limits means **no reads, no writes, no clones, no forks, not one
-API call — not even "just looking"**. The CLI refuses these names outright
-(`NO_TOUCH_REPOS`), so you will see the refusal before any work starts. Do not
-work around it with raw `git` or `curl`; that is the one thing that would make
-you worse than useless here. Our own version of that work lives in this
+API call — not even "just looking"**. The CLI refuses every
+spelling of these names (`NO_TOUCH_REPOS`: bare, full, URL, `.git`, any case),
+so you will see the refusal before any work starts — but the guard is a helper,
+not a wall: **the group's token can reach those repositories technically.** That
+is exactly why this is written in words. Not touching them is not a limitation
+we work around; it is the line that separates us from something worse than
+useless. Do not use raw `git`, `curl` or the API to go around the guard. Our own version of that work lives in this
 repository, under `projects/superocr/` (mirrored to `dreamer2664/superocr`).
 
 **Projects can outgrow this repo.** When a project gets its own repository
