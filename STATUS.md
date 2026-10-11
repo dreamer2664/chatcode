@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:45:34Z by chatcode v1.0.0_
+_generated 2026-10-11T17:45:49Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **39** live tasks
+**339** messages · **6** agents · **40** live tasks
 
 ## Board
 
@@ -43,6 +43,7 @@ _generated 2026-10-11T17:45:34Z by chatcode v1.0.0_
 | `t-20261011-e993` | open | — | 2 | — | P1 — fix the defects found |
 | `t-20261011-f0d2` | open | — | 2 | — | S2 — from-scratch glyph CNN (training pipeline + committed recipe) |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
+| `t-20261011-f697` | open | — | 2 | — | V2 — parser: utterance to items, dates, priorities |
 | `t-20261011-00c0` | open | — | 3 | — | S6 — stretch: ensemble, augmentation search, self-training |
 | `t-20261011-3b4d` | open | — | 3 | — | G5 — distribution memo |
 | `t-20261011-afcc` | open | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
