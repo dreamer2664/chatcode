@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "course": "6.036",
+    "attempt": 2,
+    "purpose": "Blind numeric battery. Keys from gen_key6036.py (closed forms, computed from scratch); answers written from the questions alone. Agreement = two independent derivations match.",
+    "keys_from_gen_key": {"b6036-1": "1.5", "b6036-2": "9", "b6036-3": "0.971", "b6036-4": "0.733", "b6036-5": "1.333"}
+  },
+  "questions": [
+    {"id": "b6036-1", "section": "u1-linear", "type": "numeric",
+     "prompt": "Fit y = w1*x + w0 by least squares on (0,1),(1,3),(2,4). w1 as a decimal?",
+     "answer": "1.5"},
+    {"id": "b6036-2", "section": "u4-kernels", "type": "numeric",
+     "prompt": "K(x,z) = (x.z + 1)^2 with x=(1,2), z=(0,1). K = ?",
+     "answer": "9"},
+    {"id": "b6036-3", "section": "u5-trees", "type": "numeric",
+     "prompt": "Binary entropy of proportions 0.4/0.6, in bits, three decimals?",
+     "answer": "0.971"},
+    {"id": "b6036-4", "section": "u1-linear", "type": "numeric",
+     "prompt": "Same three-point data, GD from (0,0), lr 0.1, MSE gradient (2/3)X^T(Xw-y): w1 after one step, three decimals?",
+     "answer": "0.733"},
+    {"id": "b6036-5", "section": "u3-regularisation", "type": "numeric",
+     "prompt": "Ridge on the same data, lambda=1, closed form (X^T X + I)w = X^T y: w1, three decimals?",
+     "answer": "1.333"}
+  ]
+}

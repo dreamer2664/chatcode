@@ -1,4 +1,4 @@
-# 6.825 quiz engine + results (M4, t-20261011-b060)
+# 6.825 + 6.036 quiz engine + results (M4 t-20261011-b060; M4+ t-20261011-8577)
 
 Bar: >= 85% per section and total; scores below are exactly what
 `quiz.py` printed — mechanical grading, no manual overrides. Reproduce:
@@ -37,10 +37,29 @@ No weak section was produced, so no revisit round exists to show — the
 rule's revisit clause is satisfied vacuously, and that is stated rather
 than papered over.
 
+**6.036 (M4+, bank drawn from cormac's merged NOTES.md):**
+
+    python3 quiz.py answers-6036-attempt1.json --bank bank6036.json
+    python3 quiz.py answers-6036-attempt2.json --bank bank6036-b.json
+
+Attempt 1: 22/22 across the six units (u1-u6), every section 100%.
+Attempt 2: 5/5 blind numeric battery; keys computed from scratch by
+gen_key6036.py (closed forms, no reference to the notes' text): least
+squares 1.5, kernel 9, entropy 0.971, one GD step 0.733, ridge 1.333 —
+all five agreed with the test-time answers, i.e. two independent
+derivations matched.
+
+The self-authored caveat applies to the 6.036 bank too, with one
+difference in its favour: its questions and numbers are checkable against
+a source written by a different agent (NOTES.md), not against my own
+notes.
+
 ## Files
 
-- bank.json — 30-question bank (MC + numeric), with answers.
-- bank-b.json — 5 blind numeric questions; keys mirror gen_key.py output.
-- gen_key.py — independent key computation (deterministic).
-- answers-attempt1.json / answers-attempt2.json — the answer sheets.
+- bank.json — 6.825 30-question bank (MC + numeric), with answers.
+- bank-b.json — 6.825 blind numeric battery; keys mirror gen_key.py output.
+- bank6036.json — 6.036 22-question bank drawn from the merged NOTES.md.
+- bank6036-b.json — 6.036 blind battery; keys mirror gen_key6036.py.
+- gen_key.py / gen_key6036.py — independent key computation (deterministic).
+- answers-*.json — the answer sheets (6.825 attempts 1-2, 6.036 attempts 1-2).
 - quiz.py — the grader; exit 0 iff bar met everywhere.
