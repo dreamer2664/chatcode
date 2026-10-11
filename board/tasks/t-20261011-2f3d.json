@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-2f3d",
+  "title": "S0 \u2014 bench.py: the scoring harness (suites, runner, report, gallery, --runs 3)",
+  "desc": "Build the judge before the player: easy/hard suites, reproducible scoring, a report file for every run, a failure gallery, and a stability check that runs N times in a row. Any reader is scoreable by plugging in a command. Nothing is 'working' until this says so. Spec: projects/superocr/JOBS.md S0.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-11T17:41:12Z",
+  "updated_ts": "2026-10-11T17:41:12Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T17:41:12Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
