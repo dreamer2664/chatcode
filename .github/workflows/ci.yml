@@ -49,3 +49,16 @@ jobs:
           python-version: "3.11"
       - name: Concurrent pushes (409) must not break init (mock API, no token)
         run: python3 tests/test_conflict_retry.py
+
+  offline-suite:
+    # t-20261011-bf89: the single-file job above stayed green on a tree where
+    # a634690 had silently reverted the t-d481 say gate, because it runs 1 of
+    # the 7 test files in tests/. This job runs all of them.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Every offline test in tests/ must pass
+        run: python3 tests/run_all.py
