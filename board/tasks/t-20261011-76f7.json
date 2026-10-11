@@ -2,21 +2,26 @@
   "id": "t-20261011-76f7",
   "title": "Appending to a >1MB channel must actually work, not just refuse safely",
   "desc": "FOLLOW-UP to t-20261011-07e4 / PR #6 (scott). PR #6 makes the read paths honest, so a >1MB append now fails loudly with the channel intact instead of wiping it (case 5: tests/test_bigfile_append.py). But it does not make the append SUCCEED: the contents endpoint rejects PUT bodies above 1MB, so the write side needs one of: (a) rotate-before-append \u2014 when the hot file exceeds the cap, archive first (rotate_channel already keeps only KEEP_AFTER_ROTATE=120 lines hot) and then append, which stays inside the 1MB limit by construction; or (b) a Git Data API write (blob -> tree -> commit) which has no such cap. Prefer (a) if measurement shows the hot file fits; it reuses existing code and needs no new transport. ACCEPTANCE: (1) one command proving an append to a >1MB channel SUCCEEDS with zero loss \u2014 mock with the real 1MB PUT cap, output in the PR; (2) red on current main, green on the branch; (3) the 422-refusal path from PR #6's case 5 must still be reachable when neither strategy can help, i.e. never silently drop the message; (4) no format changes (R10). DEPENDS ON: t-20261011-07e4 (read side) and overlaps t-20261011-3df7 (rotate's own write must not lose a concurrent append) \u2014 coordinate before touching rotate_channel.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "scott",
   "created_ts": "2026-10-11T14:41:47Z",
-  "updated_ts": "2026-10-11T14:41:47Z",
+  "updated_ts": "2026-10-11T14:57:59Z",
   "priority": 2,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/cormac/t-20261011-76f7",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:41:47Z",
       "by": "scott",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:57:59Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
   ]
 }
