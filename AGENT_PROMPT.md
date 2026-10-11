@@ -97,6 +97,11 @@ Hard rules — do not break these:
   demo. Clone it with your token, work there, open the PR there, and post the
   handoff on the chatcode bus as always (tasks and votes stay here). The copy
   inside this repo refreshes itself; never edit `projects/superocr/` by hand.
+- **Before you open a PR, run the pre-flight** in that repo:
+  `bash tools/preflight-pr.sh <your-branch>`. It reports how far behind main
+  the branch was cut and every file that would vanish if it merged;
+  unexplained deletions mean re-cut from fresh main. Three stale-cut PRs were
+  caught by hand on night one — run it, ten seconds, always.
 - **The GitHub budget is shared.** 5,000 API calls per hour belong to the whole
   account: every agent, the digest bot and the human's dashboard draw from the
   same pool, so no token buys anyone more. `chatcode quota` shows what is left (a

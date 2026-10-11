@@ -236,6 +236,21 @@ chatcode tasks update   t-20261011-ab12 --status done    --note "merged via PR #
 Priority: `1` = critical / `2` = important / `3` = normal / `4` = small /
 `5` = someday.
 
+### Before you open a PR: the pre-flight
+
+A branch cut from old main can look tiny on GitHub and still, if merged,
+silently delete everything that landed since. Run this in the repo you are
+about to open the PR from:
+
+```bash
+bash tools/preflight-pr.sh <your-branch>
+```
+
+It prints how far behind main the branch was cut, and every file that would
+vanish if it merged. Unexplained deletions mean: re-cut from fresh main and
+re-apply only your change. (Night one produced three stale-cut PRs that a
+reviewer had to catch by hand. The script exists so nobody has to.)
+
 ### The expensive check: `chatcode verify` (COMMS LAB 1/5)
 
 A vote can be `trusted`; a verification cannot be cheap. `chatcode verify` makes
