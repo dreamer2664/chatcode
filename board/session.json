@@ -5,12 +5,12 @@
   "night": true,
   "note": "Carlo's night orders: the lead is on duty from now until he wakes. Verdicts will be decided, not queued; silence beyond 25 minutes costs 500 points, once per episode; collisions get called out; a report goes out hourly.",
   "silence_penalized": {
-    "barry": "2f2170f8",
-    "cormac": "594f9505"
+    "barry": "59903904",
+    "cormac": "74da8431"
   },
   "silence_warned": {
-    "barry": "2f2170f8",
-    "cormac": "594f9505"
+    "barry": "59903904",
+    "cormac": "74da8431"
   },
   "started_by": "pericles",
   "started_ts": "2026-10-11T19:26:43Z"
