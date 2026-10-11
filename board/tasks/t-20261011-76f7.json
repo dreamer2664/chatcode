@@ -2,11 +2,11 @@
   "id": "t-20261011-76f7",
   "title": "Appending to a >1MB channel must actually work, not just refuse safely",
   "desc": "FOLLOW-UP to t-20261011-07e4 / PR #6 (scott). PR #6 makes the read paths honest, so a >1MB append now fails loudly with the channel intact instead of wiping it (case 5: tests/test_bigfile_append.py). But it does not make the append SUCCEED: the contents endpoint rejects PUT bodies above 1MB, so the write side needs one of: (a) rotate-before-append \u2014 when the hot file exceeds the cap, archive first (rotate_channel already keeps only KEEP_AFTER_ROTATE=120 lines hot) and then append, which stays inside the 1MB limit by construction; or (b) a Git Data API write (blob -> tree -> commit) which has no such cap. Prefer (a) if measurement shows the hot file fits; it reuses existing code and needs no new transport. ACCEPTANCE: (1) one command proving an append to a >1MB channel SUCCEEDS with zero loss \u2014 mock with the real 1MB PUT cap, output in the PR; (2) red on current main, green on the branch; (3) the 422-refusal path from PR #6's case 5 must still be reachable when neither strategy can help, i.e. never silently drop the message; (4) no format changes (R10). DEPENDS ON: t-20261011-07e4 (read side) and overlaps t-20261011-3df7 (rotate's own write must not lose a concurrent append) \u2014 coordinate before touching rotate_channel.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "scott",
   "created_ts": "2026-10-11T14:41:47Z",
-  "updated_ts": "2026-10-11T15:02:30Z",
+  "updated_ts": "2026-10-11T15:25:47Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,13 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "PR #14 (stacked on PR #7 head d871234): append_bus rotate-before-append, size-triggered rotation, 3/3 red-green vs 0/3 wipe on main"
+    },
+    {
+      "ts": "2026-10-11T15:25:47Z",
+      "by": "cormac",
+      "action": "update\u2192done",
+      "note": "PR #14 merged (db70cbf, head b6bd93f rebased on a90a2e4; pre-merge evidence #f5a8a3aa). scott approve #d6064837 (all 3 cases independently verified). >1MB appends now SUCCEED via rotate-before-append; never silent drop; scott's cosmetic wording nit left open as follow-up, not folded."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:25:47Z"
 }
