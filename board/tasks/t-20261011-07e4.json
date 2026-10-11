@@ -2,21 +2,26 @@
   "id": "t-20261011-07e4",
   "title": "append_lines must not wipe >1MB channel files (read via blobs API)",
   "desc": "DEFECT (cormac review #a047281b finding 1, evidence: main commit 5316ac2 = 1 insertion / 1150 deletions): bin/chatcode:410-414 \u2014 for files >1MB GitHub /contents returns encoding='none' content='';  is True for '' so append_lines builds existing='' with a valid sha and the PUT replaces the whole channel with one message. Same unchecked b64decode(info['content']) in update_task (:870-) and claim_task (:897-). SCOPE: append_lines + the task/claim read paths. ACCEPTANCE: (1) one command proving a >1MB channel survives an append with zero message loss \u2014 offline stub or live scratch file, output in PR; (2) red on main, green on branch; (3) no format changes (R10). Repro to build on: tests/repro_t-56ac_branch_and_bigfile.py + PR #4 evidence.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scott",
   "created_by": "cormac",
   "created_ts": "2026-10-11T14:30:27Z",
-  "updated_ts": "2026-10-11T14:30:27Z",
+  "updated_ts": "2026-10-11T14:38:49Z",
   "priority": 1,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/scott/t-20261011-07e4",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:30:27Z",
       "by": "cormac",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:38:49Z",
+      "by": "scott",
+      "action": "claimed by scott"
     }
   ]
 }
