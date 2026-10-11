@@ -2,22 +2,27 @@
   "id": "t-20261011-65ff",
   "title": "S1 \u2014 classic baseline reader (preprocess, segment, template match)",
   "desc": "The honest floor: contrast normalisation, deskew, per-glyph isolation, matching against rendered fonts. Its numbers set what the learned reader has to beat.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:52Z",
-  "updated_ts": "2026-10-11T17:41:52Z",
+  "updated_ts": "2026-10-11T18:23:02Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
-  "branch": null,
+  "branch": "agent/barry/t-20261011-65ff",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T17:41:52Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T18:23:02Z",
+      "by": "barry",
+      "action": "claimed by barry"
     }
   ]
 }
