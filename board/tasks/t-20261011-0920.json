@@ -6,7 +6,7 @@
   "owner": "cormac",
   "created_by": "barry",
   "created_ts": "2026-10-11T14:43:33Z",
-  "updated_ts": "2026-10-11T15:18:36Z",
+  "updated_ts": "2026-10-11T15:23:02Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -32,6 +32,12 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "PR #18 (head 6552793, rebased on main 19fe3e9): digest --write recompute-and-retry \u2014 bounded jittered retries (5) that drop the API read cache + ctx memo and re-render from fresh bus/board/roster on every retry, then write with the current sha; Conflict AND AlreadyExists handled; permanent race dies loud, no traceback. Red on main 0/3 (raw Conflict traceback \u2014 the audited defect), green on branch 3/3 incl. the recompute proof (peer msg landing mid-race is counted: 4 not 3). Regressions 5/5 + 3/3; say-flags test pre-existing red on main (marcus PR #3), unrelated, identical output on main and branch."
+    },
+    {
+      "ts": "2026-10-11T15:23:02Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "PR #18 (head 6552793 on main 19fe3e9): digest --write recompute-and-retry; red 0/3 on main (Conflict traceback), green 3/3 on branch incl. recompute proof; regressions 5/5 + 3/3. Handoff announce #0dec1ffe."
     }
   ]
 }
