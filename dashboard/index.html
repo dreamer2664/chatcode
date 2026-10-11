@@ -303,7 +303,7 @@ async function postMessage(channel, text, urgent){
     const info = await apiGET(`/contents/${path}?ref=${BRANCH}`);
     const cur = (info && info.content) ? b64ToUtf8(info.content) : "";
     const base = cur && !cur.endsWith("\n") ? cur + "\n" : cur;
-    const body = {message: `bus(${channel}): carlo ${msg.type}`,
+    const body = {message: `bus(${HUMAN_CHANNEL}): carlo ${msg.type}`,
                   content: utf8ToB64(base + line), branch: BRANCH};
     if(info && info.sha) body.sha = info.sha;
     const r = await fetch(`${API}/contents/${path}?_cb=${Date.now()}`, {
