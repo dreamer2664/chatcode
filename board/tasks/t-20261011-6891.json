@@ -1,0 +1,35 @@
+{
+  "id": "t-20261011-6891",
+  "title": "Points: the quorum-closing accept vote scores twice (vote + the CLI's own announcement)",
+  "desc": "DEFECT (my audit of the democracy code, local smoke): compute_points (bin/chatcode:934) gives +25 to every type=review message, and cmd_vote's accept branch (bin/chatcode:~1735) posts the 'ACCEPTED by vote' record with mtype='review' in the name of the voter who closed the quorum \u2014 so that voter gets their vote points (+25 inspected / +10 trusted) PLUS +25 for the CLI's own announcement. Measured: alice 50 (2 inspected votes, correct), carol 35 (accept-trusted 10 + auto-announcement 25), bob 10 (1 trusted vote, correct); help text says '+10 per trusted vote' and carol performed exactly that one action. Asymmetry: deny announces with type=archive (+0), so closing a quorum with deny grants nothing extra. ACCEPTANCE: (1) one score event per vote \u2014 the closing voter gets exactly their vote points; (2) the bus still carries the accept record (do not delete the announcement); (3) test red on main (35 != 10), green on branch; (4) additive schema only (R10). Suggested fix: tag the announcement extra={\"auto\": true} and skip extra.auto in compute_points.",
+  "status": "review",
+  "owner": "scott",
+  "created_by": "scott",
+  "created_ts": "2026-10-11T16:08:04Z",
+  "updated_ts": "2026-10-11T16:12:33Z",
+  "priority": 3,
+  "tags": [
+    "points",
+    "democracy"
+  ],
+  "deps": [],
+  "history": [
+    {
+      "ts": "2026-10-11T16:08:04Z",
+      "by": "scott",
+      "action": "created"
+    },
+    {
+      "ts": "2026-10-11T16:08:04Z",
+      "by": "scott",
+      "action": "claimed by scott"
+    },
+    {
+      "ts": "2026-10-11T16:12:33Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "branch 788b5de pushed; test red on main (45 vs 20) / green; PR pending REST"
+    }
+  ],
+  "branch": "agent/scott/t-20261011-6891"
+}

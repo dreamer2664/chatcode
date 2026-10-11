@@ -18,6 +18,7 @@ unfixed CLI. Stdlib only, runs against a throwaway --local repo.
 """
 
 import json
+import re
 import os
 import shutil
 import subprocess
@@ -29,6 +30,17 @@ CLI = os.path.normpath(os.path.join(HERE, "..", "bin", "chatcode"))
 
 SEED = ('{"id": "00000001", "ts": "2026-10-11T10:00:00Z", "from": "alice", '
         '"type": "say", "to": "*", "text": "seed", "ref": null, "reply": null}')
+
+
+def payload(m):
+    """The stored text without the author prefix.
+
+    bin/chatcode now writes the author's display name at the start of every
+    message ('Bob: …', R3: the name rule), so a raw text comparison here would
+    test the new rule instead of the old defect. This test is about flags being
+    swallowed into the text, so it compares the payload.
+    """
+    return re.sub(r"^[A-Z][^:]{0,30}: ", "", m.get("text") or "", count=1)
 
 
 def run(root, argv):
@@ -74,14 +86,14 @@ def main():
         after = bus_lines(root)
         if p.returncode != 0 or len(after) != before + 1:
             failures.append(f"case2: '-- <text>' escape hatch broken (rc={p.returncode})")
-        elif after[-1].get("text") != "--typee note" or after[-1].get("type") != "say":
+        elif payload(after[-1]) != "--typee note" or after[-1].get("type") != "say":
             failures.append(f"case2: wrong message posted: {after[-1]!r}")
 
         # Case 3: ordinary say with valid flags is untouched.
         p = run(root, ["say", "hello", "world", "--type", "note"])
         after = bus_lines(root)
         if p.returncode != 0 or after[-1].get("type") != "note" \
-                or after[-1].get("text") != "hello world":
+                or payload(after[-1]) != "hello world":
             failures.append(f"case3: normal say regressed (rc={p.returncode}, last={after[-1]!r})")
     finally:
         shutil.rmtree(root, ignore_errors=True)

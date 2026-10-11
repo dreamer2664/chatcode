@@ -195,24 +195,73 @@
    Without a token: 1 API call per refresh for the file list, chat channels read
    through the contents API, board/roster/memory from the CDN, refresh every 5
    minutes (anonymous GitHub limit is 60 calls/hour).
-   With a token: everything fresh every 20 seconds, and the composer unlocks so
-   you can speak to the group as carlo. The token stays in this browser only. */
-const DASH_VERSION = "6";              // bump on every change; shown in the header
+   With a token: everything fresh every 45 seconds, and the composer unlocks so
+   you can speak to the group as carlo. The token stays in this browser only.
+
+   THE 5,000/HOUR WELL (v7, learned the hard way): the hourly API quota belongs to
+   the ACCOUNT, not to you and not to this page. All of the agents, the digest bot
+   and this dashboard drink from the same 5,000 calls/hour. When it runs dry every
+   reader gets 403 - and no token in the world fixes that until the hour rolls
+   over. So this page tries to cost almost nothing:
+     - every read is revalidated with If-None-Match; a 304 (nothing changed) is
+       free and does not spend quota, and GitHub's CORS preflight allows the header
+     - the quota is read from the X-RateLimit-* response headers (GitHub exposes
+       them) and shown in the status line
+     - a 403 tells you WHICH limit died (account pool vs anonymous 60/hour vs a
+       burst limit) and when it refills, instead of blaming your token
+     - the tab stops asking while it is hidden
+   Never replace the If-None-Match path with request headers like Cache-Control:
+   that breaks CORS. See apiGET below. */
+const DASH_VERSION = "8";              // bump on every change; shown in the header
 const HUMAN_CHANNEL = "human-carlo";   // Carlo's own bus channel: nothing else writes here
 const REPO   = "dreamer2664/chatcode";
 const BRANCH = "main";
 const API    = `https://api.github.com/repos/${REPO}`;
 const RAW    = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
 const SLOW_MS = 5 * 60 * 1000;
-const FAST_MS = 20 * 1000;
+const FAST_MS = 45 * 1000;
 const MEMORY_FILES = ["projects", "decisions", "knowledge", "journal"];
 
 const $ = (id) => document.getElementById(id);
 let state = {msgs: [], tasks: [], agents: [], memory: {}, filterCh: "all", filterTy: null};
 let timer = null, token = localStorage.getItem("chatcode_token") || "";
 let backoff = 1, memFile = "projects", sending = false;
+let quota = null;              // {limit, remaining, reset} — straight from GitHub's response headers
+const eTagCache = new Map();   // request URL → {etag, data}: a 304 costs no quota
+function noteHeaders(r){
+  const lim = r.headers.get("x-ratelimit-limit");
+  const rem = r.headers.get("x-ratelimit-remaining");
+  const rst = r.headers.get("x-ratelimit-reset");
+  if(lim && rem) quota = {limit: +lim, remaining: +rem, reset: +(rst || 0)};
+}
+function quotaLine(){
+  if(!quota) return "";
+  const t = quota.reset ? new Date(quota.reset * 1000) : null;
+  return " · quota " + quota.remaining + "/" + quota.limit + " left" +
+         (t ? " (refills " + t.toLocaleTimeString() + ")" : "");
+}
 
 function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+/* The tool writes the author's name at the start of every bus message ("Barry:
+   fixed the bug") so it survives any copy, forward or relay. Screens that already
+   show the author - like this one - hide the repeat. See bin/chatcode/display_of. */
+function dispName(slug){
+  const a = (state.agents || []).find(x => x.name === slug);
+  if(a && a.display) return a.display;
+  return String(slug || "?").split(/[-_.]+/).filter(Boolean)
+    .map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
+}
+function stripOwn(m){
+  const t = String(m.text || "");
+  const n = dispName(m.from);
+  if(!n) return t;
+  const low = t.toLowerCase();
+  for(const sep of [":", " —", " –", " -"]){
+    const p = (n + sep).toLowerCase();
+    if(low.startsWith(p)) return t.slice(p.length).replace(/^\s+/, "");
+  }
+  return t;
+}
 function ago(iso){
   if(!iso) return "—";
   const t = Date.parse(iso); if(isNaN(t)) return iso;
@@ -263,20 +312,40 @@ async function apiGET(path){
      caching but breaks CORS: GitHub's preflight allows only Authorization,
      Content-Type and a few others, so the browser blocks the request outright
      and the page shows "Failed to fetch". A changing URL is invisible to CORS
-     and always a cache miss. */
-  const url = (path.startsWith("http") ? path : API + path)
-            + (path.includes("?") ? "&" : "?") + "_cb=" + Date.now();
-  const r = await fetch(url, {headers: hdrs()});
+     and always a cache miss.
+
+     On top of that: If-None-Match revalidation (v7). GitHub returns an ETag and
+     a 304 for unchanged files, and an authenticated 304 does NOT spend quota.
+     So a refresh where nothing moved costs ~zero of the shared 5,000/hour well.
+     If-None-Match is explicitly allowed in GitHub's CORS preflight. */
+  const base = path.startsWith("http") ? path : API + path;
+  const url = base + (base.includes("?") ? "&" : "?") + "_cb=" + Date.now();
+  const cached = eTagCache.get(base);
+  const r = await fetch(url, {headers: hdrs(cached && cached.etag ? {"If-None-Match": cached.etag} : null)});
+  noteHeaders(r);
+  if(r.status === 304 && cached) return cached.data;      // unchanged → free
   if(r.status === 403){
     const j = await r.json().catch(() => ({}));
-    if(String(j.message||"").toLowerCase().includes("rate limit")){
-      const e = new Error("ratelimit"); e.ratelimit = true; throw e;
+    const msg = String(j.message || "").toLowerCase();
+    if(msg.includes("rate limit")){
+      const e = new Error(msg.includes("secondary") ? "secondary rate limit" : "rate limit");
+      e.secondary = msg.includes("secondary");            // burst protection: token does not help
+      e.ratelimit = !e.secondary;                         // the hourly account pool
+      e.retryAfter = +(r.headers.get("retry-after") || 0);
+      throw e;
     }
   }
   if(r.status === 404) return null;
   if(!r.ok) throw new Error(r.status + " " + r.statusText);
-  return r.json();
+  const etag = r.headers.get("etag");
+  const data = await r.json();
+  if(etag){
+    eTagCache.set(base, {etag: etag, data: data});
+    if(eTagCache.size > 400) eTagCache.clear();
+  }
+  return data;
 }
+
 async function rawGET(path){
   try{
     /* the CDN caches for 5 minutes; a changing URL keeps the board and memory
@@ -329,6 +398,16 @@ async function postMessage(channel, text, urgent){
   }
   throw new Error("could not post after 8 attempts (" + last +
                   "). Your text is still in the box - press send again.");
+}
+
+function queue(wait){
+  /* one place that decides when the next refresh happens, so nothing can
+     double-schedule, and a hidden tab costs nothing (the quota is shared). */
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    if(document.hidden) queue(60 * 1000);
+    else load().catch(err);
+  }, wait);
 }
 
 async function load(){
@@ -388,11 +467,11 @@ async function load(){
   render();
   const every = token ? FAST_MS : SLOW_MS;
   $("liveInfo").textContent = (token
-      ? "live mode · refreshing every 20s · composer unlocked"
+      ? "live mode · refreshing every " + Math.round(every/1000) + "s · composer unlocked"
       : "reading mode · refreshing every 5 min (paste a token for live updates and speaking)")
-    + " · next in " + Math.round(every/1000) + "s";
+    + quotaLine() + " · next in " + Math.round(every/1000) + "s";
   backoff = 1;
-  timer = setTimeout(load, every);
+  queue(every);
 }
 
 function scheduleBackoff(msg){
@@ -491,7 +570,7 @@ function render(){
     return `<div class="msg ${human?'human':''}">
       <div class="ts">${t}<div class="meta">#${esc(m._ch||"")}</div></div>
       <div><span class="who ${human?'human':''}">${esc(m.from)}</span><span class="ty">${esc(m.type||"say")}${m.to && m.to!=="*" ? " → "+esc(m.to) : ""}</span>
-        <div class="txt">${esc(m.text)}</div>
+        <div class="txt">${esc(stripOwn(m))}</div>
         ${(m.ref||m.reply) ? `<div class="meta">${m.ref?"about <code>"+esc(m.ref)+"</code>":""} ${m.reply?"· reply to <code>"+esc(m.reply)+"</code>":""}</div>` : ""}
       </div></div>`;
   }).join("") : `<div class="empty">no messages match this filter</div>`;
@@ -590,12 +669,31 @@ $("saveToken").addEventListener("click", () => {
   if(!v){
     localStorage.removeItem("chatcode_token"); token = "";
     banner("warn","Token cleared — back to reading mode.");
-  } else {
-    token = v; localStorage.setItem("chatcode_token", v);
-    banner("ok","Token saved in this browser only. Live mode on, composer unlocked.");
-    $("tokenBox").value = "";
+    queue(SLOW_MS);
+    return;
   }
-  clearTimeout(timer); load().catch(err);
+  token = v; localStorage.setItem("chatcode_token", v);
+  $("tokenBox").value = "";
+  banner("ok","Token saved in this browser only. Checking it…");
+  /* /rate_limit is free and answers even when the quota is dry, so it is the
+     one honest way to ask "is this token accepted, and what is left?" */
+  apiGET("https://api.github.com/rate_limit").then(r => {
+    const c = r && r.resources && r.resources.core;
+    banner("ok", "Token accepted. Live mode on, composer unlocked." +
+      (c ? " The whole account shares " + c.limit + " calls/hour; " + c.remaining + " left right now." : ""));
+    load().catch(err);
+  }).catch(e => {
+    if(e && (e.ratelimit || e.secondary)){ load().catch(err); return; }
+    banner("err", "<b>GitHub did not accept that token</b> (" + esc(String((e && e.message) || e)) +
+      "). Copy the whole value and press <b>use token</b> again — it is long, and one missing " +
+      "character is enough. Nothing was lost: the box is still here and reading mode still works.");
+    queue(SLOW_MS);
+  });
+});
+
+document.addEventListener("visibilitychange", () => {
+  /* a hidden tab should not spend the shared budget; waking up refreshes at once */
+  if(!document.hidden){ clearTimeout(timer); load().catch(err); }
 });
 
 $("sendBtn").addEventListener("click", async () => {
@@ -630,25 +728,65 @@ async function refreshComposerState(){
 refreshComposerState();
 
 function err(e){
-  if(e && e.ratelimit){
-    scheduleBackoff("GitHub's anonymous limit reached (60 calls/hour).");
-  } else {
-    const msg = String((e && e.message) || e);
-    const blocked = /failed to fetch|networkerror|load failed/i.test(msg);
-    banner("err", blocked
-      ? "<b>The browser blocked the request before it left your machine.</b> " +
-        "That is almost always a CORS signature: a request header GitHub's preflight " +
-        "does not allow, or an extension (ad blocker / privacy shield) filtering " +
-        "<code>api.github.com</code>. Two things to try: open this file in a private " +
-        "window with extensions off, or open it from a plain browser tab rather than an " +
-        "in-app preview. <span style='color:var(--dim)'>(" + esc(msg) + ")</span>"
-      : "<b>Cannot reach GitHub from here.</b> This page talks straight to " +
-        "<code>api.github.com</code>, so it needs ordinary internet access — if you are " +
-        "seeing this inside a sandboxed preview, download the file and open it in a normal " +
-        "browser tab. <span style='color:var(--dim)'>(" + esc(msg) + ")</span>");
-    clearTimeout(timer);
-    timer = setTimeout(load, SLOW_MS);
+  if(e && (e.ratelimit || e.secondary)){
+    const t = quota && quota.reset ? new Date(quota.reset * 1000) : null;
+    const mins = t ? Math.max(1, Math.round((t - Date.now()) / 60000)) : 0;
+    if(e.secondary){
+      const w = e.retryAfter || 60;
+      banner("warn", "<b>GitHub asked this page to slow down</b> (burst protection). " +
+        "This is not the hourly quota and a token does not lift it - it clears by itself. " +
+        "Retrying in " + w + " seconds.");
+      $("liveInfo").textContent = "paused · retrying in " + w + "s";
+      queue((w + 3) * 1000);
+    } else {
+      const slow = () => {
+        banner("err", (token
+          ? "<b>The group's shared GitHub quota is exhausted.</b> The 5,000 calls/hour limit " +
+            "belongs to the <i>whole account</i>, and every agent, the digest bot and this page " +
+            "drink from the same well. Your token is fine - there is nothing to fix on your side."
+          : "<b>The anonymous GitHub quota is exhausted</b> (60 calls/hour per visitor). Paste your " +
+            "token above and press <b>use token</b>: it raises the ceiling to 5,000/hour - though " +
+            "that pool is shared with the agents, so all of you can still drain it together.")
+          + (t ? " It refills in about " + mins + " min (" + t.toLocaleTimeString() + ")." : " It refills within the hour.")
+          + " The page will come back on its own - and thanks to ETag revalidation it now costs " +
+            "almost no quota while nothing changes.");
+        $("liveInfo").textContent = "waiting for the quota" + (t ? " · ~" + mins + " min" : "");
+        /* probing while limited is free (a 403 spends nothing), so never wait
+           blindly for the full refill: try at least every 10 minutes. */
+        const wait = t ? Math.min(10 * 60 * 1000, Math.max(60 * 1000, t - Date.now() + 5000)) : 5 * 60 * 1000;
+        queue(wait);
+      };
+      /* Tie-breaker: the free /rate_limit endpoint. If it reports calls left
+         while reads are being refused, the refusal is a STALE DENIAL served by
+         GitHub's edge (seen live: repo reads 403 for minutes after the pool
+         refilled) - then waiting for the refill would be exactly wrong. */
+      apiGET("https://api.github.com/rate_limit").then(r => {
+        const c = r && r.resources && r.resources.core;
+        if(c && c.remaining > 0){
+          banner("warn", "<b>GitHub is refusing reads even though its own quota endpoint says " +
+            c.remaining + " of " + c.limit + " calls are left.</b> That is a stale denial at " +
+            "GitHub's edge — not your token and not this page. Trying again in 45 seconds.");
+          $("liveInfo").textContent = "retrying in 45s";
+          queue(45 * 1000);
+        } else slow();
+      }).catch(() => slow());
+    }
+    return;
   }
+  const msg = String((e && e.message) || e);
+  const blocked = /failed to fetch|networkerror|load failed/i.test(msg);
+  banner("err", blocked
+    ? "<b>The browser blocked the request before it left your machine.</b> " +
+      "That is almost always a CORS signature: a request header GitHub's preflight " +
+      "does not allow, or an extension (ad blocker / privacy shield) filtering " +
+      "<code>api.github.com</code>. Two things to try: open this file in a private " +
+      "window with extensions off, or open it from a plain browser tab rather than " +
+      "an in-app preview. <span style='color:var(--dim)'>(" + esc(msg) + ")</span>"
+    : "<b>Cannot reach GitHub from here.</b> This page talks straight to " +
+      "<code>api.github.com</code>, so it needs ordinary internet access — if you are " +
+      "seeing this inside a sandboxed preview, download the file and open it in a normal " +
+      "browser tab. <span style='color:var(--dim)'>(" + esc(msg) + ")</span>");
+  queue(SLOW_MS);
 }
 if(token) refreshComposerState();
 load().catch(err);

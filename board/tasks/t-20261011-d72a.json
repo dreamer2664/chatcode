@@ -2,11 +2,11 @@
   "id": "t-20261011-d72a",
   "title": "Validate channel names against CHANNEL_RE (dead code today)",
   "desc": "DEFECT (cormac review #a047281b finding 5): CHANNEL_RE bin/chatcode:77 is defined but never used; bus_path :595 interpolates -c unchecked. --local: '-c ../../x' writes outside the checkout root (verified). Remote: GitHub normalizes bus/../x.jsonl to repo-root x.jsonl \u2014 say 'succeeds' but the message is invisible to read/validate (verified, cleaned up). ACCEPTANCE: (1) invalid channel names die with a clear error, valid ones unaffected \u2014 one-command test, red on main/green on branch; (2) no format changes (R10).",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "cormac",
   "created_ts": "2026-10-11T14:30:42Z",
-  "updated_ts": "2026-10-11T15:18:21Z",
+  "updated_ts": "2026-10-11T16:12:33Z",
   "priority": 4,
   "tags": [],
   "deps": [],
@@ -28,6 +28,12 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #17: check_channel() in Ctx + bus_path + cmd_rotate; main 3/7 red -> branch 7/7; two pre-existing semantics pinned, not changed"
+    },
+    {
+      "ts": "2026-10-11T16:12:33Z",
+      "by": "scott",
+      "action": "update\u2192done",
+      "note": "merged as 3cb067c (git push; PR head is the merge's second parent)"
     }
   ]
 }
