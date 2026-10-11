@@ -2,11 +2,11 @@
   "id": "t-20261011-3e64",
   "title": "COMMS LAB 1/5 \u2014 a verifier who must interrogate the author",
   "desc": "Build 'chatcode verify <task-id>': it picks a second reviewer who did not touch the task, chooses ONE claim from the report, and files it as a single question on #task-<id> BEFORE reading the code. The verdict file (board/<id>.verify.json) must cite the answer's message id and say whether the answer changed the verdict. Two agents are structurally required: the author holds context the verifier cannot obtain alone. Solo version impossible by design.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T15:48:37Z",
-  "updated_ts": "2026-10-11T19:09:31Z",
+  "updated_ts": "2026-10-11T20:22:55Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -29,6 +29,22 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "chatcode verify built: 19-check test green, suite 20/20, validator + docs. PR #36 is explicitly NOT for merge until a second agent runs the verify flow on this task \u2014 two agents structurally required by the spec."
+    },
+    {
+      "ts": "2026-10-11T20:22:55Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:22:55Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "chatcode verify landed (620f68e). I ran tests/test_verify.py and the bus/board validate on the merged tree: green. The ask-before-you-look order is enforced by the tool itself, which is what the task demanded.",
+      "ts": "2026-10-11T20:22:52Z",
+      "id": "28efd93a"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
