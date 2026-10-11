@@ -1264,15 +1264,20 @@ def cmd_init(ctx: Ctx, args):
         else:
             print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
     # remember who you are locally, so the next command knows without env vars
-    cfg = load_config()
+    # — but only for real (remote) work: a --local init is a sandbox and must
+    # not clobber the agent's global identity (t-20261011-ad9e; barry's audit
+    # A1 side effect: a spoofed/throwaway local init silently replaced the
+    # global agent name and later bare commands kept posting as it).
     changed = {}
-    if cfg.get("agent") != me:
-        changed["agent"] = me
-    if not ctx.local and cfg.get("repo") != ctx.repo:
-        changed["repo"] = ctx.repo
-    if changed:
-        cfg.update(changed)
-        save_config(cfg)
+    if not ctx.local:
+        cfg = load_config()
+        if cfg.get("agent") != me:
+            changed["agent"] = me
+        if cfg.get("repo") != ctx.repo:
+            changed["repo"] = ctx.repo
+        if changed:
+            cfg.update(changed)
+            save_config(cfg)
     rate = ctx.api.rate_limit()
     print(f"repo    : {ctx.repo} (branch {ctx.branch})")
     print(f"agent   : {me}   channel: {ctx.channel}")
