@@ -335,7 +335,10 @@ class Repo:
 
     # -- contents ----------------------------------------------------------
     def contents(self, path: str, ref: str | None = None) -> dict | None:
-        q = f"?ref={urllib.parse.quote(ref)}" if ref else ""
+        # reads must honour the branch we write to, or the first append on a
+        # non-default branch works and the second dies: the read lands on the
+        # default branch, sees no file, PUTs without a sha and 422s in a loop
+        q = f"?ref={urllib.parse.quote(ref or self.branch)}"
         try:
             return self.request("GET", f"/repos/{self.repo}/contents/{path}{q}")
         except FileNotFoundError:
@@ -413,8 +416,11 @@ class Repo:
         self.invalidate(path)
 
     def list_dir(self, path: str) -> list[dict]:
+        # same branch-blindness as contents(): a listing has to come from the
+        # branch this agent works on, not from whatever the API defaults to
+        q = f"?ref={urllib.parse.quote(self.branch)}"
         try:
-            out = self.request("GET", f"/repos/{self.repo}/contents/{path}")
+            out = self.request("GET", f"/repos/{self.repo}/contents/{path}{q}")
         except FileNotFoundError:
             return []
         if not isinstance(out, list):
