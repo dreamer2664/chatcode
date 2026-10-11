@@ -3533,7 +3533,10 @@ def build_parser() -> argparse.ArgumentParser:
                             "about them — every data point is a message id")
     s.add_argument("who", metavar="AGENT", help="whose reputation to compute")
     s.add_argument("--json", action="store_true", help="machine-readable")
-    s.set_defaults(func=cmd_reputation, channel=None)
+    # NOT set_defaults(func=..., channel=None): set_defaults overwrites the
+    # shared -c action's default and poisons every subparser (t-20261011-a913,
+    # the same class #35 fixed; this line reintroduced it via PR #29).
+    s.set_defaults(func=cmd_reputation)
 
     s = sub.add_parser("quota", add_help=True, parents=[common],
                        help="how much of the shared GitHub budget is left (a free call)")
