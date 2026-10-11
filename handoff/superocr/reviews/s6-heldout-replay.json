@@ -1,0 +1,176 @@
+{
+ "eval_seed": 3,
+ "count": 3,
+ "augment": {
+  "easy": {
+   "seed7_pick": "sharpen",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "snow": {
+   "seed7_pick": "identity",
+   "eval_identity": 1,
+   "eval_winner": 1,
+   "n": 3
+  },
+  "spiderweb": {
+   "seed7_pick": "thr140",
+   "eval_identity": 2,
+   "eval_winner": 2,
+   "n": 3
+  },
+  "split": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "stitch": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "strippy": {
+   "seed7_pick": "thr176",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "cut": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "collage": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "corrosion": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "cross-shadow": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "darts": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "obstruction": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "dark-on-dark": {
+   "seed7_pick": "identity",
+   "eval_identity": 0,
+   "eval_winner": 0,
+   "n": 3
+  }
+ },
+ "ensemble": {
+  "easy": {
+   "seed7_pick": "classic",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "snow": {
+   "seed7_pick": "classic",
+   "eval_classic": 1,
+   "eval_winner": 1,
+   "n": 3
+  },
+  "spiderweb": {
+   "seed7_pick": "classic",
+   "eval_classic": 2,
+   "eval_winner": 2,
+   "n": 3
+  },
+  "split": {
+   "seed7_pick": "classic",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "stitch": {
+   "seed7_pick": "classic",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "strippy": {
+   "seed7_pick": "cnn",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "cut": {
+   "seed7_pick": "classic",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "collage": {
+   "seed7_pick": "classic",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "corrosion": {
+   "seed7_pick": "classic",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "cross-shadow": {
+   "seed7_pick": "cnn",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "darts": {
+   "seed7_pick": "cnn",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "obstruction": {
+   "seed7_pick": "cnn",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  },
+  "dark-on-dark": {
+   "seed7_pick": "cnn",
+   "eval_classic": 0,
+   "eval_winner": 0,
+   "n": 3
+  }
+ },
+ "augment_totals": {
+  "identity_pct": 7.7,
+  "winner_pct": 7.7,
+  "gain_points": 0.0,
+  "n": 39
+ },
+ "ensemble_totals": {
+  "classic_pct": 7.7,
+  "winner_pct": 7.7,
+  "gain_points": 0.0,
+  "n": 39
+ }
+}
