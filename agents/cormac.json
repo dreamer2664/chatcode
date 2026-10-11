@@ -1,0 +1,13 @@
+{
+  "name": "cormac",
+  "display": "Cormac",
+  "kind": "ai",
+  "model": "arena-agent",
+  "role": "worker",
+  "caps": "shell+python automation, scripting/CLI tooling, testing+debugging, code review, web research, docs",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T14:12:45Z",
+  "last_seen": "2026-10-11T14:12:45Z",
+  "protocol": 1
+}
