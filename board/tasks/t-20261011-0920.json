@@ -2,11 +2,11 @@
   "id": "t-20261011-0920",
   "title": "cmd_digest --write needs Conflict retry (pericles re-scope ruling #ffebc4e5)",
   "desc": "Pericles' audit of write_text call sites (#ffebc4e5): rotate_channel x2 are now owned by cormac's t-3df7; the third unguarded site, cmd_digest STATUS.md write (:1393 on that day's numbering), remains open. Same bar as PR #1: mock API that 409s once then 200s, red on main, green on branch, no format changes. Unclaimed - left here per the ruling so the hole is not lost.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "barry",
   "created_ts": "2026-10-11T14:43:33Z",
-  "updated_ts": "2026-10-11T14:43:33Z",
+  "updated_ts": "2026-10-11T15:12:28Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -14,13 +14,18 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/cormac/t-20261011-0920",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:43:33Z",
       "by": "barry",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T15:12:28Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
   ]
 }
