@@ -7,9 +7,10 @@
      level  = {platforms:[{x,y,w,h}], goal:{x,y,w,h}, hazards:[{x,y,w,h}]}
    step(state, player, level, input, dt) mutates in place; render(ctx, ...) is read-only.
 
-   OWNERSHIP: the stepPhysics() section is a working STUB so the game plays
-   today — t-20261011-d4e3 owns gravity/jump/collision refinement. The demo
-   level and won/lost triggers belong to t-20261011-b220. */
+   OWNERSHIP: the stepPhysics() section was implemented by t-20261011-d4e3
+   (gravity/terminal velocity, accel + friction, coyote time, sub-stepped
+   AABB collision). Level data, scene/score/restart rules belong to
+   t-20261011-b220 (levels.js + the marked sections in this file). */
 "use strict";
 (function () {
   /* level data lives in levels.js — this file never defines a level.
@@ -23,11 +24,25 @@
   var MAX_STEPS = 5;        // catch-up cap per animation frame
   var MAX_FRAME = 0.25;     // clamp on frame delta (throttled tabs)
 
-  /* ---- physics section (STUB — owned by t-20261011-d4e3) ---- */
+  /* ---- physics section (implemented by t-20261011-d4e3) ----
+   Gravity + terminal velocity; horizontal acceleration with friction and
+   reduced air control; jump has COYOTE TIME (100 ms grace after leaving the
+   ground) — the one jump-feel mechanic this build ships. The epic needs >= 1;
+   why a release-cut was deliberately NOT shipped is documented in README.md
+   ("Physics") — it measurably breaks test-level.js's bot. Evidence: bus.
+   AABB collision resolves per axis in substeps of <= 6 px so nothing can
+   tunnel. Contract: bus #c5108692. RUN_V/JUMP_V/GRAV keep the stub's exact
+   top speed and jump arc, which LEVEL_1 and test-level.js are measured
+   against (~113 px jump height, ~170 px distance) — do not retune. */
   var GRAV = 1800;          // px/s^2
-  var MOVE = 240;           // px/s
+  var TERM_V = 900;         // px/s terminal fall speed
+  var RUN_V = 240;          // px/s target run speed (stub's MOVE, unchanged)
+  var ACCEL_GROUND = 1600;  // px/s^2 toward target while grounded
+  var ACCEL_AIR = 800;      // px/s^2 toward target while airborne (reduced)
+  var FRICTION = 2200;      // px/s^2 toward 0 when grounded with no input
   var JUMP_V = -640;        // px/s (negative = up)
-  var TERM_V = 900;         // terminal fall speed
+  var COYOTE_MS = 100;      // ms of jump grace after leaving the ground
+  var SUBSTEP_PX = 6;       // max px moved per collision pass (no tunnelling)
 
   function overlaps(ax, ay, aw, ah, b) {
     return ax < b.x + b.w && ax + aw > b.x && ay < b.y + b.h && ay + ah > b.y;
@@ -37,8 +52,9 @@
     for (var i = 0; i < level.platforms.length; i++) {
       var p = level.platforms[i];
       if (overlaps(player.x, player.y, player.w, player.h, p)) {
-        player.x = (player.vx > 0) ? p.x - player.w : p.x + p.w;
-        player.vx = 0;
+        if (player.vx > 0) { player.x = p.x - player.w; }
+        else if (player.vx < 0) { player.x = p.x + p.w; }
+        player.vx = 0;                       // side-block
       }
     }
   }
@@ -48,37 +64,78 @@
     for (var i = 0; i < level.platforms.length; i++) {
       var p = level.platforms[i];
       if (overlaps(player.x, player.y, player.w, player.h, p)) {
-        if (player.vy > 0) {
+        if (player.vy > 0) {                 // landing: snap on top
           player.y = p.y - player.h;
+          player.vy = 0;
           player.onGround = true;
-        } else if (player.vy < 0) {
+        } else if (player.vy < 0) {          // head-bump
           player.y = p.y + p.h;
+          player.vy = 0;
         }
-        player.vy = 0;
       }
     }
   }
 
+  function approach(v, target, delta) {
+    if (v < target) { v += delta; if (v > target) { v = target; } }
+    else if (v > target) { v -= delta; if (v < target) { v = target; } }
+    return v;
+  }
+
   function stepPhysics(player, level, input, dt) {
-    player.vx = 0;
-    if (input.left)  { player.vx = -MOVE; }
-    if (input.right) { player.vx += MOVE; }
-
-    if (input.jumpPressed && player.onGround) {
-      player.vy = JUMP_V;
+    /* horizontal: accelerate toward the target speed, friction when idle */
+    var target = 0;
+    if (input.left)  { target -= RUN_V; }
+    if (input.right) { target += RUN_V; }
+    if (target === 0 && player.onGround) {
+      player.vx = approach(player.vx, 0, FRICTION * dt);
+    } else {
+      player.vx = approach(player.vx, target,
+                           (player.onGround ? ACCEL_GROUND : ACCEL_AIR) * dt);
     }
-    player.jumpHeld = input.jump;
 
+    /* coyote time: full while grounded, decays in the air */
+    if (player.onGround) { player.coyoteMs = COYOTE_MS; }
+    else { player.coyoteMs = Math.max(0, player.coyoteMs - dt * 1000); }
+
+    /* jump: on the ground OR inside the coyote window after leaving it */
+    if (input.jumpPressed && (player.onGround || player.coyoteMs > 0)) {
+      player.vy = JUMP_V;
+      player.onGround = false;
+      player.coyoteMs = 0;
+    }
+    player.jumpHeld = input.jump;   /* bookkept for the contract shape */
+
+    /* gravity + terminal velocity */
     player.vy += GRAV * dt;
     if (player.vy > TERM_V) { player.vy = TERM_V; }
 
-    player.x += player.vx * dt;
-    collideX(player, level);
-    player.y += player.vy * dt;
-    collideY(player, level);
+    /* integrate in substeps of <= SUBSTEP_PX using LIVE velocities, so the
+       step where a collision zeroes a velocity also stops further movement
+       (precomputed moves would keep pushing into the floor after a snap) */
+    var n = Math.max(1, Math.ceil(Math.max(Math.abs(player.vx), Math.abs(player.vy)) * dt / SUBSTEP_PX));
+    var subDt = dt / n;
+    for (var s = 0; s < n; s++) {
+      player.x += player.vx * subDt;
+      collideX(player, level);
+      player.y += player.vy * subDt;
+      collideY(player, level);
+    }
 
-    if (player.x < 0) { player.x = 0; }
-    if (player.x > 960 - player.w) { player.x = 960 - player.w; }
+    /* grounded probe: resting exactly on a platform top counts as grounded,
+       so standing is stable (strict overlap alone flickers after the snap) */
+    player.onGround = false;
+    for (var g = 0; g < level.platforms.length; g++) {
+      var gp = level.platforms[g];
+      if (player.x < gp.x + gp.w && player.x + player.w > gp.x &&
+          player.y + player.h >= gp.y && player.y + player.h <= gp.y + 0.01) {
+        player.onGround = true;
+      }
+    }
+
+    /* world safety net (same as the stub's) */
+    if (player.x < 0) { player.x = 0; player.vx = 0; }
+    if (player.x > 960 - player.w) { player.x = 960 - player.w; player.vx = 0; }
     if (player.y > 540 + 200) { player.y = 300; player.x = 40; player.vy = 0; }
   }
   /* ---- end physics section ---- */
