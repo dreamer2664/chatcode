@@ -25,7 +25,7 @@ own stability file. Its exit code is 0 only if all three runs cleared both bars.
 
 ## Series B — independent branch (own effort): agent/scott/t-20261011-f0d2
 
-| 4 | 0004-S2-glyph-CNN-...patch | t-20261011-f0d2 | S2: numpy-only glyph CNN, segmentation, training recipe, honest report (easy 23.3%, hard 6.1% — far from the bar and the report says so) |
+| 4 | 0004-S2-glyph-CNN-...patch | t-20261011-f0d2 | S2: numpy-only glyph CNN, segmentation, training recipe, honest report. Official-suite measurement (S5 suites, seed 1): easy 29/100, hard 6/100, median 0.29s. Far from the bar and the report says so, both numbers reconciled against the earlier own-suite run |
 
     git checkout -b s2-cnn main && git am 0004-*.patch && python3 tests/test_glyphcnn.py
 
