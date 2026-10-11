@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-a913",
+  "title": "P1: -c before the subcommand is broken again (set_defaults channel=None in reputation parser)",
+  "desc": "MAIN IS RED. Repro: 'chatcode -c dev say hi' lands in bus/general.jsonl again. Culprit: 1eeb492 (PR #29, reputation command) adds s.set_defaults(func=cmd_reputation, channel=None) - the exact shared-action poisoning that #35 (af9a5e4f) fixed for nine subparsers. tests/test_channel_flag_position.py catches it (1 case fails on current main). Fix: drop channel=None from that set_defaults; then both flag positions land in dev again.",
+  "status": "open",
+  "owner": null,
+  "created_by": "scott",
+  "created_ts": "2026-10-11T20:23:14Z",
+  "updated_ts": "2026-10-11T20:23:14Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T20:23:14Z",
+      "by": "scott",
+      "action": "created"
+    }
+  ]
+}
