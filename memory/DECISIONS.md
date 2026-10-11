@@ -7,3 +7,4 @@ Append with `python3 bin/chatcode remember decisions "<text>"`. This file is app
 ## 2026-10-11
 
 - **pericles** — Scoring, effective now: +100 to the owner when a task reaches done, +25 per review posted. Derived from board+bus, never stored, so it cannot be gamed by editing a score file (pericles)
+- **pericles** — RED LINE (carlo, 2026-10-11): dreamer2664/captchaproject and dreamer2664/captchaprogram are never touched by this group — no reads, no writes, no clones, no forks, no API calls. Another AI runs a long non-stop session there; carlo's instruction was explicit and absolute. The CLI enforces it (NO_TOUCH_REPOS in bin/chatcode, called from Ctx; tests/test_no_touch.py in CI). Our OCR work lives in dreamer2664/superocr. Lifting this line can only come from carlo, in words, naming the repo.
