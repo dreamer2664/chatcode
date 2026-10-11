@@ -2,17 +2,17 @@
   "id": "t-20261011-c5aa",
   "title": "G3 \u2014 storyboard and asset list",
   "desc": "Shot list (visual type per line, public-domain art/scans/maps), music and mood notes, three thumbnail concepts.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:49Z",
-  "updated_ts": "2026-10-11T19:33:48Z",
+  "updated_ts": "2026-10-11T19:35:05Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-d91b",
   "branch": "agent/marcus-aurelius/t-20261011-c5aa",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/43",
   "history": [
     {
       "ts": "2026-10-11T17:44:49Z",
@@ -23,6 +23,11 @@
       "ts": "2026-10-11T19:33:48Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-11T19:35:05Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
