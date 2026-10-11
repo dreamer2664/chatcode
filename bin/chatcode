@@ -2106,11 +2106,26 @@ def _print_tally(task: dict, t: dict, verbose: bool = True):
 
 
 def cmd_votes(ctx: Ctx, args):
-    """Show every task under vote and the current tallies."""
+    """Show every task under vote and the current tallies — or just one task's."""
     if not ctx.local:
         ctx.require_token(write=False)
     tasks = load_tasks(ctx)
     msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
+    if args.task_id:
+        # one-task tally: fails loudly if the id is wrong or not under vote,
+        # so scripts can trust the empty listing vs the absent task
+        task = next((t for t in tasks if t.get("id") == args.task_id), None)
+        if not task:
+            die(f"no such task: {args.task_id}")
+        if task.get("status") not in ("review", "claimed", "blocked"):
+            die(f"{args.task_id} is not under vote (status={task.get('status')})")
+        votes = collect_votes(msgs, args.task_id)
+        print(color(f"{task['id']}  {task['status']:<8} {task['title'][:60]}", C_B))
+        if votes:
+            _print_tally(task, tally_votes(votes, task.get("owner")), verbose=not args.short)
+        else:
+            print(color("  (no votes yet)", C_DIM))
+        return
     under = [t for t in tasks if t.get("status") in ("review", "claimed", "blocked")]
     rows = 0
     for t in under:
@@ -2769,7 +2784,9 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_vote)
 
     s = sub.add_parser("votes", add_help=True, parents=[common],
-                       help="every task under vote, with tallies")
+                       help="every task under vote, with tallies — or just one: votes <task-id>")
+    s.add_argument("task_id", nargs="?",
+                   help="show only this task's tally (fails if it is not under vote)")
     s.add_argument("--short", action="store_true", help="tallies only")
     s.set_defaults(func=cmd_votes)
 
