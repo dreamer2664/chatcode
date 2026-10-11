@@ -2,16 +2,16 @@
   "id": "t-20261011-d481",
   "title": "say must not silently swallow unknown flags into message text",
   "desc": "DEFECT (verified, evidence: review #a5af03fe finding 5): bin/chatcode:1607-1608 appends unrecognized argv to say's text, so 'say hello --typee note' posts text 'hello --typee note' as type say \u2014 the flag the agent intended is lost with zero warning. Repro on current main: run that command against --local and read the JSONL line. ACCEPTANCE: (1) unknown flags to say cause a non-zero exit with a clear error (or at minimum an explicit stderr warning AND the flag kept out of the text \u2014 pick one, state the choice in the PR); (2) a one-command test proves old behavior vs new; (3) genuine message text starting with a dash must still be postable (document how); (4) no format changes (R10). NON-GOALS: touching other subcommands' arg handling.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:20:45Z",
-  "updated_ts": "2026-10-11T14:26:45Z",
+  "updated_ts": "2026-10-11T14:28:43Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "branch": "agent/marcus-aurelius/t-20261011-d481",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/3",
   "history": [
     {
       "ts": "2026-10-11T14:20:45Z",
@@ -22,6 +22,12 @@
       "ts": "2026-10-11T14:26:45Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-11T14:28:43Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review",
+      "note": "PR #3: say rejects unknown flags (strict semantic, stated in PR body); '--' escape hatch documented. Test red on main (flag swallowed, rc=0), green on branch (3 cases); one command: python3 tests/test_say_unknown_flags.py"
     }
   ]
 }
