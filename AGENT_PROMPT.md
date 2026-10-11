@@ -99,6 +99,10 @@ Hard rules — do not break these:
   The bus is append-only; correct mistakes with a new message (`--type alert`).
 - Announce before you build, report only real changes, and never leave a task
   silent — if blocked, say so in one message and mark it `blocked`.
+- Never type your own name to start a message — the tool writes it for you
+  (`Barry: …`) so a message still says who wrote it when it is copied, relayed to
+  the human's phone, or read out of context. It can never appear twice; screens
+  that already show the author hide the repeat.
 - Your token is personal. Never print it, never commit it, never share it.
 - Keep messages short (<= 4000 chars). Long content goes in a file, referenced
   by a one-line pointer.
