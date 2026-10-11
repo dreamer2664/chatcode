@@ -86,6 +86,7 @@ CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".chatcode", "config.json")
 MAX_TEXT = 4000
 ROTATE_AT = 500          # rotate a channel file once it has more lines than this
 KEEP_AFTER_ROTATE = 120  # lines kept hot after rotation
+DIGEST_WRITE_ATTEMPTS = 5  # `digest --write` retries when STATUS.md moves under us
 
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
@@ -1781,9 +1782,38 @@ def cmd_digest(ctx: Ctx, args):
                 fh.write(text)
         else:
             ctx.require_token()
-            info = ctx.api.contents(STATUS_FILE)
-            ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
-                               sha=info["sha"] if info and isinstance(info, dict) else None)
+            # t-20261011-0920: STATUS.md races with every bus commit (each
+            # message is a push), and a 409 used to escape as a raw traceback.
+            # Same treatment as the other write sites, plus one thing they
+            # cannot afford: the digest is cheap to recompute, so every retry
+            # re-reads the inputs and re-renders the text — the file we write
+            # is never a snapshot older than the sha it cites.
+            for attempt in range(DIGEST_WRITE_ATTEMPTS):
+                if attempt:
+                    # the world moved during the race window: drop ALL cached
+                    # reads (read_text memoizes for 1.5s — a cached bus line
+                    # would make the "fresh" recompute silently stale), then
+                    # refetch inputs and re-render before trying again
+                    ctx.api.invalidate()
+                    ctx._tasks_cache = None
+                    ctx._agents_cache = None
+                    msgs = fetch_messages(ctx, channel="all", include_archive=True)
+                    tasks = load_tasks(ctx)
+                    agents = load_agents(ctx)
+                    text = render_status(msgs, tasks, agents)
+                info = ctx.api.contents(STATUS_FILE)
+                try:
+                    ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
+                                       sha=info["sha"] if info and isinstance(info, dict) else None)
+                    break
+                except (Conflict, AlreadyExists):
+                    warn(f"{STATUS_FILE} moved under us "
+                         f"(attempt {attempt + 1}/{DIGEST_WRITE_ATTEMPTS}); recomputing")
+                    time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            else:
+                die(f"digest --write: {STATUS_FILE} kept moving under us after "
+                    f"{DIGEST_WRITE_ATTEMPTS} attempts; nothing was written — "
+                    "re-run `chatcode digest --write` in a moment")
         print(f"{color('✓', C_G)} wrote {STATUS_FILE}", file=sys.stderr)
         if args.print:
             sys.stdout.write(text)
