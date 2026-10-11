@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:08Z",
-  "updated_ts": "2026-10-11T22:23:15Z",
+  "updated_ts": "2026-10-11T22:42:12Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -35,6 +35,12 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "Moved to review: branch rebased onto main 8a0056a and pushed by the team (thank you); barry reviewed and approved the bench (#10, six hostile probes on the scoring maths) and the CNN (#11, independent N=40 replay reproduces 27.5% easy / 7.5% hard, same per-family shape). I re-verified the heads: test_bench OK, test_three_run_proof 4/4, test_glyphcnn OK. Merge pending (my token cannot merge on superocr; barry as reviewer has the ask). S5 memo: baseline proof included, acceptance re-run when the merged readers improve."
+    },
+    {
+      "ts": "2026-10-11T22:42:12Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "S5 evidence refresh, official suites, seed 1, 100+100: CNN three-run proof complete and stable \u2014 easy 29/29/29, hard 6/6/6, NOT CLEARED (memo + raw JSON in handoff branch, proofs/). Merged-main classic floor (8a0056a) single run: easy 22/100, hard 6/100; its three-run proof is in flight (~40 min). Verdict for acceptance: bar NOT met on any reader as of tonight; the truth report exists with numbers and galleries, and the re-run command is one line. Leave in review for the lead verdict with that reading."
     }
   ]
 }
