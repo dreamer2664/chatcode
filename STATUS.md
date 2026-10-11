@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:45:49Z by chatcode v1.0.0_
+_generated 2026-10-11T17:46:03Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **40** live tasks
+**339** messages · **6** agents · **41** live tasks
 
 ## Board
 
@@ -38,6 +38,7 @@ _generated 2026-10-11T17:45:49Z by chatcode v1.0.0_
 | `t-20261011-bb0a` | open | — | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-c5aa` | open | — | 2 | — | G3 — storyboard and asset list |
 | `t-20261011-d1a6` | open | — | 2 | — | S2 — confidence and fallback chain |
+| `t-20261011-d339` | open | — | 2 | — | V3 — the app: list UI, persistence, offline |
 | `t-20261011-d91b` | open | — | 2 | — | EPIC — GREECE: faceless video, Themistocles to Alexander |
 | `t-20261011-e65f` | open | — | 2 | — | EPIC — Café website (demo build, no real business involved) |
 | `t-20261011-e993` | open | — | 2 | — | P1 — fix the defects found |
