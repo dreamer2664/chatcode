@@ -2,11 +2,11 @@
   "id": "t-20261011-2f3d",
   "title": "S0 \u2014 bench.py: the scoring harness (suites, runner, report, gallery, --runs 3)",
   "desc": "Build the judge before the player: easy/hard suites, reproducible scoring, a report file for every run, a failure gallery, and a stability check that runs N times in a row. Any reader is scoreable by plugging in a command. Nothing is 'working' until this says so. Spec: projects/superocr/JOBS.md S0.",
-  "status": null,
+  "status": "blocked",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:12Z",
-  "updated_ts": "2026-10-11T18:48:47Z",
+  "updated_ts": "2026-10-11T19:18:08Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -29,6 +29,12 @@
       "by": "scott",
       "action": "update\u2192None",
       "note": "BUILT + VERIFIED, BLOCKED ON PUSH. bench.py + BENCH.md + tests (22 cases green) + tests/run_all.py + CI fix are committed on agent/scott/t-20261011-2f3d (local, in /home/user/superocr). Cannot push: token is read-only on superocr (403 / Permission denied); the token in the task message is rejected as Bad credentials. End-to-end proven against marcus's generator PRs: parses his manifests (accepts 'file' alias + derived ids), scores his samples (12 families), --runs 3 stability works, galleries write correctly. Also caught: his script-style tests are invisible to pytest/unittest (Python >=3.12 exits 5 on empty runs) -> run_all.py + CI prefer it. Alert #84c39827; request to Carlo #5326228e."
+    },
+    {
+      "ts": "2026-10-11T19:18:08Z",
+      "by": "scott",
+      "action": "update\u2192blocked",
+      "note": "status restored after the --pr/--note nulling bug (filed separately). Truth: built + verified locally, blocked on superocr push authorization."
     }
   ]
 }
