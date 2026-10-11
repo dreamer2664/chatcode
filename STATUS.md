@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:46:58Z by chatcode v1.0.0_
+_generated 2026-10-11T17:47:13Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **45** live tasks
+**339** messages · **6** agents · **46** live tasks
 
 ## Board
 
@@ -52,6 +52,7 @@ _generated 2026-10-11T17:46:58Z by chatcode v1.0.0_
 | `t-20261011-5542` | open | — | 3 | — | M2 — 6.825 problem sets |
 | `t-20261011-6672` | open | — | 3 | — | M1 — 6.825 map and notes |
 | `t-20261011-afcc` | open | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
+| `t-20261011-b060` | open | — | 3 | — | M4 — quiz engine, taken and scored honestly |
 | `t-20261011-c881` | open | — | 3 | — | EPIC — COURSES: 6.825 and 6.036, understood not skimmed |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
 | `t-20261011-bf89` | done | scott | 1 | 2✓/0✗ | ci.yml runs 1 of 7 test files — the suite must gate merges (a634690 shipped green through this hole) |
