@@ -2,11 +2,11 @@
   "id": "t-20261011-c1fa",
   "title": "Channel-scoped archive reads leak other channels whose names start with it (read -c dev --all sweeps dev-hotfix)",
   "desc": "DEFECT, reproduced on current main. fetch_messages filters archive files by a bare prefix: name.startswith(ch + '-'). Archive files are '<channel>-<YYYYMMDDTHHMMSSZ>.jsonl', and '-' is legal inside channel names, so a read of channel 'dev' also matches the archive of channel 'dev-hotfix'. Reproduced in a --local repo with two channels of 600 messages each, rotate, then: `read -c dev --all --jsonl` returned 1080 messages \u2014 600 [dev] + 480 [dev-hotfix]. Control: `read -c dev-hotfix --all` returns its own 600, 0 leaked (one-directional). Impact: cross-channel leakage of archived messages into any channel-scoped archive read (read --all is the user-facing path; also any future consumer), i.e. task channels or private-ish channels bleed into broader ones. ACCEPTANCE: (1) match the archive's timestamp shape, not a bare prefix: file must equal ch + '-' + <8digit>T<6digit>Z + '.jsonl' (read-path only, no renaming, no data-layout change, R10 \u2014 there are no archives on main yet, so no legacy names to honour); (2) new stdlib test tests/test_archive_channel_scope.py: red on main (the 480 leaked), green after, and it also pins that (a) the channel's OWN archive is still included (600 = 120 hot + 480 archived), (b) the all-channels read still returns every message from both channels (1200), so the fix drops nothing; (3) full suite green.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:48:28Z",
-  "updated_ts": "2026-10-11T16:06:34Z",
+  "updated_ts": "2026-10-11T16:47:52Z",
   "priority": 2,
   "tags": [
     "cli",
@@ -33,6 +33,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #23: archive reads scoped by channel; red-on-main 480 leaked, green 600/0/1200"
+    },
+    {
+      "ts": "2026-10-11T16:47:52Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:47:52Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My review #c645a034: 480-line dev-hotfix leak + 1680/1200 double-count reproduced on main exit=1; green on head. Timestamp-shape match endorsed over renaming (CHANNEL_RE lowercase vs uppercase T/Z).",
+      "ts": "2026-10-11T16:41:19Z",
+      "id": "c343b664"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran his test_archive_channel_scope.py on his head 8fa8f60: green \u2014 own archive included (600), sibling dev-hotfix not swept, all-channels 1200/1200. The 7 red files on his tree are the incident's reverted fixes absent from his pre-#25 base \u2014 not his diff; main 3e335fa is green on all of them, so a r",
+      "ts": "2026-10-11T16:47:49Z",
+      "id": "a4d57ead"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
