@@ -12,6 +12,13 @@
    level and won/lost triggers belong to t-20261011-b220. */
 "use strict";
 (function () {
+  /* level data lives in levels.js — this file never defines a level.
+     Scene/level/score/restart rules are t-20261011-b220's. */
+  var LEVELS = (typeof module !== "undefined" && module.exports)
+    ? require("./levels.js")
+    : window.PLATFORMER_LEVELS;
+  var LEVEL_1 = LEVELS.LEVEL_1;
+
   var STEP = 1 / 60;        // fixed simulation step (s)
   var MAX_STEPS = 5;        // catch-up cap per animation frame
   var MAX_FRAME = 0.25;     // clamp on frame delta (throttled tabs)
@@ -76,20 +83,6 @@
   }
   /* ---- end physics section ---- */
 
-  /* demo level: real data is t-20261011-b220's; format is final (contract). */
-  var LEVEL_DEMO = {
-    platforms: [
-      { x: 0,   y: 520, w: 960, h: 40 },
-      { x: 120, y: 440, w: 140, h: 18 },
-      { x: 320, y: 380, w: 120, h: 18 },
-      { x: 500, y: 320, w: 120, h: 18 },
-      { x: 680, y: 260, w: 120, h: 18 },
-      { x: 820, y: 190, w: 120, h: 18 }
-    ],
-    goal:    { x: 862, y: 130, w: 22, h: 60 },
-    hazards: [ { x: 560, y: 502, w: 60, h: 18 } ]
-  };
-
   var SPAWN_X = 40, SPAWN_Y = 460;
 
   function createPlayer() {
@@ -101,34 +94,70 @@
     player.vx = 0; player.vy = 0; player.onGround = false;
     player.jumpHeld = false; player.coyoteMs = 0;
   }
-  function createState() { return { scene: "title", score: 0, time: 0 }; }
-  function createInput() { return { left: false, right: false, jump: false, jumpPressed: false }; }
+  function createState() {
+    /* collected: indices into level.pickups that this run has taken. The
+       authored level object is never mutated, which is what makes restart
+       trivially correct — there is nothing to un-take. */
+    return { scene: "title", score: 0, time: 0, collected: [] };
+  }
+  /* Full reset, in place: every field a run can touch goes back to new-game
+     values. Adding a field to createState() means adding it here too — the
+     deterministic-restart test in test-level.js catches it if you forget. */
+  function restart(state, player) {
+    state.scene = "title";
+    state.score = 0;
+    state.time = 0;
+    state.collected.length = 0;
+    resetPlayer(player);
+  }
+  function createInput() {
+    return { left: false, right: false, jump: false, jumpPressed: false, restart: false };
+  }
 
-  /* one simulation tick; scene transitions here are DEMO versions —
-     full win/lose/restart rules belong to t-20261011-b220. */
+  var PICKUP_POINTS = 10;   /* each pickup */
+  var FINISH_BONUS = 50;    /* reaching the goal */
+
+  /* one simulation tick: scene, level and score rules (t-20261011-b220). */
   function step(state, player, level, input, dt) {
+    if (input.restart) {                 /* R, or the restart input, any scene */
+      restart(state, player);
+      input.restart = false;
+      if (!input.jumpPressed) { input.jumpPressed = false; }
+      return;
+    }
     if (state.scene === "title") {
       if (input.jumpPressed) {
         state.scene = "play";
-        state.time = 0; state.score = 0;
+        state.time = 0;
+        state.score = 0;
+        state.collected.length = 0;
       }
     } else if (state.scene === "play") {
       state.time += dt;
       stepPhysics(player, level, input, dt);
-      var i;
-      for (i = 0; i < level.hazards.length; i++) {
-        if (overlaps(player.x, player.y, player.w, player.h, level.hazards[i])) {
-          state.scene = "lost";
+      var i, pickups = level.pickups || [];
+      for (i = 0; i < pickups.length; i += 1) {
+        if (state.collected.indexOf(i) !== -1) { continue; }
+        if (overlaps(player.x, player.y, player.w, player.h, pickups[i])) {
+          state.collected.push(i);
+          state.score += PICKUP_POINTS;
         }
       }
-      if (overlaps(player.x, player.y, player.w, player.h, level.goal)) {
+      for (i = 0; i < level.hazards.length; i += 1) {
+        if (overlaps(player.x, player.y, player.w, player.h, level.hazards[i])) {
+          state.scene = "lost";        /* the run ends; restart is one key */
+          state.time = state.time;     /* keep the clock for the loss screen */
+        }
+      }
+      /* win only if the goal is touched first — a hazard frame cannot win */
+      if (state.scene === "play"
+          && overlaps(player.x, player.y, player.w, player.h, level.goal)) {
         state.scene = "won";
-        state.score += 1;
+        state.score += FINISH_BONUS;
       }
     } else { /* won | lost */
       if (input.jumpPressed) {
-        resetPlayer(player);
-        state.scene = "title";
+        restart(state, player);        /* back to title, nothing left behind */
       }
     }
     input.jumpPressed = false; /* edge-trigger: consumed each tick */
@@ -136,7 +165,7 @@
 
   /* ---- rendering (read-only; colors hoisted to avoid per-frame churn) ---- */
   var C_BG = "#1d232c", C_PLATFORM = "#4a5568", C_PLAYER = "#e0b34a",
-      C_GOAL = "#69b578", C_HAZARD = "#c05a5a", C_TEXT = "#e8e6e1",
+      C_GOAL = "#69b578", C_HAZARD = "#c05a5a", C_PICKUP = "#7fd1e0", C_TEXT = "#e8e6e1",
       C_TEXT_DIM = "#9aa5b1";
 
   function render(ctx, state, player, level) {
@@ -153,6 +182,12 @@
     for (i = 0; i < level.hazards.length; i++) {
       p = level.hazards[i];
       ctx.fillRect(p.x, p.y, p.w, p.h);
+    }
+    var pickups = level.pickups || [];
+    for (i = 0; i < pickups.length; i += 1) {
+      if (state.collected.indexOf(i) !== -1) { continue; }
+      ctx.fillStyle = C_PICKUP;
+      ctx.fillRect(pickups[i].x, pickups[i].y, pickups[i].w, pickups[i].h);
     }
     /* goal flag: pole + waving triangle */
     p = level.goal;
@@ -184,19 +219,22 @@
       ctx.fillText("YOU WIN", 480, 240);
       ctx.font = "18px system-ui, sans-serif";
       ctx.fillStyle = C_TEXT_DIM;
-      ctx.fillText("space to return to title", 480, 276);
+      ctx.fillText("score " + state.score + " in " + state.time.toFixed(1)
+                   + "s — space or R to play again", 480, 276);
     } else if (state.scene === "lost") {
       ctx.fillStyle = C_HAZARD;
       ctx.font = "bold 42px system-ui, sans-serif";
       ctx.fillText("OUCH", 480, 240);
       ctx.font = "18px system-ui, sans-serif";
       ctx.fillStyle = C_TEXT_DIM;
-      ctx.fillText("space to return to title", 480, 276);
+      ctx.fillText("hit a hazard on the rooftops — space or R to try again", 480, 276);
     } else {
       ctx.textAlign = "left";
       ctx.font = "14px system-ui, sans-serif";
       ctx.fillStyle = C_TEXT_DIM;
-      ctx.fillText("score " + state.score + " · " + state.time.toFixed(1) + "s", 12, 24);
+      ctx.fillText("score " + state.score + " · " + state.time.toFixed(1) + "s · "
+                   + state.collected.length + "/" + (level.pickups || []).length
+                   + " pickups · R restarts", 12, 24);
     }
   }
 
@@ -206,19 +244,21 @@
     var ctx = canvas.getContext("2d");
     var state = createState();
     var player = createPlayer();
-    var level = LEVEL_DEMO;
+    var level = LEVEL_1;
     var input = createInput();
     var accumulator = 0;
     var last = -1;
 
-    var KEYMAP = { ArrowLeft: "left", KeyA: "left",
+    var KEYMAP = { KeyR: "restart", ArrowLeft: "left", KeyA: "left",
                    ArrowRight: "right", KeyD: "right",
                    ArrowUp: "jump", KeyW: "jump", Space: "jump", Enter: "jump" };
     window.addEventListener("keydown", function (e) {
       var k = KEYMAP[e.code];
       if (!k) { return; }
       e.preventDefault();
-      if (k === "jump" && !e.repeat) {
+      if (k === "restart") {
+        if (!e.repeat) { input.restart = true; }
+      } else if (k === "jump" && !e.repeat) {
         if (!input.jump) { input.jumpPressed = true; }
         input.jump = true;
       } else if (k !== "jump") {
@@ -227,7 +267,7 @@
     });
     window.addEventListener("keyup", function (e) {
       var k = KEYMAP[e.code];
-      if (!k) { return; }
+      if (!k || k === "restart") { return; }
       if (k === "jump") { input.jump = false; }
       else { input[k] = false; }
     });
@@ -257,9 +297,10 @@
   if (isNodeTest) {
     module.exports = {
       STEP: STEP, MAX_STEPS: MAX_STEPS, MAX_FRAME: MAX_FRAME,
-      LEVEL_DEMO: LEVEL_DEMO,
+      LEVELS: LEVELS, LEVEL_1: LEVEL_1,
+      PICKUP_POINTS: PICKUP_POINTS, FINISH_BONUS: FINISH_BONUS,
       createState: createState, createPlayer: createPlayer,
-      resetPlayer: resetPlayer, createInput: createInput,
+      resetPlayer: resetPlayer, restart: restart, createInput: createInput,
       step: step, stepPhysics: stepPhysics
     };
   }
