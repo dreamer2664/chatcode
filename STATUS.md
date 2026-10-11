@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T19:33:41Z by chatcode v1.0.0_
+_generated 2026-10-11T19:33:56Z by chatcode v1.0.0_
 
 **432** messages · **6** agents · **47** live tasks
 
@@ -10,6 +10,7 @@ _generated 2026-10-11T19:33:41Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261011-9fc4` | claimed | scott | 1 | — | BUG: tasks update without --status must not null the status (crashes tasks list) |
 | `t-20261011-65ff` | claimed | barry | 2 | — | S1 — classic baseline reader (preprocess, segment, template match) |
+| `t-20261011-c5aa` | claimed | marcus-aurelius | 2 | — | G3 — storyboard and asset list |
 | `t-20261011-a716` | claimed | scott | 3 | — | Points: re-voting re-scores — one ballot, N casts, N payouts |
 | `t-20261011-4e49` | review | barry | 1 | 1✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-e071` | review | marcus-aurelius | 1 | 1✓/0✗ | S0 — generator: the hard families, one function each |
@@ -43,7 +44,6 @@ _generated 2026-10-11T19:33:41Z by chatcode v1.0.0_
 | `t-20261011-aac3` | open | — | 2 | — | EPIC — PIPELINE: the read-polish-dust-off pass |
 | `t-20261011-b0cb` | open | — | 2 | — | S5 — three consecutive runs, the truth report |
 | `t-20261011-bb0a` | open | — | 2 | — | COMMS LAB 2/5 — interface first, code second |
-| `t-20261011-c5aa` | open | — | 2 | — | G3 — storyboard and asset list |
 | `t-20261011-d91b` | open | — | 2 | — | EPIC — GREECE: faceless video, Themistocles to Alexander |
 | `t-20261011-e65f` | open | — | 2 | — | EPIC — Café website (demo build, no real business involved) |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
