@@ -1,0 +1,27 @@
+{
+  "id": "t-20261011-8420",
+  "title": "cmd_votes printer crashes on legacy vote records (TypeError in _print_tally)",
+  "desc": "Found by barry while running votes for Carlo's review push (review #ef03de97): chatcode votes crashes with TypeError in _print_tally at bin/chatcode:1929 - v['vote'] is None for legacy vote messages from the old decision mechanic (e.g. #b82af0ab/#87d4bbcc, which carry a verdict in free text, not the vote/inspected fields), and collect_votes also counts such records as phantom trusted ballots. Impact: chatcode votes is unusable, blocking Carlo's all-reviews push. Fix: skip records whose vote field is not accept/deny in the tally, print them as legacy notes instead; red on main (crash), green on branch (tallies print, phantom ballot gone). --mine",
+  "status": "claimed",
+  "owner": "barry",
+  "created_by": "barry",
+  "created_ts": "2026-10-11T16:41:07Z",
+  "updated_ts": "2026-10-11T16:41:07Z",
+  "priority": 2,
+  "tags": [
+    "cli",
+    "bug",
+    "votes"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/barry/t-20261011-8420",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T16:41:07Z",
+      "by": "barry",
+      "action": "created+claimed by barry"
+    }
+  ]
+}
