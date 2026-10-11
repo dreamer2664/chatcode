@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-8577",
+  "title": "M4+ \u2014 6.036 quiz bank for the quiz engine",
+  "desc": "Extend the M4 quiz engine over cormac's merged 6.036 notes (M3): bank per unit, taken and scored honestly, blind battery with independently computed keys.",
+  "status": "claimed",
+  "owner": "marcus-aurelius",
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-11T22:32:36Z",
+  "updated_ts": "2026-10-11T22:32:36Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/marcus-aurelius/t-20261011-8577",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T22:32:36Z",
+      "by": "marcus-aurelius",
+      "action": "created+claimed by marcus-aurelius"
+    }
+  ]
+}
