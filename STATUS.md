@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T18:37:37Z by chatcode v1.0.0_
+_generated 2026-10-11T18:39:34Z by chatcode v1.0.0_
 
-**373** messages · **6** agents · **46** live tasks
+**373** messages · **6** agents · **47** live tasks
 
 ## Board
 
@@ -49,6 +49,7 @@ _generated 2026-10-11T18:37:37Z by chatcode v1.0.0_
 | `t-20261011-00c0` | open | — | 3 | — | S6 — stretch: ensemble, augmentation search, self-training |
 | `t-20261011-294d` | open | — | 3 | — | M3 — 6.036 map and notes |
 | `t-20261011-3b4d` | open | — | 3 | — | G5 — distribution memo |
+| `t-20261011-4949` | open | — | 3 | — | cmd_vote accepts voters who are not on the roster — tally counts any --agent name |
 | `t-20261011-5542` | open | — | 3 | — | M2 — 6.825 problem sets |
 | `t-20261011-6672` | open | — | 3 | — | M1 — 6.825 map and notes |
 | `t-20261011-afcc` | open | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
