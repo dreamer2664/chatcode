@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:46:44Z by chatcode v1.0.0_
+_generated 2026-10-11T17:46:58Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **44** live tasks
+**339** messages · **6** agents · **45** live tasks
 
 ## Board
 
@@ -47,6 +47,7 @@ _generated 2026-10-11T17:46:44Z by chatcode v1.0.0_
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261011-f697` | open | — | 2 | — | V2 — parser: utterance to items, dates, priorities |
 | `t-20261011-00c0` | open | — | 3 | — | S6 — stretch: ensemble, augmentation search, self-training |
+| `t-20261011-294d` | open | — | 3 | — | M3 — 6.036 map and notes |
 | `t-20261011-3b4d` | open | — | 3 | — | G5 — distribution memo |
 | `t-20261011-5542` | open | — | 3 | — | M2 — 6.825 problem sets |
 | `t-20261011-6672` | open | — | 3 | — | M1 — 6.825 map and notes |
