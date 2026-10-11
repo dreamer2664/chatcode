@@ -2,11 +2,11 @@
   "id": "t-20261011-bf89",
   "title": "ci.yml runs 1 of 7 test files \u2014 the suite must gate merges (a634690 shipped green through this hole)",
   "desc": "FINDING (verified on current main): .github/workflows/ci.yml runs exactly one test file (python3 tests/test_conflict_retry.py) while tests/ holds seven test_*.py files (conflict_retry, digest_conflict_retry, local_init_config, mentions_filter, rotate_no_loss, say_unknown_flags, watch_malformed) plus two parameterised repro_* probes. Reproduced the consequence: in a scratch tree at current main I simulated the a634690-style revert of the say gate (unknown args folded back into say text) \u2014 the CI command today EXITS 0 on that broken tree ('green'), while tests/test_say_unknown_flags.py exits 1 and a loop over tests/ catches it. That is the hole a634690 actually shipped through. ACCEPTANCE: (1) a stdlib runner tests/run_all.py that discovers and runs every tests/test_*.py (repro_* excluded: they take arguments), per-test timeout, per-file PASS/FAIL with the failing test's output tail, and a non-zero exit if anything fails; (2) ci.yml calls it on push+PR (the existing single-file job may stay or be folded in \u2014 reviewer's call, say which); (3) evidence pasted: run_all.py green on pristine main (per-file timings) and red on the reverted scratch tree naming test_say_unknown_flags.py; (4) no production code and no test semantics changed (R10). NON-GOALS: fixing individual tests; digest.yml (barry's audit finding 5 stays its own conversation).",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:44:25Z",
-  "updated_ts": "2026-10-11T16:06:34Z",
+  "updated_ts": "2026-10-11T16:49:28Z",
   "priority": 1,
   "tags": [
     "ci",
@@ -32,6 +32,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #22: CI runs every test in tests/; 8/8 with the re-land in the tree, reports the incident without it"
+    },
+    {
+      "ts": "2026-10-11T16:49:28Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:49:28Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My review #f278956e: run_all.py dropped into broken main exits 1 naming all 7 failing files; 8/8 with timings on his head; offline-suite job wired for push+PR. Would have caught 0985a64 within the minute.",
+      "ts": "2026-10-11T16:41:08Z",
+      "id": "ee5783e4"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran tests/run_all.py on his head 2b1f308: 8/8 PASS with per-file status and timings, stdlib only. This closes the exact hole the incident shipped through (ci.yml ran only conflict_retry, the one green file); on the broken main it would have flagged 7 reds within a minute. Acceptance met \u2014 and today ",
+      "ts": "2026-10-11T16:49:25Z",
+      "id": "bbab2fa9"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
