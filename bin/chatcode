@@ -59,6 +59,27 @@ ARCHIVE_DIR = "bus/archive"
 BOARD_DIR = "board/tasks"
 AGENTS_DIR = "agents"
 STATUS_FILE = "STATUS.md"
+MEMORY_DIR = "memory"
+MEMORY_FILES = {
+    "projects":  ("memory/PROJECTS.md",
+                  "Living state of everything we are building: one section per project, "
+                  "what exists, what is next. Update it when the truth changes."),
+    "decisions": ("memory/DECISIONS.md",
+                  "Decisions and the reasoning behind them, newest first. "
+                  "Format: decision — because <why> (author). Never delete an entry."),
+    "knowledge": ("memory/KNOWLEDGE.md",
+                  "Reusable know-how: gotchas, commands that work, environment facts, "
+                  "things learned the hard way. One line each, with the evidence."),
+    "journal":   ("memory/JOURNAL.md",
+                  "One line per significant event, oldest first, chronological. "
+                  "Claimed, decided, blocked, fixed, shipped. Nothing else."),
+}
+MEMORY_KEYS = {"projects": "projects", "proj": "projects", "p": "projects",
+               "decisions": "decisions", "decision": "decisions", "dec": "decisions", "d": "decisions",
+               "knowledge": "knowledge", "know": "knowledge", "k": "knowledge",
+               "journal": "journal", "jour": "journal", "log": "journal", "j": "journal"}
+POINTS_PER_TASK = 100
+POINTS_PER_REVIEW = 25
 
 CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".chatcode", "config.json")
 
@@ -795,6 +816,85 @@ def register_agent(ctx: Ctx, name: str, kind: str = "ai", caps: str = "",
 
 # --- tasks -----------------------------------------------------------------
 
+def memory_path(purpose: str) -> str:
+    key = MEMORY_KEYS.get(purpose.lower().strip())
+    if not key:
+        die(f"unknown memory purpose {purpose!r} — use one of: "
+            + ", ".join(MEMORY_FILES))
+    return MEMORY_FILES[key][0]
+
+
+def memory_template(key: str) -> str:
+    path, blurb = MEMORY_FILES[key]
+    title = key.upper()
+    return (f"# {title} — shared memory of the collective\n\n"
+            f"_{blurb}_\n\n"
+            f"Append with `python3 bin/chatcode remember {key} \"<text>\"`. "
+            f"This file is append-only: correct a mistake with a new line, "
+            f"never by rewriting someone else's.\n\n")
+
+
+def memory_append(ctx: Ctx, purpose: str, text: str) -> str:
+    """Append one entry under today's heading, retrying on write races."""
+    me = ctx.require_agent()
+    key = MEMORY_KEYS[purpose.lower().strip()]
+    path = MEMORY_FILES[key][0]
+    day = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    entry = f"- **{me}** — {text}\n"
+    for attempt in range(6):
+        info = ctx.api.contents(path)
+        if info and isinstance(info, dict) and info.get("content") is not None:
+            current = base64.b64decode(info["content"]).decode("utf-8", "replace")
+            sha = info["sha"]
+        else:
+            current, sha = memory_template(key), None
+            if ctx.local:
+                sha = None
+        if re.search(rf"^## {day}\s*$", current, re.M):
+            new = current.rstrip("\n") + "\n" + entry
+        else:
+            new = current.rstrip("\n") + f"\n\n## {day}\n\n" + entry
+        try:
+            ctx.api.write_text(path, new, f"memory({key}): {me}", sha=sha)
+            return path
+        except (Conflict, AlreadyExists):
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+    die(f"could not write {path} after 6 attempts — retry in a moment")
+
+
+def human_names(ctx: Ctx) -> set[str]:
+    """Agents the roster marks as human. Their messages outrank everything."""
+    return {a.get("name") for a in load_agents(ctx)
+            if (a.get("kind") or "").lower() in ("human", "person", "owner")}
+
+
+def is_for_me(m: dict, me: str) -> bool:
+    return (m.get("to") == me) or (f"@{me}" in (m.get("text") or ""))
+
+
+def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
+    """Derived, never stored: 100 per completed task (to its owner at the time of
+    completion), 25 per review posted. Recompute any time from board + bus."""
+    score: dict[str, dict] = {}
+
+    def row(name):
+        return score.setdefault(name, {"total": 0, "tasks": 0, "reviews": 0})
+
+    for t in tasks:
+        if t.get("status") == "done" and t.get("owner"):
+            r = row(t["owner"])
+            r["tasks"] += 1
+            r["total"] += POINTS_PER_TASK
+    for m in messages:
+        who = m.get("from")
+        if m.get("type") == "review" and who:
+            r = row(who)
+            r["reviews"] += 1
+            r["total"] += POINTS_PER_REVIEW
+    return score
+
+
 def task_path(task_id: str) -> str:
     return f"{BOARD_DIR}/{task_id}.json"
 
@@ -834,7 +934,8 @@ def new_task_id(ctx: Ctx) -> str:
 
 def create_task(ctx: Ctx, title: str, desc: str = "", priority: int = 3,
                 owner: str | None = None, deps: list[str] | None = None,
-                task_id: str | None = None, tags: list[str] | None = None) -> dict:
+                task_id: str | None = None, tags: list[str] | None = None,
+                parent: str | None = None) -> dict:
     author = ctx.require_agent()
     tid = task_id or new_task_id(ctx)
     now = now_iso()
@@ -850,6 +951,7 @@ def create_task(ctx: Ctx, title: str, desc: str = "", priority: int = 3,
         "priority": int(priority),
         "tags": tags or [],
         "deps": deps or [],
+        "parent": parent,
         "branch": f"agent/{owner}/{tid}" if owner else None,
         "pr": None,
         "history": [{"ts": now, "by": author,
@@ -933,14 +1035,34 @@ def print_tasks(tasks: list[dict], as_json: bool = False, me: str | None = None)
         return
     icons = {"open": ("○", C_Y), "claimed": ("◐", C_C), "blocked": ("✗", C_R),
              "review": ("◑", C_M), "done": ("●", C_G), "dropped": ("⌫", C_DIM)}
-    print(color(f"{'id':<18} {'status':<9} {'owner':<14} {'p':<3} title", C_DIM))
+    kids: dict[str, list[dict]] = {}
+    ids = {t.get("id") for t in tasks}
     for t in tasks:
+        p = t.get("parent")
+        if p and p in ids:
+            kids.setdefault(p, []).append(t)
+
+    def emit(t, depth=0):
         ic, c = icons.get(t.get("status", "?"), ("?", C_DIM))
         owner = t.get("owner") or "-"
         if owner == me:
             owner += "*"
-        print(f"{t.get('id',''):<18} {color((ic+' '+t.get('status','')).ljust(11), c)} "
-              f"{owner:<14} {t.get('priority', 3):<3} {t.get('title','')}")
+        prefix = ("  " * depth) + ("↳ " if depth else "")
+        title = t.get("title", "")
+        if len(title) > 78 - depth * 2:
+            title = title[:75 - depth * 2] + "…"
+        kid_mark = f" ({len(kids.get(t.get('id')))} children)" if kids.get(t.get("id")) else ""
+        print(f"{prefix}{t.get('id',''):<18} "
+              f"{color((ic+' '+t.get('status','')).ljust(11), c)} "
+              f"{owner:<14} {t.get('priority', 3):<3} {title}{kid_mark}")
+        for k in kids.get(t.get("id"), []):
+            emit(k, depth + 1)
+
+    print(color(f"{'id':<18} {'status':<11} {'owner':<14} {'p':<3} title", C_DIM))
+    for t in tasks:
+        p = t.get("parent")
+        if not p or p not in ids:
+            emit(t)
 
 
 # --------------------------------------------------------------------------
@@ -983,6 +1105,10 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) 
             errors.append(f"{where}: text must be a string")
         elif len(m["text"]) > MAX_TEXT:
             errors.append(f"{where}: text is {len(m['text'])} chars (> {MAX_TEXT})")
+        elif (len(m["text"]) > 1200
+              and m.get("type") in ("say", "note", "status", "idea", "join", "done")):
+            warnings.append(f"{where}: {len(m['text'])} chars on the bus — the chat is for "
+                            "talking; long reports belong in memory/ or a file (R3)")
 
     for t in tasks:
         where = f"{BOARD_DIR}/{t.get('id','?')}.json"
@@ -1001,6 +1127,9 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) 
         for dep in t.get("deps") or []:
             if dep not in {x.get("id") for x in tasks}:
                 warnings.append(f"{where}: dep {dep} does not exist")
+        par = t.get("parent")
+        if par and par not in {x.get("id") for x in tasks}:
+            warnings.append(f"{where}: parent {par} does not exist")
         if not isinstance(t.get("history"), list) or not t["history"]:
             warnings.append(f"{where}: missing history")
 
@@ -1053,6 +1182,26 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -
                  f"| {ag.get('role', '—')} | {ag.get('model') or '—'} | "
                  f"{by_agent[name]['count']} | {by_agent[name]['last'] or '—'} | "
                  f"{ag.get('caps') or '—'} |")
+    L.append("")
+    score = compute_points(tasks, messages)
+    if score:
+        L.append("## Leaderboard")
+        L.append("")
+        L.append(f"+{POINTS_PER_TASK} per task completed · +{POINTS_PER_REVIEW} per review "
+                 "posted · derived from the board and the bus, never stored")
+        L.append("")
+        L.append("| # | agent | points | tasks done | reviews |")
+        L.append("|---|---|---|---|---|")
+        for i, (name, r) in enumerate(sorted(score.items(),
+                                             key=lambda kv: (-kv[1]["total"], kv[0])), 1):
+            L.append(f"| {i} | `{name}` | **{r['total']}** | {r['tasks']} | {r['reviews']} |")
+        L.append("")
+    L.append("## Shared memory")
+    L.append("")
+    L.append("| file | what goes in it |")
+    L.append("|---|---|")
+    for key, (path, blurb) in MEMORY_FILES.items():
+        L.append(f"| [`{path}`]({path}) | {blurb.split(':')[0]} |")
     L.append("")
     L.append("## Last messages")
     L.append("")
@@ -1234,12 +1383,29 @@ def cmd_watch(ctx: Ctx, args):
         else:
             new = fresh[-args.backlog:] if args.backlog else fresh
         mine = [m for m in new if m.get("from") != me]
+        humans = set()
+        try:
+            humans = human_names(ctx)
+        except Exception:
+            pass
+        human_msgs = [m for m in mine if m.get("from") in humans]
+        if args.to_me:
+            mine = [m for m in mine if is_for_me(m, me) or m.get("from") in humans]
         if mine:
             print()
+            if human_msgs:
+                print(color("=" * 60, C_Y))
+                print(color(f"  A HUMAN IS TALKING TO THE GROUP "
+                            f"({', '.join(sorted({m.get('from') for m in human_msgs}))})",
+                            C_Y))
+                print(color("=" * 60, C_Y))
             print_messages(mine, me=me, with_channel=(args.channel in (None, "all")))
-            pings = [m for m in mine if m.get("to") in (me,) or f"@{me}" in (m.get("text") or "")]
+            pings = [m for m in mine if is_for_me(m, me)]
             if pings:
                 print(color(f"  ⇢ {len(pings)} message(s) addressed to you", C_Y))
+        if args.exit_on_human and human_msgs:
+            print(color("  ✓ a human spoke — stopping so you can answer", C_G))
+            break
         if new:
             last_id = new[-1]["id"]
         if args.once or (args.for_ and loops * args.interval >= args.for_):
@@ -1249,6 +1415,121 @@ def cmd_watch(ctx: Ctx, args):
             if hit:
                 print(color(f"  ✓ matched --exit-when {args.exit_when!r}, stopping", C_G))
                 break
+
+
+def cmd_remember(ctx: Ctx, args):
+    """Append one entry to a shared memory file (projects/decisions/knowledge/journal)."""
+    if not ctx.local:
+        ctx.require_token()
+    text = " ".join(args.text).strip()
+    if not text:
+        die("nothing to remember — pass the text")
+    if len(text) > 600:
+        warn(f"that entry is {len(text)} chars; memory entries are meant to be one "
+             "short fact (a paragraph at most)")
+    key = MEMORY_KEYS.get(args.purpose.lower().strip())
+    path = memory_append(ctx, args.purpose, text)
+    print(f"{color('✓', C_G)} remembered in {path} — [{key}] {text[:70]}"
+          + ("…" if len(text) > 70 else ""))
+
+
+def cmd_memory(ctx: Ctx, args):
+    keys = [MEMORY_KEYS[args.purpose.lower().strip()]] if args.purpose else list(MEMORY_FILES)
+    for key in keys:
+        path, blurb = MEMORY_FILES[key]
+        text = ctx.api.read_text(path) if ctx.api else None
+        hr(f"{key}  ({path})")
+        if text is None:
+            print(color("  (not created yet — `chatcode remember "
+                        + key + " \"…\"` creates it)", C_DIM))
+        else:
+            lines = text.splitlines()
+            if args.tail:
+                lines = lines[-args.tail:]
+            if args.grep:
+                lines = [l for l in lines if args.grep.lower() in l.lower()]
+            print("\n".join(lines))
+        print()
+
+
+def cmd_points(ctx: Ctx, args):
+    if ctx.local:
+        _, tasks, _ = load_local_state(ctx)
+        msgs = fetch_messages(ctx, all_channels=True, include_archive=True)
+    else:
+        tasks = load_tasks(ctx)
+        msgs = fetch_messages(ctx, channel="all", include_archive=True)
+    score = compute_points(tasks, msgs)
+    if args.json:
+        print(json.dumps({"per_task": POINTS_PER_TASK, "per_review": POINTS_PER_REVIEW,
+                          "scores": score}, indent=2, sort_keys=True))
+        return
+    if not score:
+        print(color("(nobody has scored yet)", C_DIM))
+        return
+    medal = ["1.", "2.", "3."]
+    print(color(f"{'#':<3} {'agent':<16} {'points':>7} {'tasks':>6} {'reviews':>8}", C_DIM))
+    ranked = sorted(score.items(), key=lambda kv: (-kv[1]["total"], kv[0]))
+    for i, (name, r) in enumerate(ranked):
+        rank = medal[i] if i < len(medal) else f"{i+1}."
+        star = color("  ← you", C_C) if name == ctx.agent else ""
+        print(f"{rank:<3} {name:<16} {r['total']:>7} {r['tasks']:>6} {r['reviews']:>8}{star}")
+    print()
+    print(color(f"rules: +{POINTS_PER_TASK} per task completed by its owner, "
+                f"+{POINTS_PER_REVIEW} per review posted. Derived from the board and the "
+                "bus — no stored scores, nothing to game.", C_DIM))
+
+
+def cmd_inbox(ctx: Ctx, args):
+    """What happened while you were away: messages for you, humans first."""
+    me = ctx.require_agent()
+    if not ctx.local:
+        ctx.require_token(write=False)
+    msgs = fetch_messages(ctx, channel="all", include_archive=False)
+    humans = human_names(ctx) if not ctx.local else {
+        a["name"] for a in load_agents(ctx) if (a.get("kind") or "") == "human"}
+    roster = next((a for a in (load_agents(ctx) if not ctx.local else []) 
+                   if a.get("name") == me), {})
+    cursor = roster.get("last_read_ts") or ""
+    fresh = [m for m in msgs if (m.get("ts") or "") > cursor and m.get("from") != me]
+    urgent = [m for m in fresh if m.get("from") in humans]
+    direct = [m for m in fresh
+              if m not in urgent and (is_for_me(m, me) or m.get("to") not in (None, "*"))]
+    other = [m for m in fresh if m not in urgent and m not in direct]
+
+    if not fresh:
+        print(color(f"inbox empty — nothing since {cursor or 'the beginning'}", C_DIM))
+    else:
+        if urgent:
+            hr("FROM A HUMAN — answer these first")
+            print_messages(urgent, me=me, with_channel=True)
+        if direct:
+            hr("for you")
+            print_messages(direct, me=me, with_channel=True)
+        if other and not args.quiet:
+            hr(f"everything else ({len(other)} messages you have not seen)")
+            print_messages(other[-args.tail:] if args.tail else other, me=me, with_channel=True)
+        print()
+        print(color(f"{len(fresh)} new · {len(urgent)} from a human · {len(direct)} for you",
+                    C_DIM))
+
+    if fresh and not args.peek:
+        newest = max((m.get("ts") or "") for m in fresh)
+        info = ctx.api.contents(agent_path(me))
+        if info and isinstance(info, dict) and info.get("content"):
+            try:
+                ag = json.loads(base64.b64decode(info["content"]).decode("utf-8"))
+            except Exception:
+                ag = {"name": me}
+            ag["last_read_ts"] = newest
+            ag["last_seen"] = now_iso()
+            write_text_retry(ctx.api, agent_path(me),
+                             json.dumps(ag, indent=2) + "\n", f"agents: {me} read inbox")
+            ctx._agents_cache = None
+        if not args.quiet:
+            print(color(f"(marked read up to {newest})", C_DIM))
+    elif fresh and args.peek:
+        print(color("(--peek: nothing marked read)", C_DIM))
 
 
 def cmd_whoami(ctx: Ctx, args):
@@ -1302,8 +1583,13 @@ def cmd_tasks(ctx: Ctx, args):
         if not title:
             die("a task needs a title")
         owner = ctx.agent if args.mine else args.owner
+        if args.parent:
+            known = {x.get("id") for x in load_tasks(ctx)}
+            if args.parent not in known:
+                die(f"no such parent task: {args.parent} (run `chatcode tasks list`)")
         t = create_task(ctx, title, desc=args.desc or "", priority=args.priority,
-                        owner=owner, tags=args.tags.split(",") if args.tags else None)
+                        owner=owner, parent=args.parent,
+                        tags=args.tags.split(",") if args.tags else None)
         print(f"{color('✓', C_G)} created {t['id']} ({t['status']}) — {t['title']}")
         if args.announce:
             ctx.require_agent()
@@ -1599,6 +1885,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--for", dest="for_", type=int, default=0, metavar="SECONDS",
                    help="stop after this many seconds")
     s.add_argument("--exit-when", default=None, help="stop when a new message contains this text")
+    s.add_argument("--to-me", action="store_true",
+                   help="only print messages addressed to you (or from a human)")
+    s.add_argument("--exit-on-human", action="store_true",
+                   help="stop as soon as a message from a human arrives")
     s.set_defaults(func=cmd_watch)
 
     s = sub.add_parser("tasks", add_help=True, parents=[common], help="the board")
@@ -1618,6 +1908,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--branch", default=None)
     s.add_argument("--force", action="store_true")
     s.add_argument("--announce", action="store_true", help="also post to the bus")
+    s.add_argument("--parent", default=None,
+                   help="parent task id — makes this a child of a bigger job")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_tasks)
 
@@ -1634,6 +1926,32 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("validate", add_help=True, parents=[common], help="lint the bus/board/agents")
     s.add_argument("--all", action="store_true", help="include archives")
     s.set_defaults(func=cmd_validate)
+
+    s = sub.add_parser("remember", add_help=True, parents=[common],
+                       help="append one entry to a shared memory file")
+    s.add_argument("purpose", choices=sorted(set(MEMORY_KEYS)),
+                   help="projects | decisions | knowledge | journal")
+    s.add_argument("text", nargs="+")
+    s.set_defaults(func=cmd_remember, channel=None)
+
+    s = sub.add_parser("memory", add_help=True, parents=[common],
+                       help="read the shared memory files")
+    s.add_argument("purpose", nargs="?", default=None)
+    s.add_argument("--tail", type=int, default=None)
+    s.add_argument("--grep", default=None)
+    s.set_defaults(func=cmd_memory, channel=None)
+
+    s = sub.add_parser("points", add_help=True, parents=[common],
+                       help="the leaderboard")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_points, channel=None)
+
+    s = sub.add_parser("inbox", add_help=True, parents=[common],
+                       help="what happened while you were away (humans first)")
+    s.add_argument("--peek", action="store_true", help="do not mark anything read")
+    s.add_argument("--quiet", action="store_true", help="only the important parts")
+    s.add_argument("--tail", type=int, default=15, help="cap on 'everything else'")
+    s.set_defaults(func=cmd_inbox, channel=None)
 
     s = sub.add_parser("rotate", add_help=True, parents=[common], help="archive old messages")
     s.set_defaults(func=cmd_rotate)
@@ -1673,7 +1991,15 @@ typical agent loop
   4. chatcode say "plan: ..." --type claim --ref t-20261011-ab12
   5. ... do the work on branch agent/<me>/<task> ...
   6. chatcode tasks update <id> --status review --pr <pr-url> --announce
-  7. chatcode watch --interval 20                # answer reviews / hand off
+  7. chatcode watch --to-me --interval 20 --exit-on-human   # wait for replies
+
+staying in sync (the collective is asynchronous)
+------------------------------------------------
+  chatcode inbox                          # ALWAYS run this first, every turn
+  chatcode watch --to-me --for 600        # while idle: only what concerns you
+  chatcode remember journal "claimed t-…"  # memory: journal/decisions/knowledge/projects
+  chatcode memory decisions --tail 20      # read what the group has decided
+  chatcode points                          # the leaderboard
 """
 
 
