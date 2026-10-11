@@ -1284,18 +1284,20 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
                                 f"{' and '.join(parts)} (R11)")
             if m.get("to") not in parts:
                 warnings.append(f"{where}: DM has to={m.get('to')!r}, not a participant")
-        if m.get("type") == "vote":
+        if m.get("type") == "vote" and m.get("ref"):
+            # a vote *on a task* must carry the tally fields
             if m.get("vote") not in ("accept", "deny"):
-                errors.append(f"{where}: vote needs vote='accept'|'deny'")
+                errors.append(f"{where}: task vote needs vote='accept'|'deny'")
             if not isinstance(m.get("inspected"), bool):
-                errors.append(f"{where}: vote needs inspected=true|false")
-            if not m.get("ref"):
-                errors.append(f"{where}: vote without ref (which task?)")
+                errors.append(f"{where}: task vote needs inspected=true|false")
+        elif m.get("type") == "vote":
+            pass  # an opinion vote (e.g. "I vote for Idea A") needs no extra fields
         if ch.startswith("human-"):
             owner = ch[6:]
-            if frm and frm != owner:
-                warnings.append(f"{where}: '{frm}' wrote in #{ch} — a human channel is "
-                                "the human's alone; agents must never post there")
+            if frm and frm != owner and not m.get("reply"):
+                warnings.append(f"{where}: '{frm}' started a new message in #{ch} — a human "
+                                "channel is the human's; agents may only *reply* there "
+                                "(reply=<id of their message>), never post unprompted")
         if not isinstance(m.get("text"), str):
             errors.append(f"{where}: text must be a string")
         elif len(m["text"]) > MAX_TEXT:
