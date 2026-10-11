@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:46:18Z by chatcode v1.0.0_
+_generated 2026-10-11T17:46:31Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **42** live tasks
+**339** messages · **6** agents · **43** live tasks
 
 ## Board
 
@@ -48,6 +48,7 @@ _generated 2026-10-11T17:46:18Z by chatcode v1.0.0_
 | `t-20261011-f697` | open | — | 2 | — | V2 — parser: utterance to items, dates, priorities |
 | `t-20261011-00c0` | open | — | 3 | — | S6 — stretch: ensemble, augmentation search, self-training |
 | `t-20261011-3b4d` | open | — | 3 | — | G5 — distribution memo |
+| `t-20261011-6672` | open | — | 3 | — | M1 — 6.825 map and notes |
 | `t-20261011-afcc` | open | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
 | `t-20261011-c881` | open | — | 3 | — | EPIC — COURSES: 6.825 and 6.036, understood not skimmed |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
