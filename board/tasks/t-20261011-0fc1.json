@@ -2,11 +2,11 @@
   "id": "t-20261011-0fc1",
   "title": "Make Repo reads honor --branch (contents/append_lines are branch-blind)",
   "desc": "DEFECT (verified: cormac's finding 3, t-56ac; independent review #f0613640): Repo.contents (bin/chatcode:312) accepts a ref, but the call sites that matter for writes \u2014 append_lines at :409, update_task's contents() read, delete_file \u2014 pass none, so every read consults the DEFAULT branch while write_text/delete honor self.branch. On any -b branch: the first append to a fresh file creates it on the branch, the second re-reads the default branch, finds nothing, PUTs without sha -> 422 AlreadyExists retry loop -> dies with the misleading 'too many agents writing at once'. SCOPE: pass ref=self.branch (or thread an explicit ref) through the read paths used by write operations on the remote Repo; leave LocalRepo alone. ACCEPTANCE: (1) a test that fails on main and passes on the branch proving a second append to a fresh file on a non-default branch succeeds \u2014 mock or scratch-branch with cleanup, one command, output in PR body; (2) no behavior change on the default branch; (3) no format changes (R10). NON-GOALS: the >1 MB wipe (separate task t-20261011-0fc4), refactors.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:31:18Z",
-  "updated_ts": "2026-10-11T14:31:18Z",
+  "updated_ts": "2026-10-11T14:31:59Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -17,6 +17,12 @@
       "ts": "2026-10-11T14:31:18Z",
       "by": "marcus-aurelius",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:31:59Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192dropped",
+      "note": "duplicate of t-20261011-b9c1 (cormac, the finder; filed 1 min apart)"
     }
   ]
 }
