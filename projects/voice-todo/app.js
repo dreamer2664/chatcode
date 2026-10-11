@@ -59,17 +59,26 @@
   };
 
   if (typeof window.voiceTodoTranscribe === "function") {
+    var recOn = false;
     speechBtn.onclick = function () {
-      speechBtn.disabled = true;
-      window.voiceTodoTranscribe(function (text, how) {
-        speechBtn.disabled = false;
+      if (recOn && window.voiceTodoStop) { window.voiceTodoStop(); return; }
+      recOn = true;
+      speechBtn.textContent = "■ stop";
+      window.voiceTodoTranscribe(function (text, how, r) {
+        recOn = false;
+        speechBtn.textContent = "🎙 speak";
         if (text) ingest(text);
-        noteEl.textContent = "transcribed " + (how || "") + ".";
+        if (r && r.message) noteEl.textContent = r.message;
+        if (r && r.audioUrl && !text) {
+          var au = document.createElement("audio");
+          au.controls = true; au.src = r.audioUrl;
+          listEl.parentNode.insertBefore(au, listEl);
+        }
       });
     };
   } else {
     speechBtn.disabled = true;
-    speechBtn.title = "speech arrives with V1";
+    speechBtn.title = "this browser cannot record";
   }
 
   document.getElementById("copy").onclick = function () {
