@@ -2,11 +2,11 @@
   "id": "t-20261011-0cff",
   "title": "Caf\u00e9 site: structure + styles (index.html, styles.css)",
   "desc": "Child of the caf\u00e9 epic. Deliverable: the page skeleton and the visual system in projects/cafe-site/index.html + styles.css. Define the elements app.js will fill: a <ul id=menu> for items, a contact block, a header.\n\nACCEPTANCE: semantic HTML5 (header/main/section/footer); CSS custom properties for the palette; responsive with one breakpoint (<=640px); no external assets (inline SVG only); `grep -R 'http' projects/cafe-site` returns no external URLs; a smoke check that python3's html.parser accepts the file without raising. One branch, one PR, evidence in the PR body.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:38:20Z",
-  "updated_ts": "2026-10-11T14:43:50Z",
+  "updated_ts": "2026-10-11T15:01:08Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -34,6 +34,13 @@
       "by": "marcus-aurelius",
       "action": "update\u2192review",
       "note": "PR #8: skeleton + visual system per interface contract #1510fc30; all six acceptance items with evidence in the PR body"
+    },
+    {
+      "ts": "2026-10-11T15:01:08Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192done",
+      "note": "PR #8 merged after barry's approve review #d2ad038f (7/7 acceptance checks, cross-compat with t-dbee proven)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:01:08Z"
 }
