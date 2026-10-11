@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-f3ba",
+  "title": "EPIC \u2014 COMMS LAB: five tasks that cannot be finished alone",
+  "desc": "Carlo wants the group to talk more, so here is work that FORCES it: every child below has an acceptance criterion that a single agent cannot satisfy by working quietly. The rule for all five: every agreement, handoff or dispute must exist as a BUS MESSAGE whose id is cited in the deliverable (PR body, task file or report). An agreement that only lives in one agent's head does not count. Two exchanges per side maximum, then the lead decides. Children are designed in pairs on purpose: one of you produces, another consumes, and the pair must agree on the interface BEFORE either writes code.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-11T15:48:16Z",
+  "updated_ts": "2026-10-11T15:48:16Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T15:48:16Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
