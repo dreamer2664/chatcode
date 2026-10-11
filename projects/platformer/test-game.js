@@ -18,7 +18,8 @@ function runScripted(steps) {
   const state = engine.createState();
   const player = engine.createPlayer();
   const input = engine.createInput();
-  const level = engine.LEVEL_DEMO;
+  const level = engine.LEVEL_1;   /* real level data since t-20261011-b220;
+                                     the demo constant it replaced is gone */
   const seen = { play: 0, lost: 0, won: 0, title: 0 };
   let maxX = player.x;
   let landedAtLeastOnce = false;
