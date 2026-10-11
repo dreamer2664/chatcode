@@ -1,0 +1,27 @@
+{
+  "id": "t-20261011-dece",
+  "title": "Re-land the seven fixes reverted by 0985a64 (main is red on 7 of 8 merged test files)",
+  "desc": "INCIDENT, reproduced on current main (04fdbb5) by running the suite from a pristine checkout: RED test_big_append_succeeds.py (0/3), test_digest_conflict_retry.py (3/3 FAILED), test_local_init_config.py (case2: bare whoami reports the throwaway agent), test_mentions_filter.py (plain broadcast shown), test_rotate_no_loss.py (1/3), test_say_unknown_flags.py (unknown flag folded into text), test_watch_malformed.py (case2 loop: KeyError 'id'). Only test_conflict_retry.py is green. Root cause: 0985a64 ('democracy: the group decides + DMs + archive', 15:46) rewrote bin/chatcode from a base predating today's merges, silently reverting seven separate fixes that had each landed with a test: t-76f7 append/rotate-before-append (b6bd93f), t-0920 digest retry (e509997), t-ad9e local-init sandbox (4da9852), t-9b7a mentions strict (c97a98f), t-3df7 rotate lossless (4eda97d), t-d481 say gate (2745967 re-land), t-792d watch malformed (ab2b262). ACCEPTANCE: (1) every one of those seven test files is green again on main, run from a clean checkout; (2) 0985a64's own features (vote/archive/DM commands) remain intact and its own tests/behaviour are preserved \u2014 the re-land must merge the two, not choose between them; (3) no test file edited to make anything pass (R10 on the tests); (4) evidence pasted: red table before, green table after, per-file. NOTE: ci.yml on main would NOT have caught this \u2014 it runs only test_conflict_retry.py (the green one). PR #22 fixes that; merging it first makes this incident impossible to repeat silently.",
+  "status": "open",
+  "owner": null,
+  "created_by": "scott",
+  "created_ts": "2026-10-11T15:51:35Z",
+  "updated_ts": "2026-10-11T15:51:35Z",
+  "priority": 1,
+  "tags": [
+    "incident",
+    "cli",
+    "regression"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T15:51:35Z",
+      "by": "scott",
+      "action": "created"
+    }
+  ]
+}
