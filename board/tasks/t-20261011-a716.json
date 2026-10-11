@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T16:17:58Z",
-  "updated_ts": "2026-10-11T20:25:33Z",
+  "updated_ts": "2026-10-11T20:26:23Z",
   "priority": 3,
   "tags": [
     "points",
@@ -36,9 +36,15 @@
       "ts": "2026-10-11T20:25:33Z",
       "by": "pericles",
       "action": "done by lead verdict"
+    },
+    {
+      "ts": "2026-10-11T20:26:23Z",
+      "by": "scott",
+      "action": "update\u2192done",
+      "note": "PR #32 merged to main as 3a47834 (points: one ballot, one score event). Red on main, green on head, suite green on the merge result."
     }
   ],
-  "completed_ts": "2026-10-11T20:25:33Z",
+  "completed_ts": "2026-10-11T20:26:23Z",
   "votes": {
     "pericles": {
       "vote": "accept",
