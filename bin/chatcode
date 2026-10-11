@@ -95,7 +95,7 @@ PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
     "task", "claim", "done", "handoff", "review", "vote", "alert",
-    "dm", "archive",
+    "dm", "archive", "debate",
 )
 # A vote is the decision, a review is the evidence. Both are legitimate ways to
 # weigh in; votes are what the tally counts.
@@ -1919,6 +1919,8 @@ def cmd_vote(ctx: Ctx, args):
         die(f"no such task: {args.id}")
     if task.get("owner") == me:
         die("you own this work — the author does not vote on their own task (R12)")
+    if task.get("debate_for") and me in (task.get("debate_for"), task.get("debate_against")):
+        die("debaters do not vote in their own debate — everyone else decides (t-20261011-2531)")
     if task.get("status") not in ("review", "claimed", "blocked"):
         die(f"{args.id} is '{task['status']}' — votes are for work under review")
 
@@ -1937,8 +1939,18 @@ def cmd_vote(ctx: Ctx, args):
 
     msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
     votes = collect_votes(msgs, task["id"])
+    if task.get("debate_for"):
+        for who in (task.get("debate_for"), task.get("debate_against")):
+            votes.pop(who, None)
     t = tally_votes(votes, task.get("owner"))
     _print_tally(task, t)
+
+    if task.get("debate_for"):
+        # a debate is decided once, by `chatcode debate close`, after all four
+        # speeches exist — votes are recorded here but never auto-close it
+        print(color(f"  debate task — ballots recorded; the decision is rendered by "
+                    f"`chatcode debate close {task['id']}` (t-20261011-2531)", C_DIM))
+        return
 
     if t["verdict"] == "accept":
         def mutate(x):
@@ -2004,6 +2016,182 @@ def cmd_votes(ctx: Ctx, args):
         _print_tally(t, tally_votes(votes, t.get("owner")), verbose=not args.short)
     if not rows:
         print(color("(nothing under vote right now)", C_DIM))
+
+
+DEBATE_SLOTS = ("for-opening", "against-opening", "for-rebuttal", "against-rebuttal")
+
+
+def _debate_state(ctx: Ctx, task_id: str):
+    """Fetch a debate task and its four speech slots from the bus.
+
+    State lives where everything else lives: the task carries the sides,
+    the bus carries the speeches (first message per slot wins; the CLI
+    prevents a second one from being posted)."""
+    tasks = load_tasks(ctx)
+    task = next((t for t in tasks if t.get("id") == task_id), None)
+    if not task:
+        die(f"no such task: {task_id}")
+    if not task.get("debate_for"):
+        die(f"{task_id} is not a debate task (open one with `chatcode debate new`)")
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
+    slots = {}
+    for m in msgs:
+        slot = m.get("debate_slot")
+        if m.get("ref") == task_id and slot in DEBATE_SLOTS and slot not in slots:
+            slots[slot] = m
+    return task, slots
+
+
+def cmd_debate(ctx: Ctx, args):
+    """Structured disagreement (t-20261011-2531).
+
+    Lifecycle: `debate new` posts the proposal and assigns sides; each side
+    speaks exactly one opening, then exactly one rebuttal (order and counts
+    enforced here, not by honour system); everyone but the two debaters
+    votes with the ordinary `chatcode vote`; `debate close` tallies, records
+    the decision, and links the four speech messages. If the against side
+    never speaks, the debate FAILS and the proposal is dropped — a proposal
+    nobody argues against is not decided, it dies.
+    """
+    me = ctx.require_agent()
+    if not ctx.local:
+        ctx.require_token()
+    sub = args.action or "show"
+
+    if sub == "new":
+        proposal = " ".join(args.text).strip()
+        if not proposal:
+            die("debate new needs the proposal text")
+        f, a = args.for_agent, args.against_agent
+        if not f or not a:
+            die("a debate needs --for <agent> and --against <agent>")
+        if f == a:
+            die("one agent cannot argue both sides of a debate")
+        known = {x.get("name") for x in load_agents(ctx)} if ctx.api else None
+        if known:
+            for nm in (f, a):
+                if nm not in known:
+                    die(f"no such agent on the roster: {nm} (see `chatcode status`)")
+        t = create_task(ctx, f"DEBATE: {proposal[:90]}", desc=proposal, priority=3,
+                        owner=None, tags=["debate"])
+        def stamp(x):
+            x["debate_for"] = f
+            x["debate_against"] = a
+            x["status"] = "review"   # votable status; owner stays None
+            return x, "debate opened"
+        t = update_task(ctx, t["id"], stamp)
+        msg = make_message(me, f"DEBATE opened on {t['id']}: {proposal} — "
+                               f"for: {f}, against: {a}. Each side: one opening, "
+                               "then one rebuttal. Then everyone else votes with "
+                               "`chatcode vote`. No opposition = proposal dropped.",
+                           mtype="debate", channel=ctx.channel, ref=t["id"],
+                           extra={"debate_slot": "proposal", "debate_for": f,
+                                  "debate_against": a})
+        n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus: debate opened {t['id']}")
+        print(f"{color('✓', C_G)} debate {t['id']} opened (proposal #{msg['id']}) — "
+              f"{f} speaks for, {a} speaks against")
+        print(color("  next: each side runs `chatcode debate speak "
+                    f"{t['id']} --side for|against --round opening --text ...`", C_DIM))
+        return
+
+    task, slots = _debate_state(ctx, args.id)
+
+    if sub == "show":
+        print(color(f"{task['id']} — DEBATE: {task['title'][:70]}", C_B))
+        print(f"  for: {task['debate_for']}   against: {task['debate_against']}   "
+              f"status: {task['status']}")
+        for s in DEBATE_SLOTS:
+            m = slots.get(s)
+            print(f"  {s:16s} " + (f"#{m['id']} by {m['from']} at {m['ts']}"
+                                    if m else color("— not spoken yet", C_DIM)))
+        return
+
+    if sub == "speak":
+        side, rnd = args.side, args.round
+        assigned = task["debate_for"] if side == "for" else task["debate_against"]
+        if me != assigned:
+            die(f"the {side} side of this debate belongs to {assigned}, not {me}")
+        slot = f"{side}-{rnd}"
+        if slot in slots:
+            die(f"{slot} is already on the record (#{slots[slot]['id']}) — "
+                "exactly one per side, enforced by the CLI")
+        if rnd == "rebuttal":
+            if f"{side}-opening" not in slots:
+                die("post your opening statement first")
+            opp = "against" if side == "for" else "for"
+            if f"{opp}-opening" not in slots:
+                die(f"a rebuttal answers the other side — wait for the {opp} opening")
+        text = " ".join(args.text).strip()
+        if not text:
+            die("debate speak needs --text (put long arguments in a file and cite it)")
+        msg = make_message(me, f"[debate {args.id} {side}/{rnd}] {text}",
+                           mtype="debate", channel=ctx.channel, ref=args.id,
+                           extra={"debate_slot": slot})
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: debate {args.id} {slot}")
+        print(f"{color('✓', C_G)} #{msg['id']} — {slot} on the record")
+        left = [s for s in DEBATE_SLOTS if s not in slots and s != slot]
+        if left:
+            print(color(f"  remaining speeches: {', '.join(left)}; then everyone "
+                        f"but the debaters votes: `chatcode vote {args.id} ...`", C_DIM))
+        else:
+            print(color(f"  all four speeches done — voters: `chatcode vote {args.id}`; "
+                        f"then `chatcode debate close {args.id}` records the decision", C_DIM))
+        return
+
+    if sub == "close":
+        # failure mode first: a debate nobody argued against is dropped, not decided
+        if "against-opening" not in slots:
+            def drop(x):
+                x["status"] = "dropped"
+                x["debate_result"] = "failed-no-opposition"
+                return x, "debate failed: no opposition"
+            update_task(ctx, args.id, drop)
+            msg = make_message(me, f"DEBATE FAILED {args.id}: the against side never "
+                                   "spoke — the proposal is DROPPED, not decided "
+                                   "(that is the rule, not a bug).",
+                               mtype="debate", channel=ctx.channel, ref=args.id,
+                               extra={"debate_slot": "close"})
+            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus: debate {args.id} dropped (no opposition)")
+            print(color(f"✗ {args.id} dropped — no opposition ever spoke", C_Y))
+            return
+        missing = [s for s in DEBATE_SLOTS if s not in slots]
+        if missing:
+            die(f"the debate is not complete — missing: {', '.join(missing)}")
+        msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
+        votes = collect_votes(msgs, args.id)
+        for who in (task["debate_for"], task["debate_against"]):
+            votes.pop(who, None)   # everyone ELSE votes
+        t = tally_votes(votes, owner=None)
+        _print_tally(task, t, verbose=True)
+        if t["verdict"] not in ("accept", "deny"):
+            die(f"no verdict yet ({t['verdict']}) — every registered agent except the two "
+                f"debaters votes with `chatcode vote {args.id} ...` (quorum {VOTE_QUORUM})")
+        result = "ACCEPTED" if t["verdict"] == "accept" else "REJECTED"
+        links = [slots[s]["id"] for s in DEBATE_SLOTS]
+        def record(x):
+            x["status"] = "done"
+            x["completed_ts"] = now_iso()
+            x["debate_result"] = result.lower()
+            x["debate_messages"] = links
+            x["votes"] = votes
+            x["decided_by"] = f"debate vote {t['accept']}-{t['deny']}"
+            return x, f"debate decided: {result.lower()}"
+        update_task(ctx, args.id, record)
+        msg = make_message(me, f"DEBATE DECIDED {args.id}: proposal {result} "
+                               f"({t['accept']} accept / {t['deny']} deny). Record: "
+                               + " ".join(f"#{i}" for i in links),
+                           mtype="debate", channel=ctx.channel, ref=args.id,
+                           extra={"debate_slot": "decision", "debate_links": links})
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                     f"bus: debate {args.id} decided")
+        print(f"{color('✓', C_G)} {result} — decision #{msg['id']} links "
+              + ", ".join(f"#{i}" for i in links))
+        return
+
+    die(f"unknown debate action {sub!r} (new | speak | show | close)")
 
 
 def cmd_archive(ctx: Ctx, args):
@@ -2664,6 +2852,27 @@ def build_parser() -> argparse.ArgumentParser:
                        help="every task under vote, with tallies")
     s.add_argument("--short", action="store_true", help="tallies only")
     s.set_defaults(func=cmd_votes, channel=None)
+
+    s = sub.add_parser("debate", add_help=True, parents=[common],
+                       help="structured disagreement: proposal, one opening + one "
+                            "rebuttal per side (enforced), then a vote, then a recorded "
+                            "decision linking the four speeches")
+    dsub = s.add_subparsers(dest="action")
+    d = dsub.add_parser("new", help="open a debate on a proposal")
+    d.add_argument("text", nargs="+", help="the proposal under debate")
+    d.add_argument("--for", dest="for_agent", required=True, help="agent arguing for")
+    d.add_argument("--against", dest="against_agent", required=True, help="agent arguing against")
+    d = dsub.add_parser("speak", help="deliver one assigned speech (opening or rebuttal)")
+    d.add_argument("id", help="debate task id")
+    d.add_argument("--side", choices=("for", "against"), required=True)
+    d.add_argument("--round", choices=("opening", "rebuttal"), required=True)
+    d.add_argument("--text", nargs="+", required=True)
+    d = dsub.add_parser("show", help="show the debate's state and speeches")
+    d.add_argument("id")
+    d = dsub.add_parser("close", help="tally the votes and record the decision "
+                                       "(drops the proposal if no opposition spoke)")
+    d.add_argument("id")
+    s.set_defaults(func=cmd_debate, channel=None)
 
     s = sub.add_parser("archive", add_help=True, parents=[common],
                        help="denied work: what was rejected, by whom, and why")
