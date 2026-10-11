@@ -1416,24 +1416,65 @@ def cmd_validate(ctx: Ctx, args):
     sys.exit(1 if errors else 0)
 
 
+def git_auth_env(token: str) -> dict:
+    """Environment that authenticates git *without persisting the token anywhere*.
+
+    GIT_CONFIG_COUNT/KEY/VALUE feed git a temporary `http.extraheader` (like -c
+    on the command line) but through the environment, so the token never lands in
+    .git/config on disk and never shows up in the process argument list.
+    """
+    b64 = base64.b64encode(f"x-access-token:{token}".encode()).decode("ascii")
+    env = dict(os.environ)
+    env.update({
+        "GIT_CONFIG_COUNT": "1",
+        "GIT_CONFIG_KEY_0": "http.extraheader",
+        "GIT_CONFIG_VALUE_0": f"AUTHORIZATION: basic {b64}",
+        "GIT_TERMINAL_PROMPT": "0",
+    })
+    return env
+
+
+def cmd_git(ctx: Ctx, args):
+    """Run any git command in this repo with the token supplied out-of-band.
+
+    `chatcode git push -u origin agent/you/task` — the credentials are injected
+    as an environment-local config, never stored in .git/config, never in argv.
+    """
+    ctx.require_token()
+    if not shutil.which("git"):
+        die("git is not installed here")
+    if not args.args:
+        die("usage: chatcode git <git-args...>  e.g. chatcode git push -u origin main")
+    p = subprocess.run(["git"] + list(args.args), env=git_auth_env(ctx.token))
+    sys.exit(p.returncode)
+
+
 def cmd_clone(ctx: Ctx, args):
     ctx.require_token()
-    url = f"https://x-access-token:{ctx.token}@github.com/{ctx.repo}.git"
+    url = f"https://github.com/{ctx.repo}.git"
     dest = args.into or os.path.basename(ctx.repo)
-    redacted = f"https://x-access-token:***@github.com/{ctx.repo}.git"
     if args.print:
-        print(f"git clone {redacted} {dest}")
+        print(f"git clone --depth 1 {url} {dest}")
+        print("# auth is injected per-command: python3 bin/chatcode git push ...")
         return
     if not shutil.which("git"):
         die("git not installed here — use --print and clone manually")
     if os.path.exists(dest):
         die(f"{dest} already exists")
-    subprocess.run(["git", "clone", "--depth", "1", url, dest], check=True)
+    subprocess.run(["git", "clone", "--depth", "1", url, dest],
+                   check=True, env=git_auth_env(ctx.token))
     subprocess.run(["git", "-C", dest, "config", "user.email",
                     f"{ctx.agent or 'agent'}@chatcode.local"], check=False)
     subprocess.run(["git", "-C", dest, "config", "user.name", ctx.agent or "agent"],
                    check=False)
-    print(f"{color('✓', C_G)} cloned into {dest}/ (credentials used, not stored)")
+    leftover = ""
+    cfg = os.path.join(dest, ".git", "config")
+    if os.path.exists(cfg) and "x-access-token" in open(cfg, encoding="utf-8",
+                                                       errors="replace").read():
+        subprocess.run(["git", "-C", dest, "remote", "set-url", "origin", url], check=False)
+        leftover = " (stripped a token from .git/config)"
+    print(f"{color('✓', C_G)} cloned into {dest}/ — token not stored anywhere{leftover}")
+    print(color("  push with: python3 bin/chatcode git push -u origin <branch>", C_DIM))
 
 
 def cmd_env(ctx: Ctx, args):
@@ -1563,6 +1604,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("rotate", add_help=True, parents=[common], help="archive old messages")
     s.set_defaults(func=cmd_rotate)
+
+    s = sub.add_parser("git", add_help=True, parents=[common],
+                       help="run a git command with credentials injected (never stored)")
+    s.add_argument("args", nargs=argparse.REMAINDER)
+    s.set_defaults(func=cmd_git)
 
     s = sub.add_parser("clone", add_help=True, parents=[common], help="clone the repo with credentials")
     s.add_argument("--into", default=None)

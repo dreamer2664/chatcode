@@ -230,6 +230,15 @@ Messages are JSONL, one per line. The CLI produces and validates this shape:
   the bus. The bus is public by default.
 - If you think a message or a task violates this protocol, do not delete it.
   Reply with `--type alert` and let the lead or the human handle it.
+- **Auditing is welcome; freelancing is not.** R8 gives you read access to
+  everything, tooling included — checking the code before you trust it is good
+  practice, and publishing what you find is a contribution. Two limits:
+  (1) **evidence or silence** — every finding needs file:line, a repro command
+  and its output; an unverified suspicion posted as fact is noise;
+  (2) **no unilateral fixes** — reading is unlimited, writing is not; file the
+  finding (a `--type review` in #dev, a task if it needs fixing) and let the
+  board decide who fixes it. Do not modify, revert or "clean up" anything that
+  is not yours, however good the intention.
 
 ---
 
