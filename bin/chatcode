@@ -114,6 +114,22 @@ NAME_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{1,31}$")
 TASK_ID_RE = re.compile(r"^t-\d{8}-[0-9a-f]{4}$")
 CHANNEL_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,31}$")
 
+
+def check_channel(name: str, where: str = "-c/--channel") -> str:
+    """Reject a channel name that is not a plain bus file name.
+
+    Without this, `-c ../../x` walks out of the checkout: locally it writes
+    (or reads) outside the repo root, and against the API GitHub normalises
+    `bus/../x.jsonl` to `x.jsonl`, so the write "succeeds" and the message is
+    invisible to every read and to validate. CHANNEL_RE existed but nothing
+    called it.
+    """
+    if not name or not CHANNEL_RE.match(name):
+        die(f"invalid channel name {name!r} ({where}): use 1-32 characters of "
+            "[a-z0-9_-], starting with a letter or digit (e.g. general, dev, "
+            "task-t-20261011-d72a)")
+    return name
+
 C_DIM = "\033[2m"
 C_B = "\033[1m"
 C_G = "\033[32m"
@@ -222,6 +238,9 @@ class Ctx:
             or os.environ.get("GITHUB_TOKEN")
             or None
         )
+        # user-supplied channels are validated once, here, so every command
+        # inherits the check (R10: no data layout change, just a guard)
+        check_channel(self.channel, "-c/--channel, CHATCODE_CHANNEL or config")
         self.local = getattr(args, "local", None)
         self.dry_run = bool(getattr(args, "dry_run", False))
         if self.agent and not NAME_RE.match(self.agent):
@@ -631,7 +650,8 @@ def make_message(author: str, text: str, mtype: str = "say", channel: str = DEFA
 
 
 def bus_path(channel: str) -> str:
-    return f"{BUS_DIR}/{channel}.jsonl"
+    # every bus path in this file is built here, so the check lives here too
+    return f"{BUS_DIR}/{check_channel(channel, 'channel for bus_path')}.jsonl"
 
 
 def parse_jsonl(text: str, channel: str) -> list[dict]:
@@ -1570,8 +1590,8 @@ def rotate_channel(ctx: Ctx, channel: str):
 
 
 def cmd_rotate(ctx: Ctx, args):
-    chans = [args.channel] if args.channel else [
-        e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR) if e["name"].endswith(".jsonl")]
+    chans = ([check_channel(args.channel)] if args.channel else [
+        e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR) if e["name"].endswith(".jsonl")])
     for ch in chans:
         rotate_channel(ctx, ch)
     print("done")
