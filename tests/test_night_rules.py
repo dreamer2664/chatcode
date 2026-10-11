@@ -152,6 +152,35 @@ def main() -> int:
           line.count("collision on t-20261011-bbbb") == 1,
           str(line.count("collision on t-20261011-bbbb")))
 
+    # a claim the claimant took back is NOT a collision (the t-65ff lesson)…
+    write(os.path.join(root, "board", "tasks", "t-20261011-dddd.json"),
+          json.dumps({"id": "t-20261011-dddd", "title": "owned by alice", "status": "claimed",
+                      "owner": "alice", "priority": 2, "created_ts": iso(70)}))
+    # …while a real, unresolved double claim still is (t-eeee)
+    write(os.path.join(root, "board", "tasks", "t-20261011-eeee.json"),
+          json.dumps({"id": "t-20261011-eeee", "title": "also owned by alice", "status": "claimed",
+                      "owner": "alice", "priority": 2, "created_ts": iso(70)}))
+    run(root, "session", "end")
+    with open(os.path.join(root, "bus", "general.jsonl"), "a") as fh:
+        fh.write(msg("m0000005", "alice", "claim", "Alice: claiming dddd", 30, ref="t-20261011-dddd") + "\n")
+        fh.write(msg("m0000006", "bob", "claim", "Bob: claiming dddd too", 29, ref="t-20261011-dddd") + "\n")
+        fh.write(msg("m0000007", "bob", "say",
+                     "Bob: my dddd claim was refused — alice owns it, I stand down.", 28,
+                     ref="t-20261011-dddd") + "\n")
+        fh.write(msg("m0000008", "alice", "claim", "Alice: claiming eeee", 27, ref="t-20261011-eeee") + "\n")
+        fh.write(msg("m0000009", "bob", "claim", "Bob: claiming eeee too", 26, ref="t-20261011-eeee") + "\n")
+        fh.write(msg("m0000010", "bob", "say", "Bob: ploughing on with eeee", 25, ref="t-20261011-eeee") + "\n")
+    run(root, "session", "start", "--reason", "resolution check")
+    p = run(root, "nightcheck")
+    sess = json.load(open(os.path.join(root, "board", "session.json")))
+    check("a refused-then-released claim is not a collision",
+          not any("dddd" in str(c) for c in sess.get("collisions_warned", [])), str(sess)[:220])
+    check("an unresolved double claim still is",
+          any("eeee" in str(c) for c in sess.get("collisions_warned", [])), str(sess)[:220])
+    check("the watch prints one honest summary line",
+          "watch:" in p.stdout and "awaiting a verdict" in p.stdout, p.stdout[-200:])
+    run(root, "session", "end")
+
     p = run(root, "session", "end")
     check("the session closes", json.load(open(os.path.join(root, "board", "session.json")))["night"] is False)
     before = open(os.path.join(root, "bus", "general.jsonl")).read()

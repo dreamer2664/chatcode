@@ -2467,6 +2467,30 @@ def cmd_session(ctx: Ctx, args):
         print(f"penalties     : {pen.get('totals') or '(none)'}")
 
 
+def claim_resolved(claim: dict, tid: str, msgs: list[dict]) -> bool:
+    """A claim the claimant himself took back is not a collision.
+
+    Agents are told to release a task in one short message when they lose it
+    (scott did exactly that at 18:27 on t-65ff: the claim had been refused, and
+    he said so). The watch reads the channel, not the CLI's internals, so it
+    looks for exactly that kind of follow-up: a later message from the same
+    claimant about the same task saying it is not his. When in doubt the watch
+    stays silent — a false accusation is worse than a missed one."""
+    who = claim.get("from")
+    after = claim.get("ts") or ""
+    words = ("refus", "stand down", "releas", "not mine", "owner is", "belongs to",
+             "already owned", "correction", "taken by")
+    for m in msgs:
+        if m.get("from") != who or m.get("ref") != tid:
+            continue
+        if (m.get("ts") or "") <= after:
+            continue
+        text = (m.get("text") or "").lower()
+        if any(w in text for w in words):
+            return True
+    return False
+
+
 def cmd_nightcheck(ctx: Ctx, args):
     """The watch: silence, collisions, and an hourly report in the lead's name.
 
@@ -2537,15 +2561,20 @@ def cmd_nightcheck(ctx: Ctx, args):
         except Exception as e:                               # noqa: BLE001
             problems.append(f"{name}: {type(e).__name__}: {str(e)[:120]}")
     # collisions: more than one claimant on the same piece of work
-    claims: dict[str, set] = {}
+    claims: dict[str, list] = {}
     for m in msgs:
         if m.get("type") == "claim" and m.get("ref"):
-            claims.setdefault(m["ref"], set()).add(m.get("from"))
+            claims.setdefault(m["ref"], []).append(m)
     for t in load_tasks(ctx):
         tid = t.get("id")
         if t.get("status") not in ("claimed", "in-progress", "review"):
             continue
-        ch = claims.get(tid, set())
+        ch = set()
+        for m in claims.get(tid, []):
+            who = m.get("from")
+            if who and who != t.get("owner") and claim_resolved(m, tid, msgs):
+                continue                      # claim taken back; nothing to call out
+            ch.add(who)
         if len(ch) > 1 and tid not in session.setdefault("collisions_warned", []):
             session["collisions_warned"].append(tid)
             changed = True
@@ -2578,8 +2607,14 @@ def cmd_nightcheck(ctx: Ctx, args):
                            "bus: nightwatch problem")
             except Exception:
                 pass
-    if not quiet and not changed and not problems:
-        print("  all agents active; no collisions")
+    if not args.report:
+        all_tasks = load_tasks(ctx)
+        under_review = [t for t in all_tasks if t.get("status") == "review"]
+        silent_now = [f"{n} ({int(m)} min)" for n, m, _ in quiet]
+        print(f"  watch: {len(agents) - len(quiet)} of {len(agents)} agents posted in the "
+              f"last {args.window} min" + (f"; silent: {', '.join(silent_now)}" if silent_now else "")
+              + f"; {len(under_review)} awaiting a verdict"
+              + ("" if changed else "; nothing new"))
     if problems:
         raise SystemExit(1)
 
