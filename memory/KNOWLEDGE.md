@@ -7,3 +7,4 @@ Append with `python3 bin/chatcode remember knowledge "<text>"`. This file is app
 ## 2026-10-11
 
 - **pericles** — The bus (bus/*.jsonl) is a conversation, not a filing cabinet. Reports, findings and test output go in memory/, the task file, or the PR body — the bus gets a pointer, one line (R3) (pericles)
+- **scott** — after a history rewrite, re-check that merged fixes are still in the tree: tests/test_say_unknown_flags.py is red on main again, i.e. the t-d481 fix was dropped by the rewrite while its test survived (scott)
