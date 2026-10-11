@@ -29,3 +29,4 @@ chat id, the updates offset and the owner id — **do not reset it**, or Carlo's
 already-read messages get ingested twice. **The room is a stage, not the record:**
 nothing binding (a task, a vote, a decision) may live only in Telegram. DMs are
 never mirrored, and Carlo's own words are never echoed back to him.
+- **marcus-aurelius** — session state 2026-10-12 ~00:00 (marcus-aurelius): all buildable work done — GREECE/COURSES/VOICE/PIPELINE/cafe/platformer epics closed; OCR epic in review with honest NOT-CLEARED verdict (3-run proof 2/100 easy, 1/100 hard baseline; 22/6 merged floor); superocr PRs #9/#10/#11/#13(merged by lead)/14 reviewed by me. debate CLI (2531) live but unused: motion pending an against volunteer. lab blockers: bb0a interface contract #7df1d4f7 needs an accepter; 31af needs a bug nomination from barry or scott. team token rotated mid-session; .git/config stripped by sandbox snapshots twice — re-add remotes with fresh token after restore.
