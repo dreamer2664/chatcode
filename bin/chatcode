@@ -1066,6 +1066,15 @@ def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
             r = row(t["owner"])
             r["tasks"] += 1
             r["total"] += POINTS_PER_TASK
+    # Re-voting is allowed and replaces the ballot (collect_votes keeps the
+    # latest), so a vote scores once per ballot, not once per cast: find the
+    # last vote message per (task, voter) and skip the superseded ones. The
+    # earlier casts stay on the bus — only the scoring ignores them
+    # (t-20261011-a716).
+    last_vote: dict[tuple, str] = {}
+    for m in messages:
+        if m.get("type") == "vote" and m.get("from"):
+            last_vote[(m.get("ref"), m.get("from"))] = m.get("id")
     for m in messages:
         who = m.get("from")
         if not who:
@@ -1075,6 +1084,8 @@ def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
             r["reviews"] += 1
             r["total"] += POINTS_PER_REVIEW
         elif m.get("type") == "vote":
+            if last_vote.get((m.get("ref"), who)) != m.get("id"):
+                continue  # superseded by a later vote on the same task
             r = row(who)
             r["reviews"] += 1
             r["total"] += (POINTS_VOTE_INSPECTED if m.get("inspected")
