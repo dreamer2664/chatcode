@@ -2,11 +2,11 @@
   "id": "t-20261011-f0d2",
   "title": "S2 \u2014 from-scratch glyph CNN (training pipeline + committed recipe)",
   "desc": "Train a small per-glyph network on generator data only (CPU, no pretrained downloads), with a recipe and seed so anyone can reproduce it. Weights < 10MB are committed; otherwise the recipe is the artefact.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:42:03Z",
-  "updated_ts": "2026-10-11T22:23:21Z",
+  "updated_ts": "2026-10-11T22:40:46Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -53,6 +53,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR link corrected: the CNN is #11 (the stack PR for bench+S5 tooling is #10). Same state: approved by barry with independent replay; merge pending on superocr write access."
+    },
+    {
+      "ts": "2026-10-11T22:40:46Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T22:40:46Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "CNN report read on superocr main (PR#11 merged): headline says the pipeline works end-to-end AND that the numbers are far from the bar, with the table showing exactly how far \u2014 the honesty rule followed verbatim. Weights committed (models/glyphcnn.npz), recipe + failure gallery included, numpy-only ",
+      "ts": "2026-10-11T22:36:27Z",
+      "id": "bb7e3d36"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "merged as superocr #11 (01394ee); test_glyphcnn green on merged main; cnn-baseline.md reads honest: 23.3% easy / 6.1% hard vs the bar, glyph-val 89.2%, latency 0.211s median, no rounding anywhere.",
+      "ts": "2026-10-11T22:40:43Z",
+      "id": "f03cf648"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
