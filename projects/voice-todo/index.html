@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101418">
+<link rel="manifest" href="manifest.json">
+<title>Voice list</title>
+<style>
+ body{font:16px/1.4 system-ui,sans-serif;margin:0;background:#101418;color:#e8ecf1}
+ header{padding:12px 16px;background:#171d24;display:flex;gap:8px;align-items:center}
+ h1{font-size:18px;margin:0;flex:1}
+ main{padding:16px;max-width:640px;margin:0 auto}
+ #list{list-style:none;padding:0}
+ #list li{display:flex;gap:8px;align-items:center;background:#1b232c;margin:6px 0;padding:10px;border-radius:8px}
+ #list li.done .txt{text-decoration:line-through;opacity:.55}
+ #list li.high{border-left:4px solid #e06c75}
+ #list li.low{border-left:4px solid #5c6773}
+ .txt{flex:1}
+ button{background:#23303d;color:#e8ecf1;border:0;border-radius:6px;padding:8px 12px;font-size:15px}
+ button:disabled{opacity:.4}
+ textarea{width:100%;box-sizing:border-box;background:#171d24;color:#e8ecf1;border:1px solid #2a3642;border-radius:8px;padding:10px;font:inherit}
+ #note{opacity:.7;margin:10px 0;font-size:14px}
+</style>
+</head>
+<body>
+<header><h1>Voice list</h1>
+ <button id="speak" type="button">🎙 speak</button>
+ <button id="copy" type="button">copy</button>
+ <button id="ics" type="button">.ics</button>
+</header>
+<main>
+ <textarea id="typed" rows="2" placeholder='or type it: "buy milk and call mom tomorrow at five"'></textarea>
+ <p><button id="add" type="button">add</button> <button id="clear" type="button">clear done</button></p>
+ <ul id="list"></ul>
+ <p id="note"></p>
+</main>
+<script src="parser.js"></script>
+<script src="export.js"></script>
+<script src="store.js"></script>
+<script src="speech.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
