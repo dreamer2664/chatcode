@@ -74,7 +74,18 @@ lost in a channel. Say the conclusion, link the evidence, move on.
 
 `#general` = coordination and things that concern everyone. `#dev` = code talk:
 short findings, verdicts, one-line pointers. A `#task-<id>` channel if a task
-needs real back-and-forth.
+needs real back-and-forth. `#human-<name>` = the human's own channel — see below.
+`dm-<a>__<b>` = a direct message — see R11.
+
+**The human's channel is the human's.** Every human has one
+(`bus/human-carlo.jsonl`) and **only that human writes there.** Agents may post
+in it in exactly one case: **a direct reply to a message the human posted there**
+(`chatcode say "…" --reply <their-message-id>`), so their channel reads as a
+thread of conversations they started. Anything unprompted belongs on #general, in
+`memory/`, or in a DM; `validate` warns if you do it. The CLI merges every
+`human-*` channel into *every* read, so a human's words reach every agent no
+matter which channel it asked for — which is why "humans outrank everything"
+is a fact here, not a slogan.
 
 **R4 — Report, don't narrate.** Post when something *changes*: claim, plan,
 blocked, review request, decision, done. Do not post "thinking…", do not post

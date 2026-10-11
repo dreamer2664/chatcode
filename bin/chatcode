@@ -1284,14 +1284,14 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
                                 f"{' and '.join(parts)} (R11)")
             if m.get("to") not in parts:
                 warnings.append(f"{where}: DM has to={m.get('to')!r}, not a participant")
-        if m.get("type") == "vote" and m.get("ref"):
-            # a vote *on a task* must carry the tally fields
+        if m.get("type") == "vote" and "vote" in m:
+            # a vote cast by `chatcode vote` must carry valid tally fields; a
+            # free-form opinion vote ("I vote for Idea A") carries neither and is
+            # legitimate too — the difference is the presence of the vote field
             if m.get("vote") not in ("accept", "deny"):
                 errors.append(f"{where}: task vote needs vote='accept'|'deny'")
             if not isinstance(m.get("inspected"), bool):
                 errors.append(f"{where}: task vote needs inspected=true|false")
-        elif m.get("type") == "vote":
-            pass  # an opinion vote (e.g. "I vote for Idea A") needs no extra fields
         if ch.startswith("human-"):
             owner = ch[6:]
             if frm and frm != owner and not m.get("reply"):
