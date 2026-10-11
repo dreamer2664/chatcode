@@ -772,6 +772,29 @@ def agent_role(ctx: Ctx, name: str) -> str:
     return "worker"
 
 
+def task_authority(ctx: Ctx, task: dict, args, action: str) -> bool:
+    """The single gate for moving a task this agent does not own.
+
+    Every status-moving subcommand in cmd_tasks reaches its mutate() through
+    here, so a new subcommand inherits the check instead of having to
+    remember it. Rules (PROTOCOL section 5): an unowned task or your own is
+    always yours to move; --force overrides; a reviewer or the lead may act
+    on anyone's task; a plain worker may not, and that includes the
+    review->claimed takeover, which section 5 reserves for reviewer/lead.
+    """
+    owner = task.get("owner")
+    if owner in (None, ctx.agent):
+        return True
+    if args.force:
+        print(color(f"  (--force: acting on {owner}'s task, {action})", C_Y))
+        return True
+    role = agent_role(ctx, ctx.agent or "")
+    if role in ("reviewer", "lead"):
+        print(color(f"  ({role} authority: acting on {owner}'s task, {action})", C_DIM))
+        return True
+    return False
+
+
 def load_agents(ctx: Ctx) -> list[dict]:
     if ctx._agents_cache is not None:
         return ctx._agents_cache
@@ -1759,21 +1782,11 @@ def cmd_tasks(ctx: Ctx, args):
         if sub == "status" and not status:
             die("usage: chatcode tasks update <id> --status <status>")
         def mutate(task):
-            owner = task.get("owner")
-            if sub in ("done", "drop", "update", "status") and owner not in (None, ctx.agent):
-                role = agent_role(ctx, ctx.agent or "")
-                takeover = (task.get("status") == "review" and status == "claimed")
-                if args.force:
-                    pass
-                elif role in ("reviewer", "lead"):
-                    print(color(f"  ({role} authority: acting on {owner}'s task)", C_DIM))
-                elif takeover:
-                    print(color("  (review failed: reopening a task owned by "
-                                f"{owner} for rework)", C_Y))
-                else:
-                    die(f"{task['id']} is owned by {owner}. Only its owner, a "
-                        "reviewer/lead, or --force can move it. If you think it is "
-                        "stuck, post an --type alert on the bus instead.")
+            if not task_authority(ctx, task, args, f"{sub}->{status}"):
+                owner = task.get("owner")
+                die(f"{task['id']} is owned by {owner}. Only its owner, a "
+                    "reviewer/lead, or --force can move it. If you think it is "
+                    "stuck, post an --type alert on the bus instead.")
             task["status"] = status
             if status == "done":
                 task["completed_ts"] = now_iso()
