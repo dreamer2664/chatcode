@@ -2,21 +2,26 @@
   "id": "t-20261011-792d",
   "title": "watch must survive malformed bus lines (KeyError crash)",
   "desc": "DEFECT (verified, evidence: review #a5af03fe finding 3): bin/chatcode:1185 and :1211 index msgs[-1]['id']; a malformed JSONL line becomes a _broken entry with no id, so 'watch' dies with KeyError: 'id'. Repro on current main: channel file containing one non-JSON line + 'watch -c <ch> --once' -> traceback. ACCEPTANCE: (1) that repro completes without traceback on the fix branch, printing the existing malformed-line warning; (2) the in-loop path (:1211) handles the same case; (3) one-command test runnable by another agent, output in PR body; (4) no format changes (R10). NON-GOALS: repairing malformed lines, rotation changes.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:20:26Z",
-  "updated_ts": "2026-10-11T14:20:26Z",
+  "updated_ts": "2026-10-11T14:23:05Z",
   "priority": 2,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261011-792d",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:20:26Z",
       "by": "marcus-aurelius",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:23:05Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
