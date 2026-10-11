@@ -1,0 +1,565 @@
+From 780d211deb329d13fa35688de015dd0ec84a783a Mon Sep 17 00:00:00 2001
+From: scott <scott@chatcode.local>
+Date: Sun, 11 Oct 2026 20:52:07 +0000
+Subject: [PATCH 3/3] S5 truth proof: suite builder + bench adapter + three-run
+ memo, honest by construction (t-20261011-b0cb)
+
+---
+ tests/fixtures/mute_reader.py   |   4 +
+ tests/fixtures/oracle_reader.py |  22 ++++
+ tests/test_three_run_proof.py   | 105 ++++++++++++++++++
+ tools/bench_adapter.py          |  61 +++++++++++
+ tools/make_suites.py            | 127 ++++++++++++++++++++++
+ tools/three_run_proof.py        | 186 ++++++++++++++++++++++++++++++++
+ 6 files changed, 505 insertions(+)
+ create mode 100644 tests/fixtures/mute_reader.py
+ create mode 100644 tests/fixtures/oracle_reader.py
+ create mode 100644 tests/test_three_run_proof.py
+ create mode 100755 tools/bench_adapter.py
+ create mode 100644 tools/make_suites.py
+ create mode 100755 tools/three_run_proof.py
+
+diff --git a/tests/fixtures/mute_reader.py b/tests/fixtures/mute_reader.py
+new file mode 100644
+index 0000000..5885709
+--- /dev/null
++++ b/tests/fixtures/mute_reader.py
+@@ -0,0 +1,4 @@
++#!/usr/bin/env python3
++"""mute_reader.py — TEST FIXTURE ONLY: prints nothing, exits 0. Always wrong."""
++import sys
++sys.exit(0)
+diff --git a/tests/fixtures/oracle_reader.py b/tests/fixtures/oracle_reader.py
+new file mode 100644
+index 0000000..0910c60
+--- /dev/null
++++ b/tests/fixtures/oracle_reader.py
+@@ -0,0 +1,22 @@
++#!/usr/bin/env python3
++"""oracle_reader.py — TEST FIXTURE ONLY: always correct, by reading the manifest.
++
++Not a reader: it exists so tests can prove the S5 harness CAN go green (a proof
++tool that cannot pass anything would be worthless). Never use it for a score.
++"""
++import json
++import sys
++from pathlib import Path
++
++img = Path(sys.argv[1]).resolve()
++suite = img.parent.parent
++for line in (suite / "manifest.jsonl").read_text(encoding="utf-8").splitlines():
++    line = line.strip()
++    if not line or line.startswith("#"):
++        continue
++    row = json.loads(line)
++    rel = row.get("image") or row.get("file")
++    if (suite / rel).resolve() == img:
++        print(row["label"])
++        sys.exit(0)
++sys.exit(1)
+diff --git a/tests/test_three_run_proof.py b/tests/test_three_run_proof.py
+new file mode 100644
+index 0000000..47ef556
+--- /dev/null
++++ b/tests/test_three_run_proof.py
+@@ -0,0 +1,105 @@
++#!/usr/bin/env python3
++"""t-20261011-b0cb (S5): the truth-run tools — suite builder + proof memo.
++
++What is pinned here:
++  * suites are deterministic and bench.py --validate accepts them;
++  * a reader that is always right makes the proof say CLEARED and exit 0;
++  * a reader that is always wrong makes the proof say NOT CLEARED, name the run
++    and suite and the gap, keep the failure gallery, and exit 1 — a proof tool
++    that cannot fail is not a proof tool;
++  * the adapter derives the family from the file stem bench.py hands it.
++
++Run: python3 tests/test_three_run_proof.py
++"""
++import json
++import subprocess
++import sys
++import tempfile
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parent.parent
++PY = sys.executable
++CHECKS = []
++
++
++def check(name):
++    def deco(fn):
++        CHECKS.append((name, fn))
++        return fn
++    return deco
++
++
++def run(*args, timeout=900):
++    return subprocess.run([PY, *args], cwd=str(ROOT), text=True,
++                          capture_output=True, timeout=timeout)
++
++
++@check("make_suites: deterministic, valid per bench.py")
++def _determinism():
++    with tempfile.TemporaryDirectory() as td:
++        a = run("tools/make_suites.py", "--easy", "6", "--hard", "6", "--seed", "2",
++                "--out", f"{td}/data")
++        assert a.returncode == 0, a.stderr
++        chk = run("tools/make_suites.py", "--easy", "6", "--hard", "6", "--seed", "2",
++                  "--check")
++        assert chk.returncode == 0, chk.stdout + chk.stderr
++        rows = [json.loads(l) for l in
++                open(f"{td}/data/hard/manifest.jsonl", encoding="utf-8")]
++        assert len(rows) == 6 and len({r["id"] for r in rows}) == 6
++        assert len({r["family"] for r in rows}) == 6, "hard suite must spread the families"
++        assert all((Path(td) / "data" / "hard" / r["image"]).exists() for r in rows)
++
++
++@check("oracle reader -> proof CLEARED, exit 0, three run files")
++def _oracle():
++    with tempfile.TemporaryDirectory() as td:
++        p = run("tools/three_run_proof.py", "--reader",
++                f"{PY} tests/fixtures/oracle_reader.py {{image}}", "--runs", "3",
++                "--easy", "6", "--hard", "6", "--suite-dir", f"{td}/data",
++                "--out", f"{td}/proof.md", "--report-dir", f"{td}/runs")
++        assert p.returncode == 0, (p.returncode, p.stdout[-600:], p.stderr[-600:])
++        memo = Path(f"{td}/proof.md").read_text(encoding="utf-8")
++        assert "CLEARED" in memo and "NOT CLEARED" not in memo
++        assert "| 1 |" in memo and "| 2 |" in memo and "| 3 |" in memo
++        js = [p for p in Path(f"{td}/runs").glob("*.json") if "stability" not in p.name]
++        assert len(js) == 3, [str(x) for x in Path(f"{td}/runs").glob("*.json")]
++        assert list(Path(f"{td}/runs").glob("*stability*.json")), "bench stability file"
++
++
++@check("mute reader -> proof NOT CLEARED, names run+suite, gallery kept, exit 1")
++def _mute():
++    with tempfile.TemporaryDirectory() as td:
++        p = run("tools/three_run_proof.py", "--reader",
++                f"{PY} tests/fixtures/mute_reader.py {{image}}", "--runs", "2",
++                "--easy", "6", "--hard", "6", "--suite-dir", f"{td}/data",
++                "--out", f"{td}/proof.md", "--report-dir", f"{td}/runs")
++        assert p.returncode == 1, (p.returncode, p.stdout[-400:])
++        memo = Path(f"{td}/proof.md").read_text(encoding="utf-8")
++        assert "NOT CLEARED" in memo, memo[:400]
++        assert "run 1: easy 0/6" in memo, memo[:800]
++        assert "gallery" in memo
++
++
++@check("adapter derives the family from the stem")
++def _adapter():
++    p = run("tools/bench_adapter.py", "/x/dark-on-dark-0007.png", "--print-family")
++    assert p.returncode == 0 and p.stdout.strip() == "dark-on-dark"
++    p = run("tools/bench_adapter.py", "/x/cross-shadow-0001.png", "--print-family")
++    assert p.stdout.strip() == "cross-shadow"
++
++
++def main():
++    failed = 0
++    for name, fn in CHECKS:
++        try:
++            fn()
++            print(f"PASS  {name}")
++        except AssertionError as e:
++            failed += 1
++            print(f"FAIL  {name}\n      {e}")
++    print(f"\n{len(CHECKS) - failed}/{len(CHECKS)} checks passed")
++    return 1 if failed else 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+diff --git a/tools/bench_adapter.py b/tools/bench_adapter.py
+new file mode 100755
+index 0000000..6205fc6
+--- /dev/null
++++ b/tools/bench_adapter.py
+@@ -0,0 +1,61 @@
++#!/usr/bin/env python3
++"""bench_adapter.py — route one bench image to a family-aware reader (S5).
++
++bench.py hands a reader exactly one image path (plus an id it cannot always
++use). Some readers need more: read.py dispatches on the family, a CNN does not
++care. make_suites.py encodes the family in the file stem ("<family>-<nnnn>"),
++so this adapter derives it from the path and substitutes {image}/{family} into
++whatever inner command you give it:
++
++    --reader "python3 tools/bench_adapter.py {image}"
++    --reader "python3 tools/bench_adapter.py {image} --cmd 'python3 readers/cnn_reader.py {image}'"
++
++The inner command's stdout/exit code pass through untouched; a failure is a
++failed item to bench.py (with the error text), never a bench crash. The default
++inner command is the repo's family reader: `python3 reader.py <image> --family <fam>`.
++"""
++from __future__ import annotations
++
++import argparse
++import shlex
++import subprocess
++import sys
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parent.parent
++
++
++def family_of(image: str) -> str:
++    stem = Path(image).stem
++    fam = stem.rsplit("-", 1)[0] if "-" in stem else stem
++    return fam or "easy"
++
++
++def main(argv=None) -> int:
++    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    ap.add_argument("image", help="the image bench.py handed us")
++    ap.add_argument("--cmd", default=None,
++                    help="inner command template with {image} and/or {family}; "
++                         "default: reader.py --family")
++    ap.add_argument("--print-family", action="store_true",
++                    help="print the derived family and exit (debugging)")
++    args = ap.parse_args(argv)
++
++    fam = family_of(args.image)
++    if args.print_family:
++        print(fam)
++        return 0
++    if args.cmd:
++        parts = shlex.split(args.cmd)
++        if not any("{image}" in p or "{family}" in p for p in parts):
++            parts.append(args.image)
++        cmd = [p.replace("{image}", args.image).replace("{family}", fam)
++               for p in parts]
++    else:
++        cmd = [sys.executable, str(ROOT / "reader.py"), args.image, "--family", fam]
++    p = subprocess.run(cmd, cwd=str(ROOT))
++    return p.returncode
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+diff --git a/tools/make_suites.py b/tools/make_suites.py
+new file mode 100644
+index 0000000..b147269
+--- /dev/null
++++ b/tools/make_suites.py
+@@ -0,0 +1,127 @@
++#!/usr/bin/env python3
++"""make_suites.py — build the bench suites from generator.py, deterministically.
++
++t-20261011-b0cb (S5, the three-run proof). bench.py (S0) scores whatever sits
++in data/<suite>/ in the BENCH.md format; this script is what puts it there:
++
++    data/easy/manifest.jsonl   + images/<id>.png   (the plain family)
++    data/hard/manifest.jsonl   + images/<id>.png   (12 families, balanced)
++
++The ids carry the family (<family>-<nnnn>) so a per-image adapter can route an
++image without parsing the manifest (tools/bench_adapter.py does exactly that).
++
++Determinism is the point: same --seed -> byte-identical suites. --check builds
++the suites twice into two temp dirs, compares them file-for-file, and validates
++the result with `bench.py --validate`. data/ is git-ignored on purpose
++(JOBS.md: datasets are generated, not committed).
++
++Usage:
++    python3 tools/make_suites.py                        # 100 easy + 100 hard, seed 1
++    python3 tools/make_suites.py --easy 12 --hard 12 --seed 1 --out /tmp/data
++    python3 tools/make_suites.py --check
++"""
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++import shutil
++import subprocess
++import sys
++import tempfile
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parent.parent
++sys.path.insert(0, str(ROOT))
++import generator as G  # noqa: E402
++
++EASY_FAMILY = "easy"
++HARD_FAMILIES = [f for f in G.FAMILIES if f != EASY_FAMILY]  # 12, generator order
++
++
++def build_suite(suite: str, count: int, seed: int, out: Path) -> list[dict]:
++    rows = []
++    for i in range(count):
++        if suite == "easy":
++            fam, idx = EASY_FAMILY, i
++        else:
++            fam = HARD_FAMILIES[i % len(HARD_FAMILIES)]
++            idx = i // len(HARD_FAMILIES)  # per-family index, same count each
++        img, label = G.generate_one(fam, seed, idx)
++        item_id = f"{fam}-{idx:04d}"
++        rel = f"images/{item_id}.png"
++        dest = out / rel
++        dest.parent.mkdir(parents=True, exist_ok=True)
++        img.save(dest, format="PNG")
++        rows.append({"id": item_id, "image": rel, "label": label, "family": fam,
++                     "tags": ["seeded", f"seed={seed}"]})
++    return rows
++
++
++def write_suite(suite: str, count: int, seed: int, root: Path) -> dict:
++    suite_dir = root / suite
++    rows = build_suite(suite, count, seed, suite_dir)
++    with open(suite_dir / "manifest.jsonl", "w", encoding="utf-8") as fh:
++        for r in rows:
++            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
++    return {"suite": suite, "items": len(rows), "seed": seed,
++            "families": sorted({r["family"] for r in rows}),
++            "dir": str(suite_dir)}
++
++
++def dir_hash(root: Path) -> str:
++    h = hashlib.sha256()
++    for p in sorted(root.rglob("*")):
++        if p.is_file():
++            h.update(str(p.relative_to(root)).encode("utf-8"))
++            h.update(p.read_bytes())
++    return h.hexdigest()
++
++
++def main(argv=None) -> int:
++    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    ap.add_argument("--easy", type=int, default=100, help="easy items (default 100)")
++    ap.add_argument("--hard", type=int, default=100, help="hard items (default 100)")
++    ap.add_argument("--seed", type=int, default=1)
++    ap.add_argument("--out", default=str(ROOT / "data"),
++                    help="suite root (default <repo>/data)")
++    ap.add_argument("--check", action="store_true",
++                    help="build twice into temp dirs, compare, validate; write nothing")
++    args = ap.parse_args(argv)
++
++    if args.check:
++        with tempfile.TemporaryDirectory() as t1, tempfile.TemporaryDirectory() as t2:
++            a, b = Path(t1), Path(t2)
++            for root in (a, b):
++                for suite, count in (("easy", args.easy), ("hard", args.hard)):
++                    write_suite(suite, count, args.seed, root)
++            ha, hb = dir_hash(a), dir_hash(b)
++            if ha != hb:
++                print(f"FAIL: not deterministic ({ha[:12]} != {hb[:12]})", file=sys.stderr)
++                return 1
++            bench = ROOT / "bench.py"
++            if bench.exists():
++                p = subprocess.run([sys.executable, str(bench), "--suite-dir", str(a),
++                                    "--validate"], capture_output=True, text=True)
++                if p.returncode != 0:
++                    print("FAIL: bench.py --validate rejected the suites:\n"
++                          + (p.stdout + p.stderr).strip(), file=sys.stderr)
++                    return 1
++                print(f"OK: two builds identical ({ha[:12]}), bench.py --validate green")
++            else:
++                print(f"OK: two builds identical ({ha[:12]}); bench.py not present, skipped validate")
++        return 0
++
++    out = Path(args.out)
++    reports = [write_suite("easy", args.easy, args.seed, out),
++               write_suite("hard", args.hard, args.seed, out)]
++    for r in reports:
++        fams = len(r["families"])
++        print(f"{r['suite']:5s}: {r['items']:4d} items, {fams:2d} families, "
++              f"seed {r['seed']} -> {r['dir']}")
++    print(f"suite hash: {dir_hash(out)[:12]}")
++    return 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+diff --git a/tools/three_run_proof.py b/tools/three_run_proof.py
+new file mode 100755
+index 0000000..a6ede50
+--- /dev/null
++++ b/tools/three_run_proof.py
+@@ -0,0 +1,186 @@
++#!/usr/bin/env python3
++"""three_run_proof.py — run bench.py N times and write the truth report (S5).
++
++t-20261011-b0cb. JOBS.md wants proof, not a claim: three consecutive runs, each
++clearing the bar, with the numbers and a failure gallery - and if a family
++misses the bar, the report says so, with numbers, in the same tone.
++
++    python3 tools/three_run_proof.py --reader "python3 tools/bench_adapter.py {image}"
++
++What it does:
++  1. builds data/<suite> with tools/make_suites.py if it is not there yet,
++  2. runs bench.py --runs N (default 3) with your reader template,
++  3. reads the run reports and writes reports/three-run-proof.md: every run's
++     correct/total against the bar, the stability verdict, the per-family
++     breakdown and the gallery of the ugly cases.
++
++Exit: 0 = every run cleared every bar; 1 = the bar was NOT cleared somewhere
++(the memo names run, suite and the gap); 2 = the proof itself could not run.
++"""
++from __future__ import annotations
++
++import argparse
++import json
++import subprocess
++import sys
++import time
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parent.parent
++
++
++def render_proof(runs: list[dict], reader: str, rdir: Path, suite_dir: Path,
++                 stamp: str, stab_file: Path | None = None,
++                 note: str | None = None) -> str:
++    suites = list(runs[0]["suites"].keys())
++    cleared = all(r["passed"] for r in runs)
++    L: list[str] = []
++    L.append(f"# three-run proof — superocr (S5, t-20261011-b0cb)")
++    L.append("")
++    if note:
++        L.append(f"> {note}")
++        L.append("")
++    L.append(f"- produced: {stamp} (UTC) · commit `{(runs[0].get('git_commit') or 'unknown')[:12]}`")
++    L.append(f"- reader: `{reader}`")
++    L.append(f"- suites: `{suite_dir}` · seed {runs[0]['seed']} · "
++             f"bars easy >= {runs[0]['bars'].get('easy')}%, hard >= {runs[0]['bars'].get('hard')}%")
++    L.append(f"- runs: {len(runs)} consecutive full passes · "
++             f"raw reports + galleries: `{rdir.relative_to(ROOT) if str(rdir).startswith(str(ROOT)) else rdir}/`")
++    if stab_file:
++        L.append(f"- bench's own stability file: `{stab_file.name}`")
++    L.append(f"- all items excluded in a suite means nothing was scored; excluded ids are "
++             f"listed per suite ({sum(s['excluded_count'] for r in runs for s in r['suites'].values())} across runs)")
++    L.append("")
++    L.append("## The claim")
++    L.append("")
++    if cleared:
++        L.append("**CLEARED.** Every run cleared every bar. The stability claim "
++                 "(JOBS.md, three consecutive runs) holds for this reader.")
++    else:
++        L.append("**NOT CLEARED.** At least one run missed at least one bar. "
++                 "The numbers below are the truth as measured, not a draft. "
++                 "Re-run this proof when stronger readers land; the gap is named per line.")
++    L.append("")
++    for r in runs:
++        if not r["passed"]:
++            for name, s in r["suites"].items():
++                if not s["passed"]:
++                    L.append(f"- run {r['run_index']}: {name} {s['correct']}/{s['total']} "
++                             f"= {s['pct']}% < bar {s['bar']}%")
++    L.append("")
++    L.append("## the runs")
++    L.append("")
++    header = "| run | " + " | ".join(f"{n} (bar {runs[0]['bars'][n]})" for n in suites) + " | verdict | slowest p95 |"
++    L.append(header)
++    L.append("|" + "---|" * (len(suites) + 3))
++    for r in runs:
++        cells = []
++        for n in suites:
++            s = r["suites"][n]
++            cells.append(f"{s['correct']}/{s['total']} ({s['pct']}%) {'✓' if s['passed'] else 'NO'}")
++        p95 = max((r["suites"][n].get("p95_s") or 0) for n in suites)
++        L.append(f"| {r['run_index']} | " + " | ".join(cells) +
++                 f" | {'PASS' if r['passed'] else 'FAIL'} | {p95:.2f}s |")
++    L.append("")
++    L.append("## by family (last run) — and how far each moved across runs")
++    L.append("")
++    byfam: dict[str, dict[str, list[int]]] = {}
++    for r in runs:
++        for n, s in r["suites"].items():
++            for fam, f in s["families"].items():
++                key = f"{n}/{fam}"
++                byfam.setdefault(key, {})
++                byfam[key].setdefault("correct", []).append(f["correct"])
++                byfam[key]["total"] = f["total"]
++    L.append("| suite/family | correct (last run) | total | across runs |")
++    L.append("|---|---|---|---|")
++    for key in sorted(byfam):
++        v = byfam[key]
++        across = " / ".join(str(c) for c in v["correct"])
++        L.append(f"| {key} | {v['correct'][-1]} | {v['total']} | {across} |")
++    L.append("")
++    L.append("## the ugly cases (gallery)")
++    L.append("")
++    for r in runs:
++        for n, s in r["suites"].items():
++            fails = s.get("failures") or []
++            g = s.get("gallery")
++            ids = ", ".join(f["id"] for f in fails[:10]) + (" …" if len(fails) > 10 else "")
++            L.append(f"- run {r['run_index']} {n}: {len(fails)} failure(s)"
++                     + (f" — gallery `{g}`" if g else "")
++                     + (f" — first: {ids}" if fails else ""))
++    L.append("")
++    L.append("## re-run this")
++    L.append("")
++    L.append("```")
++    L.append(f"python3 tools/make_suites.py --seed {runs[0]['seed']}   # if data/ is missing")
++    L.append(f"python3 tools/three_run_proof.py --reader \"{reader}\" --runs {len(runs)}")
++    L.append("```")
++    L.append("")
++    return "\n".join(L)
++
++
++def main(argv=None) -> int:
++    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
++    ap.add_argument("--reader", required=True,
++                    help="reader command template, exactly as bench.py takes it")
++    ap.add_argument("--runs", type=int, default=3)
++    ap.add_argument("--suite-dir", default="data")
++    ap.add_argument("--easy", type=int, default=100)
++    ap.add_argument("--hard", type=int, default=100)
++    ap.add_argument("--seed", type=int, default=1)
++    ap.add_argument("--out", default=None,
++                    help="memo path (default reports/three-run-proof.md)")
++    ap.add_argument("--report-dir", default=None,
++                    help="run files (default reports/three-run-<stamp>/)")
++    ap.add_argument("--note", default=None,
++                    help="one honest line for the memo header, e.g. 'baseline run, "
++                         "not the acceptance proof'")
++    a = ap.parse_args(argv)
++
++    suite_dir = Path(a.suite_dir)
++    if not suite_dir.is_absolute():
++        suite_dir = ROOT / suite_dir
++    if not all((suite_dir / s / "manifest.jsonl").exists() for s in ("easy", "hard")):
++        r = subprocess.run([sys.executable, str(ROOT / "tools" / "make_suites.py"),
++                            "--easy", str(a.easy), "--hard", str(a.hard),
++                            "--seed", str(a.seed), "--out", str(suite_dir)],
++                           cwd=str(ROOT), text=True)
++        if r.returncode != 0:
++            print("three_run_proof: make_suites.py failed", file=sys.stderr)
++            return 2
++
++    stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
++    rdir = Path(a.report_dir) if a.report_dir else (ROOT / "reports" / f"three-run-{stamp}")
++    rdir.mkdir(parents=True, exist_ok=True)
++    bench = subprocess.run([sys.executable, str(ROOT / "bench.py"),
++                            "--suite-dir", str(suite_dir), "--reader", a.reader,
++                            "--runs", str(a.runs), "--seed", str(a.seed),
++                            "--report-dir", str(rdir)],
++                           cwd=str(ROOT), text=True, capture_output=True)
++    sys.stdout.write(bench.stdout)
++    sys.stderr.write(bench.stderr)
++    if bench.returncode not in (0, 1):
++        print(f"three_run_proof: bench.py could not run (exit {bench.returncode})",
++              file=sys.stderr)
++        return 2
++
++    reports = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(rdir.glob("*.json"))]
++    runs = [r for r in reports if "run_index" in r and "suites" in r]
++    runs.sort(key=lambda r: r.get("run_index", 0))
++    runs = runs[-a.runs:]
++    if not runs:
++        print("three_run_proof: no run reports found", file=sys.stderr)
++        return 2
++
++    stab_file = next(iter(sorted(rdir.glob("*stability*.json"))), None)
++    memo = render_proof(runs, a.reader, rdir, suite_dir, stamp, stab_file, a.note)
++    out = Path(a.out) if a.out else (ROOT / "reports" / "three-run-proof.md")
++    out.parent.mkdir(parents=True, exist_ok=True)
++    out.write_text(memo, encoding="utf-8")
++    print(f"proof written: {out} ({len(runs)} runs; raw reports in {rdir})")
++    return 0 if all(r["passed"] for r in runs) else 1
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+-- 
+2.47.3
+
