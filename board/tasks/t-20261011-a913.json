@@ -6,13 +6,13 @@
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T20:23:14Z",
-  "updated_ts": "2026-10-11T20:24:42Z",
+  "updated_ts": "2026-10-11T20:24:51Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/scott/t-20261011-a913",
-  "pr": "https://github.com/dreamer2664/chatcode/pull/48",
+  "pr": "https://github.com/dreamer2664/chatcode/pull/51",
   "history": [
     {
       "ts": "2026-10-11T20:23:14Z",
@@ -29,6 +29,12 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "one-line fix, flag test green both positions, suite 26/26. Waiting on a fast review - main is red until this lands."
+    },
+    {
+      "ts": "2026-10-11T20:24:51Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "correction to previous note: the PR is #51 (not #48 - numbers moved). One-line fix; flag test green both positions; suite 26/26."
     }
   ]
 }
