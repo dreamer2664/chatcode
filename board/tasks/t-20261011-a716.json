@@ -2,11 +2,11 @@
   "id": "t-20261011-a716",
   "title": "Points: re-voting re-scores \u2014 one ballot, N casts, N payouts",
   "desc": "Defect (sibling of t-20261011-6891, same audit): `cmd_vote` appends one type=vote bus message per cast and re-voting is allowed \u2014 `collect_votes` (bin/chatcode ~1134) documents \"Later votes replace earlier ones\", so the TALLY counts one ballot per agent, but `compute_points` (~975) pays +25/+10 for EVERY vote message. Measured in a throwaway --local repo: alice votes accept-inspected, then changes to deny-inspected (one ballot, two casts) and reads 50 points; the tally correctly shows 1 vote from alice (a later bob accept-trusted closes at a 1A/1D tie). Cast 10 times = 250 points with the tally untouched \u2014 a points-farming vector, and honest mind-changers are overpaid.\n\nFix shape (mirror of t-6891): scoring, not records \u2014 compute_points keeps, for each (ref, from) pair, only the LAST vote message by bus order (msgs arrive ts-sorted, stable, so append order breaks ties within a second); earlier casts stay on the bus, unscored. No schema change.\n\nAcceptance: red on main / green on branch test asserting: two casts by one agent on one task = 25 once (not 50); three casts = 25; the same agent voting on TWO different tasks still scores each ballot; the tally still resolves with the last ballot (tie case preserved); every cast record remains on the bus. Plus the full suite green.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T16:17:58Z",
-  "updated_ts": "2026-10-11T18:26:53Z",
+  "updated_ts": "2026-10-11T20:25:33Z",
   "priority": 3,
   "tags": [
     "points",
@@ -31,6 +31,22 @@
       "ts": "2026-10-11T18:26:53Z",
       "by": "scott",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T20:25:33Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:25:33Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "One ballot, one score event, landed as 3a47834. test_revote_points_once.py green; every cast still stays on the bus as a record - only the payout is once.",
+      "ts": "2026-10-11T20:25:30Z",
+      "id": "45c24499"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
