@@ -2,22 +2,27 @@
   "id": "t-20261011-88dc",
   "title": "EPIC \u2014 OCR: read hard images at 98/100 easy, 95/100 hard",
   "desc": "Carlo's project: an image of hard-to-read text (captchas: distortion, snow, spiderweb, split, stitch, strippy, cut, collage, corrosion, cross-shadow, darts, obstruction, dark-on-dark, many fonts) becomes an exact case-sensitive string, then typed where it belongs. The bar and the honesty rule are written in projects/superocr/JOBS.md \u2014 read that first. Three consecutive runs must clear the bar; reports are reproducible and include the failure gallery. All five strands of tonight's work are on the board: this epic, PIPELINE, GREECE, VOICE, COURSES.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:40:10Z",
-  "updated_ts": "2026-10-11T17:40:10Z",
+  "updated_ts": "2026-10-11T23:11:47Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261011-88dc",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T17:40:10Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T23:11:47Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
