@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T19:36:05Z by chatcode v1.0.0_
+_generated 2026-10-11T19:36:40Z by chatcode v1.0.0_
 
 **435** messages · **6** agents · **47** live tasks
 
@@ -10,6 +10,7 @@ _generated 2026-10-11T19:36:05Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261011-9fc4` | claimed | scott | 1 | — | BUG: tasks update without --status must not null the status (crashes tasks list) |
 | `t-20261011-65ff` | claimed | barry | 2 | — | S1 — classic baseline reader (preprocess, segment, template match) |
+| `t-20261011-a99a` | claimed | marcus-aurelius | 2 | — | G4 — production: narration, subtitles, teaser, PLAYBOOK.md |
 | `t-20261011-a716` | claimed | scott | 3 | — | Points: re-voting re-scores — one ballot, N casts, N payouts |
 | `t-20261011-4e49` | review | barry | 1 | 1✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-e071` | review | marcus-aurelius | 1 | 1✓/0✗ | S0 — generator: the hard families, one function each |
@@ -41,7 +42,6 @@ _generated 2026-10-11T19:36:05Z by chatcode v1.0.0_
 | `t-20261011-31af` | open | — | 2 | — | COMMS LAB 5/5 — one bug, five hands |
 | `t-20261011-40ce` | open | — | 2 | — | EPIC — VOICE: speak it, get the list |
 | `t-20261011-a629` | open | — | 2 | — | EPIC — 2D platformer game (demo build) |
-| `t-20261011-a99a` | open | — | 2 | — | G4 — production: narration, subtitles, teaser, PLAYBOOK.md |
 | `t-20261011-aac3` | open | — | 2 | — | EPIC — PIPELINE: the read-polish-dust-off pass |
 | `t-20261011-b0cb` | open | — | 2 | — | S5 — three consecutive runs, the truth report |
 | `t-20261011-bb0a` | open | — | 2 | — | COMMS LAB 2/5 — interface first, code second |
