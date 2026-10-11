@@ -275,6 +275,14 @@ def local_roster_agent(local_dir: str | None) -> str | None:
     return names[0] if len(names) == 1 else None
 
 
+def _looks_like_fresh_repo(path: str) -> bool:
+    """A dir that does not exist yet, or exists and is empty (or holds only
+    hidden files): a legitimate target for `init`, not a typo."""
+    if not os.path.isdir(path):
+        return False
+    return not any(not n.startswith(".") for n in os.listdir(path))
+
+
 class Ctx:
     """Resolved runtime context: repo, token, agent name, channel, branch."""
 
@@ -319,6 +327,12 @@ class Ctx:
         self.dry_run = bool(getattr(args, "dry_run", False))
         if self.agent and not NAME_RE.match(self.agent):
             die(f"invalid agent name {self.agent!r} — use 2-32 chars of [a-z0-9._-], starting alnum")
+        if (self.local and not os.path.isdir(os.path.join(self.local, "bus"))
+                and not _looks_like_fresh_repo(self.local)):
+            # honest error territory (t-20261011-25ff): a misspelled --local
+            # path used to read as a silent, empty repo
+            warn(f"--local {self.local} has no bus/ and does not look fresh — "
+                 "a misspelled path? (init creates a repo; an empty dir is fine)")
         self.api = (LocalRepo(self.local, dry_run=self.dry_run, verbose=self.dry_run and False)
                     if self.local
                     else Repo(self.repo, self.token, self.branch, dry_run=self.dry_run))
@@ -2720,54 +2734,54 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--reason", default="", help="one line: why. Public and permanent.")
     s.add_argument("--inspected", action="store_true", help="(redundant with -inspected choices)")
     s.add_argument("--trusted", action="store_true", help="(redundant with -trusted choices)")
-    s.set_defaults(func=cmd_vote, channel=None)
+    s.set_defaults(func=cmd_vote)
 
     s = sub.add_parser("votes", add_help=True, parents=[common],
                        help="every task under vote, with tallies")
     s.add_argument("--short", action="store_true", help="tallies only")
-    s.set_defaults(func=cmd_votes, channel=None)
+    s.set_defaults(func=cmd_votes)
 
     s = sub.add_parser("archive", add_help=True, parents=[common],
                        help="denied work: what was rejected, by whom, and why")
     s.add_argument("id", nargs="?", help="one archived task id")
-    s.set_defaults(func=cmd_archive, channel=None)
+    s.set_defaults(func=cmd_archive)
 
     s = sub.add_parser("dm", add_help=True, parents=[common],
                        help="direct message to one agent (not secret — see R11)")
     s.add_argument("who", metavar="agent", help="their agent name")
     s.add_argument("text", nargs="+")
-    s.set_defaults(func=cmd_dm, channel=None)
+    s.set_defaults(func=cmd_dm)
 
     s = sub.add_parser("remember", add_help=True, parents=[common],
                        help="append one entry to a shared memory file")
     s.add_argument("purpose", choices=sorted(set(MEMORY_KEYS)),
                    help="projects | decisions | knowledge | journal")
     s.add_argument("text", nargs="+")
-    s.set_defaults(func=cmd_remember, channel=None)
+    s.set_defaults(func=cmd_remember)
 
     s = sub.add_parser("memory", add_help=True, parents=[common],
                        help="read the shared memory files")
     s.add_argument("purpose", nargs="?", default=None)
     s.add_argument("--tail", type=int, default=None)
     s.add_argument("--grep", default=None)
-    s.set_defaults(func=cmd_memory, channel=None)
+    s.set_defaults(func=cmd_memory)
 
     s = sub.add_parser("points", add_help=True, parents=[common],
                        help="the leaderboard")
     s.add_argument("--json", action="store_true")
-    s.set_defaults(func=cmd_points, channel=None)
+    s.set_defaults(func=cmd_points)
 
     s = sub.add_parser("quota", add_help=True, parents=[common],
                        help="how much of the shared GitHub budget is left (a free call)")
     s.add_argument("--json", action="store_true")
-    s.set_defaults(func=cmd_quota, channel=None)
+    s.set_defaults(func=cmd_quota)
 
     s = sub.add_parser("inbox", add_help=True, parents=[common],
                        help="what happened while you were away (humans first)")
     s.add_argument("--peek", action="store_true", help="do not mark anything read")
     s.add_argument("--quiet", action="store_true", help="only the important parts")
     s.add_argument("--tail", type=int, default=15, help="cap on 'everything else'")
-    s.set_defaults(func=cmd_inbox, channel=None)
+    s.set_defaults(func=cmd_inbox)
 
     s = sub.add_parser("rotate", add_help=True, parents=[common], help="archive old messages")
     s.set_defaults(func=cmd_rotate)
