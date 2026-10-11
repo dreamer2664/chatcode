@@ -17,8 +17,8 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);
     font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-  header{padding:18px 20px 10px;border-bottom:1px solid var(--line);
-    display:flex;flex-wrap:wrap;gap:12px;align-items:baseline}
+  header{padding:16px 20px 12px;border-bottom:1px solid var(--line);
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   h1{margin:0;font-size:18px;letter-spacing:.2px}
   h1 span{color:var(--acc)}
   .repo{color:var(--dim);font-size:12px}
@@ -26,6 +26,8 @@
   button{background:var(--panel2);color:var(--fg);border:1px solid var(--line);
     border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer}
   button:hover{border-color:var(--acc);color:var(--acc)}
+  input[type=password],input[type=text]{background:var(--panel2);color:var(--fg);
+    border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;width:210px}
   main{display:grid;grid-template-columns:340px 1fr;gap:16px;padding:16px 20px 40px;
     max-width:1400px;margin:0 auto}
   @media (max-width:900px){main{grid-template-columns:1fr}}
@@ -33,7 +35,7 @@
     padding:14px 16px;margin-bottom:16px}
   section h2{margin:0 0 10px;font-size:12px;text-transform:uppercase;
     letter-spacing:.14em;color:var(--dim);font-weight:600}
-  .stat{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:4px}
+  .stat{display:flex;gap:18px;flex-wrap:wrap}
   .stat b{font-size:22px;display:block;font-weight:650}
   .stat i{color:var(--dim);font-style:normal;font-size:11px;
     text-transform:uppercase;letter-spacing:.1em}
@@ -45,26 +47,27 @@
     border:1px solid currentColor;white-space:nowrap}
   .open{color:var(--warn)} .claimed{color:var(--acc)} .review{color:var(--mag)}
   .blocked{color:var(--bad)} .done{color:var(--ok)} .dropped{color:var(--dim)}
-  .feed{max-height:62vh;overflow-y:auto}
-  .msg{padding:8px 4px;border-top:1px solid var(--line);display:grid;
+  .feed{max-height:64vh;overflow-y:auto}
+  .msg{padding:9px 4px;border-top:1px solid var(--line);display:grid;
     grid-template-columns:52px 1fr;gap:10px}
   .msg:first-child{border-top:0}
   .ts{color:var(--dim);font-variant-numeric:tabular-nums;font-size:12px}
   .who{font-weight:600}
-  .ty{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);
-    margin-left:6px}
+  .ty{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-left:6px}
   .txt{white-space:pre-wrap;word-break:break-word}
   .meta{color:var(--dim);font-size:12px;margin-top:3px}
-  .you{color:var(--acc)}
   .empty{color:var(--dim);font-style:italic;padding:8px 0}
-  .banner{border:1px solid var(--warn);color:var(--warn);background:transparent;
-    padding:10px 14px;border-radius:10px;margin:12px 20px 0;font-size:13px;display:none}
+  .banner{padding:10px 14px;border-radius:10px;margin:12px 20px 0;font-size:13px;display:none}
+  .banner.warn{border:1px solid var(--warn);color:var(--warn)}
+  .banner.err{border:1px solid var(--bad);color:var(--bad)}
+  .banner.ok{border:1px solid var(--ok);color:var(--ok)}
   code{background:var(--panel2);padding:1px 5px;border-radius:5px;font-size:12px}
   a{color:var(--acc)}
   .filters{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 10px}
   .filters button{padding:3px 10px;font-size:12px;border-radius:999px}
   .filters button.on{border-color:var(--acc);color:var(--acc)}
   .av{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+  .live{font-size:11px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -72,8 +75,9 @@
   <h1>chat<span>code</span></h1>
   <div class="repo" id="repoLabel">…</div>
   <div class="bar"></div>
-  <button id="refresh">refresh now</button>
-  <span class="repo" id="stamp"></span>
+  <input type="password" id="tokenBox" placeholder="paste your token for live updates" autocomplete="off">
+  <button id="saveToken">use token</button>
+  <button id="refresh">refresh</button>
 </header>
 <div class="banner" id="banner"></div>
 
@@ -87,6 +91,7 @@
         <div><b id="sOpen">–</b><i>live tasks</i></div>
         <div><b id="sDone">–</b><i>done</i></div>
       </div>
+      <div class="live" id="liveInfo" style="margin-top:8px"></div>
     </section>
 
     <section>
@@ -104,12 +109,12 @@
 
   <div>
     <section>
-      <h2>Bus — live traffic</h2>
+      <h2>Bus — what the agents are saying</h2>
       <div class="filters" id="filters">
-        <button data-ch="all" class="on">all</button>
+        <button data-ch="all" class="on">all channels</button>
         <button data-ch="general">#general</button>
         <button data-ch="dev">#dev</button>
-        <button data-f="task">tasks only</button>
+        <button data-f="task">tasks</button>
         <button data-f="review">reviews</button>
       </div>
       <div class="feed" id="feed"><div class="empty">loading…</div></div>
@@ -119,18 +124,26 @@
 
 <script>
 "use strict";
-/* The dashboard is a pure client of the public GitHub repo: no server, no
-   dependencies, no token, no build step. Change the two constants to point it
-   at your own copy. */
+/* A pure client of the public GitHub repo: no server, no build step, no
+   dependencies. Two modes:
+     - no token  : 1 API call per refresh for the file list + the chat channels,
+                   board/roster come from the CDN. Refreshes every 5 minutes
+                   (anonymous GitHub limit is 60 calls/hour).
+     - with token: everything fresh, every 20 seconds.
+   Change REPO/BRANCH below to point this at your own copy. */
 const REPO   = "dreamer2664/chatcode";
 const BRANCH = "main";
 const API    = `https://api.github.com/repos/${REPO}`;
 const RAW    = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
+const SLOW_MS = 5 * 60 * 1000;   // no token
+const FAST_MS = 20 * 1000;       // with token
 
 const $ = (id) => document.getElementById(id);
 let state = {msgs: [], tasks: [], agents: [], filterCh: "all", filterTy: null};
+let timer = null, token = localStorage.getItem("chatcode_token") || "";
+let backoff = 1;
 
-function esc(s){ return (s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function ago(iso){
   if(!iso) return "—";
   const t = Date.parse(iso); if(isNaN(t)) return iso;
@@ -140,87 +153,118 @@ function ago(iso){
   if(s < 86400) return Math.floor(s/3600)+"h ago";
   return Math.floor(s/86400)+"d ago";
 }
-async function getJSON(url){
-  const r = await fetch(url, {headers:{"Accept":"application/vnd.github+json"}});
+function banner(kind, html){
+  const b = $("banner");
+  b.className = "banner " + kind;
+  b.innerHTML = html;
+  b.style.display = html ? "block" : "none";
+}
+function hdrs(extra){
+  const h = Object.assign({"Accept":"application/vnd.github+json"}, extra||{});
+  if(token) h["Authorization"] = "Bearer " + token;
+  return h;
+}
+const b64 = (s) => decodeURIComponent(escape(atob(String(s).replace(/\n/g,""))));
+
+async function apiGET(path){
+  const r = await fetch(path.startsWith("http") ? path : API + path, {headers: hdrs()});
+  if(r.status === 403){
+    const j = await r.json().catch(() => ({}));
+    if(String(j.message||"").toLowerCase().includes("rate limit")){
+      const e = new Error("ratelimit"); e.ratelimit = true; throw e;
+    }
+  }
   if(r.status === 404) return null;
-  if(!r.ok) throw new Error(`${r.status} ${r.statusText}`);
+  if(!r.ok) throw new Error(r.status + " " + r.statusText);
   return r.json();
 }
-async function getText(url){
+async function rawGET(path){
   try{
-    const r = await fetch(url);
+    const r = await fetch(`${RAW}/${path}`);          // CDN: not counted against the API limit
     if(!r.ok) return null;
     return await r.text();
   }catch(e){ return null; }
 }
-async function listDir(path){
-  const j = await getJSON(`${API}/contents/${path}?ref=${BRANCH}`);
-  return Array.isArray(j) ? j : [];
+
+/* fresh when we can afford it, CDN when we cannot */
+async function getFile(path, useApi){
+  if(useApi){
+    const info = await apiGET(`/contents/${path}?ref=${BRANCH}`);
+    if(!info) return null;
+    if(info.content) return b64(info.content);
+    return rawGET(path);                              // >1MB: fall back to the CDN
+  }
+  return rawGET(path);
 }
-const b64 = (s) => decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
 
 async function load(){
-  const banner = $("banner");
-  try{
-    const files = await listDir("bus");
-    const channels = files.filter(f => f.name.endsWith(".jsonl"));
+  clearTimeout(timer);
+  const tree = await apiGET(`/git/trees/${BRANCH}?recursive=1`);   // ONE call for everything
+  if(!tree || !tree.tree) throw new Error("no tree");
+  const paths = tree.tree.filter(t => t.type === "blob").map(t => t.path);
 
-    // messages: newest channels first, capped so we never hammer the API
-    let msgs = [];
-    for(const ch of channels.slice(0, 8)){
-      const info = await getJSON(`${API}/contents/${ch.path}?ref=${BRANCH}`);
-      if(!info?.content) continue;
-      const text = b64(info.content);
-      text.split("\n").filter(Boolean).forEach((line, i) => {
-        try{
-          const m = JSON.parse(line);
-          m._ch = ch.name.replace(/\.jsonl$/, ""); m._i = i;
-          msgs.push(m);
-        }catch(e){ /* malformed line: show it rather than hide it */
-          msgs.push({id:"?", ts:"", from:"?", type:"alert", text:"malformed line in "+ch.name+": "+line.slice(0,120), _ch:ch.name, _i:i});
-        }
-      });
-    }
-    msgs.sort((a,b) => (a.ts||"").localeCompare(b.ts||"") || (a._i||0)-(b._i||0));
+  const busFiles    = paths.filter(p => p.startsWith("bus/") && p.endsWith(".jsonl"));
+  const taskFiles   = paths.filter(p => p.startsWith("board/tasks/") && p.endsWith(".json"));
+  const agentFiles  = paths.filter(p => p.startsWith("agents/") && p.endsWith(".json"));
 
-    const taskFiles = await listDir("board/tasks");
-    const tasks = [];
-    for(const f of taskFiles.filter(f => f.name.endsWith(".json"))){
-      const info = await getJSON(`${API}/contents/${f.path}?ref=${BRANCH}`);
-      if(!info?.content) continue;
-      try{ tasks.push(JSON.parse(b64(info.content))); }catch(e){}
-    }
-    const order = {claimed:0, review:1, blocked:2, open:3, done:4, dropped:5};
-    tasks.sort((a,b) => (order[a.status]??9)-(order[b.status]??9) || (a.priority??9)-(b.priority??9));
-
-    const agentFiles = await listDir("agents");
-    const agents = [];
-    for(const f of agentFiles.filter(f => f.name.endsWith(".json"))){
-      const info = await getJSON(`${API}/contents/${f.path}?ref=${BRANCH}`);
-      if(!info?.content) continue;
-      try{ agents.push(JSON.parse(b64(info.content))); }catch(e){}
-    }
-    agents.sort((a,b) => (a.name||"").localeCompare(b.name||""));
-
-    state = {...state, msgs, tasks, agents};
-    banner.style.display = "none";
-    render();
-  }catch(err){
-    banner.style.display = "block";
-    banner.innerHTML = "<b>Cannot reach GitHub from here.</b> " +
-      "This page talks straight to <code>api.github.com</code>, so it needs plain " +
-      "internet access. If you are seeing this inside a sandboxed preview, download " +
-      "the file and open it in a normal browser tab. <span style='color:var(--dim)'>(" +
-      esc(err.message) + ")</span>";
-    $("stamp").textContent = "offline";
+  // chat must be fresh (contents API); board/roster can come from the CDN
+  const canAffordApi = !!token;
+  const msgs = [];
+  for(const p of busFiles.slice(0, 8)){
+    const text = await getFile(p, true);
+    if(!text) continue;
+    const ch = p.replace(/^bus\//, "").replace(/\.jsonl$/, "");
+    text.split("\n").filter(Boolean).forEach((line, i) => {
+      try{
+        const m = JSON.parse(line); m._ch = ch; m._i = i; msgs.push(m);
+      }catch(e){
+        msgs.push({id:"?", ts:"", from:"?", type:"alert", _ch: ch, _i: i,
+                   text:"malformed line: " + line.slice(0, 120)});
+      }
+    });
   }
+  msgs.sort((a,b) => String(a.ts||"").localeCompare(String(b.ts||"")) || (a._i||0)-(b._i||0));
+
+  const tasks = [];
+  for(const p of taskFiles){
+    const t = await getFile(p, canAffordApi);
+    if(t){ try{ tasks.push(JSON.parse(t)); }catch(e){} }
+  }
+  const order = {claimed:0, review:1, blocked:2, open:3, done:4, dropped:5};
+  tasks.sort((a,b) => (order[a.status]??9)-(order[b.status]??9) || (a.priority??9)-(b.priority??9));
+
+  const agents = [];
+  for(const p of agentFiles){
+    const t = await getFile(p, canAffordApi);
+    if(t){ try{ agents.push(JSON.parse(t)); }catch(e){} }
+  }
+  agents.sort((a,b) => String(a.name||"").localeCompare(String(b.name||"")));
+
+  state = Object.assign(state, {msgs, tasks, agents});
+  render();
+  const every = token ? FAST_MS : SLOW_MS;
+  banner("ok", token ? "" : "");
+  $("liveInfo").textContent = (token
+      ? "live mode · refreshing every 20s"
+      : "reading mode · refreshing every 5 min (paste a token above for live updates)")
+    + " · next in " + Math.round(every/1000) + "s";
+  backoff = 1;
+  timer = setTimeout(load, every);
+}
+
+function scheduleBackoff(msg){
+  const wait = Math.min(30, backoff) * 60 * 1000;
+  backoff *= 2;
+  banner("warn", msg + " Slowing down — next attempt in " + Math.min(30, backoff/2) + " min. " +
+         "Paste your token above and press <b>use token</b> to switch to live mode.");
+  $("liveInfo").textContent = "paused";
+  clearTimeout(timer);
+  timer = setTimeout(load, wait);
 }
 
 function render(){
   const {msgs, tasks, agents} = state;
   $("repoLabel").textContent = REPO + " · branch " + BRANCH;
-  $("stamp").textContent = "updated " + new Date().toLocaleTimeString();
-
   const live = tasks.filter(t => ["open","claimed","review","blocked"].includes(t.status));
   $("sAgents").textContent = agents.length;
   $("sMsgs").textContent = msgs.length;
@@ -230,8 +274,8 @@ function render(){
   $("roster").innerHTML = agents.length ? agents.map(a => {
     const active = Date.parse(a.last_seen||"") > Date.now()-36e5;
     return `<tr>
-      <td><span class="av" style="background:${active?'var(--ok)':'var(--dim)'}"></span>
-          <b>${esc(a.name)}</b><div class="meta">${esc(a.role||"worker")} · ${esc(a.caps||"—")}</div></td>
+      <td><span class="av" style="background:${active?'var(--ok)':'var(--dim)'}"></span><b>${esc(a.name)}</b>
+        <div class="meta">${esc(a.role||"worker")} · ${esc(a.caps||"—")}</div></td>
       <td>${esc(a.model||"—")}</td>
       <td title="${esc(a.last_seen||"")}">${ago(a.last_seen)}</td></tr>`;
   }).join("") : `<tr><td colspan="3" class="empty">nobody has joined yet</td></tr>`;
@@ -240,43 +284,56 @@ function render(){
       <td><span class="pill ${esc(t.status)}">${esc(t.status)}</span>
         <div class="meta" style="margin-top:4px">${esc(t.title||"")}</div>
         <div class="meta"><code>${esc(t.id)}</code>${t.pr ? ' · <a href="'+esc(t.pr)+'">PR</a>' : ""}</div></td>
-      <td>${t.owner ? esc(t.owner) : "—"}</td>
-      <td>${esc(String(t.priority ?? 3))}</td></tr>`).join("")
-    : `<tr><td colspan="3" class="empty">the board is empty — someone post a task</td></tr>`;
+      <td>${t.owner ? esc(t.owner) : "—"}</td><td>${esc(String(t.priority ?? 3))}</td></tr>`).join("")
+    : `<tr><td colspan="3" class="empty">the board is empty</td></tr>`;
 
   let shown = msgs;
   if(state.filterCh !== "all") shown = shown.filter(m => m._ch === state.filterCh);
   if(state.filterTy) shown = shown.filter(m => m.type === state.filterTy);
-  shown = shown.slice(-120).reverse();
-
+  shown = shown.slice(-150).reverse();
   $("feed").innerHTML = shown.length ? shown.map(m => {
-    const t = (m.ts||"").slice(11,16) || "—";
+    const t = String(m.ts||"").slice(11,16) || "—";
     return `<div class="msg">
       <div class="ts">${t}<div class="meta">#${esc(m._ch||"")}</div></div>
-      <div><span class="who">${esc(m.from)}</span>
-        <span class="ty">${esc(m.type||"say")}${m.to && m.to!=="*" ? " → "+esc(m.to) : ""}</span>
+      <div><span class="who">${esc(m.from)}</span><span class="ty">${esc(m.type||"say")}${m.to && m.to!=="*" ? " → "+esc(m.to) : ""}</span>
         <div class="txt">${esc(m.text)}</div>
-        ${(m.ref||m.reply) ? `<div class="meta">${m.ref?"ref <code>"+esc(m.ref)+"</code>":""} ${m.reply?"· reply to <code>"+esc(m.reply)+"</code>":""}</div>` : ""}
+        ${(m.ref||m.reply) ? `<div class="meta">${m.ref?"about <code>"+esc(m.ref)+"</code>":""} ${m.reply?"· reply to <code>"+esc(m.reply)+"</code>":""}</div>` : ""}
       </div></div>`;
   }).join("") : `<div class="empty">no messages match this filter</div>`;
 }
 
 $("filters").addEventListener("click", e => {
   const b = e.target.closest("button"); if(!b) return;
-  if(b.dataset.ch){
-    state.filterCh = b.dataset.ch; state.filterTy = null;
-  } else {
-    state.filterTy = state.filterTy === b.dataset.f ? null : b.dataset.f;
-    state.filterCh = "all";
-  }
+  if(b.dataset.ch){ state.filterCh = b.dataset.ch; state.filterTy = null; }
+  else { state.filterTy = (state.filterTy === b.dataset.f) ? null : b.dataset.f; state.filterCh = "all"; }
   [...$("filters").children].forEach(x =>
     x.classList.toggle("on", (b.dataset.ch && x.dataset.ch === state.filterCh) ||
                              (!b.dataset.ch && x.dataset.f === state.filterTy)));
   render();
 });
-$("refresh").addEventListener("click", load);
-load();
-setInterval(load, 30000);
+$("refresh").addEventListener("click", () => { backoff = 1; load().catch(err); });
+$("saveToken").addEventListener("click", () => {
+  const v = $("tokenBox").value.trim();
+  if(!v){ localStorage.removeItem("chatcode_token"); token = ""; banner("warn","Token cleared — back to reading mode."); }
+  else { token = v; localStorage.setItem("chatcode_token", v); banner("ok","Token saved in this browser only. Switching to live mode."); $("tokenBox").value = ""; }
+  clearTimeout(timer); load().catch(err);
+});
+
+function err(err){
+  if(err && err.ratelimit){
+    scheduleBackoff("GitHub's anonymous limit reached (60 calls/hour).");
+  } else {
+    banner("err", "<b>Cannot reach GitHub from here.</b> This page talks straight to " +
+      "<code>api.github.com</code>, so it needs ordinary internet access — if you are " +
+      "seeing this inside a sandboxed preview, download the file and open it in a normal " +
+      "browser tab. <span style='color:var(--dim)'>(" + esc(err && err.message) + ")</span>");
+    clearTimeout(timer);
+    timer = setTimeout(load, SLOW_MS);
+  }
+}
+
+if(token) $("liveInfo").textContent = "using a saved token";
+load().catch(err);
 </script>
 </body>
 </html>
