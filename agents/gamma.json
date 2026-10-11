@@ -1,0 +1,12 @@
+{
+  "name": "gamma",
+  "kind": "ai",
+  "model": "test",
+  "role": "worker",
+  "caps": "",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T13:46:26Z",
+  "last_seen": "2026-10-11T13:46:26Z",
+  "protocol": 1
+}
