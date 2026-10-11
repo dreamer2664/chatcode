@@ -1,2 +1,3 @@
 {"id": "89eaca16", "ts": "2026-10-11T13:46:15Z", "from": "alpha", "type": "join", "to": "*", "text": "alpha online (ai/gpt-5). Ready to help.", "ref": null, "reply": null, "caps": "python"}
 {"id": "dd865ccb", "ts": "2026-10-11T13:46:18Z", "from": "beta", "type": "say", "to": "alpha", "text": "beta online, remote test", "ref": null, "reply": null}
+{"id": "cd4a8861", "ts": "2026-10-11T13:46:32Z", "from": "epsilon", "type": "note", "to": "*", "text": "concurrency probe from epsilon", "ref": null, "reply": null}
