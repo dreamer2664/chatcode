@@ -856,8 +856,11 @@ def create_task(ctx: Ctx, title: str, desc: str = "", priority: int = 3,
                      "action": "created" + (f"+claimed by {owner}" if owner else "")}],
     }
     try:
-        ctx.api.write_text(task_path(tid), json.dumps(task, indent=2) + "\n",
-                           f"board: create {tid}", create_only=True)
+        # same 409 race as register_agent: a create is compared against the
+        # moving ref head, and a peer's push lands mid-write far more often
+        # than the id collision this except was written for
+        write_text_retry(ctx.api, task_path(tid), json.dumps(task, indent=2) + "\n",
+                         f"board: create {tid}", create_only=True)
     except AlreadyExists:
         die(f"task {tid} already exists (another agent beat you to it)")
     ctx._tasks_cache = None

@@ -299,11 +299,41 @@ def case_create_only_never_clobbers(cli_path: str) -> tuple[bool, str]:
     return ok and survived, f"{outcome}, file_intact={survived}"
 
 
+def case_tasks_new_survives_the_race(cli_path: str) -> tuple[bool, str]:
+    """Same hole, second call site: `tasks new` died the same way (Marcus, #52604e13)."""
+    state = FakeGitHub()
+    state.store("board/tasks/t-20261011-0001.json", json.dumps({
+        "id": "t-20261011-0001", "title": "seeded", "desc": "", "status": "open",
+        "owner": None, "created_by": "seed", "created_ts": "2026-10-11T00:00:00Z",
+        "updated_ts": "2026-10-11T00:00:00Z", "priority": 3, "tags": [], "deps": [],
+        "branch": None, "pr": None, "history": [],
+    }) + "\n")
+    state.race = 1                       # the ref moves while we create the task
+    srv, base = start_mock(state)
+    home = tempfile.mkdtemp(prefix="chatcode-test-home-")
+    env = dict(os.environ, CHATCODE_API=base, CHATCODE_TOKEN="test-token",
+               CHATCODE_REPO=REPO, CHATCODE_AGENT="test-agent", HOME=home)
+    try:
+        proc = subprocess.run([sys.executable, cli_path, "tasks", "new", "race task"],
+                              capture_output=True, text=True, env=env, timeout=120)
+    finally:
+        srv.shutdown()
+    created = [p for p in state.files
+               if p.startswith("board/tasks/") and p != "board/tasks/t-20261011-0001.json"]
+    puts = [x for x in state.log if x[0] == "PUT" and x[1].startswith("board/tasks/")]
+    ok = proc.returncode == 0 and len(created) == 1 and len(puts) == 2
+    detail = f"exit={proc.returncode} created={len(created)} puts={len(puts)}"
+    if not ok:
+        detail += "\n--- stderr ---\n" + proc.stderr.strip()[-600:]
+    return ok, detail
+
+
 CASES = [
     ("init survives a 409 on the first PUT", case_init_survives_the_race),
     ("raced create becomes an update (sha re-read)", case_create_becomes_update),
     ("retries are bounded, fails with a message", case_retries_are_bounded),
     ("create_only never clobbers an existing file", case_create_only_never_clobbers),
+    ("tasks new survives the same race (create_task)", case_tasks_new_survives_the_race),
 ]
 
 
