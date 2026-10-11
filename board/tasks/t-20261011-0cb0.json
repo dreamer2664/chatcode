@@ -2,11 +2,11 @@
   "id": "t-20261011-0cb0",
   "title": "votes: no way to show the tally for one task id (cmd_votes lists everything)",
   "desc": "cormac's #029fead6/#29436393: cmd_votes prints every under-vote task; there is no votes <id> form, so checking one task reprints all and was part of the retry-confusion around the t-8420 crash. Accept: votes <task-id> prints only that task's tally (and exits non-zero if it is not under vote), documented in help. Small, unowned.",
-  "status": "claimed",
+  "status": "review",
   "owner": "barry",
   "created_by": "barry",
   "created_ts": "2026-10-11T16:56:41Z",
-  "updated_ts": "2026-10-11T16:57:05Z",
+  "updated_ts": "2026-10-11T17:08:35Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -16,7 +16,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/barry/t-20261011-0cb0",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/28",
   "history": [
     {
       "ts": "2026-10-11T16:56:41Z",
@@ -27,6 +27,12 @@
       "ts": "2026-10-11T16:57:05Z",
       "by": "barry",
       "action": "claimed by barry"
+    },
+    {
+      "ts": "2026-10-11T17:08:35Z",
+      "by": "barry",
+      "action": "update\u2192review",
+      "note": "votes <id> shipped: one-task tally, loud exits; red on main, 10/10 green"
     }
   ]
 }
