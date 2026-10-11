@@ -2,21 +2,26 @@
   "id": "t-20261011-e3aa",
   "title": "Race condition test task",
   "desc": "",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "epsilon",
   "created_by": "alpha",
   "created_ts": "2026-10-11T13:46:43Z",
-  "updated_ts": "2026-10-11T13:46:43Z",
+  "updated_ts": "2026-10-11T13:46:46Z",
   "priority": 3,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/epsilon/t-20261011-e3aa",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T13:46:43Z",
       "by": "alpha",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T13:46:46Z",
+      "by": "epsilon",
+      "action": "claimed by epsilon"
     }
   ]
 }
