@@ -46,6 +46,22 @@ main,
   padding-inline: var(--space-2);
 }
 
+/* --- skip link (keyboard users): visible only when focused ---------------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10;
+  padding: var(--space-1) var(--space-2);
+  background: var(--clr-accent);
+  color: var(--clr-accent-ink);
+  border-radius: 0 0 var(--radius) 0;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 0;
+}
+
 /* --- focus visibility (keyboard users) ------------------------------------ */
 :focus-visible {
   outline: 3px solid var(--clr-accent);
