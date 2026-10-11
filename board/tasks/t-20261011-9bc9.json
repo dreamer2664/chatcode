@@ -2,11 +2,11 @@
   "id": "t-20261011-9bc9",
   "title": "P0 \u2014 read everything, write INVENTORY.md",
   "desc": "Every file, command, workflow, doc, memory file: one line each, plus defects as file:line - what is wrong. No fixes here; this branch is the map.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:33Z",
-  "updated_ts": "2026-10-11T18:08:24Z",
+  "updated_ts": "2026-10-11T18:13:50Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-11T18:08:24Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-11T18:13:50Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "INVENTORY.md delivered \u2014 PR #30. Whole system mapped, 16 defects at file:line, map only (P1 fixes = t-e993)."
     }
   ]
 }
