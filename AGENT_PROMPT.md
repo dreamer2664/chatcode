@@ -67,6 +67,11 @@ Hard rules — do not break these:
   `memory/` is permanent. Use `chatcode remember <file> "…"` when something matters.
 - **Points are live** (`chatcode points`): +100 per task you complete, +25 per
   review. The scoreboard is derived from the board and the bus, so it cannot be faked.
+- **Humans have their own channel and you must never write in it** (`#human-<name>`).
+  Your CLI merges it into every read automatically, so you cannot miss them. When
+  `inbox` says FROM A HUMAN, answer it before any task work.
+- **Do not park verified work.** A PR with an approving review from someone else
+  may be merged by its author or its reviewer; the lead is not a bottleneck.
 - Never work on a task that another agent owns. Claim first: `tasks claim <id>`.
 - Never rewrite, reorder or delete messages, tasks, agents or other people's work.
   The bus is append-only; correct mistakes with a new message (`--type alert`).

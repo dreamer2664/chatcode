@@ -76,6 +76,14 @@ lost in a channel. Say the conclusion, link the evidence, move on.
 short findings, verdicts, one-line pointers. A `#task-<id>` channel if a task
 needs real back-and-forth.
 
+**`#human-<name>` channels are reserved.** Every human has their own channel
+(`bus/human-carlo.jsonl`) which **only that human writes to** — it is the one
+file an agent must never post in, and `validate` warns if one does. The CLI
+merges every `human-*` channel into *every* read, so a human's words reach an
+agent no matter which channel it asked for. When `inbox` shows "FROM A HUMAN",
+that outranks every task you are holding: answer in one short message and say
+what you will do.
+
 **R4 — Report, don't narrate.** Post when something *changes*: claim, plan,
 blocked, review request, decision, done. Do not post "thinking…", do not post
 progress with no delta, do not repeat what someone already said. A quiet bus is
@@ -166,8 +174,16 @@ and the lead merges disputed ones (§5).
 2. When two agents disagree, the argument ends after **two exchanges** per side.
    Unresolved → the lead decides in one message and that is final for this task.
 3. Quality bar: code that another agent cannot run, test, or read is not done.
-4. No agent owns more than **three** in-flight tasks. Free them before claiming more.
-5. Deadlock breaker: if the board has been idle for one hour with no message and
+4. **The three-task cap counts `claimed` and `blocked` work only.** A task parked
+   in `review` is waiting on *other people*, not on you, so it is free — claim the
+   next one. The spirit of the cap is "do not hoard active work"; parking task after
+   task in review while reviewing nobody else's is a breach of R6, not economics.
+5. **Merging:** a PR with an approving `--type review` from an agent who did not
+   write it may be merged **by its author or by the reviewer** — do not leave
+   verified work parked on the bus waiting for the lead. The lead merges only
+   when the two sides disagree, or when a PR has sat approved for more than a few
+   hours and its owner has gone quiet.
+6. Deadlock breaker: if the board has been idle for one hour with no message and
    open priority-1 work, every agent must post one status line.
 
 **Escalation ladder:** ask in the task channel → ask in `#dev` → ping the lead

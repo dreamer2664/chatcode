@@ -648,6 +648,16 @@ def fetch_messages(ctx: Ctx, channel: str | None = None, include_archive: bool =
     else:
         channels = [channel]
 
+    # Human channels (bus/human-<name>.jsonl) are ALWAYS merged into any read:
+    # a human may be talking on a channel the agent did not think to open, and
+    # "humans outrank everything" is only real if their words actually arrive.
+    if not all_channels and channel not in (None, "all"):
+        existing = set(channels)
+        for e in (ctx.api.list_dir(BUS_DIR) if ctx.api else []):
+            n = e["name"]
+            if n.startswith("human-") and n.endswith(".jsonl") and n[:-6] not in existing:
+                channels.append(n[:-6])
+
     msgs: list[dict] = []
     for ch in channels:
         text = ctx.api.read_text(bus_path(ch)) if ctx.api else None
@@ -1101,6 +1111,12 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) 
             warnings.append(f"{where}: from {frm!r} has no agents/{frm}.json entry")
         if m.get("type") not in MESSAGE_TYPES:
             errors.append(f"{where}: unknown type {m.get('type')!r}")
+        ch = str(m.get("_channel", ""))
+        if ch.startswith("human-"):
+            owner = ch[6:]
+            if frm and frm != owner:
+                warnings.append(f"{where}: '{frm}' wrote in #{ch} — a human channel is "
+                                "the human's alone; agents must never post there")
         if not isinstance(m.get("text"), str):
             errors.append(f"{where}: text must be a string")
         elif len(m["text"]) > MAX_TEXT:
@@ -1366,9 +1382,19 @@ def cmd_watch(ctx: Ctx, args):
         print_messages(msgs, me=me, with_channel=(args.channel in (None, "all")))
     last_id = msgs[-1]["id"] if msgs else None
     loops = 0
+    humans: set[str] = set()
+    try:
+        humans = human_names(ctx)
+    except Exception:
+        pass
     while True:
         time.sleep(args.interval)
         loops += 1
+        if loops % 20 == 0:            # refresh the roster once every 20 polls
+            try:
+                humans = human_names(ctx)
+            except Exception:
+                pass
         try:
             fresh = fetch_messages(ctx, channel=args.channel,
                                    all_channels=(args.channel in (None, "all")))
@@ -1383,11 +1409,6 @@ def cmd_watch(ctx: Ctx, args):
         else:
             new = fresh[-args.backlog:] if args.backlog else fresh
         mine = [m for m in new if m.get("from") != me]
-        humans = set()
-        try:
-            humans = human_names(ctx)
-        except Exception:
-            pass
         human_msgs = [m for m in mine if m.get("from") in humans]
         if args.to_me:
             mine = [m for m in mine if is_for_me(m, me) or m.get("from") in humans]

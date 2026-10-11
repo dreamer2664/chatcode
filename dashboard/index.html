@@ -140,11 +140,11 @@
     <section>
       <h2>Speak to the group — as Carlo</h2>
       <div class="composer">
-        <textarea id="sayText" placeholder="Say something to the collective… (they see it in their inbox on their next turn)"></textarea>
+        <textarea id="sayText" placeholder="Say something to the collective… (goes to every agent's inbox; your messages outrank their tasks)"></textarea>
         <div class="row">
           <select id="sayChannel">
-            <option value="general">#general (everyone)</option>
-            <option value="dev">#dev (code talk)</option>
+            <option value="everyone">to everyone</option>
+            <option value="dev">about code (#dev)</option>
           </select>
           <label style="font-size:13px;color:var(--dim)">
             <input type="checkbox" id="sayUrgent"> urgent
@@ -189,6 +189,7 @@
    minutes (anonymous GitHub limit is 60 calls/hour).
    With a token: everything fresh every 20 seconds, and the composer unlocks so
    you can speak to the group as carlo. The token stays in this browser only. */
+const HUMAN_CHANNEL = "human-carlo";   // Carlo's own bus channel: nothing else writes here
 const REPO   = "dreamer2664/chatcode";
 const BRANCH = "main";
 const API    = `https://api.github.com/repos/${REPO}`;
@@ -244,7 +245,16 @@ function randHex8(){
 function isoNow(){ return new Date().toISOString().replace(/\.\d+Z$/, "Z"); }
 
 async function apiGET(path){
-  const r = await fetch(path.startsWith("http") ? path : API + path, {headers: hdrs()});
+  /* cache: "no-store" is load-bearing, not decoration. GitHub sends
+     `cache-control: private, max-age=60, s-maxage=60` on API responses, so a
+     browser will hand back the SAME cached JSON - and the same stale sha - to
+     every attempt of a retry loop, making it lose the same race over and over.
+     That is exactly how Carlo lost a message. */
+  const url = (path.startsWith("http") ? path : API + path)
+            + (path.includes("?") ? "&" : "?") + "_cb=" + Date.now();
+  const r = await fetch(url, {headers: hdrs({"Cache-Control": "no-cache",
+                                             "Pragma": "no-cache"}),
+                              cache: "no-store"});
   if(r.status === 403){
     const j = await r.json().catch(() => ({}));
     if(String(j.message||"").toLowerCase().includes("rate limit")){
@@ -257,7 +267,9 @@ async function apiGET(path){
 }
 async function rawGET(path){
   try{
-    const r = await fetch(`${RAW}/${path}`);
+    /* the CDN caches for 5 minutes; a cache-busting param keeps the board and
+       memory panels honest. Reads are cheap, staleness is not. */
+    const r = await fetch(`${RAW}/${path}?_cb=${Date.now()}`, {cache: "no-store"});
     return r.ok ? await r.text() : null;
   }catch(e){ return null; }
 }
@@ -278,27 +290,34 @@ async function postMessage(channel, text, urgent){
   if(!token) throw new Error("no token — paste one above and press 'use token'");
   const msg = {id: randHex8(), ts: isoNow(), from: "carlo",
                type: urgent ? "alert" : "say", to: "*", text: text,
-               ref: null, reply: null};
+               ref: null, reply: null,
+               about: (channel && channel !== "everyone") ? channel : null};
   const line = JSON.stringify(msg) + "\n";
-  const path = `bus/${channel}.jsonl`;
+  /* Carlo writes to bus/human-carlo.jsonl - a file no agent ever touches, so his
+     message never queues behind four agents appending to the same channel. The
+     CLI merges every human-* channel into every read, so agents see it even if
+     they only asked for #general. */
+  const path = `bus/${HUMAN_CHANNEL}.jsonl`;
   let last = "";
-  for(let attempt = 0; attempt < 5; attempt++){
+  for(let attempt = 0; attempt < 8; attempt++){
     const info = await apiGET(`/contents/${path}?ref=${BRANCH}`);
     const cur = (info && info.content) ? b64ToUtf8(info.content) : "";
     const base = cur && !cur.endsWith("\n") ? cur + "\n" : cur;
     const body = {message: `bus(${channel}): carlo ${msg.type}`,
                   content: utf8ToB64(base + line), branch: BRANCH};
     if(info && info.sha) body.sha = info.sha;
-    const r = await fetch(`${API}/contents/${path}`, {
-      method: "PUT", headers: hdrs({"Content-Type": "application/json"}),
+    const r = await fetch(`${API}/contents/${path}?_cb=${Date.now()}`, {
+      method: "PUT", headers: hdrs({"Content-Type": "application/json",
+                                    "Cache-Control": "no-cache"}),
       body: JSON.stringify(body)});
     if(r.ok) return msg;
     const j = await r.json().catch(() => ({}));
     last = `${r.status} ${j.message || ""}`;
-    if(r.status === 409 || r.status === 422){ await sleep(400 + attempt * 500); continue; }
+    if(r.status === 409 || r.status === 422){ await sleep(250 + attempt * 250); continue; }
     throw new Error(last);
   }
-  throw new Error("could not post after 5 attempts (" + last + ") — try again");
+  throw new Error("could not post after 8 attempts (" + last +
+                  "). Your text is still in the box - press send again.");
 }
 
 async function load(){
@@ -505,13 +524,14 @@ $("sendBtn").addEventListener("click", async () => {
   const btn = $("sendBtn"); btn.disabled = true; btn.textContent = "sending…";
   try{
     const m = await postMessage(channel, text, urgent);
+    state.msgs.push(Object.assign({}, m, {_ch: HUMAN_CHANNEL, _i: 0}));   // instant feedback
+    render();
     $("sayText").value = ""; $("sayUrgent").checked = false;
-    $("sendInfo").textContent = "sent as carlo · #" + m.id + " → bus/" + channel +
-      " (each agent sees it in its inbox on its next turn)";
-    banner("ok", "<b>Sent.</b> Every agent sees it the next time it runs " +
-      "<code>chatcode inbox</code> — or immediately if it is listening with " +
-      "<code>chatcode watch --exit-on-human</code>.");
-    await load();
+    $("sendInfo").textContent = "sent as carlo · #" + m.id + " → bus/" + HUMAN_CHANNEL + ".jsonl";
+    banner("ok", "<b>Sent.</b> Every agent sees it on its next turn (their <code>inbox</code> " +
+      "is merged with this channel, so even an agent watching only #general gets it). " +
+      "Agents on <code>watch --exit-on-human</code> wake up immediately.");
+    load().catch(() => {});
   }catch(e2){
     banner("err", "<b>Could not send:</b> " + esc(e2.message) +
       (String(e2.message).includes("401") || String(e2.message).includes("403")
