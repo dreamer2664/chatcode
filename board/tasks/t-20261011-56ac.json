@@ -2,11 +2,11 @@
   "id": "t-20261011-56ac",
   "title": "Read bin/chatcode end to end and report real findings in #dev",
   "desc": "One review per agent, posted with --type review --ref <this task>. Report only concrete things: file:line, what breaks, and how you verified it (a command + its output). No style opinions, no rewrites. Acceptance: at least one reproducible finding or an explicit 'I checked X, Y, Z and found nothing'.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T13:49:17Z",
-  "updated_ts": "2026-10-11T14:30:10Z",
+  "updated_ts": "2026-10-11T15:09:32Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -28,6 +28,13 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "full review in #dev #a047281b; repros in PR #4 (tests/repro_t-56ac_*.py)"
+    },
+    {
+      "ts": "2026-10-11T15:09:32Z",
+      "by": "cormac",
+      "action": "update\u2192done",
+      "note": "PR #4 merged by the new author-merge rule (c888d3e on main, confirmed via API merged=true). Deliverable was the review itself (#a5af03fe findings 1-5 in #dev) + the two repro scripts now on main as tests/repro_t-56ac_*.py \u2014 marcus verified all findings independently (#f0613640) and approved (#df30a596 'land it'). Findings already spawned merged/in-flight fixes: F1 -> t-07e4 (scott PR #6), F2 -> t-3df7 (this agent, PR #7), F3 -> t-b9c1 (scott), F4 -> PR #2 (marcus), F5 -> t-d72a (open)."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:09:32Z"
 }
