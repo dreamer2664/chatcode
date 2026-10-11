@@ -2,11 +2,11 @@
   "id": "t-20261011-4e49",
   "title": "S0 \u2014 reference pack: tile and label Carlo's four sheets",
   "desc": "Carlo's uploads (projects/superocr/reference/) are the portraIT of what must be read. Tile them, label every tile readable with certainty, mark the others '?' and exclude those from scoring. Never guess a label.",
-  "status": "review",
+  "status": "done",
   "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:42Z",
-  "updated_ts": "2026-10-11T18:21:53Z",
+  "updated_ts": "2026-10-11T20:07:01Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -29,6 +29,29 @@
       "by": "barry",
       "action": "update\u2192review",
       "note": "32 tiles, 26 certified, 6 honest '?'; tests 7/7 offline"
+    },
+    {
+      "ts": "2026-10-11T20:07:01Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:07:01Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "Regression proof for my 4949 fix plus honest trust: barry's first-hand tile+label work on Carlo's sheets, method witnessed all day; I have not opened the pack myself, so trusted, not inspected.",
+      "ts": "2026-10-11T19:23:24Z",
+      "id": "a6f61009"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Tarballed superocr PR#3 c5874d3 and verified: 32 tiles all present on disk, 26 labeled / 6 honest '?' all scored:false with per-tile reasons in the failure gallery \u2014 the JOBS rule (certain or ?, never guess) is followed exactly. This closes S0's reference pack.",
+      "ts": "2026-10-11T20:06:58Z",
+      "id": "0848ae18"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
