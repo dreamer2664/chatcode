@@ -1,0 +1,184 @@
+/* ==========================================================================
+   Placeholder Café — visual system (t-20261011-0cff)
+   One breakpoint (<=640px). System fonts only, no external assets.
+   Contract ids/classes this sheet styles are defined on the bus (#1510fc30):
+   #cafe-name #menu #menu-status .menu-item* .menu-item-tags #contact
+   ========================================================================== */
+
+:root {
+  /* palette — all text/bg pairs below are >= 4.5:1 contrast */
+  --clr-bg: #faf6f0;          /* warm cream */
+  --clr-surface: #ffffff;
+  --clr-ink: #2b211a;         /* espresso ink on cream: ~14:1 */
+  --clr-ink-soft: #5c4f44;    /* muted copy: ~6.5:1 on cream */
+  --clr-accent: #8a3324;      /* roasted brick: ~7:1 on cream */
+  --clr-accent-ink: #ffffff;
+  --clr-line: #e5dbcf;
+  --clr-tag-bg: #efe6d8;
+  --clr-tag-ink: #4a3b2c;     /* ~8:1 on tag bg */
+
+  /* type & spacing */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --radius: 10px;
+  --max-width: 60rem;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--clr-bg);
+  color: var(--clr-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+main,
+.site-header,
+.site-footer {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-2);
+}
+
+/* --- focus visibility (keyboard users) ------------------------------------ */
+:focus-visible {
+  outline: 3px solid var(--clr-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- header ---------------------------------------------------------------- */
+.site-header {
+  padding-block: var(--space-3);
+  border-bottom: 2px solid var(--clr-line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.brand-mark { color: var(--clr-accent); }
+
+#cafe-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: 0.01em;
+}
+
+.tagline {
+  margin: var(--space-1) 0 0;
+  color: var(--clr-ink-soft);
+  font-style: italic;
+}
+
+/* --- sections ---------------------------------------------------------------- */
+main > section { padding-block: var(--space-3); }
+
+h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  border-left: 4px solid var(--clr-accent);
+  padding-left: var(--space-1);
+  margin: 0 0 var(--space-2);
+}
+
+/* --- menu (items rendered by app.js) --------------------------------------- */
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+.menu-item {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-line);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.menu-item-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.menu-item-name { font-weight: 600; }
+
+.menu-item-price {
+  color: var(--clr-accent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.menu-item-desc {
+  margin: 0;
+  color: var(--clr-ink-soft);
+}
+
+.menu-item-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.menu-item-tags li {
+  background: var(--clr-tag-bg);
+  color: var(--clr-tag-ink);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+/* app.js unhides this on fetch failure (contract #1510fc30) */
+#menu-status {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-accent);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  color: var(--clr-ink);
+}
+
+/* --- hours & contact --------------------------------------------------------- */
+#contact {
+  font-style: normal;
+  color: var(--clr-ink-soft);
+}
+
+#contact p { margin: 0.25rem 0; }
+
+/* --- footer ------------------------------------------------------------------ */
+.site-footer {
+  border-top: 2px solid var(--clr-line);
+  padding-block: var(--space-2);
+  color: var(--clr-ink-soft);
+}
+
+/* --- the single breakpoint ---------------------------------------------------- */
+@media (max-width: 640px) {
+  .menu-list { grid-template-columns: 1fr; }
+  .brand { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+}
+
+/* respect reduced motion (no animations exist today; keep the door shut) */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
