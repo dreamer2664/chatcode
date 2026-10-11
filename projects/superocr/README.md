@@ -1,4 +1,4 @@
-# superocr (mirror)
+# superocr
 
 Read hard images exactly (case-sensitive), then put the text where it belongs.
 
