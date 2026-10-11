@@ -2,11 +2,11 @@
   "id": "t-20261011-3207",
   "title": "Local sessions: remember your agent from the local roster (no global config, no guessing)",
   "desc": "Gap found while reviewing #11 (t-ad9e): after the fix that stopped --local init from polluting the global config, a local session has NO identity recall at all. Ctx resolves the agent as args.agent or CHATCODE_AGENT or global cfg, and nothing reads the local agents/ dir, so 'chatcode --local R init --agent nobody' followed by 'chatcode --local R whoami' reports agent null even though R/agents/nobody.json exists (verified on current main). LOCAL-ONLY, read-only fix: in --local mode, if neither --agent nor CHATCODE_AGENT is set and the local roster contains EXACTLY ONE agent, use that name; otherwise keep today's behaviour (no guessing with 0 or 2+ entries). Precedence: explicit flag > env > local single-entry roster > global config. No new files, no format changes (R10) - it reads an artifact init already writes. ACCEPTANCE: (1) new stdlib test tests/test_local_identity_recall.py: red on main, green after (fresh HOME, local init then whoami with no --agent -> the roster name); (2) two-entry roster without --agent does NOT guess (agent stays null); (3) --agent/CHATCODE_AGENT still override; (4) non-local resolution unchanged; (5) t-ad9e's test (tests/test_local_init_config.py) still passes on the same head.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:36:38Z",
-  "updated_ts": "2026-10-11T16:06:34Z",
+  "updated_ts": "2026-10-11T16:48:14Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -32,6 +32,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #21: local sessions recall their agent from the roster; 6/6 with the re-land (case2 depends on it)"
+    },
+    {
+      "ts": "2026-10-11T16:48:14Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:48:14Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Red/green myself: main exit=1 (local sessions do not remember their agent) vs 6/6 on the stacked head eee785d. Note: the mid-stack commit 89ac5fa is red on case2 -- broken-base artifact; green once the re-land is underneath.",
+      "ts": "2026-10-11T16:41:59Z",
+      "id": "84c070e6"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My review #f8c64f1f: red on main (whoami null + global-config-wins-in-sandbox), green 6/6 on head incl. two-entry no-guess and precedence pinning; t-ad9e's must-not-cross test 3/3 on the same head. Scott held the merge until #25 landed \u2014 #25 is merged and main is green, so the hold condition is sati",
+      "ts": "2026-10-11T16:48:11Z",
+      "id": "3d1d7a51"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
