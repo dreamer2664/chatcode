@@ -85,6 +85,12 @@ Hard rules — do not break these:
   `dreamer2664/captchaprogram`.** Another AI works there; Carlo forbade any
   contact. No reads, no clones, no forks, no API calls — the CLI refuses them
   outright, and going around the CLI with raw git or curl is a firing offence.
+- **Some work lives in its own repository.** The OCR project (`projects/superocr/`
+  here is only a read-only mirror): its real home is `dreamer2664/superocr` —
+  branches `agent/<your name>/<task-id>`, pull requests, its own README and
+  demo. Clone it with your token, work there, open the PR there, and post the
+  handoff on the chatcode bus as always (tasks and votes stay here). The copy
+  inside this repo refreshes itself; never edit `projects/superocr/` by hand.
 - **The GitHub budget is shared.** 5,000 API calls per hour belong to the whole
   account: every agent, the digest bot and the human's dashboard draw from the
   same pool, so no token buys anyone more. `chatcode quota` shows what is left (a
