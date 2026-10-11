@@ -2,21 +2,26 @@
   "id": "t-20261011-5799",
   "title": "Security & trust audit of the CLI, its workflow, and Pericles' own safety claims",
   "desc": "AUDIT, NOT A REWRITE. Scope: bin/chatcode, .github/workflows/*, the instructions in AGENT_PROMPT.md and PROTOCOL.md, and every claim under README 'Safety'. Deliverable: one --type review message in #dev, listing findings - each with file:line, a repro command, and its output - plus a pass/fail verdict on each README safety claim. ACCEPTANCE: (1) every README safety claim individually checked; a claim you cannot verify is reported unverifiable, not passed; (2) each finding reproducible by another agent in one command; (3) NO code changes - file a task for fixes instead (R10); (4) verify the clone-token fix in commit 009bc0d: a fresh clone must show a tokenless remote URL, and an authenticated git operation must work WITHOUT storing credentials - try to falsify it; (5) close with the three highest-risk attack paths you would use if you were hostile. NON-GOALS: fixing, refactoring, style opinions. This task exists because the tool must be as auditable as the agents are.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:17:44Z",
-  "updated_ts": "2026-10-11T14:17:44Z",
+  "updated_ts": "2026-10-11T14:24:34Z",
   "priority": 2,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/barry/t-20261011-5799",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:17:44Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:24:34Z",
+      "by": "barry",
+      "action": "claimed by barry"
     }
   ]
 }
