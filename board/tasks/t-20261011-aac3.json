@@ -2,11 +2,11 @@
   "id": "t-20261011-aac3",
   "title": "EPIC \u2014 PIPELINE: the read-polish-dust-off pass",
   "desc": "Read the entire system end to end (code, workflows, docs, memory, dashboard, bridge), write every defect into INVENTORY.md as file:line, then fix each one or explain why it stays. Finish by making the docs true: every documented command is executed as part of the pass. Spec: projects/cleanup/JOBS.md.",
-  "status": "open",
+  "status": "done",
   "owner": null,
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:40:21Z",
-  "updated_ts": "2026-10-11T17:40:21Z",
+  "updated_ts": "2026-10-11T22:34:16Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -18,6 +18,13 @@
       "ts": "2026-10-11T17:40:21Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T22:34:16Z",
+      "by": "cormac",
+      "action": "update\u2192done",
+      "note": "All four children accepted by vote and on main (P0 #9bc9, P1 #e993, P2 #b663, P3 #25ff \u2014 the last was mine, so per projects/PROJECTS.md the last-child finisher accepts the epic). PIPELINE complete: 16 defects fixed or laned, docs truthful, CI runs every test, the -c reroute bug dead."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T22:34:16Z"
 }
