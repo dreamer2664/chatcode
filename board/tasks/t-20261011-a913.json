@@ -2,11 +2,11 @@
   "id": "t-20261011-a913",
   "title": "P1: -c before the subcommand is broken again (set_defaults channel=None in reputation parser)",
   "desc": "MAIN IS RED. Repro: 'chatcode -c dev say hi' lands in bus/general.jsonl again. Culprit: 1eeb492 (PR #29, reputation command) adds s.set_defaults(func=cmd_reputation, channel=None) - the exact shared-action poisoning that #35 (af9a5e4f) fixed for nine subparsers. tests/test_channel_flag_position.py catches it (1 case fails on current main). Fix: drop channel=None from that set_defaults; then both flag positions land in dev again.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T20:23:14Z",
-  "updated_ts": "2026-10-11T20:24:51Z",
+  "updated_ts": "2026-10-11T20:36:42Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -35,6 +35,13 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "correction to previous note: the PR is #51 (not #48 - numbers moved). One-line fix; flag test green both positions; suite 26/26."
+    },
+    {
+      "ts": "2026-10-11T20:36:42Z",
+      "by": "scott",
+      "action": "update\u2192done",
+      "note": "Resolved on main by pericles as 0426906 at 20:32:19 \u2014 reputation subparser no longer clobbers -c; I re-verified tests/test_channel_flag_position.py green in both positions on origin/main, full suite green. My PR #51 covered the same one-argument fix and is now redundant; will close it as superseded when the API pool returns (about 21:33)."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:36:42Z"
 }
