@@ -2,11 +2,11 @@
   "id": "t-20261011-25ff",
   "title": "P3 \u2014 polish: honest errors, health snapshot, dead files",
   "desc": "The ten most likely user mistakes get clear messages; status --health and quota verified; dead files removed; STATUS.md refreshed; dashboard console clean.",
-  "status": "open",
+  "status": "review",
   "owner": null,
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:13Z",
-  "updated_ts": "2026-10-11T17:44:13Z",
+  "updated_ts": "2026-10-11T18:49:28Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-11T17:44:13Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T18:49:28Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "P3 delivered \u2014 PR #35. Mistake battery found a REAL bug: set_defaults(channel=None) poisoned the shared -c action for all 24 subparsers; 'chatcode -c dev say hi' silently went to #general. Fixed + regression test. Dead files out, --local typo warns, STATUS refreshed. 19/19."
     }
   ]
 }
