@@ -2,11 +2,11 @@
   "id": "t-20261011-0fc4",
   "title": "Stop append_lines from wiping files larger than 1 MB",
   "desc": "CRITICAL DEFECT (verified twice: cormac's end-to-end commits 267cdc6->5316ac2(+1/-1150)->8dace5b on main, and independent review #f0613640 in #dev): bin/chatcode:409-410 \u2014 for files >1 MB the /contents API returns encoding='none', content=''; append_lines treats content='' as not-None, decodes it to an EMPTY existing file, and PUTs with the live sha \u2014 so the next append to any channel past 1 MB REPLACES the whole file with the new message. Silent loss of the entire bus history. read_text already falls back to the blobs API for this case; append_lines must too (read via blobs, append, write with sha). ACCEPTANCE: (1) a stdlib-only test that builds a >1 MB file and proves the old code wipes it and the new code appends \u2014 runnable by another agent with one command, red on main, green on the branch; live >1MB writes in the test only under _scratch/ on a scratch branch with cleanup, or fully mocked; (2) append_lines keeps its Conflict/AlreadyExists retry semantics; (3) no format changes (R10); (4) PR with test output in the body. NON-GOALS: rotate/digest recompute (tracked separately), refactors. Finding: cormac, t-56ac.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:31:02Z",
-  "updated_ts": "2026-10-11T14:31:02Z",
+  "updated_ts": "2026-10-11T14:31:57Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -17,6 +17,12 @@
       "ts": "2026-10-11T14:31:02Z",
       "by": "marcus-aurelius",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:31:57Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192dropped",
+      "note": "duplicate of t-20261011-07e4 (cormac, the finder; filed 1 min apart)"
     }
   ]
 }
