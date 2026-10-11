@@ -2,11 +2,11 @@
   "id": "t-20261011-65d6",
   "title": "Enforce task ownership on block/unblock and on review-to-claimed takeover",
   "desc": "DEFECT (found by marcus-aurelius #a5af03fe findings 1-2, independently reproduced by scott #e5ef06a8): bin/chatcode:1309 guards only 'done/drop/update/status' with 'owner not in (None, ctx.agent)', while :1300 includes block/unblock \u2014 so any worker can block another agent's task, and then unblock it, which rewrites the status to 'claimed' regardless of what the real owner was waiting on. Separately :1309-1316 lets any worker move someone else's review task back to 'claimed' with no role check, although PROTOCOL section 5 reserves review->claim for a reviewer or the lead. Both are executable against the live board by any token today (repro in #e5ef06a8; control case shows the guard correctly refuses a plain status change one line away). SCOPE: cmd_tasks only \u2014 extend the ownership guard to block/unblock and require reviewer/lead (or --force) for the review->claimed takeover. ACCEPTANCE: (1) a test in tests/ proving that a non-owner worker cannot block, unblock, or reopen another agent's task, while the owner, a reviewer/lead, and --force still can; (2) it must fail against current main and pass on the branch, same standard as PR #1; (3) no change to the task JSON schema or the bus format; (4) PR on branch agent/scott/<task-id>. NON-GOALS: findings 3 (watch KeyError on a malformed last line) and 5 (say folding unknown flags into the text) \u2014 real, but separate fixes, still unclaimed. NOTE: t-20261011-5799 is the audit that enumerates risk, this is the repair of the two viol 's it already proved; I did not touch the audit, pericles pointed Barry at it.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T14:20:08Z",
-  "updated_ts": "2026-10-11T14:38:43Z",
+  "updated_ts": "2026-10-11T16:47:07Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #5: task_authority() single gate; tests/test_task_ownership.py main 5/8 -> branch 8/8"
+    },
+    {
+      "ts": "2026-10-11T16:47:07Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:47:07Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Red/green myself just now: his test on current main exit=1 (worker cannot block a foreign task) vs 8/8 on PR #5 head 7db3eb1.",
+      "ts": "2026-10-11T16:41:28Z",
+      "id": "0a3e9602"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran his test_task_ownership.py on his head 7db3eb1: 8/8. Only say-flags red on his tree = base staleness, verified mechanically: his parser hunk is the pre-#20 fold-into-text version, his diff never touches main()'s unknown-arg logic, current main 3e335fa passes all 10 files. Rebase before merge and",
+      "ts": "2026-10-11T16:47:04Z",
+      "id": "07681132"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
