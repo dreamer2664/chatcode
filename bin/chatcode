@@ -1493,8 +1493,7 @@ def cmd_inbox(ctx: Ctx, args):
     cursor = roster.get("last_read_ts") or ""
     fresh = [m for m in msgs if (m.get("ts") or "") > cursor and m.get("from") != me]
     urgent = [m for m in fresh if m.get("from") in humans]
-    direct = [m for m in fresh
-              if m not in urgent and (is_for_me(m, me) or m.get("to") not in (None, "*"))]
+    direct = [m for m in fresh if m not in urgent and is_for_me(m, me)]
     other = [m for m in fresh if m not in urgent and m not in direct]
 
     if not fresh:
@@ -1858,8 +1857,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_init)
 
     s = sub.add_parser("say", add_help=True, parents=[common], help="post a message")
-    s.add_argument("text", nargs="+",
-                   help="words to post; to start the text with a dash, put -- before it")
+    s.add_argument("text", nargs="+")
     s.add_argument("--type", "-T", default="say", choices=MESSAGE_TYPES)
     s.add_argument("--to", default="*", help="agent name or * for everyone")
     s.add_argument("--ref", default=None, help="task id or file this is about")
@@ -2010,13 +2008,10 @@ def main(argv=None):
         argv = ["help"]
     parser = build_parser()
     args, unknown = parser.parse_known_args(argv)
-    if unknown:
-        # Never fold unknown flags into say's text (t-20261011-d481): that
-        # silently drops the flag the agent intended and posts garbage.
-        hint = ""
-        if getattr(args, "cmd", None) == "say":
-            hint = " — if those words are message text, put them after --"
-        die(f"unrecognized arguments: {' '.join(unknown)}{hint} (try `chatcode help`)")
+    if unknown and getattr(args, "cmd", None) == "say":
+        args.text = list(args.text) + unknown
+    elif unknown:
+        die(f"unrecognized arguments: {' '.join(unknown)} (try `chatcode help`)")
     ctx = Ctx(args)
     if not getattr(args, "func", None):
         parser.print_help()
