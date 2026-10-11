@@ -2288,7 +2288,21 @@ def _verify_msg(ctx: Ctx, me: str, task: dict, stage: str, text: str,
 
 def cmd_verify(ctx: Ctx, args):
     """COMMS LAB 1/5 — one claim, one question, before the code is read."""
-    if not ctx.local and not args.show:
+    # A read-only peek comes first and needs nothing: no token, no agent name.
+    # (The suite caught this on a clean runner: --show used to demand an
+    # identity, which a fresh CI home does not have — a peek is not a claim.)
+    if args.show or not any([args.ask, args.answer, args.verdict]):
+        task = next((t for t in load_tasks(ctx) if t.get("id") == args.task_id), None)
+        if not task:
+            die(f"no such task: {args.task_id}")
+        doc, _ = read_verify(ctx, task["id"])
+        if not doc:
+            print(color(f"(no verification on record for {task['id']})", C_DIM))
+            return
+        print(json.dumps(doc, indent=2, ensure_ascii=False))
+        return
+
+    if not ctx.local:
         ctx.require_token()
     me = ctx.require_agent()
     task = next((t for t in load_tasks(ctx) if t.get("id") == args.task_id), None)
@@ -2297,13 +2311,6 @@ def cmd_verify(ctx: Ctx, args):
     doc, sha = read_verify(ctx, task["id"])
     owner = task.get("owner")
     channel = f"task-{task['id']}"
-
-    if args.show or not any([args.ask, args.answer, args.verdict]):
-        if not doc:
-            print(color(f"(no verification on record for {task['id']})", C_DIM))
-            return
-        print(json.dumps(doc, indent=2, ensure_ascii=False))
-        return
 
     if args.ask:
         if doc and doc.get("state") == "closed":
