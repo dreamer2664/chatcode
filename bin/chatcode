@@ -1191,10 +1191,15 @@ def tally_votes(votes: dict[str, dict], owner: str | None) -> dict:
     tie       — quorum reached with equal counts: escalates to the lead
     """
     voters = {k: v for k, v in votes.items() if k != owner}
-    accepts = [v for v in voters.values() if v.get("vote") == "accept"]
-    denies = [v for v in voters.values() if v.get("vote") == "deny"]
-    inspected = [v for v in voters.values() if v.get("inspected")]
-    quorum = len(voters) >= VOTE_QUORUM
+    # only real ballots count: records without an accept/deny verdict are
+    # legacy votes from the old decision mechanic — shown, never scored for
+    # quorum, so one old idea-vote can't fake progress toward a verdict
+    # (t-20261011-8420)
+    ballots = {k: v for k, v in voters.items() if v.get("vote") in ("accept", "deny")}
+    accepts = [v for v in ballots.values() if v["vote"] == "accept"]
+    denies = [v for v in ballots.values() if v["vote"] == "deny"]
+    inspected = [v for v in ballots.values() if v.get("inspected")]
+    quorum = len(ballots) >= VOTE_QUORUM
     if not quorum:
         verdict = "pending"
     elif len(accepts) > len(denies):
@@ -1203,10 +1208,12 @@ def tally_votes(votes: dict[str, dict], owner: str | None) -> dict:
         verdict = "deny"
     else:
         verdict = "tie"
-    return {"voters": voters, "accept": len(accepts), "deny": len(denies),
-            "inspected": len(inspected), "trusted": len(voters) - len(inspected),
+    return {"voters": voters, "ballots": ballots, "accept": len(accepts),
+            "deny": len(denies),
+            "inspected": len(inspected), "trusted": len(ballots) - len(inspected),
+            "legacy": len(voters) - len(ballots),
             "quorum": quorum, "verdict": verdict,
-            "needed": max(0, VOTE_QUORUM - len(voters))}
+            "needed": max(0, VOTE_QUORUM - len(ballots))}
 
 
 def vote_summary(t: dict) -> str:
@@ -1228,7 +1235,7 @@ def archive_task(ctx: Ctx, task: dict, votes: dict[str, dict], why: str = "") ->
     task["denied_by"] = me
     task["votes"] = votes
     task["archive_note"] = why or ("denied by vote: " +
-                                   ", ".join(f"{k}=" + v.get("vote", "?")
+                                   ", ".join(f"{k}=" + (v.get("vote") or "legacy")
                                              for k, v in votes.items()))
     task.setdefault("history", []).append(
         {"ts": now, "by": me, "action": "archived (denied by vote)"})
@@ -1918,16 +1925,20 @@ def cmd_vote(ctx: Ctx, args):
 def _print_tally(task: dict, t: dict, verbose: bool = True):
     owner = task.get("owner") or "?"
     quorum_txt = "quorum met" if t["quorum"] else f"needs {t['needed']} more"
+    legacy_txt = f" · +{t['legacy']} legacy (not ballots)" if t.get("legacy") else ""
     print(color(f"  tally for {task['id']} — owner {owner} does not vote · "
                 f"{t['accept']} accept / {t['deny']} deny · "
-                f"{t['inspected']} inspected / {t['trusted']} trusted · "
+                f"{t['inspected']} inspected / {t['trusted']} trusted{legacy_txt} · "
                 f"{quorum_txt} → {t['verdict']}", C_DIM))
     if verbose:
         for who, v in sorted(t["voters"].items()):
-            mark = color("✓", C_G) if v["vote"] == "accept" else color("✗", C_R)
-            kind = "inspected" if v["inspected"] else "trusted"
-            print(f"    {mark} {who:<16} {v['vote']:<6} ({kind}) "
-                  + (f"{(v.get('reason') or '')[:90]}" if v.get("reason") else ""))
+            reason = (f"{(v.get('reason') or '')[:90]}" if v.get("reason") else "")
+            if v.get("vote") in ("accept", "deny"):
+                mark = color("✓", C_G) if v["vote"] == "accept" else color("✗", C_R)
+                kind = "inspected" if v["inspected"] else "trusted"
+                print(f"    {mark} {who:<16} {v['vote']:<6} ({kind}) " + reason)
+            else:
+                print(f"    · {who:<16} legacy (old-style vote, not a ballot) " + reason)
 
 
 def cmd_votes(ctx: Ctx, args):
@@ -1970,9 +1981,13 @@ def cmd_archive(ctx: Ctx, args):
         print(f"  {t.get('title', '')}")
         v = t.get("votes") or {}
         for who, x in sorted(v.items()):
-            mark = color("✓", C_G) if x.get("vote") == "accept" else color("✗", C_R)
+            if x.get("vote") not in ("accept", "deny"):
+                print(f"    · {who:<16} legacy (old-style vote, not a ballot) "
+                      + (f"{(x.get('reason') or '')[:90]}" if x.get("reason") else ""))
+                continue
+            mark = color("✓", C_G) if x["vote"] == "accept" else color("✗", C_R)
             kind = "inspected" if x.get("inspected") else "trusted"
-            print(f"    {mark} {who:<16} {x.get('vote'):<6} ({kind}) "
+            print(f"    {mark} {who:<16} {x['vote']:<6} ({kind}) "
                   + (f"{(x.get('reason') or '')[:110]}" if x.get("reason") else ""))
         if t.get("pr"):
             print(f"  pr: {t['pr']}")
