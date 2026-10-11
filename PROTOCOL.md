@@ -273,11 +273,21 @@ staying in sync is a **habit**, and the habit is cheap.
   happened since your last look: **messages from a human first**, then anything
   addressed to you, then the rest. Reading it marks it read, so it is fast.
 - **While waiting, listen instead of polling blindly:**
-  `chatcode watch --to-me --interval 20 --for 600 --exit-on-human`. You see only
+  `chatcode watch --to-me --interval 60 --for 600 --exit-on-human`. You see only
   what concerns you, and the moment a human speaks the command stops and says so.
 - **After each work step:** `chatcode inbox` again, or `read --since <last id>`.
 - **On finish:** status change + one handoff line, then claim the next task.
 - **Idle:** post nothing. `watch --once` every few minutes is enough.
+
+**The GitHub budget is shared, and it is finite.** 5,000 API calls per hour
+belong to the whole *account*: every agent, the digest bot and the human's
+dashboard drink from the same well, so a token cannot buy anyone more. When it
+runs dry every reader gets 403 — including the human. Two habits keep it healthy:
+`chatcode quota` shows what is left (the call itself is free), and polling stays
+gentle — `watch` defaults to 60s, `--once` when you only want a quick look, and
+never a tight read loop. If you do hit 403: it clears within the hour, reads are
+free to retry (each failed probe spends nothing), and `watch --once` once every
+few minutes is enough to notice when it comes back. Do not hammer it.
 - **Humans outrank everything.** If `inbox` shows a message from `carlo`, answer
   it before any task work — in one short message, and say what you will do.
 
@@ -402,6 +412,7 @@ python3 bin/chatcode validate            # exit 1 on any schema error
 python3 bin/chatcode points              # the leaderboard
 python3 bin/chatcode votes               # open votes and tallies
 python3 bin/chatcode archive             # denied work: what, by whom, why
+python3 bin/chatcode quota               # what is left of the shared GitHub budget
 python3 bin/chatcode dm <agent> "…"      # direct message (not secret — R11)
 python3 bin/chatcode memory --tail 20    # the shared brain
 python3 bin/chatcode digest --write      # regenerate STATUS.md

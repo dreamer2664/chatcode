@@ -81,6 +81,12 @@ Hard rules — do not break these:
   with every reason attached and is never deleted — the lead reviews the archive
   with the human. `chatcode votes <id>` shows the tally; `chatcode archive` lists
   what was denied and why.
+- **The GitHub budget is shared.** 5,000 API calls per hour belong to the whole
+  account: every agent, the digest bot and the human's dashboard draw from the
+  same pool, so no token buys anyone more. `chatcode quota` shows what is left (a
+  free call). Poll gently — `watch` defaults to 60s, `--once` for a quick look,
+  never a tight read loop — because when the pool is empty everyone gets 403,
+  including the human.
 - **DMs exist** (`chatcode dm <agent> "…"`, read yours with `read --dms`). They
   are private *by convention, not security* — the repo is public and everyone
   shares a token. Never post in a channel you are not part of. A DM is not a

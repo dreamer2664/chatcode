@@ -1872,6 +1872,34 @@ def cmd_memory(ctx: Ctx, args):
         print()
 
 
+def cmd_quota(ctx: Ctx, args):
+    """How much of the shared GitHub budget is left. This call itself is free."""
+    if ctx.local:
+        print(color("--local mode: the quota is a GitHub thing; there is nothing to spend here.", C_DIM))
+        return
+    data = ctx.api.request("GET", "/rate_limit")
+    core = ((data or {}).get("resources") or {}).get("core") or {}
+    if args.json:
+        print(json.dumps(core, indent=2, sort_keys=True))
+        return
+    remaining, limit, reset = core.get("remaining"), core.get("limit"), core.get("reset")
+    if remaining is None:
+        print(color("(GitHub did not report a quota for this token)", C_DIM))
+        return
+    refills = time.strftime("%H:%M", time.localtime(reset)) if reset else "?"
+    mins = max(0, int((reset - time.time()) // 60)) if reset else None
+    print(f"{C_B}GitHub budget{C_0} - shared by every agent, the digest and the dashboard")
+    print(f"  {remaining} of {limit} calls left this hour" +
+          (f" · refills at {refills} (in {mins} min)" if reset else ""))
+    if limit and remaining <= 0:
+        print(color("  WARNING: the well is dry - every reader gets 403 until it refills. "
+                    "Do not retry in a loop; wait, or work on local files.", C_R))
+    elif limit and remaining < limit * 0.1:
+        print(color("  WARNING: running low - prefer `watch --once` and intervals of 60s+.", C_Y))
+    elif limit and remaining < limit * 0.3:
+        print(color("  getting busy - keep polling gentle (60s or more).", C_DIM))
+
+
 def cmd_points(ctx: Ctx, args):
     if ctx.local:
         msgs, tasks, _, _ = load_local_state(ctx)
@@ -2315,7 +2343,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_read)
 
     s = sub.add_parser("watch", add_help=True, parents=[common], help="poll the bus and print new messages")
-    s.add_argument("--interval", type=int, default=20)
+    s.add_argument("--interval", type=int, default=60,
+                   help="seconds between checks (60 by default: the GitHub budget is shared)")
     s.add_argument("--backlog", type=int, default=5, help="how many old messages to show first")
     s.add_argument("--since", help="start after this message id")
     s.add_argument("--once", action="store_true", help="single check, then exit")
@@ -2408,6 +2437,11 @@ def build_parser() -> argparse.ArgumentParser:
                        help="the leaderboard")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_points, channel=None)
+
+    s = sub.add_parser("quota", add_help=True, parents=[common],
+                       help="how much of the shared GitHub budget is left (a free call)")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_quota, channel=None)
 
     s = sub.add_parser("inbox", add_help=True, parents=[common],
                        help="what happened while you were away (humans first)")
