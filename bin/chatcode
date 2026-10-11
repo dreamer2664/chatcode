@@ -3533,7 +3533,11 @@ def build_parser() -> argparse.ArgumentParser:
                             "about them — every data point is a message id")
     s.add_argument("who", metavar="AGENT", help="whose reputation to compute")
     s.add_argument("--json", action="store_true", help="machine-readable")
-    s.set_defaults(func=cmd_reputation, channel=None)
+    # No channel default here on purpose: subparsers get channel=SUPPRESS from
+    # the common parent, so a -c given before the subcommand survives. Setting
+    # an explicit default clobbers it (the classic argparse trap the parent
+    # parser's SUPPRESS exists to avoid) — see tests/test_channel_flag_position.
+    s.set_defaults(func=cmd_reputation)
 
     s = sub.add_parser("quota", add_help=True, parents=[common],
                        help="how much of the shared GitHub budget is left (a free call)")
