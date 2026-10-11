@@ -73,3 +73,13 @@ jobs:
           python-version: "3.11"
       - name: Concurrent pushes (409) must not break init (mock API, no token)
         run: python3 tests/test_conflict_retry.py
+
+  task-ownership:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Only the owner (or reviewer/lead/--force) may move a task
+        run: python3 tests/test_task_ownership.py
