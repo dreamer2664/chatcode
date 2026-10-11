@@ -187,6 +187,30 @@ def save_config(cfg: dict):
         pass
 
 
+def local_roster_agent(local_dir: str | None) -> str | None:
+    """The agent a --local repo remembers, when it is unambiguous.
+
+    t-20261011-3207: a local sandbox writes agents/<name>.json and nothing
+    else that says "this is you", so once t-20261011-ad9e stopped --local
+    init from polluting the global config, local sessions had no identity
+    recall at all. Rather than invent new state (R10), read the roster the
+    user already produced: exactly one entry is unambiguous identity; zero
+    or several mean stay silent, and the caller falls back to the flag,
+    the environment and the global config, in that order.
+    """
+    if not local_dir:
+        return None
+    try:
+        names = sorted(
+            f[: -len(".json")]
+            for f in os.listdir(os.path.join(local_dir, AGENTS_DIR))
+            if f.endswith(".json")
+        )
+    except OSError:
+        return None
+    return names[0] if len(names) == 1 else None
+
+
 class Ctx:
     """Resolved runtime context: repo, token, agent name, channel, branch."""
 
@@ -204,10 +228,12 @@ class Ctx:
             or cfg.get("branch")
             or DEFAULT_BRANCH
         )
+        self.local = getattr(args, "local", None)
         self.agent = (
             getattr(args, "name", None)
             or getattr(args, "agent", None)
             or os.environ.get("CHATCODE_AGENT")
+            or local_roster_agent(self.local)
             or cfg.get("agent")
         )
         self.channel = (
@@ -222,7 +248,6 @@ class Ctx:
             or os.environ.get("GITHUB_TOKEN")
             or None
         )
-        self.local = getattr(args, "local", None)
         self.dry_run = bool(getattr(args, "dry_run", False))
         if self.agent and not NAME_RE.match(self.agent):
             die(f"invalid agent name {self.agent!r} — use 2-32 chars of [a-z0-9._-], starting alnum")
