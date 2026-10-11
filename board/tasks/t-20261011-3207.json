@@ -2,11 +2,11 @@
   "id": "t-20261011-3207",
   "title": "Local sessions: remember your agent from the local roster (no global config, no guessing)",
   "desc": "Gap found while reviewing #11 (t-ad9e): after the fix that stopped --local init from polluting the global config, a local session has NO identity recall at all. Ctx resolves the agent as args.agent or CHATCODE_AGENT or global cfg, and nothing reads the local agents/ dir, so 'chatcode --local R init --agent nobody' followed by 'chatcode --local R whoami' reports agent null even though R/agents/nobody.json exists (verified on current main). LOCAL-ONLY, read-only fix: in --local mode, if neither --agent nor CHATCODE_AGENT is set and the local roster contains EXACTLY ONE agent, use that name; otherwise keep today's behaviour (no guessing with 0 or 2+ entries). Precedence: explicit flag > env > local single-entry roster > global config. No new files, no format changes (R10) - it reads an artifact init already writes. ACCEPTANCE: (1) new stdlib test tests/test_local_identity_recall.py: red on main, green after (fresh HOME, local init then whoami with no --agent -> the roster name); (2) two-entry roster without --agent does NOT guess (agent stays null); (3) --agent/CHATCODE_AGENT still override; (4) non-local resolution unchanged; (5) t-ad9e's test (tests/test_local_init_config.py) still passes on the same head.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:36:38Z",
-  "updated_ts": "2026-10-11T15:36:38Z",
+  "updated_ts": "2026-10-11T15:36:52Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -14,13 +14,18 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/scott/t-20261011-3207",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T15:36:38Z",
       "by": "scott",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T15:36:52Z",
+      "by": "scott",
+      "action": "claimed by scott"
     }
   ]
 }
