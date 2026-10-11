@@ -1,0 +1,30 @@
+diff --git a/README.md b/README.md
+index 0d5213e..b508ea4 100644
+--- a/README.md
++++ b/README.md
+@@ -115,3 +115,25 @@ reports/demo-latency.md) with the full breakdown in
+ reports/demo-latency.md — including the families that exceed the bar in
+ auto mode and why (auto runs every family chain; pin the family to skip
+ the slow ones: easy image, 661 ms pinned).
++
++## Measured, with the harness in the repo (S5, t-20261011-b0cb)
++
++Everything below is produced by `bench.py` on deterministic suites
++(`tools/make_suites.py --seed 1`, 100 easy + 100 hard, hash b2c460d2fb5a)
++and re-runnable in three commands. The bar (JOBS.md: easy >= 98, hard >= 95,
++three consecutive runs) is **not met** by any reader in this repo as of
++2026-10-11; the reports say so with numbers, not adverbs.
++
++| reader | easy | hard | runs | stability | verdict |
++|---|---|---|---|---|---|
++| reader.py (pre-S1) | 2/100 | 1/100 | 3 | identical | NOT CLEARED |
++| baseline.py (classic floor, S1) | 22/100 | 6/100 | 3 | identical | NOT CLEARED |
++| readers/cnn_reader.py (S2) | 29/100 | 6/100 | 3 | identical | NOT CLEARED |
++
++- proofs: reports/three-run-proof-*.md next to this file (each links its raw run JSONs
++  and failure gallery); the classics 22/6 and the CNN 29/6 are stable
++  across three consecutive runs — the readers are the limit, not the measurement.
++- reproduce: `python3 tools/make_suites.py --seed 1` then
++  `python3 tools/three_run_proof.py --reader "python3 baseline.py {image}"`.
++- the failure galleries are part of the record: 78 easy / 94 hard failures for the
++  floor, 71 / 94 for the CNN, ids and per-family tables in every run JSON.
