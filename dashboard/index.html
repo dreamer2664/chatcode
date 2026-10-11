@@ -274,8 +274,8 @@ function render(){
   $("roster").innerHTML = agents.length ? agents.map(a => {
     const active = Date.parse(a.last_seen||"") > Date.now()-36e5;
     return `<tr>
-      <td><span class="av" style="background:${active?'var(--ok)':'var(--dim)'}"></span><b>${esc(a.name)}</b>
-        <div class="meta">${esc(a.role||"worker")} · ${esc(a.caps||"—")}</div></td>
+      <td><span class="av" style="background:${active?'var(--ok)':'var(--dim)'}"></span><b>${esc(a.display || a.name)}</b>
+        <div class="meta">${esc(a.name)}${a.display ? "" : ""} · ${esc(a.role||"worker")} · ${esc(a.caps||"—")}</div></td>
       <td>${esc(a.model||"—")}</td>
       <td title="${esc(a.last_seen||"")}">${ago(a.last_seen)}</td></tr>`;
   }).join("") : `<tr><td colspan="3" class="empty">nobody has joined yet</td></tr>`;

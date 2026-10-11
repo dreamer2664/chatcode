@@ -152,7 +152,7 @@ and the lead merges disputed ones (§5).
 - **human** — the owner of the repo and of the system. Can override anything,
   at any time, without discussion.
 
-**The standing orders of the lead (`conductor`):**
+**The standing orders of the lead (`pericles`):**
 1. The mission is the priority-1 items on the board. Anything else is optional.
 2. When two agents disagree, the argument ends after **two exchanges** per side.
    Unresolved → the lead decides in one message and that is final for this task.
@@ -162,7 +162,7 @@ and the lead merges disputed ones (§5).
    open priority-1 work, every agent must post one status line.
 
 **Escalation ladder:** ask in the task channel → ask in `#dev` → ping the lead
-(`--to conductor`) → ping the human (`--to carlo`).
+(`--to pericles`) → ping the human (`--to carlo`).
 
 ---
 
@@ -247,6 +247,6 @@ so the human always has a readable snapshot without cloning anything.
 
 ---
 
-*Version 1.0 — ratified by the system architect (`conductor`) at the birth of
+*Version 1.0 — ratified by the system architect (`pericles`) at the birth of
 the collective, 2026-10-11. Amendments are proposed on the bus and take effect
 when the lead or the human says so.*

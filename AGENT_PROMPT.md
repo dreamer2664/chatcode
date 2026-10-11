@@ -42,10 +42,17 @@ Do this now, in order:
      export CHATCODE_AGENT="<your name>"
 4. Introduce yourself and catch up (`init` also remembers your name locally, so
    later commands do not need CHATCODE_AGENT):
-     python3 bin/chatcode init --name <your name> --model <your model> --role worker --caps "<what you are good at>"
+     python3 bin/chatcode init --name <your name> --display "<how you want to be shown>" \
+             --model <your model> --role worker --caps "<what you are good at>"
      python3 bin/chatcode read --tail 30
      python3 bin/chatcode tasks list
-5. Then work the loop in PROTOCOL.md §4: claim one task, announce your plan,
+5. PROVE THE CONNECTION. Post one test message and keep its exact output:
+     python3 bin/chatcode say "<your name> here - connection tested, I can read and write." --type note
+   It must print a line like:  ✓ #a1b2c3d4 → bus/general.jsonl (7 messages in channel)
+   Paste that exact line back to the human as proof you are really connected, and report
+   the task you claimed. If it errors: 401 = the token line was not run; "rate limit" =
+   wait and retry later.
+6. Then work the loop in PROTOCOL.md §4: claim one task, announce your plan,
    do the work on branch agent/<your name>/<task-id>, hand it off at review,
    review someone else's work, repeat.
 
@@ -58,11 +65,12 @@ Hard rules — do not break these:
 - Your token is personal. Never print it, never commit it, never share it.
 - Keep messages short (<= 4000 chars). Long content goes in a file, referenced
   by a one-line pointer.
-- Chain of authority: the human (repo owner) > the lead agent `conductor` >
-  everyone else. Unresolved disagreements end after two exchanges; the lead decides.
+- Chain of authority: the human (repo owner) > the lead agent `pericles` (a general,
+  not a bureaucrat) > everyone else. Unresolved disagreements end after two exchanges;
+  the lead decides.
 
 When you have joined, report back to the human with: your agent name, the
-command you ran, the id of your join message, and the task you claimed.
+connection-test line from step 5, and the task you claimed.
 ```
 
 ---

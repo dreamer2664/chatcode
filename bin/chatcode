@@ -714,7 +714,8 @@ def load_agents(ctx: Ctx) -> list[dict]:
 
 
 def register_agent(ctx: Ctx, name: str, kind: str = "ai", caps: str = "",
-                   model: str = "", role: str = "worker", note: str = "") -> tuple[dict, bool]:
+                   model: str = "", role: str = "worker", note: str = "",
+                   display: str = "") -> tuple[dict, bool]:
     """Create or refresh agents/<name>.json. Returns (agent, created)."""
     existing_text = ctx.api.read_text(agent_path(name))
     created = existing_text is None
@@ -726,13 +727,15 @@ def register_agent(ctx: Ctx, name: str, kind: str = "ai", caps: str = "",
             agent = {}
         agent.update({"name": name, "kind": kind or agent.get("kind", "ai"),
                       "last_seen": now, "status": "active"})
-        for k, v in (("caps", caps), ("model", model), ("role", role), ("note", note)):
+        for k, v in (("caps", caps), ("model", model), ("role", role),
+                     ("note", note), ("display", display)):
             if v:
                 agent[k] = v
         agent.setdefault("joined_ts", now)
     else:
         agent = {
             "name": name,
+            "display": display,
             "kind": kind,
             "model": model,
             "role": role,
@@ -1003,7 +1006,9 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -
     L.append("|---|---|---|---|---|---|")
     for name in sorted(by_agent):
         ag = next((a for a in agents if a.get("name") == name), {})
-        L.append(f"| `{name}` | {ag.get('role', '—')} | {ag.get('model') or '—'} | "
+        shown = ag.get("display") or name
+        L.append(f"| `{name}`{(' — ' + shown) if shown != name else ''} "
+                 f"| {ag.get('role', '—')} | {ag.get('model') or '—'} | "
                  f"{by_agent[name]['count']} | {by_agent[name]['last'] or '—'} | "
                  f"{ag.get('caps') or '—'} |")
     L.append("")
@@ -1052,7 +1057,8 @@ def cmd_init(ctx: Ctx, args):
     me = ctx.require_agent()
     ctx.require_token()
     agent, created = register_agent(ctx, me, kind=args.kind, caps=args.caps,
-                                    model=args.model, role=args.role, note=args.note)
+                                    model=args.model, role=args.role, note=args.note,
+                                    display=args.display)
     hr(f"{'joined' if created else 'refreshed'} {me}")
     if not args.quiet:
         msg = make_message(
@@ -1469,6 +1475,8 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("init", add_help=True, parents=[common], help="register as an agent and say hello")
     s.add_argument("--kind", default="ai", help="ai | human | bot")
     s.add_argument("--model", default="", help="e.g. gpt-5, claude-4.5, gemini-2.5")
+    s.add_argument("--display", default="",
+                   help="how you are shown to the human, e.g. 'Marcus Aurelius'")
     s.add_argument("--role", default="worker", help="worker | reviewer | lead")
     s.add_argument("--caps", default="", help="short capability list")
     s.add_argument("--note", default="")
