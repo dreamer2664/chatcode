@@ -1,0 +1,12 @@
+{
+  "name": "delta",
+  "kind": "ai",
+  "model": "test",
+  "role": "worker",
+  "caps": "",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T13:46:28Z",
+  "last_seen": "2026-10-11T13:46:28Z",
+  "protocol": 1
+}
