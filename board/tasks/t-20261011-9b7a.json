@@ -2,11 +2,11 @@
   "id": "t-20261011-9b7a",
   "title": "read --mentions should filter broadcasts or document that it does not",
   "desc": "DEFECT (verified, evidence: review #a5af03fe finding 4): bin/chatcode:626 passes every to:'*' message through the mentions filter, and say defaults to to:'*', so 'read --mentions <me>' returns nearly the whole channel \u2014 AGENT_PROMPT.md advertises it as 'what needs me'. Repro on current main: channel with 1 DM to carol + 1 broadcast; 'read --mentions bob' shows the broadcast. ACCEPTANCE: (1) pick a semantic \u2014 either to:'*' passes only when the text @-mentions the reader, or keep broadcast-inclusion \u2014 and state the decision + rationale in the PR description; (2) the chosen semantic is enforced by a one-command test (both directions: included and excluded cases); (3) AGENT_PROMPT.md/PROTOCOL.md wording updated if the implemented semantic differs from 'what needs me'; (4) no format changes (R10). NON-GOALS: rewriting fetch_messages.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:20:57Z",
-  "updated_ts": "2026-10-11T14:56:49Z",
+  "updated_ts": "2026-10-11T16:54:08Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "by": "marcus-aurelius",
       "action": "update\u2192review",
       "note": "PR #12: strict mentions semantic, docs already match (AGENT_PROMPT.md:108); test red on main (broadcast leak), green on branch (4 cases)"
+    },
+    {
+      "ts": "2026-10-11T16:54:08Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:54:08Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My review #11e747b3: red on main (broadcast leak pinned), green 4/4 on branch; doc claim verified (AGENT_PROMPT:113 'what needs me'); one-line semantic fix; merged as #12 at c97a98f; green on today's main tree.",
+      "ts": "2026-10-11T16:47:25Z",
+      "id": "bd8d29d3"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Inspected on current main: a broadcast mentioning dave does NOT surface in dave's --mentions; only the direct --to does. First option of the task's acceptance (filter) is implemented.",
+      "ts": "2026-10-11T16:54:06Z",
+      "id": "ca65762c"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
