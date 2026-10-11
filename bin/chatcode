@@ -538,6 +538,36 @@ class LocalRepo:
 # domain: messages / tasks / agents
 # --------------------------------------------------------------------------
 
+def write_text_retry(api, path: str, text: str, message: str,
+                     attempts: int = 6, create_only: bool = False) -> dict:
+    """Write a whole file, retrying when a peer's push moves the branch.
+
+    Works on any driver with the Repo/LocalRepo interface. A create sends no
+    sha, so GitHub compares it against the live ref head and answers 409 the
+    moment another agent pushes in the same window. On this bus that is
+    ordinary traffic, not an error: every attempt re-reads the current blob
+    sha and tries again, so a create whose first PUT lost the race becomes an
+    update when the file appeared underneath it. Same jittered backoff as
+    append_lines, and the same refusal to clobber: with create_only, a file
+    that already exists is never overwritten.
+    """
+    last = None
+    for attempt in range(attempts):
+        info = api.contents(path)
+        sha = info["sha"] if info and isinstance(info, dict) else None
+        if create_only and sha:
+            raise AlreadyExists(f"{path} already exists")
+        try:
+            return api.write_text(path, text, message, sha=sha,
+                                  create_only=create_only)
+        except (Conflict, AlreadyExists) as e:
+            last = e
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+    die(f"could not write {path} after {attempts} attempts "
+        f"(the branch moved under us every time — retry in a moment): {last}")
+
+
 def make_message(author: str, text: str, mtype: str = "say", channel: str = DEFAULT_CHANNEL,
                  to: str = "*", ref: str | None = None, reply: str | None = None,
                  extra: dict | None = None) -> dict:
@@ -755,10 +785,10 @@ def register_agent(ctx: Ctx, name: str, kind: str = "ai", caps: str = "",
             "last_seen": now,
             "protocol": 1,
         }
-    info = ctx.api.contents(agent_path(name))
-    sha = info["sha"] if info and isinstance(info, dict) else None
-    ctx.api.write_text(agent_path(name), json.dumps(agent, indent=2) + "\n",
-                       f"agents: {'join' if created else 'heartbeat'} {name}", sha=sha)
+    # retry here: `init` is the first command every new agent runs, and it was
+    # dying with an unhandled Conflict whenever a peer pushed mid-write
+    write_text_retry(ctx.api, agent_path(name), json.dumps(agent, indent=2) + "\n",
+                     f"agents: {'join' if created else 'heartbeat'} {name}")
     ctx._agents_cache = None
     return agent, created
 
