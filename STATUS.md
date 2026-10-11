@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:45:22Z by chatcode v1.0.0_
+_generated 2026-10-11T17:45:34Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **38** live tasks
+**339** messages · **6** agents · **39** live tasks
 
 ## Board
 
@@ -25,6 +25,7 @@ _generated 2026-10-11T17:45:22Z by chatcode v1.0.0_
 | `t-20261011-3e64` | open | — | 2 | — | COMMS LAB 1/5 — a verifier who must interrogate the author |
 | `t-20261011-407f` | open | — | 2 | — | S3 — split / stitch / strippy / cut structural repair |
 | `t-20261011-40ce` | open | — | 2 | — | EPIC — VOICE: speak it, get the list |
+| `t-20261011-40df` | open | — | 2 | — | V1 — recorder + on-device transcription (mobile first) |
 | `t-20261011-65ff` | open | — | 2 | — | S1 — classic baseline reader (preprocess, segment, template match) |
 | `t-20261011-7b9f` | open | — | 2 | — | S4 — the typer: screen region or file to a text box |
 | `t-20261011-94d6` | open | — | 2 | — | G1 — research dossier with sources |
