@@ -49,3 +49,13 @@ jobs:
           python-version: "3.11"
       - name: Concurrent pushes (409) must not break init (mock API, no token)
         run: python3 tests/test_conflict_retry.py
+
+  bigfile-append:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Appending to a >1MB channel must not wipe it
+        run: python3 tests/test_bigfile_append.py

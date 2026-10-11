@@ -431,11 +431,8 @@ class Repo:
             print(color(f"[dry-run] would append {len(lines)} message(s) to {path}", C_Y))
             return -1
         for attempt in range(attempts):
-            info = self.contents(path)
-            if info and isinstance(info, dict) and info.get("content") is not None:
-                existing = base64.b64decode(info["content"]).decode("utf-8", "replace")
-                sha = info["sha"]
-            else:
+            existing, sha = read_file_text(self, path)
+            if existing is None:                       # file does not exist yet
                 existing, sha = "", None
             if existing and not existing.endswith("\n"):
                 existing += "\n"
@@ -591,6 +588,33 @@ def write_text_retry(api, path: str, text: str, message: str,
             continue
     die(f"could not write {path} after {attempts} attempts "
         f"(the branch moved under us every time — retry in a moment): {last}")
+
+
+def read_file_text(api, path: str, info: dict | None = None) -> tuple[str | None, str | None]:
+    """Read a file as (text, blob_sha), following GitHub's >1MB contract.
+
+    /contents inlines the body only up to 1MB. Above that it answers
+    encoding='none' with content='' and a sha — that empty string is the
+    absence of a body, not an empty file, and the body has to be fetched from
+    /git/blobs/{sha}. Treating it as content is how append_lines replaced a
+    whole channel with a single message (commit 5316ac2: 1 insertion, 1150
+    deletions).
+
+    Returns (None, None) when the file does not exist.
+    """
+    if info is None:
+        info = api.contents(path)
+    if not info or not isinstance(info, dict):
+        return None, None
+    sha = info.get("sha")
+    if info.get("encoding") == "base64":
+        raw = info.get("content") or ""
+        return base64.b64decode(raw).decode("utf-8", "replace"), sha
+    if sha and not getattr(api, "local", None) and hasattr(api, "repo"):
+        blob = api.request("GET", f"/repos/{api.repo}/git/blobs/{sha}")
+        raw = blob.get("content") or ""
+        return base64.b64decode(raw).decode("utf-8", "replace"), sha
+    return "", sha
 
 
 def make_message(author: str, text: str, mtype: str = "say", channel: str = DEFAULT_CHANNEL,
@@ -994,8 +1018,9 @@ def update_task(ctx: Ctx, task_id: str, mutate, note: str = "", attempts: int = 
         info = ctx.api.contents(task_path(task_id))
         if not info or isinstance(info, list):
             die(f"no such task: {task_id}")
+        text, sha = read_file_text(ctx.api, task_path(task_id), info)
         try:
-            task = json.loads(base64.b64decode(info["content"]).decode("utf-8"))
+            task = json.loads(text)
         except Exception:
             die(f"task {task_id} is corrupt")
         task, action = mutate(task)
@@ -1005,7 +1030,7 @@ def update_task(ctx: Ctx, task_id: str, mutate, note: str = "", attempts: int = 
              **({"note": note} if note else {})})
         try:
             ctx.api.write_text(task_path(task_id), json.dumps(task, indent=2) + "\n",
-                               f"board: {task_id} {action}", sha=info["sha"])
+                               f"board: {task_id} {action}", sha=sha)
             ctx._tasks_cache = None
             return task
         except (Conflict, AlreadyExists):
@@ -1020,7 +1045,11 @@ def claim_task(ctx: Ctx, task_id: str) -> dict:
     # a placeholder that does not exist yet (race-free claim via the task file)
     existing = ctx.api.contents(task_path(task_id))
     if existing and isinstance(existing, dict):
-        task = json.loads(base64.b64decode(existing["content"]).decode("utf-8"))
+        text, _sha = read_file_text(ctx.api, task_path(task_id), existing)
+        try:
+            task = json.loads(text)
+        except Exception:
+            die(f"task {task_id} is corrupt")
         owner = task.get("owner")
         if owner == me and task.get("status") in ("claimed", "blocked", "review"):
             return task
