@@ -1328,22 +1328,75 @@ def cmd_say(ctx: Ctx, args):
         rotate_channel(ctx, ctx.channel)
 
 
-def rotate_channel(ctx: Ctx, channel: str):
-    """Archive the oldest messages of a channel so hot files stay small."""
-    text = ctx.api.read_text(bus_path(channel))
-    if not text:
-        return
-    lines = [l for l in text.splitlines() if l.strip()]
-    if len(lines) <= ROTATE_AT:
-        return
-    old, keep = lines[:-KEEP_AFTER_ROTATE], lines[-KEEP_AFTER_ROTATE:]
+def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5):
+    """Archive the oldest messages of a channel so hot files stay small.
+
+    Lossless by construction (t-20261011-3df7): the hot file is shrunk only
+    after a fresh read proves it still equals the snapshot the archive was
+    built from. A message that lands mid-rotation fails that check and the
+    whole rotation restarts from a new snapshot, so nothing is dropped; the
+    archive path is computed once and rewritten in place (the bus is
+    append-only, so each retry's archive is a superset of the last).
+    """
+    path = bus_path(channel)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     arch = f"{ARCHIVE_DIR}/{channel}-{stamp}.jsonl"
-    ctx.api.write_text(arch, "\n".join(old) + "\n", f"bus: archive {len(old)} msgs from {channel}")
-    info = ctx.api.contents(bus_path(channel))
-    ctx.api.write_text(bus_path(channel), "\n".join(keep) + "\n",
-                       f"bus: rotate {channel} ({len(keep)} hot)", sha=info["sha"])
-    print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
+    for attempt in range(attempts):
+        ctx.api.invalidate(path)  # never rotate from a cached snapshot
+        text = ctx.api.read_text(path)
+        if not text:
+            return
+        lines = [l for l in text.splitlines() if l.strip()]
+        if len(lines) <= ROTATE_AT:
+            return
+        old, keep = lines[:-KEEP_AFTER_ROTATE], lines[-KEEP_AFTER_ROTATE:]
+        # archive: create-or-update, computed once for all attempts, so a
+        # retried rotation overwrites the SAME file instead of littering
+        # duplicates. Safe because the bus is append-only: a retry's `old`
+        # is always a superset of the previously archived one.
+        ainfo = ctx.api.contents(arch)
+        asha = ainfo["sha"] if ainfo and isinstance(ainfo, dict) else None
+        try:
+            ctx.api.write_text(arch, "\n".join(old) + "\n",
+                               f"bus: archive {len(old)} msgs from {channel}",
+                               sha=asha)
+        except (Conflict, AlreadyExists):
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+        info = ctx.api.contents(path)
+        if not info or not isinstance(info, dict):
+            warn(f"rotate {channel}: hot file vanished, aborting")
+            return
+        # decode the current body; >1 MB files need the git-blobs API because
+        # /contents returns content='' for them
+        current = None
+        if info.get("encoding") == "base64" and info.get("content") is not None:
+            current = base64.b64decode(info["content"]).decode("utf-8", "replace")
+        elif info.get("sha") and hasattr(ctx.api, "request"):
+            try:
+                blob = ctx.api.request(
+                    "GET", f"/repos/{ctx.api.repo}/git/blobs/{info['sha']}")
+                current = base64.b64decode(blob.get("content", "")).decode("utf-8", "replace")
+            except SystemExit:
+                current = None
+        cur_lines = ([l for l in current.splitlines() if l.strip()]
+                     if current is not None else None)
+        if cur_lines != lines:
+            # something landed between our snapshot and now: restart from a
+            # fresh snapshot instead of silently dropping it
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+        try:
+            ctx.api.write_text(path, "\n".join(keep) + "\n",
+                               f"bus: rotate {channel} ({len(keep)} hot)",
+                               sha=info["sha"])
+        except (Conflict, AlreadyExists):
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+        print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
+        return
+    warn(f"could not rotate {channel} cleanly after {attempts} attempts "
+         "(channel kept changing) — left hot, will retry on the next append")
 
 
 def cmd_rotate(ctx: Ctx, args):
