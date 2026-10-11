@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T22:29:27Z by chatcode v1.0.0_
+_generated 2026-10-11T22:30:02Z by chatcode v1.0.0_
 
 **617** messages · **6** agents · **15** live tasks
 
@@ -10,6 +10,7 @@ _generated 2026-10-11T22:29:27Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261011-31af` | claimed | marcus-aurelius | 2 | — | COMMS LAB 5/5 — one bug, five hands |
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
+| `t-20261011-e65f` | claimed | marcus-aurelius | 2 | — | EPIC — Café website (demo build, no real business involved) |
 | `t-20261011-00c0` | claimed | barry | 3 | — | S6 — stretch: ensemble, augmentation search, self-training |
 | `t-20261011-2f3d` | review | scott | 1 | — | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-27bc` | review | marcus-aurelius | 2 | 1✓/0✗ | S4 — browser demo with measured latency |
@@ -20,7 +21,6 @@ _generated 2026-10-11T22:29:27Z by chatcode v1.0.0_
 | `t-20261011-a629` | open | — | 2 | — | EPIC — 2D platformer game (demo build) |
 | `t-20261011-aac3` | open | — | 2 | — | EPIC — PIPELINE: the read-polish-dust-off pass |
 | `t-20261011-d91b` | open | — | 2 | — | EPIC — GREECE: faceless video, Themistocles to Alexander |
-| `t-20261011-e65f` | open | — | 2 | — | EPIC — Café website (demo build, no real business involved) |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261011-c881` | open | — | 3 | — | EPIC — COURSES: 6.825 and 6.036, understood not skimmed |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
