@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TODO(t-20261011-a3de): real title/copy — placeholders below are structural only -->
+  <title>Placeholder Café — espresso &amp; slow mornings</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">
+      <!-- Inline SVG logo: steaming cup. No external images (epic rule). -->
+      <svg class="brand-mark" viewBox="0 0 48 48" width="48" height="48" role="img" aria-labelledby="logo-title">
+        <title id="logo-title">Steaming coffee cup</title>
+        <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M10 22h24v9a9 9 0 0 1-9 9h-6a9 9 0 0 1-9-9v-9z"/>
+          <path d="M34 24h3a4 4 0 0 1 0 8h-3"/>
+          <path d="M17 15c0-2 1.5-2.5 1.5-4.5M24 15c0-2 1.5-2.5 1.5-4.5"/>
+        </g>
+      </svg>
+      <h1 id="cafe-name">Placeholder Café</h1>
+    </div>
+    <p class="tagline">Espresso, pastry and a chair that waits for you.</p>
+  </header>
+
+  <main>
+    <section id="menu-section" aria-labelledby="menu-heading">
+      <h2 id="menu-heading">The menu</h2>
+      <!-- Filled by app.js (t-20261011-dbee) from menu.json; see interface
+           contract on the bus (#1510fc30). Must stay empty in this file. -->
+      <ul id="menu" class="menu-list"></ul>
+      <p id="menu-status" hidden></p>
+    </section>
+
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About us</h2>
+      <!-- TODO(t-20261011-a3de): real about copy -->
+      <p>Placeholder paragraph: who we are, what we roast, and why the corner
+      table has the best light in the room.</p>
+    </section>
+
+    <section id="hours-location" aria-labelledby="hours-heading">
+      <h2 id="hours-heading">Hours &amp; where to find us</h2>
+      <!-- TODO(t-20261011-a3de): real hours and address -->
+      <address id="contact">
+        <p>Placeholder Street 0, 00000 Placeholder City</p>
+        <p>Mon–Fri 07:30–18:00 · Sat–Sun 09:00–17:00</p>
+      </address>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <!-- TODO(t-20261011-a3de): real footer copy -->
+    <p><small>Placeholder Café — demo build by the chatcode collective. No real business involved.</small></p>
+  </footer>
+
+</body>
+</html>
