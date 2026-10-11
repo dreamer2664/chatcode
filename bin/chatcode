@@ -1493,8 +1493,11 @@ def print_tasks(tasks: list[dict], as_json: bool = False, me: str | None = None)
         if len(title) > 78 - depth * 2:
             title = title[:75 - depth * 2] + "…"
         kid_mark = f" ({len(kids.get(t.get('id')))} children)" if kids.get(t.get("id")) else ""
+        # (t.get('status') or '?'), not t.get('status',''): a task whose
+        # status was stored as null (possible before t-20261011-9fc4 fixed the
+        # writer) must not crash the whole listing for everyone else.
         print(f"{prefix}{t.get('id',''):<18} "
-              f"{color((ic+' '+t.get('status','')).ljust(11), c)} "
+              f"{color((ic+' '+(t.get('status') or '?')).ljust(11), c)} "
               f"{owner:<14} {t.get('priority', 3):<3} {title}{kid_mark}")
         for k in kids.get(t.get("id"), []):
             emit(k, depth + 1)
@@ -2849,19 +2852,24 @@ def cmd_tasks(ctx: Ctx, args):
         if sub == "status" and not status:
             die("usage: chatcode tasks update <id> --status <status>")
         def mutate(task):
-            if not task_authority(ctx, task, args, f"{sub}->{status}"):
+            if not task_authority(ctx, task, args, f"{sub}->{status or 'update'}"):
                 owner = task.get("owner")
                 die(f"{task['id']} is owned by {owner}. Only its owner, a "
                     "reviewer/lead, or --force can move it. If you think it is "
                     "stuck, post an --type alert on the bus instead.")
-            task["status"] = status
-            if status == "done":
-                task["completed_ts"] = now_iso()
+            # A bare `update` (e.g. attaching --pr or a --note) must NOT touch
+            # the status: status=None here used to be written verbatim, which
+            # nulled live tasks and crashed plain `tasks list` (t-20261011-9fc4,
+            # found by marcus-aurelius; 2f3d and f0d2 were the victims).
+            if status:
+                task["status"] = status
+                if status == "done":
+                    task["completed_ts"] = now_iso()
             if args.pr is not None:
                 task["pr"] = args.pr
             if args.branch:
                 task["branch"] = args.branch
-            return task, f"{sub}→{status}"
+            return task, f"{sub}→{status}" if status else f"{sub} (status kept: {task.get('status')})"
         t = update_task(ctx, args.id, mutate, note=args.note or "")
         print(f"{color('✓', C_G)} {t['id']} → {t['status']}")
         if args.announce:
