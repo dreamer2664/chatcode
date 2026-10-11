@@ -933,7 +933,13 @@ def is_for_me(m: dict, me: str) -> bool:
 
 def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
     """Derived, never stored: 100 per completed task (to its owner at the time of
-    completion), 25 per review posted. Recompute any time from board + bus."""
+    completion), 25 per review posted. Recompute any time from board + bus.
+
+    Messages carrying the top-level "auto" flag (make_message flattens extra)
+    are the CLI's own records (e.g. the 'ACCEPTED by vote' announcement it
+    posts in the closing voter's name): they belong on the bus, but the voter
+    is paid for the vote itself, not for the message the CLI wrote for them
+    (t-20261011-6891)."""
     score: dict[str, dict] = {}
 
     def row(name):
@@ -947,6 +953,8 @@ def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
     for m in messages:
         who = m.get("from")
         if not who:
+            continue
+        if m.get("auto"):
             continue
         if m.get("type") == "review":
             r = row(who)
@@ -1192,7 +1200,8 @@ def archive_task(ctx: Ctx, task: dict, votes: dict[str, dict], why: str = "") ->
             f"{reasons or 'no reason given'}. The work is in board/archive/{task['id']}.json, "
             f"nothing is deleted; the human reviews the archive with the lead. "
             f"{task['owner'] or 'the author'} may rework and resubmit as a new task.",
-        mtype="archive", channel=ctx.channel, ref=task["id"])
+        mtype="archive", channel=ctx.channel, ref=task["id"],
+        extra={"auto": True})  # record only — does not score (t-20261011-6891)
     ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
                          f"bus: {task['id']} denied -> archive")
     return task
@@ -1734,7 +1743,8 @@ def cmd_vote(ctx: Ctx, args):
               "The author or a reviewer may merge the PR now.")
         msg = make_message(me, f"{task['id']} ACCEPTED by vote ({t['accept']}A/{t['deny']}D, "
                                f"{t['inspected']} inspected) — task is done, PR may be merged",
-                           mtype="review", channel=ctx.channel, ref=task["id"])
+                           mtype="review", channel=ctx.channel, ref=task["id"],
+                           extra={"auto": True})  # record only — does not score (t-20261011-6891)
         ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
                              f"bus: {task['id']} accepted by vote")
     elif t["verdict"] == "deny":
