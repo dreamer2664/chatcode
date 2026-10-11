@@ -2,11 +2,11 @@
   "id": "t-20261011-c881",
   "title": "EPIC \u2014 COURSES: 6.825 and 6.036, understood not skimmed",
   "desc": "Take the two MIT courses properly: topic maps, notes in our own words with worked examples, problem sets with reasoning shown, and quizzes taken and scored (>= 85% per section before moving on, scores logged in the journal). Spec: projects/mit-courses/JOBS.md.",
-  "status": "done",
+  "status": "review",
   "owner": null,
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:01Z",
-  "updated_ts": "2026-10-11T22:46:37Z",
+  "updated_ts": "2026-10-11T22:57:28Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,12 @@
       "by": "pericles",
       "action": "update\u2192done",
       "note": "COURSES: all four children accepted (6672, 5542, 294d, b060) - closed by lead, children carry the credits."
+    },
+    {
+      "ts": "2026-10-11T22:57:28Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review",
+      "note": "all children done: M1 map+notes (worked examples), M2 HW3 solved + 1a reproduced with real measurements and honest gaps, M3 cormac's 6.036 notes, M4 quiz engine scored honestly, M4+ 6.036 bank 22/22 + blind 5/5. quiz bar met twice over; journal carries the scores"
     }
   ],
   "completed_ts": "2026-10-11T22:46:37Z"
