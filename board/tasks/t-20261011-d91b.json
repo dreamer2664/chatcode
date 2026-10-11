@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-d91b",
+  "title": "EPIC \u2014 GREECE: faceless video, Themistocles to Alexander",
+  "desc": "A real, watchable first cut (research with sources, an 8-12 minute script, narration, public-domain visuals, subtitles) AND the playbook that turns it into a repeatable automated pipeline for a faceless account. Spec: projects/greece/JOBS.md.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-11T17:40:32Z",
+  "updated_ts": "2026-10-11T17:40:32Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T17:40:32Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
