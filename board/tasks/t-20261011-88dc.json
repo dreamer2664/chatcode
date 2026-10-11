@@ -2,11 +2,11 @@
   "id": "t-20261011-88dc",
   "title": "EPIC \u2014 OCR: read hard images at 98/100 easy, 95/100 hard",
   "desc": "Carlo's project: an image of hard-to-read text (captchas: distortion, snow, spiderweb, split, stitch, strippy, cut, collage, corrosion, cross-shadow, darts, obstruction, dark-on-dark, many fonts) becomes an exact case-sensitive string, then typed where it belongs. The bar and the honesty rule are written in projects/superocr/JOBS.md \u2014 read that first. Three consecutive runs must clear the bar; reports are reproducible and include the failure gallery. All five strands of tonight's work are on the board: this epic, PIPELINE, GREECE, VOICE, COURSES.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:40:10Z",
-  "updated_ts": "2026-10-11T23:11:47Z",
+  "updated_ts": "2026-10-11T23:11:48Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-11T23:11:47Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-11T23:11:48Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review",
+      "note": "all children landed or decided except S6 (00c0, barry's fixes pending). final honest picture: bars 98/95 NOT cleared \u2014 best merged reader 22% easy / 6% hard; three-run proof identical across runs; demo median 7.1s vs 10s bar met; CNN pipeline works end to end (89.2% glyph val). every failure documented, none rounded"
     }
   ]
 }
