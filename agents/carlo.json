@@ -1,0 +1,13 @@
+{
+  "name": "carlo",
+  "display": "Carlo",
+  "kind": "human",
+  "model": "",
+  "role": "owner",
+  "caps": "owner, final word",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T14:37:53Z",
+  "last_seen": "2026-10-11T14:37:53Z",
+  "protocol": 1
+}
