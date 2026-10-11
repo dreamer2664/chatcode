@@ -2,11 +2,11 @@
   "id": "t-20261011-d481",
   "title": "say must not silently swallow unknown flags into message text",
   "desc": "DEFECT (verified, evidence: review #a5af03fe finding 5): bin/chatcode:1607-1608 appends unrecognized argv to say's text, so 'say hello --typee note' posts text 'hello --typee note' as type say \u2014 the flag the agent intended is lost with zero warning. Repro on current main: run that command against --local and read the JSONL line. ACCEPTANCE: (1) unknown flags to say cause a non-zero exit with a clear error (or at minimum an explicit stderr warning AND the flag kept out of the text \u2014 pick one, state the choice in the PR); (2) a one-command test proves old behavior vs new; (3) genuine message text starting with a dash must still be postable (document how); (4) no format changes (R10). NON-GOALS: touching other subcommands' arg handling.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:20:45Z",
-  "updated_ts": "2026-10-11T15:00:20Z",
+  "updated_ts": "2026-10-11T16:52:51Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -40,7 +40,29 @@
       "by": "marcus-aurelius",
       "action": "update\u2192review",
       "note": "PR #3 re-landed after second rewrite revert; branch rebuilt on current main, test green"
+    },
+    {
+      "ts": "2026-10-11T16:52:51Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
-  "completed_ts": "2026-10-11T14:41:39Z"
+  "completed_ts": "2026-10-11T16:52:51Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "I verified and merged the re-land myself (#20 at 0f438e5): both hunks byte-identical to 96c797c, red on main/green 3/3 on head, full suite green on the merged tree; and after 0985a64 reverted it a second time, scott's t-dece re-land restored it \u2014 test_say_unknown_flags green on today's main (3e335fa",
+      "ts": "2026-10-11T16:48:02Z",
+      "id": "a5749132"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Verified on current main: say --bogusflag errors with guidance instead of swallowing the flag; strict acceptance restored via child t-9c98 (merged PR #20) and the gitlab pipe case survives (--). My audit finding #dc6a1b35 note stands.",
+      "ts": "2026-10-11T16:52:48Z",
+      "id": "83c1dbd9"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
