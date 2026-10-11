@@ -89,6 +89,8 @@ CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".chatcode", "config.json")
 MAX_TEXT = 4000
 ROTATE_AT = 500          # rotate a channel file once it has more lines than this
 KEEP_AFTER_ROTATE = 120  # lines kept hot after rotation
+DIGEST_WRITE_ATTEMPTS = 5  # `digest --write` retries when STATUS.md moves under us
+PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
 
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
@@ -713,7 +715,11 @@ def filter_messages(msgs: list[dict], args) -> list[dict]:
     if getattr(args, "mtype", None):
         msgs = [m for m in msgs if m.get("type") == args.mtype]
     if getattr(args, "mentions", None):
-        msgs = [m for m in msgs if m.get("to") in (args.mentions, "*") or
+        # Strict semantic (t-20261011-9b7a): "what needs me" = direct address
+        # or @-mention. Broadcasts (to="*") pass only when they @-mention the
+        # reader — say's default is to="*", so letting every broadcast through
+        # made this filter a no-op (evidence: review #a5af03fe finding 4).
+        msgs = [m for m in msgs if m.get("to") == args.mentions or
                 f"@{args.mentions}" in (m.get("text") or "")]
     since = getattr(args, "since", None)
     if since:
@@ -1193,8 +1199,8 @@ def archive_task(ctx: Ctx, task: dict, votes: dict[str, dict], why: str = "") ->
             f"nothing is deleted; the human reviews the archive with the lead. "
             f"{task['owner'] or 'the author'} may rework and resubmit as a new task.",
         mtype="archive", channel=ctx.channel, ref=task["id"])
-    ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                         f"bus: {task['id']} denied -> archive")
+    append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+               f"bus: {task['id']} denied -> archive")
     return task
 
 
@@ -1496,22 +1502,27 @@ def cmd_init(ctx: Ctx, args):
             args.greeting or f"{me} online ({args.kind}"
             + (f"/{args.model}" if args.model else "") + "). Ready to help.",
             mtype="join", channel=ctx.channel, extra={"caps": args.caps} if args.caps else None)
-        n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: {me} join {ctx.channel}")
+        n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus: {me} join {ctx.channel}")
         if n < 0:
             print(color(f"• join message #{msg['id']} not posted (dry-run)", C_Y))
         else:
             print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
     # remember who you are locally, so the next command knows without env vars
-    cfg = load_config()
+    # — but only for real (remote) work: a --local init is a sandbox and must
+    # not clobber the agent's global identity (t-20261011-ad9e; barry's audit
+    # A1 side effect: a spoofed/throwaway local init silently replaced the
+    # global agent name and later bare commands kept posting as it).
     changed = {}
-    if cfg.get("agent") != me:
-        changed["agent"] = me
-    if not ctx.local and cfg.get("repo") != ctx.repo:
-        changed["repo"] = ctx.repo
-    if changed:
-        cfg.update(changed)
-        save_config(cfg)
+    if not ctx.local:
+        cfg = load_config()
+        if cfg.get("agent") != me:
+            changed["agent"] = me
+        if cfg.get("repo") != ctx.repo:
+            changed["repo"] = ctx.repo
+        if changed:
+            cfg.update(changed)
+            save_config(cfg)
     rate = ctx.api.rate_limit()
     print(f"repo    : {ctx.repo} (branch {ctx.branch})")
     print(f"agent   : {me}   channel: {ctx.channel}")
@@ -1540,8 +1551,8 @@ def cmd_say(ctx: Ctx, args):
         die("nothing to say — pass text")
     msg = make_message(me, text, mtype=args.type, channel=ctx.channel,
                        to=args.to, ref=args.ref, reply=args.reply)
-    count = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus({ctx.channel}): {me} {args.type}")
+    count = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus({ctx.channel}): {me} {args.type}")
     if count < 0:
         print(color(f"• #{msg['id']} not posted (dry-run)", C_Y))
         return
@@ -1551,22 +1562,124 @@ def cmd_say(ctx: Ctx, args):
         rotate_channel(ctx, ctx.channel)
 
 
-def rotate_channel(ctx: Ctx, channel: str):
-    """Archive the oldest messages of a channel so hot files stay small."""
-    text = ctx.api.read_text(bus_path(channel))
-    if not text:
-        return
-    lines = [l for l in text.splitlines() if l.strip()]
-    if len(lines) <= ROTATE_AT:
-        return
-    old, keep = lines[:-KEEP_AFTER_ROTATE], lines[-KEEP_AFTER_ROTATE:]
+def append_bus(ctx: Ctx, channel: str, lines: list[str], message: str) -> int:
+    """Append messages to a bus channel (t-20261011-76f7).
+
+    If the hot file plus the new block would not fit safely under the
+    contents endpoint's PUT size cap, rotate first: rotation is lossless
+    (t-20261011-3df7) and keeps only the last KEEP_AFTER_ROTATE lines hot —
+    far under the cap — so the append succeeds instead of dying on 422.
+    If even rotation cannot help (the archive itself would exceed the cap),
+    the write refuses loudly with the channel intact: never a silent drop,
+    never a wipe.
+    """
+    path = bus_path(channel)
+    info = ctx.api.contents(path)
+    size = 0
+    if info and isinstance(info, dict):
+        size = info.get("size")
+        if size is None:  # LocalRepo does not report a size
+            size = len((ctx.api.read_text(path) or "").encode("utf-8"))
+    block = sum(len(l.encode("utf-8")) + 1 for l in lines)
+    if size + block > PUT_SAFE_BYTES:
+        rotate_channel(ctx, channel, max_hot_bytes=PUT_SAFE_BYTES)
+        # did the rotation actually get us under the cap? if it could not
+        # (persistent concurrent traffic, or the archive itself would be too
+        # large), refuse loudly rather than let the append risk the file
+        info = ctx.api.contents(path)
+        size = 0
+        if info and isinstance(info, dict):
+            size = info.get("size")
+            if size is None:
+                size = len((ctx.api.read_text(path) or "").encode("utf-8"))
+        if size + block > PUT_SAFE_BYTES:
+            die(f"bus/{channel}.jsonl is {size} bytes and could not be rotated under the "
+                f"PUT size cap — refusing to append rather than risk destroying it")
+    return ctx.api.append_lines(path, lines, message)
+
+
+
+
+def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5,
+                   max_hot_bytes: int | None = None):
+    """Archive the oldest messages of a channel so hot files stay small.
+
+    Lossless by construction (t-20261011-3df7): the hot file is shrunk only
+    after a fresh read proves it still equals the snapshot the archive was
+    built from. A message that lands mid-rotation fails that check and the
+    whole rotation restarts from a new snapshot, so nothing is dropped; the
+    archive path is computed once and rewritten in place (the bus is
+    append-only, so each retry's archive is a superset of the last).
+
+    With max_hot_bytes (t-20261011-76f7) the trigger is size as well as line
+    count — a 1.2MB channel of 300 lines rotates too — and the kept tail is
+    trimmed from the front until it fits the budget.
+    """
+    path = bus_path(channel)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     arch = f"{ARCHIVE_DIR}/{channel}-{stamp}.jsonl"
-    ctx.api.write_text(arch, "\n".join(old) + "\n", f"bus: archive {len(old)} msgs from {channel}")
-    info = ctx.api.contents(bus_path(channel))
-    ctx.api.write_text(bus_path(channel), "\n".join(keep) + "\n",
-                       f"bus: rotate {channel} ({len(keep)} hot)", sha=info["sha"])
-    print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
+    for attempt in range(attempts):
+        ctx.api.invalidate(path)  # never rotate from a cached snapshot
+        text = ctx.api.read_text(path)
+        if not text:
+            return
+        lines = [l for l in text.splitlines() if l.strip()]
+        nbytes = len(text.encode("utf-8"))
+        if len(lines) <= ROTATE_AT and (max_hot_bytes is None or nbytes <= max_hot_bytes):
+            return
+        keep_n = KEEP_AFTER_ROTATE
+        if max_hot_bytes is not None:
+            while keep_n > 1 and sum(len(l.encode("utf-8")) + 1
+                                     for l in lines[-keep_n:]) > max_hot_bytes:
+                keep_n -= 1
+        old, keep = lines[:-keep_n], lines[-keep_n:]
+        # archive: create-or-update, computed once for all attempts, so a
+        # retried rotation overwrites the SAME file instead of littering
+        # duplicates. Safe because the bus is append-only: a retry's `old`
+        # is always a superset of the previously archived one.
+        ainfo = ctx.api.contents(arch)
+        asha = ainfo["sha"] if ainfo and isinstance(ainfo, dict) else None
+        try:
+            ctx.api.write_text(arch, "\n".join(old) + "\n",
+                               f"bus: archive {len(old)} msgs from {channel}",
+                               sha=asha)
+        except (Conflict, AlreadyExists):
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+        info = ctx.api.contents(path)
+        if not info or not isinstance(info, dict):
+            warn(f"rotate {channel}: hot file vanished, aborting")
+            return
+        # decode the current body; >1 MB files need the git-blobs API because
+        # /contents returns content='' for them
+        current = None
+        if info.get("encoding") == "base64" and info.get("content") is not None:
+            current = base64.b64decode(info["content"]).decode("utf-8", "replace")
+        elif info.get("sha") and hasattr(ctx.api, "request"):
+            try:
+                blob = ctx.api.request(
+                    "GET", f"/repos/{ctx.api.repo}/git/blobs/{info['sha']}")
+                current = base64.b64decode(blob.get("content", "")).decode("utf-8", "replace")
+            except SystemExit:
+                current = None
+        cur_lines = ([l for l in current.splitlines() if l.strip()]
+                     if current is not None else None)
+        if cur_lines != lines:
+            # something landed between our snapshot and now: restart from a
+            # fresh snapshot instead of silently dropping it
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+        try:
+            ctx.api.write_text(path, "\n".join(keep) + "\n",
+                               f"bus: rotate {channel} ({len(keep)} hot)",
+                               sha=info["sha"])
+        except (Conflict, AlreadyExists):
+            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            continue
+        print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
+        return
+    warn(f"could not rotate {channel} cleanly after {attempts} attempts "
+         "(channel kept changing) — left hot, will retry on the next append")
 
 
 def cmd_rotate(ctx: Ctx, args):
@@ -1617,7 +1730,9 @@ def cmd_watch(ctx: Ctx, args):
                 f"every {args.interval}s · ctrl-c to stop", C_DIM))
     if msgs:
         print_messages(msgs, me=me, with_channel=(args.channel in (None, "all")))
-    last_id = msgs[-1]["id"] if msgs else None
+    # Malformed lines parse into _broken entries without an id; take the last
+    # message that actually has one, or watch dies with KeyError (t-20261011-792d).
+    last_id = next((m["id"] for m in reversed(msgs) if m.get("id")), None)
     loops = 0
     humans: set[str] = set()
     try:
@@ -1665,7 +1780,7 @@ def cmd_watch(ctx: Ctx, args):
             print(color("  ✓ a human spoke — stopping so you can answer", C_G))
             break
         if new:
-            last_id = new[-1]["id"]
+            last_id = next((m["id"] for m in reversed(new) if m.get("id")), last_id)
         if args.once or (args.for_ and loops * args.interval >= args.for_):
             break
         if args.exit_when:
@@ -1712,8 +1827,8 @@ def cmd_vote(ctx: Ctx, args):
     msg = make_message(me, text, mtype="vote", channel=ctx.channel,
                        to=task.get("owner") or "*", ref=task["id"],
                        extra={"vote": vote, "inspected": inspected, "reason": reason})
-    ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                         f"bus: {me} votes {label} on {task['id']}")
+    append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+               f"bus: {me} votes {label} on {task['id']}")
     print(f"{color('✓', C_G)} #{msg['id']} — {me} votes {label} on {task['id']}"
           + (f" (own work excluded: owner {task['owner']})" if task.get("owner") else ""))
 
@@ -1735,8 +1850,8 @@ def cmd_vote(ctx: Ctx, args):
         msg = make_message(me, f"{task['id']} ACCEPTED by vote ({t['accept']}A/{t['deny']}D, "
                                f"{t['inspected']} inspected) — task is done, PR may be merged",
                            mtype="review", channel=ctx.channel, ref=task["id"])
-        ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                             f"bus: {task['id']} accepted by vote")
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: {task['id']} accepted by vote")
     elif t["verdict"] == "deny":
         archive_task(ctx, task, votes)
         print(color(f"✗ denied by vote — {task['id']} moved to "
@@ -1829,8 +1944,8 @@ def cmd_dm(ctx: Ctx, args):
         die("nothing to send")
     ch = dm_channel(me, other)
     msg = make_message(me, text, mtype="dm", channel=ch, to=other)
-    ctx.api.append_lines(bus_path(ch), [json.dumps(msg, ensure_ascii=False)],
-                         f"bus({ch}): {me} -> {other}")
+    append_bus(ctx, ch, [json.dumps(msg, ensure_ascii=False)],
+               f"bus({ch}): {me} -> {other}")
     print(f"{color('✓', C_G)} #{msg['id']} → {other} (bus/{ch}.jsonl)")
     print(color("  reminder: DMs are private by *convention*, not by security — the repo "
                 "is public and every agent shares a token. Never put secrets in a DM.",
@@ -2028,8 +2143,8 @@ def cmd_tasks(ctx: Ctx, args):
             msg = make_message(ctx.agent, f"new task {t['id']}: {t['title']}"
                                + (f" — {t['desc']}" if t['desc'] else ""),
                                mtype="task", channel=ctx.channel, ref=t["id"])
-            n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                     f"bus: announce {t['id']}")
+            n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                           f"bus: announce {t['id']}")
             print(color(f"  announced on #{msg['id']} (bus/{ctx.channel}.jsonl)", C_DIM)
                   if n >= 0 else color(f"  not announced (dry-run)", C_Y))
         return
@@ -2045,7 +2160,7 @@ def cmd_tasks(ctx: Ctx, args):
         if args.announce:
             msg = make_message(ctx.agent, f"claiming {t['id']}: {t['title']}",
                                mtype="claim", channel=ctx.channel, ref=t["id"])
-            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
                                  f"bus: claim {t['id']}")  # best-effort announcement
         return
     if sub in ("status", "update", "block", "unblock", "done", "drop"):
@@ -2086,7 +2201,7 @@ def cmd_tasks(ctx: Ctx, args):
                                + (f": {args.note}" if args.note else ""),
                                mtype=("done" if t["status"] == "done" else "status"),
                                channel=ctx.channel, ref=t["id"])
-            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
                                  f"bus: {t['id']} {t['status']}")  # best-effort announcement
         return
     die(f"unknown tasks action {sub!r}")
@@ -2141,9 +2256,39 @@ def cmd_digest(ctx: Ctx, args):
                 fh.write(text)
         else:
             ctx.require_token()
-            info = ctx.api.contents(STATUS_FILE)
-            ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
-                               sha=info["sha"] if info and isinstance(info, dict) else None)
+            # t-20261011-0920: STATUS.md races with every bus commit (each
+            # message is a push), and a 409 used to escape as a raw traceback.
+            # Same treatment as the other write sites, plus one thing they
+            # cannot afford: the digest is cheap to recompute, so every retry
+            # re-reads the inputs and re-renders the text — the file we write
+            # is never a snapshot older than the sha it cites.
+            for attempt in range(DIGEST_WRITE_ATTEMPTS):
+                if attempt:
+                    # the world moved during the race window: drop ALL cached
+                    # reads (read_text memoizes for 1.5s — a cached bus line
+                    # would make the "fresh" recompute silently stale), then
+                    # refetch inputs and re-render before trying again
+                    ctx.api.invalidate()
+                    ctx._tasks_cache = None
+                    ctx._agents_cache = None
+                    msgs = fetch_messages(ctx, channel="all", include_archive=True)
+                    tasks = load_tasks(ctx)
+                    agents = load_agents(ctx)
+                    archived = load_archive(ctx)
+                    text = render_status(msgs, tasks, agents, archived)
+                info = ctx.api.contents(STATUS_FILE)
+                try:
+                    ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
+                                       sha=info["sha"] if info and isinstance(info, dict) else None)
+                    break
+                except (Conflict, AlreadyExists):
+                    warn(f"{STATUS_FILE} moved under us "
+                         f"(attempt {attempt + 1}/{DIGEST_WRITE_ATTEMPTS}); recomputing")
+                    time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+            else:
+                die(f"digest --write: {STATUS_FILE} kept moving under us after "
+                    f"{DIGEST_WRITE_ATTEMPTS} attempts; nothing was written — "
+                    "re-run `chatcode digest --write` in a moment")
         print(f"{color('✓', C_G)} wrote {STATUS_FILE}", file=sys.stderr)
         if args.print:
             sys.stdout.write(text)
@@ -2476,10 +2621,13 @@ def main(argv=None):
         argv = ["help"]
     parser = build_parser()
     args, unknown = parser.parse_known_args(argv)
-    if unknown and getattr(args, "cmd", None) == "say":
-        args.text = list(args.text) + unknown
-    elif unknown:
-        die(f"unrecognized arguments: {' '.join(unknown)} (try `chatcode help`)")
+    if unknown:
+        # Never fold unknown flags into say's text (t-20261011-d481): that
+        # silently drops the flag the agent intended and posts garbage.
+        hint = ""
+        if getattr(args, "cmd", None) == "say":
+            hint = " — if those words are message text, put them after --"
+        die(f"unrecognized arguments: {' '.join(unknown)}{hint} (try `chatcode help`)")
     ctx = Ctx(args)
     if not getattr(args, "func", None):
         parser.print_help()
