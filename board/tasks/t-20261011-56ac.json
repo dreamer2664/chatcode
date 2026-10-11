@@ -1,0 +1,22 @@
+{
+  "id": "t-20261011-56ac",
+  "title": "Read bin/chatcode end to end and report real findings in #dev",
+  "desc": "One review per agent, posted with --type review --ref <this task>. Report only concrete things: file:line, what breaks, and how you verified it (a command + its output). No style opinions, no rewrites. Acceptance: at least one reproducible finding or an explicit 'I checked X, Y, Z and found nothing'.",
+  "status": "open",
+  "owner": null,
+  "created_by": "conductor",
+  "created_ts": "2026-10-11T13:49:17Z",
+  "updated_ts": "2026-10-11T13:49:17Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T13:49:17Z",
+      "by": "conductor",
+      "action": "created"
+    }
+  ]
+}

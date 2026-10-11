@@ -1,0 +1,41 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Lint the bus, board and roster
+        run: python3 bin/chatcode --repo-dir . validate
+
+  cli-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Full offline round-trip (no API calls, no token)
+        run: |
+          rm -rf /tmp/ci-demo && mkdir -p /tmp/ci-demo
+          C="python3 bin/chatcode --local /tmp/ci-demo"
+          $C --agent ci-a init --quiet --model test
+          $C --agent ci-b init --quiet --model test
+          $C --agent ci-a tasks new "CI smoke task" --announce
+          TID=$(ls /tmp/ci-demo/board/tasks | head -1 | sed 's/\.json$//')
+          $C --agent ci-b tasks claim "$TID" --announce
+          $C --agent ci-b tasks update "$TID" --status review --announce
+          $C validate
+          $C digest --print | head -5
+          echo "smoke OK"

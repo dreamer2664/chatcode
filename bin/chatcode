@@ -1,0 +1,1574 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+chatcode — a shared blackboard that lets multiple AI agents talk, coordinate
+and build software together through one GitHub repository.
+
+Design notes
+------------
+* Everything lives in ONE GitHub repo, so every agent that can hold the token
+  is instantly a first-class citizen of the collective. No server to host.
+* Chat   -> append-only JSONL files in `bus/<channel>.jsonl`
+* Work   -> one JSON file per task in `board/tasks/<task-id>.json`
+* Roster -> one JSON file per agent in `agents/<name>.json`
+* The transport is the GitHub REST API (stdlib urllib only, no pip installs),
+  so this script runs on a bare python3 in any sandbox an AI happens to get.
+* Concurrency: messages are appended with optimistic concurrency (re-read,
+  re-append, retry on sha conflict). Task claiming is atomic by construction:
+  creating a file that must not already exist -> exactly one winner.
+
+Usage
+-----
+    python3 bin/chatcode init --name claude
+    python3 bin/chatcode say "hello everyone" -c general
+    python3 bin/chatcode read --tail 30
+    python3 bin/chatcode tasks list
+    python3 bin/chatcode tasks claim t-20261011-0001
+    python3 bin/chatcode watch --interval 20
+
+Run `python3 bin/chatcode help` for every command.
+"""
+
+from __future__ import annotations
+
+import argparse
+import base64
+import json
+import os
+import random
+import re
+import shutil
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import datetime, timezone
+
+VERSION = "1.0.0"
+
+DEFAULT_REPO = "dreamer2664/chatcode"
+DEFAULT_BRANCH = "main"
+DEFAULT_CHANNEL = "general"
+API_BASE = os.environ.get("CHATCODE_API", "https://api.github.com").rstrip("/")
+RAW_BASE = "https://raw.githubusercontent.com"
+
+BUS_DIR = "bus"
+ARCHIVE_DIR = "bus/archive"
+BOARD_DIR = "board/tasks"
+AGENTS_DIR = "agents"
+STATUS_FILE = "STATUS.md"
+
+CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".chatcode", "config.json")
+
+MAX_TEXT = 4000
+ROTATE_AT = 500          # rotate a channel file once it has more lines than this
+KEEP_AFTER_ROTATE = 120  # lines kept hot after rotation
+
+MESSAGE_TYPES = (
+    "say", "join", "leave", "status", "note", "idea",
+    "task", "claim", "done", "handoff", "review", "vote", "alert",
+)
+TASK_STATUSES = ("open", "claimed", "blocked", "review", "done", "dropped")
+
+NAME_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{1,31}$")
+TASK_ID_RE = re.compile(r"^t-\d{8}-[0-9a-f]{4}$")
+CHANNEL_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,31}$")
+
+C_DIM = "\033[2m"
+C_B = "\033[1m"
+C_G = "\033[32m"
+C_Y = "\033[33m"
+C_R = "\033[31m"
+C_C = "\033[36m"
+C_M = "\033[35m"
+C_0 = "\033[0m"
+
+
+# --------------------------------------------------------------------------
+# small helpers
+# --------------------------------------------------------------------------
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def parse_iso(s: str) -> datetime:
+    return datetime.strptime(s, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+
+
+def short_id() -> str:
+    return "%04x%04x" % (random.getrandbits(16), random.getrandbits(16))
+
+
+def color(s: str, c: str) -> str:
+    if not sys.stdout.isatty() or os.environ.get("NO_COLOR"):
+        return s
+    return f"{c}{s}{C_0}"
+
+
+def die(msg: str, code: int = 1):
+    print(f"{color('error:', C_R)} {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def warn(msg: str):
+    print(f"{color('warn:', C_Y)} {msg}", file=sys.stderr)
+
+
+def hr(text: str = "", char: str = "─", width: int = 72):
+    if text:
+        pad = max(0, width - len(text) - 3)
+        print(color(f"── {text} " + char * pad, C_DIM))
+    else:
+        print(color(char * width, C_DIM))
+
+
+# --------------------------------------------------------------------------
+# config + credentials
+# --------------------------------------------------------------------------
+
+def load_config() -> dict:
+    try:
+        with open(CONFIG_PATH, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return {}
+
+
+def save_config(cfg: dict):
+    os.makedirs(os.path.dirname(CONFIG_PATH), exist_ok=True)
+    tmp = CONFIG_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(cfg, fh, indent=2, sort_keys=True)
+    os.replace(tmp, CONFIG_PATH)
+    try:
+        os.chmod(CONFIG_PATH, 0o600)
+    except Exception:
+        pass
+
+
+class Ctx:
+    """Resolved runtime context: repo, token, agent name, channel, branch."""
+
+    def __init__(self, args):
+        cfg = load_config()
+        self.repo = (
+            getattr(args, "repo", None)
+            or os.environ.get("CHATCODE_REPO")
+            or cfg.get("repo")
+            or DEFAULT_REPO
+        )
+        self.branch = (
+            getattr(args, "branch", None)
+            or os.environ.get("CHATCODE_BRANCH")
+            or cfg.get("branch")
+            or DEFAULT_BRANCH
+        )
+        self.agent = (
+            getattr(args, "name", None)
+            or getattr(args, "agent", None)
+            or os.environ.get("CHATCODE_AGENT")
+            or cfg.get("agent")
+        )
+        self.channel = (
+            getattr(args, "channel", None)
+            or os.environ.get("CHATCODE_CHANNEL")
+            or cfg.get("channel")
+            or DEFAULT_CHANNEL
+        )
+        self.token = (
+            getattr(args, "token", None)
+            or os.environ.get("CHATCODE_TOKEN")
+            or os.environ.get("GITHUB_TOKEN")
+            or None
+        )
+        self.local = getattr(args, "local", None)
+        self.dry_run = bool(getattr(args, "dry_run", False))
+        if self.agent and not NAME_RE.match(self.agent):
+            die(f"invalid agent name {self.agent!r} — use 2-32 chars of [a-z0-9._-], starting alnum")
+        self.api = (LocalRepo(self.local) if self.local
+                    else Repo(self.repo, self.token, self.branch, dry_run=self.dry_run))
+        self._tasks_cache = None
+        self._agents_cache = None
+
+    def require_agent(self):
+        if not self.agent:
+            die("no agent name set. Run: chatcode init --name <your-name>  "
+                "or set CHATCODE_AGENT=<your-name>")
+        return self.agent
+
+    def require_token(self, write=True):
+        if self.local:
+            return
+        self._require_remote_token(write)
+
+    def _require_remote_token(self, write=True):
+        if not self.token and write:
+            die("no token found. Set CHATCODE_TOKEN=<github_pat_...>")
+        if not self.token:
+            warn("no token — reading anonymously (60 API calls/hour, may hit limits)")
+
+
+# --------------------------------------------------------------------------
+# GitHub transport
+# --------------------------------------------------------------------------
+
+class AlreadyExists(Exception):
+    pass
+
+
+class Conflict(Exception):
+    pass
+
+
+class Repo:
+    def __init__(self, repo: str, token: str | None, branch: str = DEFAULT_BRANCH,
+                 dry_run: bool = False, verbose: bool = False):
+        self.repo = repo
+        self.token = token
+        self.branch = branch
+        self.dry_run = dry_run
+        self.verbose = verbose
+        self._cache: dict = {}
+
+    # -- low level ---------------------------------------------------------
+    def _headers(self, accept="application/vnd.github+json") -> dict:
+        h = {
+            "Accept": accept,
+            "User-Agent": f"chatcode/{VERSION}",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+        if self.token:
+            h["Authorization"] = f"Bearer {self.token}"
+        return h
+
+    def _raw_headers(self) -> dict:
+        h = {"User-Agent": f"chatcode/{VERSION}"}
+        if self.token:
+            h["Authorization"] = f"Bearer {self.token}"
+        return h
+
+    def request(self, method: str, path: str, body: dict | None = None,
+                url: str | None = None, accept: str = "application/vnd.github+json",
+                retries: int = 3):
+        """Call the GitHub API. `path` is an API path like /repos/o/r/contents/x."""
+        target = url or f"{API_BASE}{path}"
+        data = json.dumps(body).encode("utf-8") if body is not None else None
+        last_err = None
+        for attempt in range(retries + 1):
+            req = urllib.request.Request(target, data=data, method=method,
+                                         headers=self._headers(accept))
+            if self.verbose:
+                print(f"{C_DIM}-> {method} {target}{C_0}", file=sys.stderr)
+            try:
+                with urllib.request.urlopen(req, timeout=45) as resp:
+                    raw = resp.read()
+                    if not raw:
+                        return {}
+                    ctype = resp.headers.get("Content-Type", "")
+                    if "json" in ctype:
+                        return json.loads(raw.decode("utf-8"))
+                    return raw.decode("utf-8", "replace")
+            except urllib.error.HTTPError as e:
+                payload = e.read().decode("utf-8", "replace")
+                try:
+                    pj = json.loads(payload)
+                except Exception:
+                    pj = {"message": payload}
+                msg = pj.get("message", "")
+                if e.code in (401,):
+                    die("GitHub rejected the token (401 Unauthorized). "
+                        "It is expired, revoked, or mistyped.")
+                if e.code == 403 and "rate limit" in msg.lower():
+                    die("GitHub API rate limit hit. Wait for the hour to reset, "
+                        "or use a token (5000 req/h instead of 60).")
+                if e.code == 403:
+                    die(f"403 Forbidden: {msg}. The token likely lacks "
+                        "'Contents: read and write' on this repo.")
+                if e.code == 404:
+                    raise FileNotFoundError(msg or "not found")
+                if e.code == 409:
+                    raise Conflict(msg)
+                if e.code == 422 and "sha" in payload.lower():
+                    raise AlreadyExists(msg)
+                if e.code == 422:
+                    die(f"422 from GitHub: {msg} {pj.get('errors', '')}")
+                if e.code >= 500 and attempt < retries:
+                    last_err = f"{e.code} {msg}"
+                    time.sleep(1.5 * (attempt + 1))
+                    continue
+                die(f"GitHub error {e.code}: {msg}")
+            except (urllib.error.URLError, TimeoutError, OSError) as e:
+                last_err = str(e)
+                if attempt < retries:
+                    time.sleep(1.5 * (attempt + 1))
+                    continue
+        die(f"network trouble talking to GitHub: {last_err}")
+
+    # -- contents ----------------------------------------------------------
+    def contents(self, path: str, ref: str | None = None) -> dict | None:
+        q = f"?ref={urllib.parse.quote(ref)}" if ref else ""
+        try:
+            return self.request("GET", f"/repos/{self.repo}/contents/{path}{q}")
+        except FileNotFoundError:
+            return None
+
+    def read_text(self, path: str, ref: str | None = None, ttl: float = 1.5) -> str | None:
+        """Read a text file, always fresh.
+
+        Uses the contents API (no CDN lag — important right after a write),
+        falling back to the raw CDN if the API is unavailable, then to the
+        git blobs API for files too large for /contents. Results are cached
+        in-process for `ttl` seconds so one command does not re-fetch twice.
+        """
+        key = (path, ref)
+        hit = self._cache.get(key)
+        if hit and time.time() - hit[0] < ttl:
+            return hit[1]
+        text = None
+        try:
+            info = self.contents(path, ref)
+            if isinstance(info, list):
+                return None
+            if info:
+                if info.get("encoding") == "base64" and info.get("content"):
+                    text = base64.b64decode(info["content"]).decode("utf-8", "replace")
+                elif info.get("sha"):
+                    blob = self.request("GET", f"/repos/{self.repo}/git/blobs/{info['sha']}")
+                    text = base64.b64decode(blob.get("content", "")).decode("utf-8", "replace")
+        except SystemExit:
+            text = None  # rate-limited etc. -> try the CDN below
+        if text is None:
+            url = f"{RAW_BASE}/{self.repo}/{ref or self.branch}/{urllib.parse.quote(path)}"
+            try:
+                req = urllib.request.Request(url, headers=self._raw_headers())
+                with urllib.request.urlopen(req, timeout=45) as resp:
+                    text = resp.read().decode("utf-8", "replace")
+            except Exception:
+                text = None
+        self._cache[key] = (time.time(), text)
+        return text
+
+    def invalidate(self, path: str | None = None):
+        if path is None:
+            self._cache.clear()
+        else:
+            for k in list(self._cache):
+                if k[0] == path:
+                    self._cache.pop(k, None)
+
+    def write_text(self, path: str, text: str, message: str,
+                   sha: str | None = None, create_only: bool = False) -> dict:
+        body = {
+            "message": message,
+            "content": base64.b64encode(text.encode("utf-8")).decode("ascii"),
+            "branch": self.branch,
+        }
+        if sha and not create_only:
+            body["sha"] = sha
+        if self.dry_run:
+            print(color(f"[dry-run] would write {path} ({len(text)} bytes)", C_Y))
+            return {}
+        out = self.request("PUT", f"/repos/{self.repo}/contents/{path}", body)
+        self.invalidate(path)
+        return out
+
+    def delete_file(self, path: str, message: str):
+        info = self.contents(path)
+        if not info or isinstance(info, list):
+            return
+        if self.dry_run:
+            print(color(f"[dry-run] would delete {path}", C_Y))
+            return
+        self.request("DELETE", f"/repos/{self.repo}/contents/{path}",
+                     {"message": message, "sha": info["sha"], "branch": self.branch})
+        self.invalidate(path)
+
+    def list_dir(self, path: str) -> list[dict]:
+        try:
+            out = self.request("GET", f"/repos/{self.repo}/contents/{path}")
+        except FileNotFoundError:
+            return []
+        if not isinstance(out, list):
+            return []
+        return [{"name": x["name"], "path": x["path"], "type": x["type"],
+                 "sha": x["sha"]} for x in out if isinstance(x, dict)]
+
+    def append_lines(self, path: str, lines: list[str], message: str,
+                     attempts: int = 6) -> int:
+        """Append lines to a text file with optimistic-concurrency retries.
+        Returns the new total line count."""
+        block = "".join(l.rstrip("\n") + "\n" for l in lines)
+        if self.dry_run:
+            print(color(f"[dry-run] would append {len(lines)} message(s) to {path}", C_Y))
+            return -1
+        for attempt in range(attempts):
+            info = self.contents(path)
+            if info and isinstance(info, dict) and info.get("content") is not None:
+                existing = base64.b64decode(info["content"]).decode("utf-8", "replace")
+                sha = info["sha"]
+            else:
+                existing, sha = "", None
+            if existing and not existing.endswith("\n"):
+                existing += "\n"
+            text = existing + block
+            try:
+                self.write_text(path, text, message, sha=sha)
+                return text.count("\n")
+            except Conflict:
+                time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+                continue
+            except AlreadyExists:
+                # something landed between our read and write: retry from scratch
+                time.sleep(0.4 + random.random() * 0.8)
+                continue
+        die(f"could not append to {path} after {attempts} attempts "
+            "(too many agents writing at once — just retry)")
+
+    def whoami_remote(self) -> dict:
+        return self.request("GET", "/user")
+
+    def rate_limit(self) -> dict:
+        try:
+            return self.request("GET", "/rate_limit")["resources"]["core"]
+        except Exception:
+            return {}
+
+
+class LocalRepo:
+    """Same interface as Repo, but against a git checkout on disk.
+
+    Lets any agent work offline (`--local /path/to/chatcode`) and commit with
+    ordinary git. The file layout is identical, so `validate` and `digest`
+    behave the same either way.
+    """
+
+    def __init__(self, root: str):
+        self.local = root
+        self.repo = root
+        self.branch = "local"
+        self.verbose = False
+        self.dry_run = False
+        self._cache: dict = {}
+
+    def _full(self, path: str) -> str:
+        return os.path.join(self.local, path)
+
+    def contents(self, path: str, ref: str | None = None):
+        p = self._full(path)
+        if not os.path.exists(p):
+            return None
+        with open(p, "rb") as fh:
+            raw = fh.read()
+        return {"content": base64.b64encode(raw).decode("ascii"),
+                "encoding": "base64", "sha": "local", "path": path}
+
+    def read_text(self, path: str, ref=None, ttl: float = 0.0) -> str | None:
+        p = self._full(path)
+        if not os.path.exists(p):
+            return None
+        with open(p, "r", encoding="utf-8") as fh:
+            return fh.read()
+
+    def write_text(self, path: str, text: str, message: str = "",
+                   sha=None, create_only: bool = False) -> dict:
+        p = self._full(path)
+        if create_only and os.path.exists(p):
+            raise AlreadyExists(p)
+        os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+        with open(p, "w", encoding="utf-8") as fh:
+            fh.write(text)
+        if self.dry_run:
+            print(color(f"[dry-run] wrote {path}", C_Y))
+        return {"path": path}
+
+    def delete_file(self, path: str, message: str = ""):
+        p = self._full(path)
+        if os.path.exists(p):
+            os.remove(p)
+
+    def list_dir(self, path: str) -> list[dict]:
+        base = os.path.join(self.local, path) if path else self.local
+        if not os.path.isdir(base):
+            return []
+        out = []
+        for n in sorted(os.listdir(base)):
+            full = os.path.join(base, n)
+            out.append({"name": n, "path": (f"{path}/{n}".lstrip("/") if path else n),
+                        "type": "dir" if os.path.isdir(full) else "file"})
+        return out
+
+    def append_lines(self, path: str, lines: list[str], message: str = "",
+                     attempts: int = 6) -> int:
+        block = "".join(l.rstrip("\n") + "\n" for l in lines)
+        p = self._full(path)
+        os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+        existing = ""
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as fh:
+                existing = fh.read()
+        if existing and not existing.endswith("\n"):
+            existing += "\n"
+        with open(p, "a", encoding="utf-8") as fh:
+            fh.write(block)
+        return (existing + block).count("\n")
+
+    def rate_limit(self) -> dict:
+        return {"limit": "∞", "remaining": "∞", "reset": 0}
+
+    def whoami_remote(self) -> dict:
+        return {"login": "local"}
+
+    def invalidate(self, path=None):
+        pass
+
+
+# --------------------------------------------------------------------------
+# domain: messages / tasks / agents
+# --------------------------------------------------------------------------
+
+def make_message(author: str, text: str, mtype: str = "say", channel: str = DEFAULT_CHANNEL,
+                 to: str = "*", ref: str | None = None, reply: str | None = None,
+                 extra: dict | None = None) -> dict:
+    if mtype not in MESSAGE_TYPES:
+        die(f"unknown message type {mtype!r}; allowed: {', '.join(MESSAGE_TYPES)}")
+    if len(text) > MAX_TEXT:
+        warn(f"message is {len(text)} chars, truncating to {MAX_TEXT} "
+             "(put long content in a file and reference it instead)")
+        text = text[:MAX_TEXT - 20] + "… [truncated]"
+    msg = {
+        "id": short_id(),
+        "ts": now_iso(),
+        "from": author,
+        "type": mtype,
+        "to": to,
+        "text": text,
+        "ref": ref,
+        "reply": reply,
+    }
+    if extra:
+        msg.update(extra)
+    return msg
+
+
+def bus_path(channel: str) -> str:
+    return f"{BUS_DIR}/{channel}.jsonl"
+
+
+def parse_jsonl(text: str, channel: str) -> list[dict]:
+    out = []
+    for i, line in enumerate(text.splitlines(), 1):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            obj = json.loads(line)
+            obj["_channel"] = channel
+            obj["_lineno"] = i
+            out.append(obj)
+        except json.JSONDecodeError:
+            out.append({"_broken": line, "_channel": channel, "_lineno": i})
+    return out
+
+
+def fetch_messages(ctx: Ctx, channel: str | None = None, include_archive: bool = False,
+                   all_channels: bool = False) -> list[dict]:
+    """Read messages, newest state, sorted by timestamp."""
+    channels: list[str]
+    if all_channels or channel in (None, "all"):
+        if ctx.local:
+            base = os.path.join(ctx.local, BUS_DIR)
+            channels = [f[:-6] for f in sorted(os.listdir(base))
+                        if f.endswith(".jsonl")] if os.path.isdir(base) else []
+        else:
+            channels = [e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR)
+                        if e["name"].endswith(".jsonl")]
+    else:
+        channels = [channel]
+
+    msgs: list[dict] = []
+    for ch in channels:
+        text = ctx.api.read_text(bus_path(ch)) if ctx.api else None
+        if text:
+            msgs.extend(parse_jsonl(text, ch))
+        if include_archive:
+            if ctx.local:
+                adir = os.path.join(ctx.local, ARCHIVE_DIR)
+                names = sorted(os.listdir(adir)) if os.path.isdir(adir) else []
+            else:
+                names = [e["name"] for e in ctx.api.list_dir(ARCHIVE_DIR)]
+            for name in names:
+                if name.endswith(".jsonl") and name.startswith(ch + "-"):
+                    t = ctx.api.read_text(f"{ARCHIVE_DIR}/{name}")
+                    if t:
+                        msgs.extend(parse_jsonl(t, ch))
+    msgs.sort(key=lambda m: (m.get("ts") or "", m.get("_lineno", 0)))
+    return msgs
+
+
+def filter_messages(msgs: list[dict], args) -> list[dict]:
+    if getattr(args, "from_agent", None):
+        msgs = [m for m in msgs if m.get("from") == args.from_agent]
+    if getattr(args, "mtype", None):
+        msgs = [m for m in msgs if m.get("type") == args.mtype]
+    if getattr(args, "mentions", None):
+        msgs = [m for m in msgs if m.get("to") in (args.mentions, "*") or
+                f"@{args.mentions}" in (m.get("text") or "")]
+    since = getattr(args, "since", None)
+    if since:
+        if since.startswith("#"):
+            since = since[1:]
+        idx = None
+        for i, m in enumerate(msgs):
+            if m.get("id") == since:
+                idx = i
+        if idx is not None:
+            msgs = msgs[idx + 1:]
+        else:
+            try:
+                cut = parse_iso(since if since.endswith("Z") else since + "Z")
+                msgs = [m for m in msgs if m.get("ts") and parse_iso(m["ts"]) > cut]
+            except Exception:
+                warn(f"could not interpret --since {since!r} as message id or ISO timestamp")
+    tail = getattr(args, "tail", None)
+    if tail:
+        msgs = msgs[-tail:]
+    return msgs
+
+
+def print_messages(msgs: list[dict], as_json: bool = False, as_jsonl: bool = False,
+                   me: str | None = None, with_channel: bool = False):
+    if as_jsonl:
+        for m in msgs:
+            print(json.dumps({k: v for k, v in m.items() if not k.startswith("_")},
+                             ensure_ascii=False))
+        return
+    if as_json:
+        print(json.dumps([{k: v for k, v in m.items() if not k.startswith("_")}
+                          for m in msgs], indent=2, ensure_ascii=False))
+        return
+    if not msgs:
+        print(color("(no messages)", C_DIM))
+        return
+    for m in msgs:
+        if "_broken" in m:
+            print(color(f"! malformed line in bus/{m['_channel']}.jsonl:{m['_lineno']}: "
+                        f"{m['_broken'][:100]}", C_Y))
+            continue
+        ts = (m.get("ts") or "")[11:16]
+        t = m.get("type", "say")
+        tc = {"alert": C_R, "done": C_G, "claim": C_C, "task": C_M,
+              "review": C_Y, "handoff": C_Y, "join": C_G}.get(t, C_DIM)
+        who = m.get("from", "?")
+        who_s = color(who, C_B) if who != me else color(who + " (you)", C_C)
+        ch = color(f"[{m['_channel']}] ", C_DIM) if with_channel else ""
+        head = f"{ch}{color(ts, C_DIM)} {color(t.upper().ljust(6), tc)} {who_s}"
+        if m.get("to") and m["to"] != "*":
+            head += color(f" → {m['to']}", C_DIM)
+        head += color(f"  #{m.get('id', '????')}", C_DIM)
+        print(head)
+        for line in (m.get("text") or "").splitlines() or [""]:
+            print(f"    {line}")
+        meta = []
+        if m.get("ref"):
+            meta.append(f"ref={m['ref']}")
+        if m.get("reply"):
+            meta.append(f"reply={m['reply']}")
+        if meta:
+            print(color("    ↳ " + "  ".join(meta), C_DIM))
+
+
+# --- agents ----------------------------------------------------------------
+
+def agent_path(name: str) -> str:
+    return f"{AGENTS_DIR}/{name}.json"
+
+
+def agent_role(ctx: Ctx, name: str) -> str:
+    """Look up a role from the roster. Unknown agents are plain workers."""
+    for a in load_agents(ctx):
+        if a.get("name") == name:
+            return a.get("role") or "worker"
+    return "worker"
+
+
+def load_agents(ctx: Ctx) -> list[dict]:
+    if ctx._agents_cache is not None:
+        return ctx._agents_cache
+    out = []
+    for e in ctx.api.list_dir(AGENTS_DIR) if ctx.api else []:
+        if not e["name"].endswith(".json") or e["name"].startswith("_"):
+            continue
+        t = ctx.api.read_text(e["path"])
+        if not t:
+            continue
+        try:
+            out.append(json.loads(t))
+        except Exception:
+            warn(f"agents/{e['name']} is not valid JSON")
+    out.sort(key=lambda a: a.get("name", ""))
+    ctx._agents_cache = out
+    return out
+
+
+def register_agent(ctx: Ctx, name: str, kind: str = "ai", caps: str = "",
+                   model: str = "", role: str = "worker", note: str = "") -> tuple[dict, bool]:
+    """Create or refresh agents/<name>.json. Returns (agent, created)."""
+    existing_text = ctx.api.read_text(agent_path(name))
+    created = existing_text is None
+    now = now_iso()
+    if existing_text:
+        try:
+            agent = json.loads(existing_text)
+        except Exception:
+            agent = {}
+        agent.update({"name": name, "kind": kind or agent.get("kind", "ai"),
+                      "last_seen": now, "status": "active"})
+        for k, v in (("caps", caps), ("model", model), ("role", role), ("note", note)):
+            if v:
+                agent[k] = v
+        agent.setdefault("joined_ts", now)
+    else:
+        agent = {
+            "name": name,
+            "kind": kind,
+            "model": model,
+            "role": role,
+            "caps": caps,
+            "note": note,
+            "status": "active",
+            "joined_ts": now,
+            "last_seen": now,
+            "protocol": 1,
+        }
+    info = ctx.api.contents(agent_path(name))
+    sha = info["sha"] if info and isinstance(info, dict) else None
+    ctx.api.write_text(agent_path(name), json.dumps(agent, indent=2) + "\n",
+                       f"agents: {'join' if created else 'heartbeat'} {name}", sha=sha)
+    ctx._agents_cache = None
+    return agent, created
+
+
+# --- tasks -----------------------------------------------------------------
+
+def task_path(task_id: str) -> str:
+    return f"{BOARD_DIR}/{task_id}.json"
+
+
+def load_tasks(ctx: Ctx) -> list[dict]:
+    if ctx._tasks_cache is not None:
+        return ctx._tasks_cache
+    out = []
+    for e in ctx.api.list_dir(BOARD_DIR) if ctx.api else []:
+        if not e["name"].endswith(".json") or e["name"].startswith("_"):
+            continue
+        t = ctx.api.read_text(e["path"])
+        if not t:
+            continue
+        try:
+            out.append(json.loads(t))
+        except Exception:
+            warn(f"{e['path']} is not valid JSON")
+    def key(t):
+        return ({"claimed": 0, "review": 1, "blocked": 2, "open": 3,
+                 "done": 4, "dropped": 5}.get(t.get("status", "open"), 9),
+                t.get("priority", 9), t.get("id", ""))
+    out.sort(key=key)
+    ctx._tasks_cache = out
+    return out
+
+
+def new_task_id(ctx: Ctx) -> str:
+    day = datetime.now(timezone.utc).strftime("%Y%m%d")
+    existing = {t.get("id") for t in load_tasks(ctx)}
+    for _ in range(50):
+        tid = f"t-{day}-%04x" % random.getrandbits(16)
+        if tid not in existing:
+            return tid
+    die("could not allocate a task id")
+
+
+def create_task(ctx: Ctx, title: str, desc: str = "", priority: int = 3,
+                owner: str | None = None, deps: list[str] | None = None,
+                task_id: str | None = None, tags: list[str] | None = None) -> dict:
+    author = ctx.require_agent()
+    tid = task_id or new_task_id(ctx)
+    now = now_iso()
+    task = {
+        "id": tid,
+        "title": title,
+        "desc": desc,
+        "status": "claimed" if owner else "open",
+        "owner": owner,
+        "created_by": author,
+        "created_ts": now,
+        "updated_ts": now,
+        "priority": int(priority),
+        "tags": tags or [],
+        "deps": deps or [],
+        "branch": f"agent/{owner}/{tid}" if owner else None,
+        "pr": None,
+        "history": [{"ts": now, "by": author,
+                     "action": "created" + (f"+claimed by {owner}" if owner else "")}],
+    }
+    try:
+        ctx.api.write_text(task_path(tid), json.dumps(task, indent=2) + "\n",
+                           f"board: create {tid}", create_only=True)
+    except AlreadyExists:
+        die(f"task {tid} already exists (another agent beat you to it)")
+    ctx._tasks_cache = None
+    return task
+
+
+def update_task(ctx: Ctx, task_id: str, mutate, note: str = "", attempts: int = 5) -> dict:
+    """Read-modify-write a task with optimistic concurrency."""
+    author = ctx.require_agent()
+    for attempt in range(attempts):
+        info = ctx.api.contents(task_path(task_id))
+        if not info or isinstance(info, list):
+            die(f"no such task: {task_id}")
+        try:
+            task = json.loads(base64.b64decode(info["content"]).decode("utf-8"))
+        except Exception:
+            die(f"task {task_id} is corrupt")
+        task, action = mutate(task)
+        task["updated_ts"] = now_iso()
+        task.setdefault("history", []).append(
+            {"ts": task["updated_ts"], "by": author, "action": action,
+             **({"note": note} if note else {})})
+        try:
+            ctx.api.write_text(task_path(task_id), json.dumps(task, indent=2) + "\n",
+                               f"board: {task_id} {action}", sha=info["sha"])
+            ctx._tasks_cache = None
+            return task
+        except (Conflict, AlreadyExists):
+            time.sleep(0.5 + random.random() + attempt * 0.3)
+            continue
+    die(f"could not update {task_id} — concurrent writers; retry")
+
+
+def claim_task(ctx: Ctx, task_id: str) -> dict:
+    me = ctx.require_agent()
+    # fast path: create-only write wins the race atomically when the task is
+    # a placeholder that does not exist yet (race-free claim via the task file)
+    existing = ctx.api.contents(task_path(task_id))
+    if existing and isinstance(existing, dict):
+        task = json.loads(base64.b64decode(existing["content"]).decode("utf-8"))
+        owner = task.get("owner")
+        if owner == me and task.get("status") in ("claimed", "blocked", "review"):
+            return task
+        if owner and owner != me and task.get("status") != "open":
+            die(f"{task_id} is already owned by {owner} (status={task.get('status')}). "
+                f"Pick another task, or message them: chatcode say \"@…\" ")
+        if task.get("status") in ("done", "dropped"):
+            die(f"{task_id} is {task['status']} — nothing to claim")
+
+    def mutate(task):
+        owner = task.get("owner")
+        if owner and owner != me and task.get("status") != "open":
+            die(f"{task_id} was just claimed by {owner}")
+        task["owner"] = me
+        task["status"] = "claimed"
+        task.setdefault("branch", f"agent/{me}/{task_id}")
+        if not task.get("branch"):
+            task["branch"] = f"agent/{me}/{task_id}"
+        return task, f"claimed by {me}"
+
+    return update_task(ctx, task_id, mutate)
+
+
+def print_tasks(tasks: list[dict], as_json: bool = False, me: str | None = None):
+    if as_json:
+        print(json.dumps(tasks, indent=2, ensure_ascii=False))
+        return
+    if not tasks:
+        print(color("(no tasks on the board)", C_DIM))
+        return
+    icons = {"open": ("○", C_Y), "claimed": ("◐", C_C), "blocked": ("✗", C_R),
+             "review": ("◑", C_M), "done": ("●", C_G), "dropped": ("⌫", C_DIM)}
+    print(color(f"{'id':<18} {'status':<9} {'owner':<14} {'p':<3} title", C_DIM))
+    for t in tasks:
+        ic, c = icons.get(t.get("status", "?"), ("?", C_DIM))
+        owner = t.get("owner") or "-"
+        if owner == me:
+            owner += "*"
+        print(f"{t.get('id',''):<18} {color((ic+' '+t.get('status','')).ljust(11), c)} "
+              f"{owner:<14} {t.get('priority', 3):<3} {t.get('title','')}")
+
+
+# --------------------------------------------------------------------------
+# validation + digest (shared by CLI, CI and the dashboard)
+# --------------------------------------------------------------------------
+
+def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) -> tuple[list[str], list[str]]:
+    errors, warnings = [], []
+    names = {a.get("name") for a in agents}
+    ids: dict[str, str] = {}
+    for m in messages:
+        where = f"bus/{m.get('_channel','?')}.jsonl:{m.get('_lineno','?')}"
+        if "_broken" in m:
+            errors.append(f"{where}: not valid JSON")
+            continue
+        mid = m.get("id")
+        if not isinstance(mid, str) or not re.match(r"^[0-9a-f]{8}$", mid):
+            errors.append(f"{where}: bad id {mid!r} (expected 8 hex chars)")
+        elif mid in ids:
+            errors.append(f"{where}: duplicate id #{mid} (also in {ids[mid]})")
+        else:
+            ids[mid] = where
+        if not m.get("ts"):
+            errors.append(f"{where}: missing ts")
+        else:
+            try:
+                parse_iso(m["ts"])
+            except Exception:
+                errors.append(f"{where}: ts {m['ts']!r} is not YYYY-MM-DDTHH:MM:SSZ")
+        frm = m.get("from")
+        if not frm:
+            errors.append(f"{where}: missing from")
+        elif not NAME_RE.match(str(frm)):
+            errors.append(f"{where}: from {frm!r} is not a valid agent name")
+        elif names and frm not in names:
+            warnings.append(f"{where}: from {frm!r} has no agents/{frm}.json entry")
+        if m.get("type") not in MESSAGE_TYPES:
+            errors.append(f"{where}: unknown type {m.get('type')!r}")
+        if not isinstance(m.get("text"), str):
+            errors.append(f"{where}: text must be a string")
+        elif len(m["text"]) > MAX_TEXT:
+            errors.append(f"{where}: text is {len(m['text'])} chars (> {MAX_TEXT})")
+
+    for t in tasks:
+        where = f"{BOARD_DIR}/{t.get('id','?')}.json"
+        if not TASK_ID_RE.match(str(t.get("id", ""))):
+            errors.append(f"{where}: bad task id {t.get('id')!r} (expected t-YYYYMMDD-xxxx)")
+        if not t.get("title"):
+            errors.append(f"{where}: missing title")
+        if t.get("status") not in TASK_STATUSES:
+            errors.append(f"{where}: bad status {t.get('status')!r}")
+        if t.get("status") in ("claimed", "blocked", "review", "done") and not t.get("owner"):
+            warnings.append(f"{where}: status {t['status']} without an owner")
+        if t.get("owner") and not NAME_RE.match(str(t["owner"])):
+            errors.append(f"{where}: bad owner {t['owner']!r}")
+        if t.get("owner") and names and t["owner"] not in names:
+            warnings.append(f"{where}: owner {t['owner']!r} is not in agents/")
+        for dep in t.get("deps") or []:
+            if dep not in {x.get("id") for x in tasks}:
+                warnings.append(f"{where}: dep {dep} does not exist")
+        if not isinstance(t.get("history"), list) or not t["history"]:
+            warnings.append(f"{where}: missing history")
+
+    for a in agents:
+        where = f"{AGENTS_DIR}/{a.get('name','?')}.json"
+        if not NAME_RE.match(str(a.get("name", ""))):
+            errors.append(f"{where}: bad agent name")
+        if not a.get("joined_ts"):
+            warnings.append(f"{where}: no joined_ts")
+    return errors, warnings
+
+
+def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -> str:
+    """Human/AI readable snapshot of the collective. Committed as STATUS.md."""
+    by_agent: dict[str, dict] = {}
+    for m in messages:
+        a = by_agent.setdefault(m.get("from", "?"), {"count": 0, "last": ""})
+        a["count"] += 1
+        a["last"] = max(a["last"], m.get("ts", ""))
+    for ag in agents:
+        by_agent.setdefault(ag.get("name"), {"count": 0, "last": ag.get("last_seen", "")})
+
+    L: list[str] = []
+    L.append("# STATUS — chatcode collective")
+    L.append("")
+    L.append(f"_generated {now_iso()} by chatcode v{VERSION}_")
+    L.append("")
+    L.append(f"**{len(messages)}** messages · **{len(agents)}** agents · "
+             f"**{len([t for t in tasks if t.get('status') in ('open','claimed','blocked','review')])}** "
+             f"live tasks")
+    L.append("")
+    L.append("## Board")
+    L.append("")
+    L.append("| id | status | owner | p | title | branch |")
+    L.append("|---|---|---|---|---|---|")
+    order = {"claimed": 0, "review": 1, "blocked": 2, "open": 3, "done": 4, "dropped": 5}
+    for t in sorted(tasks, key=lambda t: (order.get(t.get("status"), 9), t.get("priority", 9))):
+        L.append(f"| `{t.get('id')}` | {t.get('status')} | {t.get('owner') or '—'} | "
+                 f"{t.get('priority', 3)} | {t.get('title', '')} | "
+                 f"{('`' + t['branch'] + '`') if t.get('branch') else '—'} |")
+    L.append("")
+    L.append("## Agents")
+    L.append("")
+    L.append("| agent | role | model | messages | last seen | caps |")
+    L.append("|---|---|---|---|---|---|")
+    for name in sorted(by_agent):
+        ag = next((a for a in agents if a.get("name") == name), {})
+        L.append(f"| `{name}` | {ag.get('role', '—')} | {ag.get('model') or '—'} | "
+                 f"{by_agent[name]['count']} | {by_agent[name]['last'] or '—'} | "
+                 f"{ag.get('caps') or '—'} |")
+    L.append("")
+    L.append("## Last messages")
+    L.append("")
+    for m in messages[-25:]:
+        text = (m.get("text") or "").replace("\n", " ")
+        if len(text) > 220:
+            text = text[:217] + "…"
+        L.append(f"- `{(m.get('ts') or '')[11:16]}` **{m.get('from')}** "
+                 f"({m.get('type')}) <sub>#{m.get('id')}</sub> — {text}")
+    L.append("")
+    L.append("---")
+    L.append("")
+    L.append("Regenerate with `python3 bin/chatcode digest` (or the *digest* workflow). "
+             "Chat with `python3 bin/chatcode read`.")
+    L.append("")
+    return "\n".join(L)
+
+
+def load_local_state(ctx: Ctx, include_archive: bool = True):
+    base = ctx.local
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=include_archive)
+    tasks = []
+    tdir = os.path.join(base, BOARD_DIR)
+    if os.path.isdir(tdir):
+        for n in sorted(os.listdir(tdir)):
+            if n.endswith(".json") and not n.startswith("_"):
+                with open(os.path.join(tdir, n), "r", encoding="utf-8") as fh:
+                    tasks.append(json.load(fh))
+    agents = []
+    adir = os.path.join(base, AGENTS_DIR)
+    if os.path.isdir(adir):
+        for n in sorted(os.listdir(adir)):
+            if n.endswith(".json") and not n.startswith("_"):
+                with open(os.path.join(adir, n), "r", encoding="utf-8") as fh:
+                    agents.append(json.load(fh))
+    return msgs, tasks, agents
+
+
+# --------------------------------------------------------------------------
+# commands
+# --------------------------------------------------------------------------
+
+def cmd_init(ctx: Ctx, args):
+    me = ctx.require_agent()
+    ctx.require_token()
+    agent, created = register_agent(ctx, me, kind=args.kind, caps=args.caps,
+                                    model=args.model, role=args.role, note=args.note)
+    hr(f"{'joined' if created else 'refreshed'} {me}")
+    if not args.quiet:
+        msg = make_message(
+            me,
+            args.greeting or f"{me} online ({args.kind}"
+            + (f"/{args.model}" if args.model else "") + "). Ready to help.",
+            mtype="join", channel=ctx.channel, extra={"caps": args.caps} if args.caps else None)
+        ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                             f"bus: {me} join {ctx.channel}")
+        print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
+    rate = ctx.api.rate_limit()
+    print(f"repo    : {ctx.repo} (branch {ctx.branch})")
+    print(f"agent   : {me}   channel: {ctx.channel}")
+    print(f"token   : {'ok' if ctx.token else 'none'}   api remaining: {rate.get('remaining', '?')}/{rate.get('limit', '?')}")
+    print()
+    print(color("recent traffic:", C_DIM))
+    print_messages(filter_messages(fetch_messages(ctx, channel="all"),
+                                   argparse.Namespace(since="#" + (agent.get("joined_ts") or ""),
+                                                      tail=8, from_agent=None, mtype=None,
+                                                      mentions=None)),
+                   me=me, with_channel=True)
+    hr("open work")
+    print_tasks(load_tasks(ctx), me=me)
+    print()
+    print(color("next: read PROTOCOL.md, then `chatcode tasks list` and claim something.", C_DIM))
+
+
+def cmd_say(ctx: Ctx, args):
+    me = ctx.require_agent()
+    ctx.require_token()
+    text = " ".join(args.text).strip()
+    if not text:
+        die("nothing to say — pass text")
+    msg = make_message(me, text, mtype=args.type, channel=ctx.channel,
+                       to=args.to, ref=args.ref, reply=args.reply)
+    count = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus({ctx.channel}): {me} {args.type}")
+    if count < 0:
+        print(color(f"• #{msg['id']} not posted (dry-run)", C_Y))
+        return
+    print(f"{color('✓', C_G)} #{msg['id']} → bus/{ctx.channel}.jsonl "
+          f"({count} messages in channel)")
+    if count > ROTATE_AT:
+        rotate_channel(ctx, ctx.channel)
+
+
+def rotate_channel(ctx: Ctx, channel: str):
+    """Archive the oldest messages of a channel so hot files stay small."""
+    text = ctx.api.read_text(bus_path(channel))
+    if not text:
+        return
+    lines = [l for l in text.splitlines() if l.strip()]
+    if len(lines) <= ROTATE_AT:
+        return
+    old, keep = lines[:-KEEP_AFTER_ROTATE], lines[-KEEP_AFTER_ROTATE:]
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    arch = f"{ARCHIVE_DIR}/{channel}-{stamp}.jsonl"
+    ctx.api.write_text(arch, "\n".join(old) + "\n", f"bus: archive {len(old)} msgs from {channel}")
+    info = ctx.api.contents(bus_path(channel))
+    ctx.api.write_text(bus_path(channel), "\n".join(keep) + "\n",
+                       f"bus: rotate {channel} ({len(keep)} hot)", sha=info["sha"])
+    print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
+
+
+def cmd_rotate(ctx: Ctx, args):
+    chans = [args.channel] if args.channel else [
+        e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR) if e["name"].endswith(".jsonl")]
+    for ch in chans:
+        rotate_channel(ctx, ch)
+    print("done")
+
+
+def cmd_read(ctx: Ctx, args):
+    if not ctx.local:
+        ctx.require_token(write=False)
+    msgs = fetch_messages(ctx, channel=args.channel, include_archive=args.all,
+                          all_channels=(args.channel in (None, "all")))
+    msgs = filter_messages(msgs, args)
+    if not args.tail and not args.since and not args.json and not args.jsonl:
+        args.tail = 25
+        msgs = filter_messages(msgs, args)
+    print_messages(msgs, as_json=args.json, as_jsonl=args.jsonl, me=ctx.agent,
+                   with_channel=(args.channel in (None, "all")))
+
+
+def cmd_watch(ctx: Ctx, args):
+    """Poll the bus and print anything new. Runs until interrupted (or --once)."""
+    me = ctx.agent
+    msgs = fetch_messages(ctx, channel=args.channel, all_channels=(args.channel in (None, "all")))
+    if args.since:
+        a = argparse.Namespace(since=args.since, tail=None, from_agent=None, mtype=None, mentions=None)
+        msgs = filter_messages(msgs, a)
+    else:
+        msgs = msgs[-args.backlog:] if args.backlog else []
+    print(color(f"watching {ctx.repo} · channel={args.channel or 'all'} · "
+                f"every {args.interval}s · ctrl-c to stop", C_DIM))
+    if msgs:
+        print_messages(msgs, me=me, with_channel=(args.channel in (None, "all")))
+    last_id = msgs[-1]["id"] if msgs else None
+    loops = 0
+    while True:
+        time.sleep(args.interval)
+        loops += 1
+        try:
+            fresh = fetch_messages(ctx, channel=args.channel,
+                                   all_channels=(args.channel in (None, "all")))
+        except SystemExit:
+            raise
+        except Exception as e:
+            warn(f"poll failed: {e}")
+            continue
+        if last_id:
+            idx = next((i for i, m in enumerate(fresh) if m.get("id") == last_id), None)
+            new = fresh[idx + 1:] if idx is not None else fresh[-args.backlog:]
+        else:
+            new = fresh[-args.backlog:] if args.backlog else fresh
+        mine = [m for m in new if m.get("from") != me]
+        if mine:
+            print()
+            print_messages(mine, me=me, with_channel=(args.channel in (None, "all")))
+            pings = [m for m in mine if m.get("to") in (me,) or f"@{me}" in (m.get("text") or "")]
+            if pings:
+                print(color(f"  ⇢ {len(pings)} message(s) addressed to you", C_Y))
+        if new:
+            last_id = new[-1]["id"]
+        if args.once or (args.for_ and loops * args.interval >= args.for_):
+            break
+        if args.exit_when:
+            hit = [m for m in new if args.exit_when.lower() in json.dumps(m).lower()]
+            if hit:
+                print(color(f"  ✓ matched --exit-when {args.exit_when!r}, stopping", C_G))
+                break
+
+
+def cmd_whoami(ctx: Ctx, args):
+    print(json.dumps({
+        "agent": ctx.agent, "repo": ctx.repo, "branch": ctx.branch,
+        "channel": ctx.channel, "token": "set" if ctx.token else "missing",
+        "config_path": CONFIG_PATH,
+    }, indent=2))
+
+
+def cmd_config(ctx: Ctx, args):
+    cfg = load_config()
+    if args.set:
+        k, _, v = args.set.partition("=")
+        if not v:
+            die("usage: chatcode config --set key=value")
+        cfg[k] = v
+        save_config(cfg)
+        print(f"saved {k} = {v}  ({CONFIG_PATH})")
+    if args.unset:
+        cfg.pop(args.unset, None)
+        save_config(cfg)
+        print(f"removed {args.unset}")
+    if not args.set and not args.unset:
+        print(json.dumps(cfg, indent=2))
+
+
+def cmd_tasks(ctx: Ctx, args):
+    sub = args.action
+    if sub in ("list", "ls", None):
+        tasks = load_tasks(ctx)
+        if args.set_status:
+            wanted = set(args.set_status.split(","))
+            tasks = [t for t in tasks if t.get("status") in wanted]
+        if args.owner:
+            tasks = [t for t in tasks if t.get("owner") == args.owner]
+        if args.mine:
+            tasks = [t for t in tasks if t.get("owner") == ctx.agent]
+        print_tasks(tasks, as_json=args.json, me=ctx.agent)
+        return
+    if sub == "show":
+        ts = load_tasks(ctx)
+        t = next((x for x in ts if x.get("id") == args.id), None)
+        if not t:
+            die(f"no such task: {args.id}")
+        print(json.dumps(t, indent=2, ensure_ascii=False))
+        return
+    if sub == "new":
+        parts = ([args.id] if args.id else []) + list(args.title or [])
+        title = " ".join(parts).strip()
+        if not title:
+            die("a task needs a title")
+        owner = ctx.agent if args.mine else args.owner
+        t = create_task(ctx, title, desc=args.desc or "", priority=args.priority,
+                        owner=owner, tags=args.tags.split(",") if args.tags else None)
+        print(f"{color('✓', C_G)} created {t['id']} ({t['status']}) — {t['title']}")
+        if args.announce:
+            ctx.require_agent()
+            msg = make_message(ctx.agent, f"new task {t['id']}: {t['title']}"
+                               + (f" — {t['desc']}" if t['desc'] else ""),
+                               mtype="task", channel=ctx.channel, ref=t["id"])
+            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: announce {t['id']}")
+            print(f"  announced on #{msg['id']} (bus/{ctx.channel}.jsonl)")
+        return
+    if sub == "claim" and not args.id:
+        die("usage: chatcode tasks claim <task-id>")
+    if sub == "claim":
+        t = claim_task(ctx, args.id)
+        print(f"{color('✓', C_G)} {t['id']} is yours, {ctx.agent}. "
+              f"branch: {t.get('branch')}")
+        print(color("  next: post a plan with "
+                    f"`chatcode say \"starting {t['id']}: <plan>\" --type claim --ref {t['id']}`",
+                    C_DIM))
+        if args.announce:
+            msg = make_message(ctx.agent, f"claiming {t['id']}: {t['title']}",
+                               mtype="claim", channel=ctx.channel, ref=t["id"])
+            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: claim {t['id']}")
+        return
+    if sub in ("status", "update", "block", "unblock", "done", "drop"):
+        if not args.id:
+            die(f"usage: chatcode tasks {sub} <task-id>")
+        mapping = {"done": "done", "drop": "dropped", "block": "blocked", "unblock": "claimed"}
+        status = args.set_status or mapping.get(sub)
+        if sub == "status" and not status:
+            die("usage: chatcode tasks update <id> --status <status>")
+        def mutate(task):
+            owner = task.get("owner")
+            if sub in ("done", "drop", "update", "status") and owner not in (None, ctx.agent):
+                role = agent_role(ctx, ctx.agent or "")
+                takeover = (task.get("status") == "review" and status == "claimed")
+                if args.force:
+                    pass
+                elif role in ("reviewer", "lead"):
+                    print(color(f"  ({role} authority: acting on {owner}'s task)", C_DIM))
+                elif takeover:
+                    print(color("  (review failed: reopening a task owned by "
+                                f"{owner} for rework)", C_Y))
+                else:
+                    die(f"{task['id']} is owned by {owner}. Only its owner, a "
+                        "reviewer/lead, or --force can move it. If you think it is "
+                        "stuck, post an --type alert on the bus instead.")
+            task["status"] = status
+            if status == "done":
+                task["completed_ts"] = now_iso()
+            if args.pr is not None:
+                task["pr"] = args.pr
+            if args.branch:
+                task["branch"] = args.branch
+            return task, f"{sub}→{status}"
+        t = update_task(ctx, args.id, mutate, note=args.note or "")
+        print(f"{color('✓', C_G)} {t['id']} → {t['status']}")
+        if args.announce:
+            msg = make_message(ctx.agent, f"{t['id']} → {t['status']}"
+                               + (f": {args.note}" if args.note else ""),
+                               mtype=("done" if t["status"] == "done" else "status"),
+                               channel=ctx.channel, ref=t["id"])
+            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: {t['id']} {t['status']}")
+        return
+    die(f"unknown tasks action {sub!r}")
+
+
+def cmd_status(ctx: Ctx, args):
+    msgs = fetch_messages(ctx, channel="all")
+    tasks = load_tasks(ctx)
+    agents = load_agents(ctx)
+    errors, warnings = validate_state(msgs, tasks, agents)
+    hr(f"{ctx.repo}")
+    live = [t for t in tasks if t.get("status") != "done"]
+    print(f"messages : {len(msgs)}   agents: {len(agents)}   tasks: {len(tasks)} "
+          f"({len(live)} live)")
+    if ctx.token and not ctx.local:
+        r = ctx.api.rate_limit()
+        print(f"api      : {r.get('remaining', '?')}/{r.get('limit', '?')} calls left this hour")
+    print()
+    print_tasks([t for t in tasks if t.get("status") != "done"][:15], me=ctx.agent)
+    print()
+    hr("agents")
+    for a in agents:
+        last = max([m.get("ts", "") for m in msgs if m.get("from") == a.get("name")] +
+                   [a.get("last_seen", "")])
+        print(f"  {a.get('name','?'):<16} {a.get('role', 'worker'):<10} "
+              f"{a.get('model') or '—':<18} last: {last or '—'}")
+    print()
+    hr("last 10 messages")
+    print_messages(msgs[-10:], me=ctx.agent, with_channel=True)
+    if args.health:
+        print()
+        hr("health")
+        print(f"  schema errors : {len(errors)}   warnings: {len(warnings)}")
+        for e in errors[:20]:
+            print(f"   {color('E', C_R)} {e}")
+        for w in warnings[:20]:
+            print(f"   {color('W', C_Y)} {w}")
+
+
+def cmd_digest(ctx: Ctx, args):
+    if ctx.local:
+        msgs, tasks, agents = load_local_state(ctx)
+    else:
+        msgs = fetch_messages(ctx, channel="all", include_archive=True)
+        tasks = load_tasks(ctx)
+        agents = load_agents(ctx)
+    text = render_status(msgs, tasks, agents)
+    if args.write:
+        if ctx.local:
+            with open(os.path.join(ctx.local, STATUS_FILE), "w", encoding="utf-8") as fh:
+                fh.write(text)
+        else:
+            ctx.require_token()
+            info = ctx.api.contents(STATUS_FILE)
+            ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
+                               sha=info["sha"] if info and isinstance(info, dict) else None)
+        print(f"{color('✓', C_G)} wrote {STATUS_FILE}", file=sys.stderr)
+        if args.print:
+            sys.stdout.write(text)
+    else:
+        sys.stdout.write(text)
+
+
+def cmd_validate(ctx: Ctx, args):
+    if ctx.local:
+        msgs, tasks, agents = load_local_state(ctx)
+    else:
+        msgs = fetch_messages(ctx, channel="all", include_archive=args.all)
+        tasks = load_tasks(ctx)
+        agents = load_agents(ctx)
+    errors, warnings = validate_state(msgs, tasks, agents)
+    for w in warnings:
+        print(f"{color('warn', C_Y)}  {w}")
+    for e in errors:
+        print(f"{color('ERROR', C_R)} {e}")
+    print(f"\n{len(msgs)} messages · {len(tasks)} tasks · {len(agents)} agents · "
+          f"{len(errors)} errors · {len(warnings)} warnings")
+    sys.exit(1 if errors else 0)
+
+
+def cmd_clone(ctx: Ctx, args):
+    ctx.require_token()
+    url = f"https://x-access-token:{ctx.token}@github.com/{ctx.repo}.git"
+    dest = args.into or os.path.basename(ctx.repo)
+    redacted = f"https://x-access-token:***@github.com/{ctx.repo}.git"
+    if args.print:
+        print(f"git clone {redacted} {dest}")
+        return
+    if not shutil.which("git"):
+        die("git not installed here — use --print and clone manually")
+    if os.path.exists(dest):
+        die(f"{dest} already exists")
+    subprocess.run(["git", "clone", "--depth", "1", url, dest], check=True)
+    subprocess.run(["git", "-C", dest, "config", "user.email",
+                    f"{ctx.agent or 'agent'}@chatcode.local"], check=False)
+    subprocess.run(["git", "-C", dest, "config", "user.name", ctx.agent or "agent"],
+                   check=False)
+    print(f"{color('✓', C_G)} cloned into {dest}/ (credentials used, not stored)")
+
+
+def cmd_env(ctx: Ctx, args):
+    """Print a ready-to-paste env block for this agent (token redacted)."""
+    tok = "<your github_pat_...>" if not ctx.token else "<your existing token, already set>"
+    lines = [
+        "# paste into the agent's shell (never commit this)",
+        'export CHATCODE_TOKEN="%s"' % tok,
+        'export CHATCODE_REPO="%s"' % ctx.repo,
+        'export CHATCODE_AGENT="%s"' % (ctx.agent or "<agent-name>"),
+        'export CHATCODE_CHANNEL="%s"' % ctx.channel,
+    ]
+    print("\n".join(lines))
+
+
+# --------------------------------------------------------------------------
+# main
+# --------------------------------------------------------------------------
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(prog="chatcode", add_help=False,
+                                description="shared blackboard for AI agent collectives")
+    p.add_argument("--version", action="version", version=f"chatcode {VERSION}")
+    p.add_argument("-r", "--repo", help=f"owner/name (default {DEFAULT_REPO})")
+    p.add_argument("-b", "--branch", help="branch to work on (default main)")
+    p.add_argument("-a", "--agent", "--name", dest="agent", help="your agent name")
+    p.add_argument("-c", "--channel", help="channel, e.g. general or dev")
+    p.add_argument("-t", "--token", help="GitHub token (or CHATCODE_TOKEN env)")
+    p.add_argument("--local", "--repo-dir", dest="local",
+                   help="operate on a local checkout instead of the API")
+    p.add_argument("--dry-run", action="store_true", help="do not write anything")
+    p.add_argument("-v", "--verbose", action="store_true")
+    sub = p.add_subparsers(dest="cmd")
+
+    s = sub.add_parser("init", add_help=True, help="register as an agent and say hello")
+    s.add_argument("--kind", default="ai", help="ai | human | bot")
+    s.add_argument("--model", default="", help="e.g. gpt-5, claude-4.5, gemini-2.5")
+    s.add_argument("--role", default="worker", help="worker | reviewer | lead")
+    s.add_argument("--caps", default="", help="short capability list")
+    s.add_argument("--note", default="")
+    s.add_argument("--greeting", default="")
+    s.add_argument("--quiet", action="store_true", help="do not post a join message")
+    s.set_defaults(func=cmd_init)
+
+    s = sub.add_parser("say", add_help=True, help="post a message")
+    s.add_argument("text", nargs="+")
+    s.add_argument("--type", "-T", default="say", choices=MESSAGE_TYPES)
+    s.add_argument("--to", default="*", help="agent name or * for everyone")
+    s.add_argument("--ref", default=None, help="task id or file this is about")
+    s.add_argument("--reply", default=None, help="message id being answered")
+    s.add_argument("--reply-to-latest", action="store_true")
+    s.set_defaults(func=cmd_say)
+
+    s = sub.add_parser("read", add_help=True, help="read the bus")
+    s.add_argument("--tail", type=int, default=None, help="last N messages")
+    s.add_argument("--since", help="message id (#abc12345) or ISO timestamp")
+    s.add_argument("--from", dest="from_agent", help="only messages from this agent")
+    s.add_argument("--type", "-T", dest="mtype", help="only this message type")
+    s.add_argument("--mentions", help="messages addressed to (or @-mentioning) this agent")
+    s.add_argument("--all", action="store_true", help="include archived channels")
+    s.add_argument("--json", action="store_true")
+    s.add_argument("--jsonl", action="store_true")
+    s.set_defaults(func=cmd_read)
+
+    s = sub.add_parser("watch", add_help=True, help="poll the bus and print new messages")
+    s.add_argument("--interval", type=int, default=20)
+    s.add_argument("--backlog", type=int, default=5, help="how many old messages to show first")
+    s.add_argument("--since", help="start after this message id")
+    s.add_argument("--once", action="store_true", help="single check, then exit")
+    s.add_argument("--for", dest="for_", type=int, default=0, metavar="SECONDS",
+                   help="stop after this many seconds")
+    s.add_argument("--exit-when", default=None, help="stop when a new message contains this text")
+    s.set_defaults(func=cmd_watch)
+
+    s = sub.add_parser("tasks", add_help=True, help="the board")
+    s.add_argument("action", nargs="?", default="list",
+                   choices=["list", "ls", "show", "new", "claim", "status", "update",
+                            "block", "unblock", "done", "drop"])
+    s.add_argument("id", nargs="?", help="task id")
+    s.add_argument("title", nargs="*", help="title (for `tasks new`)")
+    s.add_argument("--desc", default="")
+    s.add_argument("--priority", type=int, default=3, help="1 = critical, 5 = someday")
+    s.add_argument("--owner", default=None, help="pre-assign an owner (creating a task)")
+    s.add_argument("--mine", action="store_true", help="only mine / assign to me")
+    s.add_argument("--status", dest="set_status", default=None, choices=TASK_STATUSES)
+    s.add_argument("--tags", default=None, help="comma separated")
+    s.add_argument("--note", default="")
+    s.add_argument("--pr", default=None)
+    s.add_argument("--branch", default=None)
+    s.add_argument("--force", action="store_true")
+    s.add_argument("--announce", action="store_true", help="also post to the bus")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_tasks)
+
+    s = sub.add_parser("status", add_help=True, help="one-screen overview")
+    s.add_argument("--health", action="store_true", help="include schema validation")
+    s.set_defaults(func=cmd_status)
+
+    s = sub.add_parser("digest", add_help=True, help="render STATUS.md")
+    s.add_argument("--write", action="store_true", help="write STATUS.md to the repo")
+    s.add_argument("--print", action="store_true", help="print to stdout (default in --local)")
+    s.add_argument("--all", action="store_true", help="include archives")
+    s.set_defaults(func=cmd_digest)
+
+    s = sub.add_parser("validate", add_help=True, help="lint the bus/board/agents")
+    s.add_argument("--all", action="store_true", help="include archives")
+    s.set_defaults(func=cmd_validate)
+
+    s = sub.add_parser("rotate", add_help=True, help="archive old messages")
+    s.set_defaults(func=cmd_rotate)
+
+    s = sub.add_parser("clone", add_help=True, help="clone the repo with credentials")
+    s.add_argument("--into", default=None)
+    s.add_argument("--print", action="store_true")
+    s.set_defaults(func=cmd_clone)
+
+    s = sub.add_parser("whoami", add_help=True, help="show resolved config")
+    s.set_defaults(func=cmd_whoami)
+
+    s = sub.add_parser("config", add_help=True, help="persistent local config")
+    s.add_argument("--set", default=None, metavar="key=value")
+    s.add_argument("--unset", default=None)
+    s.set_defaults(func=cmd_config)
+
+    s = sub.add_parser("env", add_help=True, help="print env block for this agent")
+    s.set_defaults(func=cmd_env)
+
+    s = sub.add_parser("help", add_help=True, help="show all commands")
+    s.set_defaults(func=lambda ctx, args: (p.print_help(), print(EXTRA_HELP)))
+    return p
+
+
+EXTRA_HELP = """
+typical agent loop
+------------------
+  1. chatcode read --mention me --tail 20        # what happened while I was away?
+  2. chatcode tasks list                         # what is open?
+  3. chatcode tasks claim t-20261011-ab12        # take exactly one
+  4. chatcode say "plan: ..." --type claim --ref t-20261011-ab12
+  5. ... do the work on branch agent/<me>/<task> ...
+  6. chatcode tasks update <id> --status review --pr <pr-url> --announce
+  7. chatcode watch --interval 20                # answer reviews / hand off
+"""
+
+
+def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if not argv or argv[0] in ("-h", "--help", "help", "?"):
+        argv = ["help"]
+    parser = build_parser()
+    args, unknown = parser.parse_known_args(argv)
+    if unknown and getattr(args, "cmd", None) == "say":
+        args.text = list(args.text) + unknown
+    elif unknown:
+        die(f"unrecognized arguments: {' '.join(unknown)} (try `chatcode help`)")
+    ctx = Ctx(args)
+    if not getattr(args, "func", None):
+        parser.print_help()
+        return
+    if args.verbose and ctx.api:
+        ctx.api.verbose = True
+    args.func(ctx, args)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print()
+        sys.exit(130)

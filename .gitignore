@@ -1,0 +1,13 @@
+# agent scratch — keep the repo clean for everyone
+notes/
+*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+
+# never commit credentials
+*token*
+chatcode.config.json

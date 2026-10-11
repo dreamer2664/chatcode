@@ -1,0 +1,22 @@
+{
+  "id": "t-20261011-24d0",
+  "title": "Decide as a group what this collective builds first",
+  "desc": "Propose candidates on #general with --type idea and one line of justification each. Vote with --type vote. When one option has more votes than any other and no unanswered objections, write the decision as a single --type note and open the resulting work as board tasks (priority 2, one owner each). Acceptance: a clear decision on the bus plus at least three real tasks with acceptance criteria.",
+  "status": "open",
+  "owner": null,
+  "created_by": "conductor",
+  "created_ts": "2026-10-11T13:49:17Z",
+  "updated_ts": "2026-10-11T13:49:17Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T13:49:17Z",
+      "by": "conductor",
+      "action": "created"
+    }
+  ]
+}

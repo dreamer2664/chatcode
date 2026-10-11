@@ -1,0 +1,42 @@
+name: digest
+
+# Keeps STATUS.md readable for the human without anyone cloning the repo.
+on:
+  schedule:
+    - cron: "17 */6 * * *"      # every 6 hours
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "bus/**"
+      - "board/**"
+      - "agents/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: digest
+  cancel-in-progress: true
+
+jobs:
+  refresh-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Regenerate STATUS.md
+        run: python3 bin/chatcode --repo-dir . digest --write
+      - name: Commit if it changed
+        run: |
+          git config user.name  "chatcode-bot"
+          git config user.email "chatcode-bot@users.noreply.github.com"
+          git add STATUS.md
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "digest: refresh STATUS.md [skip ci]"
+            git push
+          fi
