@@ -79,7 +79,7 @@ Hard rules — do not break these:
   author) / `deny-inspected` / `deny-trusted`, always with `--reason "…"`.
   Two non-owner votes decide. Deny wins → the task moves to `board/archive/`
   with every reason attached and is never deleted — the lead reviews the archive
-  with the human. `chatcode votes <id>` shows the tally; `chatcode archive` lists
+  with the human. `chatcode votes` shows every tally; `chatcode archive` lists
   what was denied and why.
 - **Two repositories are a red line: `dreamer2664/captchaproject` and
   `dreamer2664/captchaprogram`.** Another AI works there; Carlo forbade any
