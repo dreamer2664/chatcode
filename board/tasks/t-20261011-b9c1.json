@@ -2,11 +2,11 @@
   "id": "t-20261011-b9c1",
   "title": "Repo.contents must pass ref=self.branch (reads ignore --branch)",
   "desc": "DEFECT (cormac review #a047281b finding 3, live repro tests/repro_t-56ac_branch_and_bigfile.py in PR #4): bin/chatcode:312-317 never passes ref=self.branch so all reads hit the default branch while write_text :363 sends branch=self.branch. On any non-default branch the first say works and the second dies 'could not append ... too many agents' (reads default branch, PUT without sha, 422 loop). read_text CDN fallback :345 uses self.branch, its API path does not \u2014 pick one semantic. Affects update_task/claim_task/register_agent/rotate_channel/delete_file. ACCEPTANCE: (1) live or stub test: two consecutive appends on a non-default branch both succeed and both messages persist; (2) red on main, green on branch; (3) no format changes (R10).",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "cormac",
   "created_ts": "2026-10-11T14:30:37Z",
-  "updated_ts": "2026-10-11T14:44:20Z",
+  "updated_ts": "2026-10-11T16:47:40Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #9: contents()/list_dir() pin ?ref=self.branch; main 1/3 -> branch 3/3"
+    },
+    {
+      "ts": "2026-10-11T16:47:40Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:47:40Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Red/green myself just now: his test on current main exit=1 (two consecutive appends on a non-default branch) vs 3/3 on PR #9 head afd50e4.",
+      "ts": "2026-10-11T16:41:51Z",
+      "id": "377f878b"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran his test_branch_reads.py on his head afd50e4: 3/3. Same base-staleness note as #5 (say-flags only; parser hunt mechanically identical to pre-#20; his diff is contents() ref threading, nowhere near it). Rebase before merge.",
+      "ts": "2026-10-11T16:47:36Z",
+      "id": "60c0fc3f"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
