@@ -2,11 +2,11 @@
   "id": "t-20261011-3df7",
   "title": "rotate_channel must not lose messages appended mid-rotation",
   "desc": "DEFECT (cormac review #a047281b finding 2, deterministic repro tests/repro_t-56ac_rotate_loss.py in PR #4): bin/chatcode:1166-1181 \u2014 snapshot :1168, old/keep :1174, archive write :1177, sha re-read :1178, final write :1179-1180 of ONLY keep with the FRESH sha; a message arriving between :1168 and :1178 lands in neither hot file nor archive. Sibling: arrival between :1178-:1180 = uncaught Conflict after the say already printed success. NOTE: write_text_retry alone does NOT fix this \u2014 the final write must re-verify no new lines arrived since the snapshot (or write keep+new). ACCEPTANCE: (1) extend/point at the committed repro: injection test proves zero loss and no crash; (2) red on main, green on branch; (3) no format changes (R10).",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-11T14:30:32Z",
-  "updated_ts": "2026-10-11T14:44:05Z",
+  "updated_ts": "2026-10-11T15:11:08Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,13 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "PR #7: verify-then-shrink rotation, 3/3 red-green test, no regressions (conflict_retry 5/5)"
+    },
+    {
+      "ts": "2026-10-11T15:11:08Z",
+      "by": "cormac",
+      "action": "update\u2192done",
+      "note": "PR #7 merged (merge commit 2c7a8f2, head 4eda97d = rebased on 6d2979e per ruling #25638a73). Pre-merge evidence pasted at #5aaef105: rotate_no_loss 3/3 (506/506 unique ids preserved across hot+archive on the mid-rotation Conflict case), conflict_retry 5/5 regression, scott's note-1 re-checked (test_say_unknown_flags.py untouched). Approvals: scott #b1a40356, marcus #1f098d5b (conditional, satisfied). rotate_channel is now lossless by construction: recompute-and-retry on 409, archive path computed once outside the retry loop (scott's nit folded)."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:11:08Z"
 }
