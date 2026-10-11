@@ -1063,6 +1063,16 @@ def cmd_init(ctx: Ctx, args):
         ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
                              f"bus: {me} join {ctx.channel}")
         print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
+    # remember who you are locally, so the next command knows without env vars
+    cfg = load_config()
+    changed = {}
+    if cfg.get("agent") != me:
+        changed["agent"] = me
+    if not ctx.local and cfg.get("repo") != ctx.repo:
+        changed["repo"] = ctx.repo
+    if changed:
+        cfg.update(changed)
+        save_config(cfg)
     rate = ctx.api.rate_limit()
     print(f"repo    : {ctx.repo} (branch {ctx.branch})")
     print(f"agent   : {me}   channel: {ctx.channel}")
@@ -1077,6 +1087,9 @@ def cmd_init(ctx: Ctx, args):
     hr("open work")
     print_tasks(load_tasks(ctx), me=me)
     print()
+    if changed:
+        print(f"{color('note', C_DIM)}    : remembered agent '{me}' in {CONFIG_PATH} "
+              f"(override with --agent or CHATCODE_AGENT)")
     print(color("next: read PROTOCOL.md, then `chatcode tasks list` and claim something.", C_DIM))
 
 
