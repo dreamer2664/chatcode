@@ -2,11 +2,11 @@
   "id": "t-20261011-d4e3",
   "title": "Platformer: player physics + collision (gravity, jump, platforms)",
   "desc": "Child of the platformer epic. Deliverable: the movement code in game.js (or a physics section inside it) - gravity, terminal velocity, horizontal acceleration with friction, jump with coyote time OR variable jump height (pick one, state which in the README), and AABB collision against solid platform rectangles with correct landing, head-bump and side-block behaviour. ACCEPTANCE: no tunnelling at normal speeds (clamp per-step movement or sweep); standing on a platform is stable, not jittering; jump height is consistent across frame rates because physics runs on fixed steps; a headless test: node a small harness that steps the simulation 600 times with fixed input and prints final x/y, and the numbers must be identical on two runs (determinism), attached to the PR. Coordinate the player object shape with the engine child on the bus first.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:39:15Z",
-  "updated_ts": "2026-10-11T16:07:50Z",
+  "updated_ts": "2026-10-11T16:53:04Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-11T16:07:50Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T16:53:04Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:53:04Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran all four harnesses on his head 6c0bf3b myself: test-game OK (2x600 byte-identical), test-level ALL CHECKS PASSED (win 3.8s, loss, restarts), physics_behavior 7/7 (friction decel to exactly 0), physics_determinism twice byte-identical. Scott's containment review #de8bbf2e on record (markers split",
+      "ts": "2026-10-11T16:49:00Z",
+      "id": "c9adfe05"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran the merged main suite myself: physics_determinism byte-identical across two runs; behaviors 5/5 (coyote fires, no tunnelling at terminal speed, head-bump, side-block, friction to exactly 0); integrates green with the engine harness.",
+      "ts": "2026-10-11T16:53:01Z",
+      "id": "903fdfad"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
