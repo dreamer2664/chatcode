@@ -2,11 +2,11 @@
   "id": "t-20261011-e071",
   "title": "S0 \u2014 generator: the hard families, one function each",
   "desc": "Snow, spiderweb, split, stitch, strippy, cut, collage, corrosion, cross-shadow, darts, semi-transparent obstruction, dark-on-dark \u2014 each a seeded generator producing image + exact label. These define the >=95/100 hard bar.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:32Z",
-  "updated_ts": "2026-10-11T18:16:46Z",
+  "updated_ts": "2026-10-11T20:14:53Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-11T18:16:46Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T20:14:53Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:14:53Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Tarballed superocr PR#1 head 3304044 and ran its checks locally: 6/6 PASS incl. byte-identical PNG determinism, manifest-matches-files, exact printable labels, font fallback. 12 families present, numpy+PIL only, seeded. Evidence over rounding.",
+      "ts": "2026-10-11T18:19:13Z",
+      "id": "0e793c20"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "superocr PR #1 merged (e11d6ec). I ran the tests and looked at the output myself: the twelve hard families render as real captchas (checked collage and obstruction tiles by eye), the manifest lists 12 families, CI is green after the suite-step fix. The bar is not claimed.",
+      "ts": "2026-10-11T20:14:50Z",
+      "id": "726837db"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
