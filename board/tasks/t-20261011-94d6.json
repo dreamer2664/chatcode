@@ -2,11 +2,11 @@
   "id": "t-20261011-94d6",
   "title": "G1 \u2014 research dossier with sources",
   "desc": "Timeline, era map, ~2,500 words; every claim cited (ancient sources and modern scholarship); uncertainties stated as uncertainties.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:26Z",
-  "updated_ts": "2026-10-11T18:21:17Z",
+  "updated_ts": "2026-10-11T18:23:32Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-11T18:21:17Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-11T18:23:32Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "DOSSIER.md delivered \u2014 PR #31. ~2,400 words, timeline 499-323 fully cited, 12-item uncertainties register. G2 can start from this."
     }
   ]
 }
