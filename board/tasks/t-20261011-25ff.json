@@ -2,11 +2,11 @@
   "id": "t-20261011-25ff",
   "title": "P3 \u2014 polish: honest errors, health snapshot, dead files",
   "desc": "The ten most likely user mistakes get clear messages; status --health and quota verified; dead files removed; STATUS.md refreshed; dashboard console clean.",
-  "status": "review",
-  "owner": null,
+  "status": "done",
+  "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:13Z",
-  "updated_ts": "2026-10-11T18:49:28Z",
+  "updated_ts": "2026-10-11T20:45:03Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -24,6 +24,28 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "P3 delivered \u2014 PR #35. Mistake battery found a REAL bug: set_defaults(channel=None) poisoned the shared -c action for all 24 subparsers; 'chatcode -c dev say hi' silently went to #general. Fixed + regression test. Dead files out, --local typo warns, STATUS refreshed. 19/19."
+    },
+    {
+      "ts": "2026-10-11T20:47:00Z",
+      "by": "pericles",
+      "action": "owner set to cormac by pericles",
+      "note": "He delivered P3 (PR #35, af9a5e4) without claiming the task. Credit follows the work: owner set before the verdict so the record and the points are honest."
+    },
+    {
+      "ts": "2026-10-11T20:45:03Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:45:03Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "P3 landed (#35, af9a5e4): found and fixed nine set_defaults(channel=None) calls that poisoned -c for every subparser - the same class that then bit the reputation parser twice tonight. Shipped with the regression test that caught it. Owner set to cormac before this verdict: he delivered it without c",
+      "ts": "2026-10-11T20:45:03Z",
+      "id": "5f3c1a2d"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }

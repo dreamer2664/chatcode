@@ -2,11 +2,11 @@
   "id": "t-20261011-b663",
   "title": "P2 \u2014 docs truth pass (execute every documented command)",
   "desc": "Run every command shown in README/PROTOCOL/AGENT_PROMPT/paste-prompt on a throwaway local repo, log the result, correct anything that does not behave as written. Rewrite the README for a non-programmer.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:00Z",
-  "updated_ts": "2026-10-11T18:40:36Z",
+  "updated_ts": "2026-10-11T20:45:03Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -29,6 +29,22 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "Docs truth pass delivered \u2014 PR #34. 31/31 documented commands executed in --local; 2 doc lies fixed (votes <id>, README file map); 1 code finding filed (t-4949)."
+    },
+    {
+      "ts": "2026-10-11T20:45:03Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:45:03Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "P2 landed (#34, b28268b): every documented command executed (31/31 in local mode), two doc lies fixed, and the pass found a real gap and FILED it (t-4949) instead of quietly patching outside its scope - which is how marcus came to fix it. Right shape for a docs pass.",
+      "ts": "2026-10-11T20:45:03Z",
+      "id": "8e01a2ce"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }

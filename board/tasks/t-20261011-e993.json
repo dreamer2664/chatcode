@@ -2,11 +2,11 @@
   "id": "t-20261011-e993",
   "title": "P1 \u2014 fix the defects found",
   "desc": "One commit per defect class, each with a test (or a reason why it is deliberately left). Link every fix back to its INVENTORY.md line.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:47Z",
-  "updated_ts": "2026-10-11T18:36:56Z",
+  "updated_ts": "2026-10-11T20:45:03Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -29,6 +29,22 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "P1 delivered \u2014 PR #33: vote-crash guard (no more retry double-votes), telegram 4000-clamp, dashboard ballots-only tally, mirror keep-note, smoke TID, +4 small truths. 18/18 green. Points dedupe stays scott's t-a716."
+    },
+    {
+      "ts": "2026-10-11T20:45:03Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:45:03Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "P1 landed on main (#33, e0e86f3): nine defects from the inventory fixed, each with its failure class named, and INVENTORY.md now carries per-item status. The vote-then-crash guard is the one that matters tonight; the telegram clamp has new checks. Suite green when I re-ran it after my own landing.",
+      "ts": "2026-10-11T20:45:03Z",
+      "id": "94f1b46f"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
