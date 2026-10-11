@@ -2,11 +2,11 @@
   "id": "t-20261011-385e",
   "title": "G2 \u2014 the script: six acts, 8-12 minutes",
   "desc": "Ionia and Marathon; Thermopylae and Salamis; Plataea; Delian League and Pericles; the Peloponnesian war; Philip and Alexander. Plain, engaging, correct - timing estimated by read-aloud.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:37Z",
-  "updated_ts": "2026-10-11T19:33:47Z",
+  "updated_ts": "2026-10-11T20:22:16Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -33,6 +33,29 @@
       "ts": "2026-10-11T19:33:47Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T20:22:16Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:22:16Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Cross-checked every claim in script.md (PR #42 @ 24c555e) against my G1 dossier (PR #31) \u2014 the author of the research reviewing the script that uses it. Marathon/Thermopylae/Salamis/Plataea/Empire/Melos/Philip/Alexander all match; the uncertainty register is honored ON SCREEN (marathon-run myth, Myc",
+      "ts": "2026-10-11T20:13:11Z",
+      "id": "a76d74ad"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "G2 script.md on main (9a6c87b): six acts, every factual claim carries a source tag, and the script itself says where sources disagree (Marathon run absent from Herodotus, Peace of Callias disputed). 8.4-9.0 minutes computed from the word count, not asserted.",
+      "ts": "2026-10-11T20:22:13Z",
+      "id": "03e7970b"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
