@@ -27,6 +27,7 @@ object slug->token) and are never printed, logged or committed.
 from __future__ import annotations
 
 import json
+import mimetypes
 import os
 import random
 import re
@@ -198,6 +199,22 @@ def tail_messages(n: int) -> list[dict]:
     return msgs
 
 
+MAX_TEXT = 4000          # the bus contract (bin/chatcode MAX_TEXT, R-schema)
+
+
+def clamp_text(text: str, limit: int = MAX_TEXT) -> str:
+    """Keep a phone message inside the bus limit the CLI's validator enforces.
+
+    Telegram allows 4096 chars; the bus allows 4000. Without this, one long
+    message from the human turns `chatcode validate` (and CI with it) red
+    (t-20261011-e993). Same truncation shape as the CLI's make_message.
+    Pure.
+    """
+    if len(text) <= limit:
+        return text
+    return text[:limit - 20] + "… [truncated]"
+
+
 # ---------------------------------------------------------------- relay
 
 def is_relayable(m: dict) -> bool:
@@ -329,7 +346,7 @@ def cmd_ingest(argv: list[str]) -> int:
         lines.append(json.dumps({
             "id": mid, "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "from": OWNER, "type": "say", "to": "*",
-            "text": f"{display_of(OWNER)}: {t}",       # the name rule, same as the CLI
+            "text": f"{display_of(OWNER)}: {clamp_text(t)}",  # name rule + bus limit
             "ref": None, "reply": None,
         }, ensure_ascii=False))
     path = os.path.join(ROOT, "bus", f"{HUMAN_CHANNEL}.jsonl")
@@ -413,7 +430,7 @@ def tg_send_photo(token: str, chat_id, path: str, caption: str) -> dict:
         parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}\r\n".encode())
     parts.append(
         f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"{os.path.basename(path)}\"\r\n"
-        f"Content-Type: image/png\r\n\r\n".encode() + blob + b"\r\n")
+        f"Content-Type: {mimetypes.guess_type(path)[0] or 'application/octet-stream'}\r\n\r\n".encode() + blob + b"\r\n")
     parts.append(f"--{boundary}--\r\n".encode())
     body = b"".join(parts)
     req = urllib.request.Request(f"{TG}/bot{token}/sendPhoto", data=body,

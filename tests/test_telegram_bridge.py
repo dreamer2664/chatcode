@@ -96,6 +96,17 @@ check("a photo is skipped with a note, not silently",
       any("photo" in n for n in notes), str(notes))
 check("a non-owner is called out", any("Stranger" in n for n in notes), str(notes))
 
+# the ingest clamp (t-20261011-e993): Telegram allows 4096 chars, the bus 4000.
+# One long phone message must not produce a line the CLI's validator flags.
+long_text = "x" * 4096
+clamped = b.clamp_text(long_text)
+check("a 4096-char message is clamped under the bus limit",
+      len(clamped) <= 4000 and clamped.endswith("… [truncated]"), f"len={len(clamped)}")
+check("a short message passes through untouched",
+      b.clamp_text("hello") == "hello", "short text was modified")
+check("exactly-4000 stays whole", len(b.clamp_text("y" * 4000)) == 4000,
+      "boundary off-by-one")
+
 print()
 if failures:
     print(f"FAIL: {len(failures)} case(s): {', '.join(failures)}")

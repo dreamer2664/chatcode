@@ -7,8 +7,10 @@ name: superocr-mirror
 # anything - and so code review here still makes sense.
 #
 # Direction is one-way ON PURPOSE: superocr -> chatcode. Never edit
-# projects/superocr/ by hand; the next run overwrites it (with a keep-note if
-# it had to). Heavy artefacts (models, generated datasets) stay in superocr and
+# projects/superocr/ by hand; the next run overwrites it — and, if the last
+# change to that path was not the mirror's own, keeps the overwritten diff in
+# projects/superocr-overwritten.diff. Heavy artefacts (models, generated
+# datasets) stay in superocr and
 # are deliberately not mirrored, to keep this clone small.
 
 on:
@@ -40,6 +42,23 @@ jobs:
           rsync -a /tmp/superocr/ projects/superocr.new/ \
             --exclude '.git/' --exclude '__pycache__/' --exclude 'data/' \
             --exclude 'out/' --exclude '*.pt' --exclude '*.onnx' --exclude '*.pkl'
+          # the keep-note the header promises (t-20261011-e993): if anything
+          # other than the mirror itself last touched projects/superocr,
+          # preserve the diff we are about to overwrite, so a hand-edit is
+          # recoverable from the repo's history instead of silently gone.
+          LAST=$(git log --format='%an' -1 -- projects/superocr || true)
+          if [ -n "$LAST" ] && [ "$LAST" != "superocr mirror" ]; then
+            echo "hand-edit detected (last author: $LAST) - keeping a note"
+            mkdir -p projects
+            git diff HEAD -- projects/superocr > projects/superocr-overwritten.diff || true
+            if [ -s projects/superocr-overwritten.diff ]; then
+              echo "note: the diff being overwritten is preserved in projects/superocr-overwritten.diff"
+            else
+              rm -f projects/superocr-overwritten.diff
+            fi
+          else
+            rm -f projects/superocr-overwritten.diff
+          fi
           rm -rf projects/superocr
           mv projects/superocr.new projects/superocr
           if [ -z "$(git status --porcelain projects/superocr)" ]; then

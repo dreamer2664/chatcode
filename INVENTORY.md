@@ -121,22 +121,24 @@ Defects:
 
 ## 10. Defect index (one line each, for t-e993 to pick up)
 
-1. S0 ci.yml — CI runs 1 of 15 test files (fix accepted, PR #22 open).
-2. S1 bin/chatcode:1052 — points score per vote record, no (task,voter) dedupe (t-a716/t-afcc).
-3. S1 bin/chatcode:1962 — quorum announcement self-scores +25 (fix accepted, PR #26 open).
-4. S1 bin/chatcode:1946 — vote written before tally print; post-write crash → non-zero exit → retry double-votes.
-5. S1 dashboard/index.html:493 — dashboard quorum counts legacy records; CLI doesn't (verdict chips can lie).
-6. S1 telegram/bridge.py:318 — ingest has no 4000-char clamp; a long phone message fails validate.
-7. S1 mirror-superocr.yml — promised keep-note not written; comment/code mismatch.
-8. S2 bin/chatcode:1926 — die message vs guard disagreement (claimed/blocked votable).
-9. S2 bin/chatcode:676 — display_of re-reads config per message.
-10. S2 bin/chatcode:2210 — inbox rewrites agent file every run.
-11. S2 bin/chatcode:1990 — `votes <id>` not implemented (PR #28 in review).
-12. S2 ci.yml cli-smoke — alphabetical TID pick.
-13. S2 .gitignore — stale `chatcode.config.json` rule.
-14. S2 telegram/bridge.py:167 — relay fallback may duplicate messages after force-push.
-15. S2 dashboard/index.html:128 — points footer omits trusted split.
-16. S2 telegram/bridge.py:437 — sendPhoto always claims image/png.
+Status column added by the t-e993 fixes sweep (2026-10-11 evening): FIXED here · LANED (another task owns it) · LEFT (deliberate, see note).
+
+1. S0 ci.yml — CI runs 1 of 15 test files. **FIXED** (PR #22 merged; offline-suite job runs tests/run_all.py).
+2. S1 bin/chatcode:1052 — points score per vote record, no (task,voter) dedupe. **LANED** — scott's t-a716 (absorbs t-afcc).
+3. S1 bin/chatcode:1962 — quorum announcement self-scores +25. **FIXED** (PR #26 merged: auto-tag + skip).
+4. S1 bin/chatcode:1946 — vote written before tally print; post-write crash → non-zero exit → retry double-votes. **FIXED** (_vote_aftermath split; failures print "do NOT re-vote" and exit 0).
+5. S1 dashboard/index.html:493 — dashboard quorum counts legacy records; CLI doesn't. **FIXED** (ballots-only tally + legacy count).
+6. S1 telegram/bridge.py:318 — ingest has no 4000-char clamp. **FIXED** (clamp_text + 3 checks in test_telegram_bridge.py).
+7. S1 mirror-superocr.yml — promised keep-note not written. **FIXED** (hand-edit diff preserved to projects/superocr-overwritten.diff; comment now matches).
+8. S2 bin/chatcode:1926 — die message vs guard disagreement. **FIXED** (message now says review/claimed/blocked).
+9. S2 bin/chatcode:676 — display_of re-reads config per message. **FIXED** (lru_cache on _config_display).
+10. S2 bin/chatcode:2210 — inbox rewrites agent file every run. **LEFT** — by design (the cursor write is the inbox contract); noted cost.
+11. S2 bin/chatcode:1990 — `votes <id>` not implemented. **FIXED** (PR #28 merged).
+12. S2 ci.yml cli-smoke — alphabetical TID pick. **FIXED** (TID parsed from `tasks new` output, verified locally).
+13. S2 .gitignore — stale `chatcode.config.json` rule. **LEFT** — harmless belt against a config copy; `*token*` breadth noted for the P2 docs pass.
+14. S2 telegram/bridge.py:167 — relay fallback may duplicate messages after force-push. **LEFT** — acknowledged tradeoff in code; force-pushes are rare and the tail fallback is better than silence.
+15. S2 dashboard/index.html:128 — points footer omits trusted split. **FIXED** (+25 inspected / +10 trusted now shown).
+16. S2 telegram/bridge.py:437 — sendPhoto always claims image/png. **FIXED** (mimetypes.guess_type).
 
 Plus the process gap of §0 (six accepted PRs unmerged) — not a code defect, but the first thing to fix operationally, and it makes every "done" on the board weaker than it reads.
 

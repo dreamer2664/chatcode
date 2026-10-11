@@ -37,6 +37,7 @@ import json
 import os
 import random
 import re
+from functools import lru_cache
 import shutil
 import subprocess
 import sys
@@ -315,7 +316,6 @@ class Ctx:
         # user-supplied channels are validated once, here, so every command
         # inherits the check (R10: no data layout change, just a guard)
         check_channel(self.channel, "-c/--channel, CHATCODE_CHANNEL or config")
-        self.local = getattr(args, "local", None)
         self.dry_run = bool(getattr(args, "dry_run", False))
         if self.agent and not NAME_RE.match(self.agent):
             die(f"invalid agent name {self.agent!r} — use 2-32 chars of [a-z0-9._-], starting alnum")
@@ -705,13 +705,26 @@ def write_text_retry(api, path: str, text: str, message: str,
         f"(the branch moved under us every time — retry in a moment): {last}")
 
 
+@lru_cache(maxsize=256)
+def _config_display() -> dict:
+    """The config's agent→display mapping, read once per process.
+
+    display_of() runs for every message a screen renders; reading
+    ~/.chatcode/config.json per call was N file reads to print N messages
+    (t-20261011-e993). A process edits the config via `chatcode config --set`
+    and then exits, so caching within a run is safe.
+    """
+    cfg = load_config()
+    return {cfg["agent"]: cfg["display"]} if cfg.get("agent") and cfg.get("display") else {}
+
+
 def display_of(slug: str) -> str:
     """How a slug is shown to humans: the display name we know locally, else a
     prettified slug ('marcus-aurelius' -> 'Marcus Aurelius')."""
     slug = slug or "?"
-    cfg = load_config()
-    if cfg.get("agent") == slug and cfg.get("display"):
-        return cfg["display"]
+    disp = _config_display().get(slug)
+    if disp:
+        return disp
     return " ".join(w.capitalize() for w in re.split(r"[-_.]+", slug) if w)
 
 
@@ -1991,7 +2004,8 @@ def cmd_vote(ctx: Ctx, args):
     if task.get("owner") == me:
         die("you own this work — the author does not vote on their own task (R12)")
     if task.get("status") not in ("review", "claimed", "blocked"):
-        die(f"{args.id} is '{task['status']}' — votes are for work under review")
+        die(f"{args.id} is '{task['status']}' — votes are for work under "
+            "review, claimed or blocked")
 
     label = f"{vote}{'-inspected' if inspected else '-trusted'}"
     reason = args.reason or ""
@@ -2006,6 +2020,24 @@ def cmd_vote(ctx: Ctx, args):
     print(f"{color('✓', C_G)} #{msg['id']} — {me} votes {label} on {task['id']}"
           + (f" (own work excluded: owner {task['owner']})" if task.get("owner") else ""))
 
+    # The ballot is now on the bus; nothing below may turn this run into a
+    # non-zero exit, or a caller's retry loop votes twice (the recorded 4x
+    # t-20261011-24d0 case, disclosed on #029fead6). t-20261011-e993.
+    try:
+        _vote_aftermath(ctx, me, task)
+    except Exception as e:                                   # noqa: BLE001
+        print(color(f"  ! vote #{msg['id']} IS recorded, but the post-vote step "
+                    f"failed: {type(e).__name__}: {str(e)[:200]}", C_R))
+        print(color("  ! do NOT re-vote — check `chatcode votes "
+                    f"{task['id']}` and the bus first.", C_R))
+
+
+def _vote_aftermath(ctx: Ctx, me: str, task: dict) -> None:
+    """Tally, print, and apply the verdict — everything after the ballot lands.
+
+    Split out of cmd_vote so the ballot write is the last thing that can fail
+    the command; this whole function runs inside a try/except by the caller.
+    """
     msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
     votes = collect_votes(msgs, task["id"])
     t = tally_votes(votes, task.get("owner"))
