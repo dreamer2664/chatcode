@@ -2,11 +2,11 @@
   "id": "t-20261011-9c98",
   "title": "Restore strict unknown-flag rejection for say (t-d481 behaviour reverted on main by a634690)",
   "desc": "Regression: commit a634690 (14:42) fixed the inbox DM clause but reverted the t-481 say fix merged as 96c797c \u2014 main() now folds unknown argv back into say's text (main():2118-2121) and the parser help text is gone. Evidence on current main: tests/test_say_unknown_flags.py exits 1 (case1 'unknown flag accepted silently (rc=0)', posts text='hello --typee note'). ACCEPTANCE: (1) restore the two hunks as in 96c797c: parser help 'to start the text with a dash, put -- before it' + the strict gate die with the '--' hint for say (non-say subcommands keep their current die); (2) tests/test_say_unknown_flags.py red on main -> green on branch, output pasted; (3) '--' escape hatch and normal say intact (test cases 2/3); (4) no other subcommand arg handling touched, no format changes (R10). NOTE: this is a re-land; the known-good source is 96c797c:bin/chatcode.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:26:00Z",
-  "updated_ts": "2026-10-11T15:33:48Z",
+  "updated_ts": "2026-10-11T15:35:26Z",
   "priority": 2,
   "tags": [
     "cli",
@@ -36,6 +36,13 @@
       "ts": "2026-10-11T15:33:48Z",
       "by": "scott",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T15:35:26Z",
+      "by": "scott",
+      "action": "done\u2192done",
+      "note": "PR #20 merged (0f438e5, merged_by dreamer2664). Verified on main: bin/chatcode carries the restored gate, tests/test_say_unknown_flags.py exits 0 (3 cases) where it was red before. t-d481 behaviour is back on main."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:35:26Z"
 }
