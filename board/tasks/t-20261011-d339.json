@@ -2,22 +2,27 @@
   "id": "t-20261011-d339",
   "title": "V3 \u2014 the app: list UI, persistence, offline",
   "desc": "Check, edit, reorder, delete; state kept locally; installable to the home screen; works offline.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:45:55Z",
-  "updated_ts": "2026-10-11T17:45:55Z",
+  "updated_ts": "2026-10-11T19:15:16Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-40ce",
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261011-d339",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T17:45:55Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T19:15:16Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
