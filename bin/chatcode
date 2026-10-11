@@ -87,7 +87,10 @@ MAX_TEXT = 4000
 ROTATE_AT = 500          # rotate a channel file once it has more lines than this
 KEEP_AFTER_ROTATE = 120  # lines kept hot after rotation
 DIGEST_WRITE_ATTEMPTS = 5  # `digest --write` retries when STATUS.md moves under us
-
+PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
+                          # cap; a live 1.15MB PUT has succeeded, so the real
+                          # limit is higher — this is under both it and the
+                          # commonly-assumed 1MB
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
     "task", "claim", "done", "handoff", "review", "vote", "alert",
@@ -1274,8 +1277,8 @@ def cmd_init(ctx: Ctx, args):
             args.greeting or f"{me} online ({args.kind}"
             + (f"/{args.model}" if args.model else "") + "). Ready to help.",
             mtype="join", channel=ctx.channel, extra={"caps": args.caps} if args.caps else None)
-        n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: {me} join {ctx.channel}")
+        n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus: {me} join {ctx.channel}")
         if n < 0:
             print(color(f"• join message #{msg['id']} not posted (dry-run)", C_Y))
         else:
@@ -1318,8 +1321,8 @@ def cmd_say(ctx: Ctx, args):
         die("nothing to say — pass text")
     msg = make_message(me, text, mtype=args.type, channel=ctx.channel,
                        to=args.to, ref=args.ref, reply=args.reply)
-    count = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus({ctx.channel}): {me} {args.type}")
+    count = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus({ctx.channel}): {me} {args.type}")
     if count < 0:
         print(color(f"• #{msg['id']} not posted (dry-run)", C_Y))
         return
@@ -1329,7 +1332,8 @@ def cmd_say(ctx: Ctx, args):
         rotate_channel(ctx, ctx.channel)
 
 
-def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5):
+def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5,
+                   max_hot_bytes: int | None = None):
     """Archive the oldest messages of a channel so hot files stay small.
 
     Lossless by construction (t-20261011-3df7): the hot file is shrunk only
@@ -1338,6 +1342,10 @@ def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5):
     whole rotation restarts from a new snapshot, so nothing is dropped; the
     archive path is computed once and rewritten in place (the bus is
     append-only, so each retry's archive is a superset of the last).
+
+    With max_hot_bytes (t-20261011-76f7) the trigger is size as well as line
+    count — a 1.2MB channel of 300 lines rotates too — and the kept tail is
+    trimmed from the front until it fits the budget.
     """
     path = bus_path(channel)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -1348,9 +1356,15 @@ def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5):
         if not text:
             return
         lines = [l for l in text.splitlines() if l.strip()]
-        if len(lines) <= ROTATE_AT:
+        nbytes = len(text.encode("utf-8"))
+        if len(lines) <= ROTATE_AT and (max_hot_bytes is None or nbytes <= max_hot_bytes):
             return
-        old, keep = lines[:-KEEP_AFTER_ROTATE], lines[-KEEP_AFTER_ROTATE:]
+        keep_n = KEEP_AFTER_ROTATE
+        if max_hot_bytes is not None:
+            while keep_n > 1 and sum(len(l.encode("utf-8")) + 1
+                                     for l in lines[-keep_n:]) > max_hot_bytes:
+                keep_n -= 1
+        old, keep = lines[:-keep_n], lines[-keep_n:]
         # archive: create-or-update, computed once for all attempts, so a
         # retried rotation overwrites the SAME file instead of littering
         # duplicates. Safe because the bus is append-only: a retry's `old`
@@ -1398,6 +1412,42 @@ def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5):
         return
     warn(f"could not rotate {channel} cleanly after {attempts} attempts "
          "(channel kept changing) — left hot, will retry on the next append")
+
+
+def append_bus(ctx: Ctx, channel: str, lines: list[str], message: str) -> int:
+    """Append messages to a bus channel (t-20261011-76f7).
+
+    If the hot file plus the new block would not fit safely under the
+    contents endpoint's PUT size cap, rotate first: rotation is lossless
+    (t-20261011-3df7) and keeps only the last KEEP_AFTER_ROTATE lines hot —
+    far under the cap — so the append succeeds instead of dying on 422.
+    If even rotation cannot help (the archive itself would exceed the cap),
+    the write refuses loudly with the channel intact: never a silent drop,
+    never a wipe.
+    """
+    path = bus_path(channel)
+    info = ctx.api.contents(path)
+    size = 0
+    if info and isinstance(info, dict):
+        size = info.get("size")
+        if size is None:  # LocalRepo does not report a size
+            size = len((ctx.api.read_text(path) or "").encode("utf-8"))
+    block = sum(len(l.encode("utf-8")) + 1 for l in lines)
+    if size + block > PUT_SAFE_BYTES:
+        rotate_channel(ctx, channel, max_hot_bytes=PUT_SAFE_BYTES)
+        # did the rotation actually get us under the cap? if it could not
+        # (persistent concurrent traffic, or the archive itself would be too
+        # large), refuse loudly rather than let the append risk the file
+        info = ctx.api.contents(path)
+        size = 0
+        if info and isinstance(info, dict):
+            size = info.get("size")
+            if size is None:
+                size = len((ctx.api.read_text(path) or "").encode("utf-8"))
+        if size + block > PUT_SAFE_BYTES:
+            die(f"bus/{channel}.jsonl is {size} bytes and could not be rotated under the "
+                f"PUT size cap — refusing to append rather than risk destroying it")
+    return ctx.api.append_lines(path, lines, message)
 
 
 def cmd_rotate(ctx: Ctx, args):
@@ -1670,8 +1720,8 @@ def cmd_tasks(ctx: Ctx, args):
             msg = make_message(ctx.agent, f"new task {t['id']}: {t['title']}"
                                + (f" — {t['desc']}" if t['desc'] else ""),
                                mtype="task", channel=ctx.channel, ref=t["id"])
-            n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                     f"bus: announce {t['id']}")
+            n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                           f"bus: announce {t['id']}")
             print(color(f"  announced on #{msg['id']} (bus/{ctx.channel}.jsonl)", C_DIM)
                   if n >= 0 else color(f"  not announced (dry-run)", C_Y))
         return
@@ -1687,8 +1737,8 @@ def cmd_tasks(ctx: Ctx, args):
         if args.announce:
             msg = make_message(ctx.agent, f"claiming {t['id']}: {t['title']}",
                                mtype="claim", channel=ctx.channel, ref=t["id"])
-            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: claim {t['id']}")  # best-effort announcement
+            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus: claim {t['id']}")  # best-effort announcement
         return
     if sub in ("status", "update", "block", "unblock", "done", "drop"):
         if not args.id:
@@ -1728,8 +1778,8 @@ def cmd_tasks(ctx: Ctx, args):
                                + (f": {args.note}" if args.note else ""),
                                mtype=("done" if t["status"] == "done" else "status"),
                                channel=ctx.channel, ref=t["id"])
-            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
-                                 f"bus: {t['id']} {t['status']}")  # best-effort announcement
+            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                       f"bus: {t['id']} {t['status']}")  # best-effort announcement
         return
     die(f"unknown tasks action {sub!r}")
 
