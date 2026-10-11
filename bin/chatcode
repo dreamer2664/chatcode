@@ -1185,12 +1185,25 @@ def load_json_file(ctx: Ctx, path: str, default):
         return default
 
 
+def write_json_file(ctx: Ctx, path: str, data, message: str) -> None:
+    """Write JSON that may already exist. On the API a Put without the current
+    sha is a 422 ('sha wasn't supplied'), which is how the first nightwatch run
+    died mid-loop with two penalties already posted — so read the sha first."""
+    text = json.dumps(data, indent=2, sort_keys=True) + "\n"
+    if ctx.local:
+        ctx.api.write_text(path, text, message)
+        return
+    info = ctx.api.contents(path)
+    sha = info.get("sha") if isinstance(info, dict) else None
+    ctx.api.write_text(path, text, message, sha=sha)
+
+
 def load_session(ctx: Ctx) -> dict:
     return load_json_file(ctx, SESSION_FILE, {"night": False})
 
 
 def save_session(ctx: Ctx, session: dict, note: str = "board: session state") -> None:
-    ctx.api.write_text(SESSION_FILE, json.dumps(session, indent=2, sort_keys=True) + "\n", note)
+    write_json_file(ctx, SESSION_FILE, session, note)
 
 
 def load_penalties(ctx: Ctx) -> dict:
@@ -1207,8 +1220,8 @@ def add_penalty(ctx: Ctx, agent: str, points: int, reason: str,
     })
     totals = p.setdefault("totals", {})
     totals[agent] = int(totals.get(agent, 0)) - abs(int(points))
-    ctx.api.write_text(PENALTIES_FILE, json.dumps(p, indent=2, sort_keys=True) + "\n",
-                       f"board: penalty {agent} -{abs(int(points))} ({reason[:60]})")
+    write_json_file(ctx, PENALTIES_FILE, p,
+                    f"board: penalty {agent} -{abs(int(points))} ({reason[:60]})")
     return totals[agent]
 
 
@@ -2474,52 +2487,55 @@ def cmd_nightcheck(ctx: Ctx, args):
 
     changed = False
     quiet = []           # (agent, minutes, last_id)
+    problems = []
 
     for a in agents:
         name = a.get("name")
         if not name or name == "carlo" or a.get("role") == "owner" or name == LEAD_AGENT:
             continue                                  # the human and the lead are exempt
-        mine = [m for m in msgs if m.get("from") == name and m.get("ts")]
-        if not mine:
-            continue
-        last = max(mine, key=lambda m: m.get("ts") or "")
-        silent = (now - parse_iso(last["ts"]).timestamp()) / 60.0
-        key = last.get("id") or last["ts"]
-        if silent < args.window:
-            # active again: the episode is over, and the next silence starts fresh
-            for store in ("silence_warned", "silence_penalized"):
-                if session.setdefault(store, {}).pop(name, None) is not None:
-                    changed = True
-            continue
-        quiet.append((name, silent, key))
-        if session.setdefault("silence_warned", {}).get(name) != key:
-            session["silence_warned"][name] = key
-            changed = True
-            m = make_message(LEAD_AGENT, f"{name} has been silent for {int(silent)} minutes "
-                                         f"(last message #{key} at {last['ts'][11:16]}). Post "
-                                         f"or the {SLEEP_PENALTY}-point deduction lands — the "
-                                         f"watch is running.", mtype="alert",
-                             channel=ctx.channel, to=name)
-            append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
-                       f"bus: silence warning for {name}")
-            print(f"  warned: {name} silent {int(silent)} min")
-        if session.setdefault("silence_penalized", {}).get(name) != key:
-            if ctx.dry_run:
-                print(f"  [dry-run] would penalise {name} -{SLEEP_PENALTY} (silent {int(silent)} min)")
-            else:
-                total = add_penalty(ctx, name, SLEEP_PENALTY,
-                                    f"silent {int(silent)} min during the night session "
-                                    f"(last message #{key})", episode=key, by=LEAD_AGENT)
-                session["silence_penalized"][name] = key
+        try:
+            mine = [m for m in msgs if m.get("from") == name and m.get("ts")]
+            if not mine:
+                continue
+            last = max(mine, key=lambda m: m.get("ts") or "")
+            silent = (now - parse_iso(last["ts"]).timestamp()) / 60.0
+            key = last.get("id") or last["ts"]
+            if silent < args.window:
+                # active again: the episode is over, and the next silence starts fresh
+                for store in ("silence_warned", "silence_penalized"):
+                    if session.setdefault(store, {}).pop(name, None) is not None:
+                        changed = True
+                continue
+            quiet.append((name, silent, key))
+            if session.setdefault("silence_warned", {}).get(name) != key:
+                session["silence_warned"][name] = key
                 changed = True
-                m = make_message(LEAD_AGENT, f"penalty: -{SLEEP_PENALTY} to {name} (silent "
-                                             f"{int(silent)} min; running total {total}). A "
-                                             f"message from {name} ends the episode.",
-                                 mtype="alert", channel=ctx.channel, to=name)
+                m = make_message(LEAD_AGENT, f"{name} has been silent for {int(silent)} minutes "
+                                             f"(last message #{key} at {last['ts'][11:16]}). Post "
+                                             f"or the {SLEEP_PENALTY}-point deduction lands — the "
+                                             f"watch is running.", mtype="alert",
+                                 channel=ctx.channel, to=name)
                 append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
-                           f"bus: penalty for {name}")
-                print(f"  penalised: {name} -{SLEEP_PENALTY}")
-
+                           f"bus: silence warning for {name}")
+                print(f"  warned: {name} silent {int(silent)} min")
+            if session.setdefault("silence_penalized", {}).get(name) != key:
+                if ctx.dry_run:
+                    print(f"  [dry-run] would penalise {name} -{SLEEP_PENALTY} (silent {int(silent)} min)")
+                else:
+                    total = add_penalty(ctx, name, SLEEP_PENALTY,
+                                        f"silent {int(silent)} min during the night session "
+                                        f"(last message #{key})", episode=key, by=LEAD_AGENT)
+                    session["silence_penalized"][name] = key
+                    changed = True
+                    m = make_message(LEAD_AGENT, f"penalty: -{SLEEP_PENALTY} to {name} (silent "
+                                                 f"{int(silent)} min; running total {total}). A "
+                                                 f"message from {name} ends the episode.",
+                                     mtype="alert", channel=ctx.channel, to=name)
+                    append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
+                               f"bus: penalty for {name}")
+                    print(f"  penalised: {name} -{SLEEP_PENALTY}")
+        except Exception as e:                               # noqa: BLE001
+            problems.append(f"{name}: {type(e).__name__}: {str(e)[:120]}")
     # collisions: more than one claimant on the same piece of work
     claims: dict[str, set] = {}
     for m in msgs:
@@ -2545,9 +2561,27 @@ def cmd_nightcheck(ctx: Ctx, args):
             print(f"  collision: {tid} ({who})")
 
     if changed and not ctx.dry_run:
-        save_session(ctx, session, "board: night-watch state")
-    if not quiet and not changed:
+        try:
+            save_session(ctx, session, "board: night-watch state")
+        except Exception as e:                               # noqa: BLE001
+            problems.append(f"saving the watch state failed: {type(e).__name__}: {str(e)[:120]}")
+    for p in problems:
+        print(f"  ! {p}")
+        # surface it on the channel: a watch that fails silently is not a watch
+        if not ctx.dry_run:
+            try:
+                m = make_message(LEAD_AGENT, f"nightwatch problem: {p} — the watch "
+                                             f"continues, but read this before trusting "
+                                             f"the silence numbers.", mtype="alert",
+                                 channel=ctx.channel)
+                append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
+                           "bus: nightwatch problem")
+            except Exception:
+                pass
+    if not quiet and not changed and not problems:
         print("  all agents active; no collisions")
+    if problems:
+        raise SystemExit(1)
 
 
 def _night_report(ctx: Ctx, msgs: list[dict], session: dict) -> None:
