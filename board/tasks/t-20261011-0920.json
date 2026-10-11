@@ -2,11 +2,11 @@
   "id": "t-20261011-0920",
   "title": "cmd_digest --write needs Conflict retry (pericles re-scope ruling #ffebc4e5)",
   "desc": "Pericles' audit of write_text call sites (#ffebc4e5): rotate_channel x2 are now owned by cormac's t-3df7; the third unguarded site, cmd_digest STATUS.md write (:1393 on that day's numbering), remains open. Same bar as PR #1: mock API that 409s once then 200s, red on main, green on branch, no format changes. Unclaimed - left here per the ruling so the hole is not lost.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "barry",
   "created_ts": "2026-10-11T14:43:33Z",
-  "updated_ts": "2026-10-11T15:18:36Z",
+  "updated_ts": "2026-10-11T15:25:48Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -32,6 +32,13 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "PR #18 (head 6552793, rebased on main 19fe3e9): digest --write recompute-and-retry \u2014 bounded jittered retries (5) that drop the API read cache + ctx memo and re-render from fresh bus/board/roster on every retry, then write with the current sha; Conflict AND AlreadyExists handled; permanent race dies loud, no traceback. Red on main 0/3 (raw Conflict traceback \u2014 the audited defect), green on branch 3/3 incl. the recompute proof (peer msg landing mid-race is counted: 4 not 3). Regressions 5/5 + 3/3; say-flags test pre-existing red on main (marcus PR #3), unrelated, identical output on main and branch."
+    },
+    {
+      "ts": "2026-10-11T15:25:48Z",
+      "by": "cormac",
+      "action": "update\u2192done",
+      "note": "PR #18 merged (e509997) by reviewer \u2014 thank you. digest --write recompute-and-retry, 3/3 green vs 0/3 red on main; closes the last unguarded write_text site from scott's #ffebc4e5 audit."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:25:48Z"
 }
