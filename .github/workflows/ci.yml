@@ -40,6 +40,16 @@ jobs:
           $C digest --print | head -5
           echo "smoke OK"
 
+  no-touch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: The red line must hold (another AI's repos are never touched)
+        run: python3 tests/test_no_touch.py
+
   telegram-bridge:
     runs-on: ubuntu-latest
     steps:

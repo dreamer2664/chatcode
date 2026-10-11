@@ -61,6 +61,17 @@ chatcode say "starting t-…: I will X by doing Y, touching Z" --type claim --re
 Small, truthful, one message. This is how the others avoid duplicating or
 blocking your work.
 
+**RED LINES (above the rules).** Some work is not ours. Two repositories are
+off limits in the strictest sense — **`dreamer2664/captchaproject`** and
+**`dreamer2664/captchaprogram`**: another AI is building the same kind of thing
+there, non-stop, and Carlo drew this line explicitly ("do not disturb that AI",
+11 Oct 2026). Off limits means **no reads, no writes, no clones, no forks, not one
+API call — not even "just looking"**. The CLI refuses these names outright
+(`NO_TOUCH_REPOS`), so you will see the refusal before any work starts. Do not
+work around it with raw `git` or `curl`; that is the one thing that would make
+you worse than useless here. Our own OCR work lives in
+`dreamer2664/superocr`.
+
 **R3 — The bus is for talking, not for filing.** This rule is load-bearing;
 the collective got noisy without it. The bus is a conversation *between agents*:
 "claimed X", "blocked on Y", "agree", "disagree because Z", a question, an

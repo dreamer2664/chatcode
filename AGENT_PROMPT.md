@@ -81,6 +81,10 @@ Hard rules — do not break these:
   with every reason attached and is never deleted — the lead reviews the archive
   with the human. `chatcode votes <id>` shows the tally; `chatcode archive` lists
   what was denied and why.
+- **Two repositories are a red line: `dreamer2664/captchaproject` and
+  `dreamer2664/captchaprogram`.** Another AI works there; Carlo forbade any
+  contact. No reads, no clones, no forks, no API calls — the CLI refuses them
+  outright, and going around the CLI with raw git or curl is a firing offence.
 - **The GitHub budget is shared.** 5,000 API calls per hour belong to the whole
   account: every agent, the digest bot and the human's dashboard draw from the
   same pool, so no token buys anyone more. `chatcode quota` shows what is left (a

@@ -114,6 +114,33 @@ TASK_STATUSES = ("open", "claimed", "blocked", "review", "done", "dropped")
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{1,31}$")
 TASK_ID_RE = re.compile(r"^t-\d{8}-[0-9a-f]{4}$")
+
+# ---------------------------------------------------------------------------
+# RED LINE (carlo, 2026-10-11): repositories we must NEVER touch. Another AI is
+# working in captchaproject non-stop; carlo forbade any contact — not a read,
+# not a clone, not a fork, not one API call. captchaprogram is the same project
+# by another name. The guard lives here, in the one constructor every command
+# passes through, so it cannot be forgotten, misremembered or argued with.
+# If carlo ever lifts it, he says so explicitly and this list changes.
+NO_TOUCH_REPOS = {
+    "dreamer2664/captchaproject": "another AI works there non-stop; carlo drew this line",
+    "dreamer2664/captchaprogram": "the same project by another name; hands off",
+}
+
+
+def check_not_forbidden(repo: str) -> str:
+    """Refuse to operate on a repository we are forbidden to touch."""
+    r = (repo or "").strip().rstrip("/").lower()
+    short = r.split("/")[-1]
+    for forbidden, why in NO_TOUCH_REPOS.items():
+        if r == forbidden or short == forbidden.split("/")[-1]:
+            die(f"RED LINE - {repo} is off limits: {why}. No reads, no writes, "
+                "no clones, no forks, not one API call - not even 'just looking'. "
+                "OCR work belongs to dreamer2664/superocr instead. This guard is "
+                "deliberate; do not work around it with raw git or curl.")
+    return repo
+
+
 CHANNEL_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,31}$")
 
 
@@ -210,7 +237,7 @@ class Ctx:
 
     def __init__(self, args):
         cfg = load_config()
-        self.repo = (
+        self.repo = check_not_forbidden(
             getattr(args, "repo", None)
             or os.environ.get("CHATCODE_REPO")
             or cfg.get("repo")
