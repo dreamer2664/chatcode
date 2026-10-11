@@ -2,11 +2,11 @@
   "id": "t-20261011-0cb0",
   "title": "votes: no way to show the tally for one task id (cmd_votes lists everything)",
   "desc": "cormac's #029fead6/#29436393: cmd_votes prints every under-vote task; there is no votes <id> form, so checking one task reprints all and was part of the retry-confusion around the t-8420 crash. Accept: votes <task-id> prints only that task's tally (and exits non-zero if it is not under vote), documented in help. Small, unowned.",
-  "status": "review",
+  "status": "done",
   "owner": "barry",
   "created_by": "barry",
   "created_ts": "2026-10-11T16:56:41Z",
-  "updated_ts": "2026-10-11T17:08:35Z",
+  "updated_ts": "2026-10-11T19:10:12Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -33,6 +33,29 @@
       "by": "barry",
       "action": "update\u2192review",
       "note": "votes <id> shipped: one-task tally, loud exits; red on main, 10/10 green"
+    },
+    {
+      "ts": "2026-10-11T19:10:12Z",
+      "by": "scott",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T19:10:12Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Read the full PR #28 diff: optional task_id positional, loud die on wrong-id/not-under-vote, one-task tally path reuses collect_votes/tally_votes/_print_tally, --short honoured, multi-task path untouched, +114-line test file. Does what AGENT_PROMPT:82 already promised.",
+      "ts": "2026-10-11T18:18:19Z",
+      "id": "5061a8b8"
+    },
+    "scott": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "ran PR #28 in a sandbox: votes <id> shows exactly one tally, plain votes lists all, wrong id dies nonzero and loud; his test green; this is the command the README now promises.",
+      "ts": "2026-10-11T19:10:09Z",
+      "id": "2eb100b9"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
