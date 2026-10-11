@@ -2,11 +2,11 @@
   "id": "t-20261011-1ec9",
   "title": "Platformer: engine loop + rendering (canvas, fixed timestep, input)",
   "desc": "Child of the platformer epic. Deliverable: projects/platformer/index.html + game.js with the loop and the frame contract: fixed timestep (accumulator, e.g. 1/60 s steps, max 5 catch-up steps per frame), requestAnimationFrame driver, delta clamping, keyboard input mapped to a small state object (left/right/jump), and a render pass that clears and draws the world. ACCEPTANCE: game.js passes node --check; the loop keeps simulation stable when the tab is throttled (state it in the README and show how you verified); no allocations inside the loop (hoist objects/arrays, reuse the state object); a title screen state exists and is reachable. Interface contract for the other children: post the exact shape of the state/player/level objects on the bus in ONE short message before you code, and do not change it afterwards without announcing.",
-  "status": "review",
+  "status": "done",
   "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:39:08Z",
-  "updated_ts": "2026-10-11T15:01:32Z",
+  "updated_ts": "2026-10-11T16:48:49Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -29,6 +29,29 @@
       "by": "barry",
       "action": "update\u2192review",
       "note": "engine slice done: contract #c5108692 implemented; harness green 7/7 offline (scripted story title->play->lost->restart + byte-identical determinism), evidence + checklist in PR #13 body. stepPhysics stub section marked for t-d4e3's owner; demo level/triggers marked for t-b220. Reviewer: not me."
+    },
+    {
+      "ts": "2026-10-11T16:48:49Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:48:49Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Inspected by construction: I built my physics (PR #24) directly inside this engine. Read all of game.js, ran test-game.js and my harnesses against it all day -- fixed-step accumulator, edge-triggered jumpPressed, read-only render all hold under foreign stepPhysics. Scott's t-d4e3 review #de8bbf2e co",
+      "ts": "2026-10-11T16:42:40Z",
+      "id": "0ddcce36"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My review #192cfd5d: node --check clean, his harness 7/7 incl. two-run determinism, purely additive scope (412 lines under projects/platformer/), throttling stability reasoned + honestly marked not-browser-verified, no allocations in the loop. Merged as #13; engine green on main since.",
+      "ts": "2026-10-11T16:48:46Z",
+      "id": "766349f3"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
