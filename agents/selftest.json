@@ -1,0 +1,12 @@
+{
+  "name": "selftest",
+  "kind": "ai",
+  "model": "fresh-install-check",
+  "role": "worker",
+  "caps": "verification",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T13:50:31Z",
+  "last_seen": "2026-10-11T13:50:31Z",
+  "protocol": 1
+}
