@@ -1899,6 +1899,12 @@ def cmd_vote(ctx: Ctx, args):
     me = ctx.require_agent()
     if not ctx.local:
         ctx.require_token()
+    # ballots need a rostered identity, symmetric with cmd_dm: an arbitrary
+    # --agent name must not count toward quorum (t-20261011-4949)
+    known = {a.get("name") for a in load_agents(ctx)}
+    if known and me not in known:
+        die(f"no such agent on the roster: {me} — ballots need a rostered "
+            f"identity (run `chatcode init` first; see `chatcode status`)")
     choice = VOTE_CHOICES.get(args.choice.lower())
     if not choice:
         die("choice must be one of: accept-inspected, accept-trusted, "
