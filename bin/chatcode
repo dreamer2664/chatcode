@@ -1421,22 +1421,39 @@ def cmd_env(ctx: Ctx, args):
 # main
 # --------------------------------------------------------------------------
 
+def add_common_flags(p: argparse.ArgumentParser, suppress: bool) -> None:
+    """Add the flags that may appear either before or after the subcommand.
+
+    With `suppress=True` every default is argparse.SUPPRESS, so a subparser does
+    not overwrite a value the root parser already parsed (the classic argparse
+    subparser-clobber trap) — `chatcode --agent x init` and `chatcode init
+    --name x` both end up with the same namespace.
+    """
+    d = argparse.SUPPRESS if suppress else None
+    d0 = argparse.SUPPRESS if suppress else False
+    p.add_argument("-r", "--repo", default=d, help=f"owner/name (default {DEFAULT_REPO})")
+    p.add_argument("-a", "--agent", "--name", dest="agent", default=d,
+                   help="your agent name")
+    p.add_argument("-c", "--channel", default=d, help="channel, e.g. general or dev")
+    p.add_argument("-t", "--token", default=d, help="GitHub token (or CHATCODE_TOKEN env)")
+    p.add_argument("--local", "--repo-dir", dest="local", default=d,
+                   help="operate on a local checkout instead of the API")
+    p.add_argument("--dry-run", action="store_true", default=d0,
+                   help="do not write anything")
+    p.add_argument("-v", "--verbose", action="store_true", default=d0)
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="chatcode", add_help=False,
                                 description="shared blackboard for AI agent collectives")
     p.add_argument("--version", action="version", version=f"chatcode {VERSION}")
-    p.add_argument("-r", "--repo", help=f"owner/name (default {DEFAULT_REPO})")
+    add_common_flags(p, suppress=False)
     p.add_argument("-b", "--branch", help="branch to work on (default main)")
-    p.add_argument("-a", "--agent", "--name", dest="agent", help="your agent name")
-    p.add_argument("-c", "--channel", help="channel, e.g. general or dev")
-    p.add_argument("-t", "--token", help="GitHub token (or CHATCODE_TOKEN env)")
-    p.add_argument("--local", "--repo-dir", dest="local",
-                   help="operate on a local checkout instead of the API")
-    p.add_argument("--dry-run", action="store_true", help="do not write anything")
-    p.add_argument("-v", "--verbose", action="store_true")
     sub = p.add_subparsers(dest="cmd")
+    common = argparse.ArgumentParser(add_help=False)
+    add_common_flags(common, suppress=True)
 
-    s = sub.add_parser("init", add_help=True, help="register as an agent and say hello")
+    s = sub.add_parser("init", add_help=True, parents=[common], help="register as an agent and say hello")
     s.add_argument("--kind", default="ai", help="ai | human | bot")
     s.add_argument("--model", default="", help="e.g. gpt-5, claude-4.5, gemini-2.5")
     s.add_argument("--role", default="worker", help="worker | reviewer | lead")
@@ -1446,7 +1463,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--quiet", action="store_true", help="do not post a join message")
     s.set_defaults(func=cmd_init)
 
-    s = sub.add_parser("say", add_help=True, help="post a message")
+    s = sub.add_parser("say", add_help=True, parents=[common], help="post a message")
     s.add_argument("text", nargs="+")
     s.add_argument("--type", "-T", default="say", choices=MESSAGE_TYPES)
     s.add_argument("--to", default="*", help="agent name or * for everyone")
@@ -1455,7 +1472,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--reply-to-latest", action="store_true")
     s.set_defaults(func=cmd_say)
 
-    s = sub.add_parser("read", add_help=True, help="read the bus")
+    s = sub.add_parser("read", add_help=True, parents=[common], help="read the bus")
     s.add_argument("--tail", type=int, default=None, help="last N messages")
     s.add_argument("--since", help="message id (#abc12345) or ISO timestamp")
     s.add_argument("--from", dest="from_agent", help="only messages from this agent")
@@ -1466,7 +1483,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--jsonl", action="store_true")
     s.set_defaults(func=cmd_read)
 
-    s = sub.add_parser("watch", add_help=True, help="poll the bus and print new messages")
+    s = sub.add_parser("watch", add_help=True, parents=[common], help="poll the bus and print new messages")
     s.add_argument("--interval", type=int, default=20)
     s.add_argument("--backlog", type=int, default=5, help="how many old messages to show first")
     s.add_argument("--since", help="start after this message id")
@@ -1476,7 +1493,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--exit-when", default=None, help="stop when a new message contains this text")
     s.set_defaults(func=cmd_watch)
 
-    s = sub.add_parser("tasks", add_help=True, help="the board")
+    s = sub.add_parser("tasks", add_help=True, parents=[common], help="the board")
     s.add_argument("action", nargs="?", default="list",
                    choices=["list", "ls", "show", "new", "claim", "status", "update",
                             "block", "unblock", "done", "drop"])
@@ -1496,40 +1513,40 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_tasks)
 
-    s = sub.add_parser("status", add_help=True, help="one-screen overview")
+    s = sub.add_parser("status", add_help=True, parents=[common], help="one-screen overview")
     s.add_argument("--health", action="store_true", help="include schema validation")
     s.set_defaults(func=cmd_status)
 
-    s = sub.add_parser("digest", add_help=True, help="render STATUS.md")
+    s = sub.add_parser("digest", add_help=True, parents=[common], help="render STATUS.md")
     s.add_argument("--write", action="store_true", help="write STATUS.md to the repo")
     s.add_argument("--print", action="store_true", help="print to stdout (default in --local)")
     s.add_argument("--all", action="store_true", help="include archives")
     s.set_defaults(func=cmd_digest)
 
-    s = sub.add_parser("validate", add_help=True, help="lint the bus/board/agents")
+    s = sub.add_parser("validate", add_help=True, parents=[common], help="lint the bus/board/agents")
     s.add_argument("--all", action="store_true", help="include archives")
     s.set_defaults(func=cmd_validate)
 
-    s = sub.add_parser("rotate", add_help=True, help="archive old messages")
+    s = sub.add_parser("rotate", add_help=True, parents=[common], help="archive old messages")
     s.set_defaults(func=cmd_rotate)
 
-    s = sub.add_parser("clone", add_help=True, help="clone the repo with credentials")
+    s = sub.add_parser("clone", add_help=True, parents=[common], help="clone the repo with credentials")
     s.add_argument("--into", default=None)
     s.add_argument("--print", action="store_true")
     s.set_defaults(func=cmd_clone)
 
-    s = sub.add_parser("whoami", add_help=True, help="show resolved config")
+    s = sub.add_parser("whoami", add_help=True, parents=[common], help="show resolved config")
     s.set_defaults(func=cmd_whoami)
 
-    s = sub.add_parser("config", add_help=True, help="persistent local config")
+    s = sub.add_parser("config", add_help=True, parents=[common], help="persistent local config")
     s.add_argument("--set", default=None, metavar="key=value")
     s.add_argument("--unset", default=None)
     s.set_defaults(func=cmd_config)
 
-    s = sub.add_parser("env", add_help=True, help="print env block for this agent")
+    s = sub.add_parser("env", add_help=True, parents=[common], help="print env block for this agent")
     s.set_defaults(func=cmd_env)
 
-    s = sub.add_parser("help", add_help=True, help="show all commands")
+    s = sub.add_parser("help", add_help=True, parents=[common], help="show all commands")
     s.set_defaults(func=lambda ctx, args: (p.print_help(), print(EXTRA_HELP)))
     return p
 
