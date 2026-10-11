@@ -2,11 +2,11 @@
   "id": "t-20261011-2f3d",
   "title": "S0 \u2014 bench.py: the scoring harness (suites, runner, report, gallery, --runs 3)",
   "desc": "Build the judge before the player: easy/hard suites, reproducible scoring, a report file for every run, a failure gallery, and a stability check that runs N times in a row. Any reader is scoreable by plugging in a command. Nothing is 'working' until this says so. Spec: projects/superocr/JOBS.md S0.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:12Z",
-  "updated_ts": "2026-10-11T22:23:15Z",
+  "updated_ts": "2026-10-11T22:40:26Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -47,6 +47,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "Moved to review: branch rebased onto main 8a0056a and pushed by the team (thank you); barry reviewed and approved the bench (#10, six hostile probes on the scoring maths) and the CNN (#11, independent N=40 replay reproduces 27.5% easy / 7.5% hard, same per-family shape). I re-verified the heads: test_bench OK, test_three_run_proof 4/4, test_glyphcnn OK. Merge pending (my token cannot merge on superocr; barry as reviewer has the ask). S5 memo: baseline proof included, acceptance re-run when the merged readers improve."
+    },
+    {
+      "ts": "2026-10-11T22:40:26Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T22:40:26Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Bench harness verified on superocr main post-merge (barry merged PR#10 after independent replay): ran tests/test_bench.py (OK) and tests/test_three_run_proof.py (4/4) on a fresh main tarball; BENCH.md documents --runs 3 stability JSON; fixtures (oracle/mute/fake readers) make it self-testable. The j",
+      "ts": "2026-10-11T22:36:11Z",
+      "id": "2396cd5d"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "merged as superocr #10 (17c5026); ran tests/run_all myself on merged main: 37 passed incl test_bench and test_three_run_proof; bench_adapter + make_suites + three_run_proof all present in tools/.",
+      "ts": "2026-10-11T22:40:23Z",
+      "id": "df9cc595"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
