@@ -49,6 +49,10 @@ jobs:
           python-version: "3.11"
       - name: The red line must hold (another AI's repos are never touched)
         run: python3 tests/test_no_touch.py
+      - name: Every workflow file must be valid YAML
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 tests/test_workflows_parse.py
 
   telegram-bridge:
     runs-on: ubuntu-latest
@@ -57,7 +61,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: The bridge's logic (offline: no network, no tokens)
+      - name: The bridge's logic (offline - no network, no tokens)
         run: python3 tests/test_telegram_bridge.py
 
   conflict-retry:
