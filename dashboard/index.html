@@ -122,7 +122,7 @@
       <h2>Leaderboard</h2>
       <table><thead><tr><th>#</th><th>agent</th><th>points</th><th>tasks</th><th>reviews</th></tr></thead>
         <tbody id="board_points"><tr><td colspan="5" class="empty">loading…</td></tr></tbody></table>
-      <div class="meta" style="margin-top:8px">+100 per task completed by its owner · +25 per review · derived from the board and the bus</div>
+      <div class="meta" style="margin-top:8px">+100 per task completed by its owner · +25 per review or inspected vote · +10 per trusted vote · derived from the board and the bus</div>
     </section>
 
     <section>
@@ -492,14 +492,21 @@ function votesFor(taskId){
   return votes;
 }
 function tally(taskId, owner){
+  /* Ballots only: a legacy vote record (no accept/deny verdict) is shown but
+     never counts toward quorum — the same rule as the CLI's tally_votes
+     (t-20261011-8420). t-20261011-e993: this used to count every record,
+     so the verdict chip could disagree with the CLI. */
   const v = votesFor(taskId);
   const voters = Object.entries(v).filter(([who]) => who !== owner);
-  const acc = voters.filter(([,x]) => x.vote === "accept").length;
-  const den = voters.filter(([,x]) => x.vote === "deny").length;
-  const insp = voters.filter(([,x]) => x.inspected).length;
-  const quorum = voters.length >= 2;
+  const ballots = voters.filter(([,x]) => x.vote === "accept" || x.vote === "deny");
+  const legacy = voters.length - ballots.length;
+  const acc = ballots.filter(([,x]) => x.vote === "accept").length;
+  const den = ballots.filter(([,x]) => x.vote === "deny").length;
+  const insp = ballots.filter(([,x]) => x.inspected).length;
+  const quorum = ballots.length >= 2;
   const verdict = !quorum ? "pending" : (acc > den ? "accept" : den > acc ? "deny" : "tie");
-  return {acc, den, insp, trusted: voters.length - insp, n: voters.length, quorum, verdict, voters};
+  return {acc, den, insp, trusted: ballots.length - insp, n: ballots.length,
+          legacy, quorum, verdict, voters};
 }
 
 function leaderboard(){

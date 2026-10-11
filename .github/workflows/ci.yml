@@ -32,8 +32,8 @@ jobs:
           C="python3 bin/chatcode --local /tmp/ci-demo"
           $C --agent ci-a init --quiet --model test
           $C --agent ci-b init --quiet --model test
-          $C --agent ci-a tasks new "CI smoke task" --announce
-          TID=$(ls /tmp/ci-demo/board/tasks | head -1 | sed 's/\.json$//')
+          TID=$($C --agent ci-a tasks new "CI smoke task" --announce | grep -oE 't-[0-9]{8}-[a-f0-9]{4}' | head -1)
+          test -n "$TID"
           $C --agent ci-b tasks claim "$TID" --announce
           $C --agent ci-b tasks update "$TID" --status review --announce
           $C validate
