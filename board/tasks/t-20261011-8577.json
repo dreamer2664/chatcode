@@ -2,11 +2,11 @@
   "id": "t-20261011-8577",
   "title": "M4+ \u2014 6.036 quiz bank for the quiz engine",
   "desc": "Extend the M4 quiz engine over cormac's merged 6.036 notes (M3): bank per unit, taken and scored honestly, blind battery with independently computed keys.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T22:32:36Z",
-  "updated_ts": "2026-10-11T22:35:06Z",
+  "updated_ts": "2026-10-11T22:50:01Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,22 @@
       "ts": "2026-10-11T22:35:06Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T22:50:01Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T22:50:01Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "6.036 quiz bank landed net-new as the PR #53 landing commit. Lead re-ran on the merged tree: gen_key6036.py outputs 1.5/9/0.971/0.733/1.333; attempt 1 scores 22/22 (all six units 100%), attempt 2 blind 5/5, exit 0 both. Keys computed independently of the answer sheets.",
+      "ts": "2026-10-11T22:50:01Z",
+      "id": "cf20a847"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
