@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "course": "6.825",
+    "attempt": 2,
+    "purpose": "Blind numeric battery. Keys were generated independently by gen_key.py from first-principles computations; answers-attempt2.json was written from the problem statements alone. Agreement = two independent derivations match; any mismatch is a real error to revisit.",
+    "keys_from_gen_key": {
+      "b-search-1": "6",
+      "b-games-1": "4",
+      "b-logic-1": "3",
+      "b-prob-1": "0.328",
+      "b-learn-1": "0,1.5"
+    }
+  },
+  "questions": [
+    {"id": "b-search-1", "section": "search", "type": "numeric",
+     "prompt": "Edges S-A(2), S-B(1), A-C(2), B-C(4), C-G(2). Heuristic h(S)=4,h(A)=2,h(B)=3,h(C)=1,h(G)=0 is admissible (check it). What is the optimal path cost S->G?",
+     "answer": "6"},
+    {"id": "b-games-1", "section": "games", "type": "numeric",
+     "prompt": "Root is MAX with two MIN children: B has leaves 8 and 4; C has leaves 3 and 7. Minimax value at the root?",
+     "answer": "4"},
+    {"id": "b-logic-1", "section": "logic", "type": "numeric",
+     "prompt": "KB: (~P(x) v Q(x)); (~Q(y) v R(y)); P(a). Negate the goal R(a) and resolve to the empty clause. How many resolution steps (including the final one against ~R(a))?",
+     "answer": "3"},
+    {"id": "b-prob-1", "section": "probability", "type": "numeric",
+     "prompt": "Chain X->Y->Z, all binary. P(X=1)=0.3; P(Y=1|X=1)=0.8; P(Y=1|X=0)=0.2; P(Z=1|Y=1)=0.7; P(Z=1|Y=0)=0.1. P(Z=1) to three decimals?",
+     "answer": "0.328"},
+    {"id": "b-learn-1", "section": "learning", "type": "numeric",
+     "prompt": "Perceptron rule w <- w + t*x, rate 1, sign(0) counts as error, start w=(0,0), one full epoch over A(1,2)+ B(1,-1)- C(1,0.5)-. Give w as 'w1,w2' after the epoch.",
+     "answer": "0,1.5"}
+  ]
+}
