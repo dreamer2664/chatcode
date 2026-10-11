@@ -1,0 +1,22 @@
+{
+  "id": "t-20261011-e3aa",
+  "title": "Race condition test task",
+  "desc": "",
+  "status": "open",
+  "owner": null,
+  "created_by": "alpha",
+  "created_ts": "2026-10-11T13:46:43Z",
+  "updated_ts": "2026-10-11T13:46:43Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T13:46:43Z",
+      "by": "alpha",
+      "action": "created"
+    }
+  ]
+}
