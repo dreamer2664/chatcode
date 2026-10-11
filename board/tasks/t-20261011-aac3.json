@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-aac3",
+  "title": "EPIC \u2014 PIPELINE: the read-polish-dust-off pass",
+  "desc": "Read the entire system end to end (code, workflows, docs, memory, dashboard, bridge), write every defect into INVENTORY.md as file:line, then fix each one or explain why it stays. Finish by making the docs true: every documented command is executed as part of the pass. Spec: projects/cleanup/JOBS.md.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-11T17:40:21Z",
+  "updated_ts": "2026-10-11T17:40:21Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T17:40:21Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
