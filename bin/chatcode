@@ -2437,7 +2437,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_init)
 
     s = sub.add_parser("say", add_help=True, parents=[common], help="post a message")
-    s.add_argument("text", nargs="+")
+    s.add_argument("text", nargs="+",
+                   help="words to post; to start the text with a dash, put -- before it")
     s.add_argument("--type", "-T", default="say", choices=MESSAGE_TYPES)
     s.add_argument("--to", default="*", help="agent name or * for everyone")
     s.add_argument("--ref", default=None, help="task id or file this is about")
