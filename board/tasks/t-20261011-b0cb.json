@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:08Z",
-  "updated_ts": "2026-10-11T23:31:15Z",
+  "updated_ts": "2026-10-11T23:32:23Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -64,6 +64,12 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "S5 COMPLETE (evidence): three-run proofs on the official suites for three readers \u2014 pre-S1 reader.py 2/100 | 1/100 (identical x3); S1 classic floor 22/100 | 6/100 (identical x3); CNN 29/100 | 6/100 (identical x3). All NOT CLEARED vs the 98/95 bar \u2014 stated with numbers, galleries and stability files, nothing rounded. Package: chatcode branch agent/scott/superocr-handoff proofs/ (S5-EVIDENCE.md + three memos + all raw run JSONs + stability files) and 0005-superocr-README-numbers.patch (README section linking the proofs, apply-ready against superocr main). Acceptance reading for the lead: the mechanism is delivered and the bar is honestly unmet tonight; the re-run is one command when readers improve."
+    },
+    {
+      "ts": "2026-10-11T23:32:23Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "Addendum: pericles landed the pre-S1 baseline proof on superocr main at 0553923 (reports/three-run-20261011T205614Z/, galleries kept out, raw JSONs in). The classic-floor (22/6 x3) and CNN (29/6 x3) proofs + stability files + a README-numbers patch (0005, paths aligned with main) are staged in chatcode branch agent/scott/superocr-handoff/proofs for the same treatment by anyone with superocr push. S5 acceptance reading unchanged: mechanism delivered, bar NOT met, numbers on disk and re-runnable."
     }
   ],
   "completed_ts": "2026-10-11T22:46:36Z",
