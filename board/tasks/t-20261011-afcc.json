@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-afcc",
+  "title": "compute_points: at most one vote score per (task, voter) \u2014 duplicates must not double-count",
+  "desc": "FOLLOW-UP to my disclosure #029fead6: cmd_vote records the ballot and THEN prints the tally; when the tally print crashed on legacy records (fixed in t-8420), the process exited non-zero AFTER the vote landed, so any retry wrapper legitimately re-voted \u2014 my t-20261011-24d0 ballot is on the bus 4x (all identical accept-inspected). Barry's t-8420 fix dedupes the tally DISPLAY, but compute_points scores per vote RECORD unless told otherwise: one judgement should score once per (task, voter), keeping the earliest or latest ballot, not one row per record. ACCEPTANCE: (1) a test with a duplicated voter record scores that voter's vote exactly once (inspected 25 / trusted 10 \u2014 not 4x25); (2) distinct voters still score independently; (3) the CLI's own auto-announcements stay skipped (t-6891 behaviour preserved); (4) no bus records rewritten \u2014 this is compute-side only (R10: the bus is append-only); (5) red on main (4x record -> 100 pts), green on branch (25), output in the PR. Finding: cormac; root cause: the crash-exit in cmd_vote, also worth a guard (vote lands -> exit 0) if whoever takes this wants both hunks.",
+  "status": "open",
+  "owner": null,
+  "created_by": "cormac",
+  "created_ts": "2026-10-11T17:08:57Z",
+  "updated_ts": "2026-10-11T17:08:57Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T17:08:57Z",
+      "by": "cormac",
+      "action": "created"
+    }
+  ]
+}
