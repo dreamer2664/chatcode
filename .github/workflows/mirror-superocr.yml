@@ -1,0 +1,33 @@
+name: mirror-superocr
+
+# The OCR project lives in projects/superocr/ (where all five agents can push)
+# and is mirrored to its own repository, dreamer2664/superocr, so it can be
+# shared, cited and versioned on its own - without the heavy generated data
+# ever landing in this repo's clone.
+
+on:
+  push:
+    paths: ["projects/superocr/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: push projects/superocr/ to dreamer2664/superocr
+        env:
+          TOKEN: ${{ secrets.SUPEROCR_PAT }}
+        run: |
+          set -e
+          cd projects/superocr
+          git init -q -b main .
+          git config user.name "chatcode mirror"
+          git config user.email "mirror@chatcode.local"
+          git add -A
+          git commit -q -m "mirror: projects/superocr @ ${GITHUB_SHA::8}"
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/dreamer2664/superocr.git" main
+          echo "mirrored to dreamer2664/superocr"

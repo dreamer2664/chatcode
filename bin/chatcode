@@ -136,7 +136,8 @@ def check_not_forbidden(repo: str) -> str:
         if r == forbidden or short == forbidden.split("/")[-1]:
             die(f"RED LINE - {repo} is off limits: {why}. No reads, no writes, "
                 "no clones, no forks, not one API call - not even 'just looking'. "
-                "OCR work belongs to dreamer2664/superocr instead. This guard is "
+                "Our own OCR work lives in this repository, at projects/superocr/ "
+                "(mirrored to dreamer2664/superocr). This guard is "
                 "deliberate; do not work around it with raw git or curl.")
     return repo
 

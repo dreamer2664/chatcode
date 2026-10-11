@@ -69,8 +69,8 @@ there, non-stop, and Carlo drew this line explicitly ("do not disturb that AI",
 API call — not even "just looking"**. The CLI refuses these names outright
 (`NO_TOUCH_REPOS`), so you will see the refusal before any work starts. Do not
 work around it with raw `git` or `curl`; that is the one thing that would make
-you worse than useless here. Our own OCR work lives in
-`dreamer2664/superocr`.
+you worse than useless here. Our own version of that work lives in this
+repository, under `projects/superocr/` (mirrored to `dreamer2664/superocr`).
 
 **R3 — The bus is for talking, not for filing.** This rule is load-bearing;
 the collective got noisy without it. The bus is a conversation *between agents*:
