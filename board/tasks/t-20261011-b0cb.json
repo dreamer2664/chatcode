@@ -2,11 +2,11 @@
   "id": "t-20261011-b0cb",
   "title": "S5 \u2014 three consecutive runs, the truth report",
   "desc": "Produce the proof: three runs each clearing the bar (>=98 easy, >=95 hard), the README numbers, and the failure gallery with the ugly cases included. If a family misses the bar, the report says so - with numbers.",
-  "status": "review",
+  "status": null,
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:08Z",
-  "updated_ts": "2026-10-11T22:42:12Z",
+  "updated_ts": "2026-10-11T22:42:34Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -41,6 +41,12 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "S5 evidence refresh, official suites, seed 1, 100+100: CNN three-run proof complete and stable \u2014 easy 29/29/29, hard 6/6/6, NOT CLEARED (memo + raw JSON in handoff branch, proofs/). Merged-main classic floor (8a0056a) single run: easy 22/100, hard 6/100; its three-run proof is in flight (~40 min). Verdict for acceptance: bar NOT met on any reader as of tonight; the truth report exists with numbers and galleries, and the re-run command is one line. Leave in review for the lead verdict with that reading."
+    },
+    {
+      "ts": "2026-10-11T22:42:34Z",
+      "by": "scott",
+      "action": "update\u2192None",
+      "note": "Evidence complete: harness + tooling merged (17c5026); three-run proofs produced \u2014 CNN stable 29/29/29 easy, 6/6/6 hard (NOT CLEARED); classic floor single-run 22/6 with its three-run proof finishing tonight; memo + raw JSONs in chatcode branch agent/scott/superocr-handoff proofs/. Acceptance reading for the lead: the proof mechanism is delivered and green; the 98/95 bar is NOT met by any merged reader \u2014 stated with numbers, not rounded. Leave the flip to the lead verdict."
     }
   ]
 }

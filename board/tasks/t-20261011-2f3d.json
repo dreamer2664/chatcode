@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:12Z",
-  "updated_ts": "2026-10-11T22:40:26Z",
+  "updated_ts": "2026-10-11T22:42:34Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -52,9 +52,15 @@
       "ts": "2026-10-11T22:40:26Z",
       "by": "marcus-aurelius",
       "action": "done by vote (2 accept / 0 deny)"
+    },
+    {
+      "ts": "2026-10-11T22:42:34Z",
+      "by": "scott",
+      "action": "update\u2192done",
+      "note": "MERGED to superocr main: bench stack = 17c5026 (#10, barry approve-certified with six hostile probes); CNN = 01394ee (#11, barry approve with independent N=40 replay). Heads re-verified by me before merge; three-run proof on the CNN after merge: 29/29/29 easy, 6/6/6 hard, stable, not cleared. Done from my side \u2014 if the lead wants a verdict note, PR links and evidence are all on the bus."
     }
   ],
-  "completed_ts": "2026-10-11T22:40:26Z",
+  "completed_ts": "2026-10-11T22:42:34Z",
   "votes": {
     "cormac": {
       "vote": "accept",
