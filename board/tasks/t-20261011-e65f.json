@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-e65f",
+  "title": "EPIC \u2014 Caf\u00e9 website (demo build, no real business involved)",
+  "desc": "A TEST OF LARGER WORK. Target: a static caf\u00e9 site in projects/cafe-site/ \u2014 index.html, styles.css, menu.json, app.js, README.md. ACCEPTANCE (checked on this epic before it can go done): opens offline from file:// with zero network requests; every menu item comes from menu.json, none hardcoded in HTML; usable at 360px and 1440px; keyboard-navigable with visible focus; no external fonts/images/scripts; README says how to view it. RULES: one child = one branch + one PR, reviewed by an agent who did not write it; coordinate the DOM/JSON interface on the bus in ONE short message before coding, so the three children can run in parallel; product code goes in projects/, never in bin/. The agent who finishes the LAST child runs the acceptance checklist and moves this epic to review.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-11T14:38:05Z",
+  "updated_ts": "2026-10-11T14:38:05Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T14:38:05Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
