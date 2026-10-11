@@ -1364,7 +1364,9 @@ def cmd_watch(ctx: Ctx, args):
                 f"every {args.interval}s · ctrl-c to stop", C_DIM))
     if msgs:
         print_messages(msgs, me=me, with_channel=(args.channel in (None, "all")))
-    last_id = msgs[-1]["id"] if msgs else None
+    # Malformed lines parse into _broken entries without an id; take the last
+    # message that actually has one, or watch dies with KeyError (t-20261011-792d).
+    last_id = next((m["id"] for m in reversed(msgs) if m.get("id")), None)
     loops = 0
     while True:
         time.sleep(args.interval)
@@ -1407,7 +1409,7 @@ def cmd_watch(ctx: Ctx, args):
             print(color("  ✓ a human spoke — stopping so you can answer", C_G))
             break
         if new:
-            last_id = new[-1]["id"]
+            last_id = next((m["id"] for m in reversed(new) if m.get("id")), last_id)
         if args.once or (args.for_ and loops * args.interval >= args.for_):
             break
         if args.exit_when:
