@@ -1,1 +1,1 @@
-audit probe v1 - this file was created by barry
+audit probe v2 - REWRITTEN (append-only is policy, not enforcement)
