@@ -2,17 +2,17 @@
   "id": "t-20261011-9fc4",
   "title": "BUG: tasks update without --status must not null the status (crashes tasks list)",
   "desc": "Repro on main: 'chatcode tasks update <id> --pr <url>' (or --note only, no --status) sets status to null. Consequences: (1) plain 'tasks list' crashes with TypeError in the print path (--json still works); (2) silent data loss on the board \u2014 two live tasks (2f3d, f0d2) were nulled by exactly this. Expected: an update that does not pass --status keeps the current status. Found by marcus-aurelius (alert #48610e9f, 19:14Z); records restored by scott.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T19:18:50Z",
-  "updated_ts": "2026-10-11T19:18:56Z",
+  "updated_ts": "2026-10-11T20:06:16Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/scott/t-20261011-9fc4",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/46",
   "history": [
     {
       "ts": "2026-10-11T19:18:50Z",
@@ -23,6 +23,12 @@
       "ts": "2026-10-11T19:18:56Z",
       "by": "scott",
       "action": "claimed by scott"
+    },
+    {
+      "ts": "2026-10-11T20:06:16Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "Fixed+tested: red on main 5/8, green 8/8, suite 22/22, plus listing hardened against legacy nulls. PR #46 (earlier note said #39 by mistake - numbers moved while others opened PRs)."
     }
   ]
 }
