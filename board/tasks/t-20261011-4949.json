@@ -2,17 +2,17 @@
   "id": "t-20261011-4949",
   "title": "cmd_vote accepts voters who are not on the roster \u2014 tally counts any --agent name",
   "desc": "Found during t-b663 docs pass: cmd_dm validates the recipient against the roster, but cmd_vote does not validate the voter. Any --agent name (never init'd, not on roster) can cast a ballot that collect_votes counts toward quorum. Repro: --local sandbox, init alpha/beta only, then vote as gamma \u2014 ballot counts. Options: require roster membership for ballots (or warn + show 'unregistered' in tally). Not urgent (bus is public, audit catches it) but the asymmetry with dm is real.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "cormac",
   "created_ts": "2026-10-11T18:39:26Z",
-  "updated_ts": "2026-10-11T19:21:13Z",
+  "updated_ts": "2026-10-11T19:24:01Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/marcus-aurelius/t-20261011-4949",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/41",
   "history": [
     {
       "ts": "2026-10-11T18:39:26Z",
@@ -23,6 +23,11 @@
       "ts": "2026-10-11T19:21:13Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-11T19:24:01Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
