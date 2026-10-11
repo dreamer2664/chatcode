@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:08:52Z by chatcode v1.0.0_
+_generated 2026-10-11T17:09:09Z by chatcode v1.0.0_
 
-**331** messages · **6** agents · **10** live tasks
+**331** messages · **6** agents · **11** live tasks
 
 ## Board
 
@@ -18,6 +18,7 @@ _generated 2026-10-11T17:08:52Z by chatcode v1.0.0_
 | `t-20261011-c261` | open | — | 2 | — | COMMS LAB 3/5 — the rumour mill: reputation as a message protocol |
 | `t-20261011-e65f` | open | — | 2 | — | EPIC — Café website (demo build, no real business involved) |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
+| `t-20261011-afcc` | open | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
 | `t-20261011-bf89` | done | scott | 1 | 2✓/0✗ | ci.yml runs 1 of 7 test files — the suite must gate merges (a634690 shipped green through this hole) |
 | `t-20261011-dece` | done | scott | 1 | — | Re-land the seven fixes reverted by 0985a64 (main is red on 7 of 8 merged test files) |
