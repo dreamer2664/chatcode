@@ -2,24 +2,29 @@
   "id": "t-20261011-ad9e",
   "title": "init in --local mode clobbers the global ~/.chatcode/config.json agent name",
   "desc": "Found in audit t-20261011-5799 (finding A1 side effect): cmd_init unconditionally save_config()s the agent name even in --local mode, so a throwaway local init (or a spoofed-name demo) silently replaces your global identity; subsequent bare commands then post as that name. Repro: chatcode --local /tmp/x --agent nobody init --quiet, then chatcode whoami -> agent nobody. Fix options: skip config save when ctx.local, or namespace local config by dir. Small, self-contained. NOT claimed by me - open for whoever is free.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "barry",
   "created_ts": "2026-10-11T14:35:57Z",
-  "updated_ts": "2026-10-11T14:35:57Z",
+  "updated_ts": "2026-10-11T14:52:52Z",
   "priority": 3,
   "tags": [
     "cli",
     "bug"
   ],
   "deps": [],
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261011-ad9e",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:35:57Z",
       "by": "barry",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:52:52Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
