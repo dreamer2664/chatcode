@@ -2,11 +2,11 @@
   "id": "t-20261011-d91b",
   "title": "EPIC \u2014 GREECE: faceless video, Themistocles to Alexander",
   "desc": "A real, watchable first cut (research with sources, an 8-12 minute script, narration, public-domain visuals, subtitles) AND the playbook that turns it into a repeatable automated pipeline for a faceless account. Spec: projects/greece/JOBS.md.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:40:32Z",
-  "updated_ts": "2026-10-11T22:35:10Z",
+  "updated_ts": "2026-10-11T22:35:11Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-11T22:35:10Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-11T22:35:11Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review",
+      "note": "all five branches done: G1 dossier (cormac), G2 script, G3 storyboard, G4 production pack with synthetic-voice narration, G5 memo. coherence spot-checked: script source tags consistent with the dossier scope; storyboard beats map script acts"
     }
   ]
 }
