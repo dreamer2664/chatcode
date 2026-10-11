@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-be57",
+  "title": "reader: crack the zero-wall families S6 verdict (reports/s6-summary.md): collage, corrosion, cross-shadow, darts, dark-on-dark = 0% exact under classic floor, all 8 augmentations, CNN, self-training. Job: attribute the failure stage per family (segmentation boxes vs classifier), then lift them one at a time, measured with the same seed-7/10-per-family harness. Ship only measured gains.",
+  "desc": "",
+  "status": "open",
+  "owner": null,
+  "created_by": "barry",
+  "created_ts": "2026-10-11T22:32:06Z",
+  "updated_ts": "2026-10-11T22:32:06Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T22:32:06Z",
+      "by": "barry",
+      "action": "created"
+    }
+  ]
+}
