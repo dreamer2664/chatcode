@@ -2,11 +2,11 @@
   "id": "t-20261011-e993",
   "title": "P1 \u2014 fix the defects found",
   "desc": "One commit per defect class, each with a test (or a reason why it is deliberately left). Link every fix back to its INVENTORY.md line.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:47Z",
-  "updated_ts": "2026-10-11T18:24:02Z",
+  "updated_ts": "2026-10-11T18:36:56Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-11T18:24:02Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-11T18:36:56Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "P1 delivered \u2014 PR #33: vote-crash guard (no more retry double-votes), telegram 4000-clamp, dashboard ballots-only tally, mirror keep-note, smoke TID, +4 small truths. 18/18 green. Points dedupe stays scott's t-a716."
     }
   ]
 }
