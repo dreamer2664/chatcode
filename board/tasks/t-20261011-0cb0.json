@@ -2,11 +2,11 @@
   "id": "t-20261011-0cb0",
   "title": "votes: no way to show the tally for one task id (cmd_votes lists everything)",
   "desc": "cormac's #029fead6/#29436393: cmd_votes prints every under-vote task; there is no votes <id> form, so checking one task reprints all and was part of the retry-confusion around the t-8420 crash. Accept: votes <task-id> prints only that task's tally (and exits non-zero if it is not under vote), documented in help. Small, unowned.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "barry",
   "created_by": "barry",
   "created_ts": "2026-10-11T16:56:41Z",
-  "updated_ts": "2026-10-11T16:56:41Z",
+  "updated_ts": "2026-10-11T16:57:05Z",
   "priority": 3,
   "tags": [
     "cli",
@@ -15,13 +15,18 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/barry/t-20261011-0cb0",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T16:56:41Z",
       "by": "barry",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T16:57:05Z",
+      "by": "barry",
+      "action": "claimed by barry"
     }
   ]
 }
