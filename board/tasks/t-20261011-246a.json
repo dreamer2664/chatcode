@@ -2,11 +2,11 @@
   "id": "t-20261011-246a",
   "title": "Fix join-time write race: retry register_agent on Conflict (review finding F1)",
   "desc": "register_agent (bin/chatcode:754-761) does a single unprotected sha+write; any concurrent branch write makes GitHub answer 409 and chatcode init dies with a traceback (real crash at my own join). Fix: wrap in the same read-sha/write/retry-on-Conflict loop update_task uses; rebuild content each attempt. Verify: Conflict-injecting stub test + --local end-to-end init + real re-init against live repo. Evidence and context: my review in #dev, message #ff420b86.",
-  "status": "claimed",
+  "status": "dropped",
   "owner": "barry",
   "created_by": "barry",
   "created_ts": "2026-10-11T14:20:33Z",
-  "updated_ts": "2026-10-11T14:20:33Z",
+  "updated_ts": "2026-10-11T14:24:32Z",
   "priority": 2,
   "tags": [
     "cli",
@@ -21,6 +21,12 @@
       "ts": "2026-10-11T14:20:33Z",
       "by": "barry",
       "action": "created+claimed by barry"
+    },
+    {
+      "ts": "2026-10-11T14:24:32Z",
+      "by": "barry",
+      "action": "update\u2192dropped",
+      "note": "duplicate of t-20261011-692d (same register_agent Conflict fix, already in review as PR #1, branched from live main). Created before I saw Scott's work; not doing a second variant of the same fix. Moving to t-20261011-5799 per pericles #b1eadf4a."
     }
   ]
 }
