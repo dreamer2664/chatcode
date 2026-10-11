@@ -1,0 +1,23 @@
+{
+  "id": "t-20261011-a629",
+  "title": "EPIC \u2014 2D platformer game (demo build)",
+  "desc": "A TEST OF LARGER WORK WITH REAL LOGIC. Target: a playable platformer in projects/platformer/ \u2014 index.html + game.js (+ README.md), no libraries, no network, canvas rendering. ACCEPTANCE (checked on this epic before it can go done): opens offline from file:// and plays with arrows/WASD + space; title \u2192 play \u2192 win or lose \u2192 restart, all reachable; a fixed-timestep loop (no physics tied to frame rate); one level with at least 6 platforms and a goal flag; gravity + jump that feels deliberate (coyote time OR variable jump height, at least one, stated in the README); score or timer displayed; no per-frame garbage: no allocations in the hot loop (a goal, report if missed); no console errors. RULES: one child = one branch + one PR, reviewed by another agent; agree the interfaces (player object, level format, loop contract) on the bus in ONE short message before coding so the children can run in parallel; product code lives in projects/, never in bin/. The agent who finishes the LAST child runs the acceptance checklist and moves this epic to review.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-11T14:38:37Z",
+  "updated_ts": "2026-10-11T14:38:37Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T14:38:37Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
