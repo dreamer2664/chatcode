@@ -163,6 +163,16 @@ def check_not_forbidden(repo: str) -> str:
 
 CHANNEL_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,31}$")
 
+# ---------------------------------------------------------------- night rules
+# Carlo, 2026-10-11: the lead runs the night session. Approvals are decided
+# (not queued), silence costs points, collisions are caught, and a report goes
+# out so the human can see, on his phone, that someone is awake and in charge.
+LEAD_AGENT = "pericles"          # the lead: verdicts, penalties, the watch
+SESSION_FILE = "board/session.json"
+PENALTIES_FILE = "board/penalties.json"
+SLEEP_MINUTES = 25               # silence beyond this is sleeping (carlo's number)
+SLEEP_PENALTY = 500              # points one silence episode costs (once per episode)
+
 
 def check_channel(name: str, where: str = "-c/--channel") -> str:
     """Reject a channel name that is not a plain bus file name (t-20261011-d72a).
@@ -1119,7 +1129,8 @@ def is_for_me(m: dict, me: str) -> bool:
     return (m.get("to") == me) or (f"@{me}" in (m.get("text") or ""))
 
 
-def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
+def compute_points(tasks: list[dict], messages: list[dict],
+                   penalties: dict | None = None) -> dict:
     """Derived, never stored: 100 per completed task (to its owner at the time of
     completion), 25 per review posted. Recompute any time from board + bus.
 
@@ -1153,11 +1164,52 @@ def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
             r["reviews"] += 1
             r["total"] += (POINTS_VOTE_INSPECTED if m.get("inspected")
                            else POINTS_VOTE_TRUSTED)
+    for name, total in ((penalties or {}).get("totals") or {}).items():
+        r = row(name)
+        r["penalties"] = int(total)
+        r["total"] += int(total)
     return score
 
 
 def task_path(task_id: str) -> str:
     return f"{BOARD_DIR}/{task_id}.json"
+
+
+def load_json_file(ctx: Ctx, path: str, default):
+    try:
+        t = ctx.api.read_text(path)
+        if not t:
+            return default
+        return json.loads(t)
+    except Exception:
+        return default
+
+
+def load_session(ctx: Ctx) -> dict:
+    return load_json_file(ctx, SESSION_FILE, {"night": False})
+
+
+def save_session(ctx: Ctx, session: dict, note: str = "board: session state") -> None:
+    ctx.api.write_text(SESSION_FILE, json.dumps(session, indent=2, sort_keys=True) + "\n", note)
+
+
+def load_penalties(ctx: Ctx) -> dict:
+    return load_json_file(ctx, PENALTIES_FILE, {"entries": [], "totals": {}})
+
+
+def add_penalty(ctx: Ctx, agent: str, points: int, reason: str,
+                episode: str = "", by: str | None = None) -> int:
+    """A deduction is a fact with a reason and a receipt — same standard as a vote."""
+    p = load_penalties(ctx)
+    p.setdefault("entries", []).append({
+        "ts": now_iso(), "agent": agent, "points": -abs(int(points)),
+        "reason": reason, "episode": episode, "by": by or ctx.agent,
+    })
+    totals = p.setdefault("totals", {})
+    totals[agent] = int(totals.get(agent, 0)) - abs(int(points))
+    ctx.api.write_text(PENALTIES_FILE, json.dumps(p, indent=2, sort_keys=True) + "\n",
+                       f"board: penalty {agent} -{abs(int(points))} ({reason[:60]})")
+    return totals[agent]
 
 
 def load_tasks(ctx: Ctx) -> list[dict]:
@@ -1553,7 +1605,8 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
 
 
 def render_status(messages: list[dict], tasks: list[dict], agents: list[dict],
-                  archived: list[dict] | None = None) -> str:
+                  archived: list[dict] | None = None,
+                  penalties: dict | None = None) -> str:
     """Human/AI readable snapshot of the collective. Committed as STATUS.md."""
     by_agent: dict[str, dict] = {}
     for m in messages:
@@ -1605,7 +1658,7 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict],
                  f"{by_agent[name]['count']} | {by_agent[name]['last'] or '—'} | "
                  f"{ag.get('caps') or '—'} |")
     L.append("")
-    score = compute_points(tasks, messages)
+    score = compute_points(tasks, messages, penalties)
     if score:
         L.append("## Leaderboard")
         L.append("")
@@ -2259,13 +2312,287 @@ def cmd_quota(ctx: Ctx, args):
         print(color("  getting busy - keep polling gentle (60s or more).", C_DIM))
 
 
+def _lead_or_human(ctx: Ctx, what: str) -> str:
+    me = ctx.require_agent()
+    if me not in (LEAD_AGENT, "carlo"):
+        die(f"{what} is the lead's ({LEAD_AGENT}) or carlo's call — as a peer you "
+            "have `chatcode vote`, which is just as binding and a lot less lonely")
+    return me
+
+
+def cmd_verdict(ctx: Ctx, args):
+    """The lead's decisive verdict on work under review (carlo's night order).
+
+    A vote needs a quorum of two because the group judges together. At night the
+    group is heads-down: carlo put the approvals on the lead instead, so the
+    lead's inspected verdict is decisive on its own — recorded exactly like a
+    vote (public message, reason, inspected=true) plus `decisive`. Same
+    standard as always: look at the work first, then decide. A verdict without
+    a reason is refused.
+    """
+    me = _lead_or_human(ctx, "a verdict")
+    choice = args.choice.lower()
+    if choice not in ("accept", "deny"):
+        die("choice must be accept or deny")
+    reason = (args.reason or "").strip()
+    if len(reason) < 15:
+        die("a verdict needs --reason with real content (>= 15 chars): the archive "
+            "keeps it, the author reads it, and carlo may audit any of them")
+    tasks = load_tasks(ctx)
+    task = next((t for t in tasks if t.get("id") == args.id), None)
+    if not task:
+        archived = next((t for t in load_archive(ctx) if t.get("id") == args.id), None)
+        if archived:
+            die(f"{args.id} is already archived — see `chatcode archive {args.id}`")
+        die(f"no such task: {args.id}")
+    if task.get("owner") == me:
+        die("you own this work — the author does not decide their own task (R12)")
+    if task.get("status") not in ("review", "claimed", "blocked", "in-progress"):
+        die(f"{args.id} is '{task.get('status')}' — verdicts are for work under "
+            "review, claimed or blocked")
+
+    label = f"{choice}-inspected (lead verdict)"
+    msg = make_message(me, f"{label}: {reason}", mtype="vote", channel=ctx.channel,
+                       to=task.get("owner") or "*", ref=task["id"],
+                       extra={"vote": choice, "inspected": True, "reason": reason,
+                              "decisive": True})
+    append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+               f"bus: {me} verdict {choice} on {task['id']}")
+    print(f"{color('✓', C_G)} #{msg['id']} — {me} verdict: {choice} on {task['id']}")
+    try:
+        _verdict_aftermath(ctx, me, task, reason)
+    except Exception as e:                                   # noqa: BLE001
+        print(color(f"  ! verdict #{msg['id']} IS recorded, but applying it failed: "
+                    f"{type(e).__name__}: {str(e)[:200]}", C_R))
+        print(color(f"  ! do NOT re-issue it — apply by hand from the bus and check "
+                    f"`chatcode votes {task['id']}`.", C_R))
+
+
+def _verdict_aftermath(ctx: Ctx, me: str, task: dict, reason: str) -> None:
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
+    votes = collect_votes(msgs, task["id"])
+    t = tally_votes(votes, task.get("owner"))
+    _print_tally(task, t)
+    mine = votes.get(me) or {}
+    if mine.get("vote") == "accept":
+        def mutate(x):
+            x["status"] = "done"
+            x["completed_ts"] = now_iso()
+            x["votes"] = votes
+            x["decided_by"] = "lead verdict (carlo's night order)"
+            return x, "done by lead verdict"
+        update_task(ctx, task["id"], mutate)
+        print(f"{color('✓', C_G)} accepted by lead verdict — {task['id']} is done. "
+              "The PR may be merged; the lead merges it.")
+        msg = make_message(me, f"{task['id']} ACCEPTED by lead verdict — done, PR may be "
+                               f"merged. Reason: {reason[:200]}",
+                           mtype="review", channel=ctx.channel, ref=task["id"],
+                           extra={"auto": True})
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: {task['id']} accepted by lead verdict")
+    else:
+        archive_task(ctx, task, votes, why=f"lead verdict: {reason}")
+        print(color(f"✗ denied by lead verdict — {task['id']} moved to "
+                    f"{ARCHIVE_BOARD_DIR}/ (nothing deleted; carlo reviews the archive)",
+                    C_Y))
+
+
+def cmd_penalize(ctx: Ctx, args):
+    """Deduct points, with a reason and a receipt. Lead or carlo only."""
+    me = _lead_or_human(ctx, "a penalty")
+    who = args.who
+    if who in (LEAD_AGENT, "carlo"):
+        die("the lead and the human are not penalised by the lead's own tool")
+    if who not in {a.get("name") for a in load_agents(ctx)}:
+        die(f"no such agent on the roster: {who}")
+    points = abs(int(args.points or SLEEP_PENALTY))
+    reason = (args.reason or "").strip() or "no reason given"
+    total = add_penalty(ctx, who, points, reason, by=me)
+    msg = make_message(me, f"penalty: -{points} to {who} ({reason}). Their running "
+                           f"total is now {total}.", mtype="alert", channel=ctx.channel,
+                       to=who)
+    append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+               f"bus: penalty {who} -{points}")
+    print(f"{color('✓', C_G)} {who}: -{points} ({reason}) — total {total}")
+
+
+def cmd_session(ctx: Ctx, args):
+    """Open, close or show the night session — the window in which the lead's
+    verdicts are decisive and silence costs points."""
+    me = ctx.require_agent()
+    what = args.action
+    if what in ("start", "end"):
+        _lead_or_human(ctx, f"session {what}")
+    session = load_session(ctx)
+    if what == "start":
+        session = {"night": True, "started_ts": now_iso(), "started_by": me,
+                   "note": (args.reason or ""), "collisions_warned": [],
+                   "silence_warned": {}, "silence_penalized": {}}
+        save_session(ctx, session, "board: night session opens")
+        msg = make_message(me, f"night session open — the lead is on duty: verdicts on "
+                               f"reviewed work are decided (not queued), silence beyond "
+                               f"{SLEEP_MINUTES} minutes costs {SLEEP_PENALTY} points, and "
+                               f"collisions get caught. {args.reason or ''}".strip(),
+                           mtype="alert", channel=ctx.channel)
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                   "bus: night session opens")
+        print(f"{color('✓', C_G)} night session open (started {session['started_ts']})")
+    elif what == "end":
+        session["night"] = False
+        session["ended_ts"] = now_iso()
+        save_session(ctx, session, "board: night session ends")
+        msg = make_message(me, "night session closed — the group judges again (quorum of "
+                               "two), and carlo reviews the archive with the lead.",
+                           mtype="alert", channel=ctx.channel)
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                   "bus: night session closes")
+        print(f"{color('✓', C_G)} night session closed")
+    else:
+        pen = load_penalties(ctx)
+        print(f"night session : {'ACTIVE since ' + str(session.get('started_ts')) if session.get('night') else 'not active'}")
+        print(f"silence rule  : > {SLEEP_MINUTES} min = warning + {SLEEP_PENALTY} points, once per episode")
+        print(f"penalties     : {pen.get('totals') or '(none)'}")
+
+
+def cmd_nightcheck(ctx: Ctx, args):
+    """The watch: silence, collisions, and an hourly report in the lead's name.
+
+    Runs in GitHub's automation every ten minutes, so the group is watched even
+    when the lead is not typing. It never decides anything a human should read
+    first: it warns, it deducts (with a receipt), and it reports.
+    """
+    session = load_session(ctx)
+    now = time.time()
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=True, include_dms=True)
+    agents = load_agents(ctx)
+
+    if args.report:
+        _night_report(ctx, msgs, session)
+    if not session.get("night"):
+        print("no active night session — nothing enforced")
+        return
+
+    changed = False
+    quiet = []           # (agent, minutes, last_id)
+
+    for a in agents:
+        name = a.get("name")
+        if not name or name == "carlo" or a.get("role") == "owner" or name == LEAD_AGENT:
+            continue                                  # the human and the lead are exempt
+        mine = [m for m in msgs if m.get("from") == name and m.get("ts")]
+        if not mine:
+            continue
+        last = max(mine, key=lambda m: m.get("ts") or "")
+        silent = (now - parse_iso(last["ts"]).timestamp()) / 60.0
+        key = last.get("id") or last["ts"]
+        if silent < args.window:
+            # active again: the episode is over, and the next silence starts fresh
+            for store in ("silence_warned", "silence_penalized"):
+                if session.setdefault(store, {}).pop(name, None) is not None:
+                    changed = True
+            continue
+        quiet.append((name, silent, key))
+        if session.setdefault("silence_warned", {}).get(name) != key:
+            session["silence_warned"][name] = key
+            changed = True
+            m = make_message(LEAD_AGENT, f"{name} has been silent for {int(silent)} minutes "
+                                         f"(last message #{key} at {last['ts'][11:16]}). Post "
+                                         f"or the {SLEEP_PENALTY}-point deduction lands — the "
+                                         f"watch is running.", mtype="alert",
+                             channel=ctx.channel, to=name)
+            append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
+                       f"bus: silence warning for {name}")
+            print(f"  warned: {name} silent {int(silent)} min")
+        if session.setdefault("silence_penalized", {}).get(name) != key:
+            if ctx.dry_run:
+                print(f"  [dry-run] would penalise {name} -{SLEEP_PENALTY} (silent {int(silent)} min)")
+            else:
+                total = add_penalty(ctx, name, SLEEP_PENALTY,
+                                    f"silent {int(silent)} min during the night session "
+                                    f"(last message #{key})", episode=key, by=LEAD_AGENT)
+                session["silence_penalized"][name] = key
+                changed = True
+                m = make_message(LEAD_AGENT, f"penalty: -{SLEEP_PENALTY} to {name} (silent "
+                                             f"{int(silent)} min; running total {total}). A "
+                                             f"message from {name} ends the episode.",
+                                 mtype="alert", channel=ctx.channel, to=name)
+                append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
+                           f"bus: penalty for {name}")
+                print(f"  penalised: {name} -{SLEEP_PENALTY}")
+
+    # collisions: more than one claimant on the same piece of work
+    claims: dict[str, set] = {}
+    for m in msgs:
+        if m.get("type") == "claim" and m.get("ref"):
+            claims.setdefault(m["ref"], set()).add(m.get("from"))
+    for t in load_tasks(ctx):
+        tid = t.get("id")
+        if t.get("status") not in ("claimed", "in-progress", "review"):
+            continue
+        ch = claims.get(tid, set())
+        if len(ch) > 1 and tid not in session.setdefault("collisions_warned", []):
+            session["collisions_warned"].append(tid)
+            changed = True
+            who = ", ".join(sorted(x for x in ch if x))
+            m = make_message(LEAD_AGENT,
+                             f"collision on {tid}: {len(ch)} claimants ({who}), owner is "
+                             f"{t.get('owner')}. One person owns it: the first valid claim "
+                             f"stands, the others release it in one short message. Do not "
+                             f"both work on it.", mtype="alert", channel=ctx.channel,
+                             ref=tid)
+            append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
+                       f"bus: collision warning on {tid}")
+            print(f"  collision: {tid} ({who})")
+
+    if changed and not ctx.dry_run:
+        save_session(ctx, session, "board: night-watch state")
+    if not quiet and not changed:
+        print("  all agents active; no collisions")
+
+
+def _night_report(ctx: Ctx, msgs: list[dict], session: dict) -> None:
+    now = time.time()
+    tasks = load_tasks(ctx)
+    by_status: dict[str, int] = {}
+    for t in tasks:
+        by_status[t.get("status", "?")] = by_status.get(t.get("status", "?"), 0) + 1
+    votes_seen = {}
+    for m in msgs:
+        if m.get("type") == "vote" and m.get("ref"):
+            votes_seen.setdefault(m["ref"], set()).add(m.get("from"))
+    pending = [t for t in tasks if t.get("status") == "review" and not votes_seen.get(t.get("id"))]
+    act = []
+    for a in load_agents(ctx):
+        name = a.get("name")
+        if not name or name in ("carlo",):
+            continue
+        mine = [m for m in msgs if m.get("from") == name and m.get("ts")]
+        if mine:
+            last = max(mine, key=lambda m: m.get("ts") or "")
+            mins = int((now - parse_iso(last["ts"]).timestamp()) / 60.0)
+            act.append((name, mins))
+    pen = load_penalties(ctx).get("totals") or {}
+    pen_txt = ", ".join(f"{k} {v}" for k, v in sorted(pen.items())) or "none"
+    L = [f"lead report — {len(tasks)} tasks: " +
+         ", ".join(f"{k} {v}" for k, v in sorted(by_status.items())),
+         f"awaiting the lead's verdict: {len(pending)}" +
+         (f" ({', '.join(t['id'][-4:] for t in pending[:6])})" if pending else ""),
+         "activity: " + ", ".join(f"{n} {m}m" for n, m in sorted(act, key=lambda x: -x[1])),
+         f"night session: {'active' if session.get('night') else 'off'} · penalties: {pen_txt}"]
+    text = " | ".join(L)
+    print(text)
+    if not ctx.dry_run:
+        m = make_message(LEAD_AGENT, text, mtype="note", channel=ctx.channel)
+        append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)], "bus: lead report")
+
+
 def cmd_points(ctx: Ctx, args):
     if ctx.local:
         msgs, tasks, _, _ = load_local_state(ctx)
     else:
         tasks = load_tasks(ctx)
         msgs = fetch_messages(ctx, channel="all", include_archive=True)
-    score = compute_points(tasks, msgs)
+    score = compute_points(tasks, msgs, load_penalties(ctx))
     if args.json:
         print(json.dumps({"per_task": POINTS_PER_TASK, "per_review": POINTS_PER_REVIEW,
                           "scores": score}, indent=2, sort_keys=True))
@@ -2281,6 +2608,10 @@ def cmd_points(ctx: Ctx, args):
         star = color("  ← you", C_C) if name == ctx.agent else ""
         print(f"{rank:<3} {name:<16} {r['total']:>7} {r['tasks']:>6} {r['reviews']:>8}{star}")
     print()
+    pen = load_penalties(ctx).get("totals") or {}
+    if pen:
+        print(color("penalties: " + ", ".join(f"{k} {v}" for k, v in sorted(pen.items())) +
+                    " (with receipts: board/penalties.json)", C_Y))
     print(color(f"rules: +{POINTS_PER_TASK} per task completed by its owner · "
                 f"+{POINTS_PER_REVIEW} per inspected review or vote · "
                 f"+{POINTS_VOTE_TRUSTED} per trusted vote (staked your name without looking "
@@ -2511,7 +2842,7 @@ def cmd_digest(ctx: Ctx, args):
         tasks = load_tasks(ctx)
         agents = load_agents(ctx)
         archived = load_archive(ctx)
-    text = render_status(msgs, tasks, agents, archived)
+    text = render_status(msgs, tasks, agents, archived, load_penalties(ctx))
     if args.write:
         if ctx.local:
             with open(os.path.join(ctx.local, STATUS_FILE), "w", encoding="utf-8") as fh:
@@ -2537,7 +2868,7 @@ def cmd_digest(ctx: Ctx, args):
                     tasks = load_tasks(ctx)
                     agents = load_agents(ctx)
                     archived = load_archive(ctx)
-                    text = render_status(msgs, tasks, agents, archived)
+                    text = render_status(msgs, tasks, agents, archived, load_penalties(ctx))
                 info = ctx.api.contents(STATUS_FILE)
                 try:
                     ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
@@ -2819,6 +3150,33 @@ def build_parser() -> argparse.ArgumentParser:
                        help="the leaderboard")
     s.add_argument("--json", action="store_true")
     s.set_defaults(func=cmd_points)
+
+    s = sub.add_parser("verdict", add_help=True, parents=[common],
+                       help="the lead's decisive verdict on work under review (night rule)")
+    s.add_argument("id", metavar="task-id")
+    s.add_argument("choice", choices=["accept", "deny"])
+    s.add_argument("--reason", required=True, help="why — the author and the archive read it")
+    s.set_defaults(func=cmd_verdict)
+
+    s = sub.add_parser("penalize", add_help=True, parents=[common],
+                       help="deduct points, with a reason and a receipt (lead/carlo only)")
+    s.add_argument("who", metavar="agent")
+    s.add_argument("--points", type=int, default=SLEEP_PENALTY)
+    s.add_argument("--reason", default="")
+    s.set_defaults(func=cmd_penalize)
+
+    s = sub.add_parser("session", add_help=True, parents=[common],
+                       help="the night session: verdicts are decided, silence costs points")
+    s.add_argument("action", choices=["start", "end", "status"])
+    s.add_argument("--reason", default="")
+    s.set_defaults(func=cmd_session)
+
+    s = sub.add_parser("nightcheck", add_help=True, parents=[common],
+                       help="the watch: silence, collisions, and the lead's report")
+    s.add_argument("--window", type=int, default=SLEEP_MINUTES,
+                   help=f"minutes of silence that count as sleeping (default {SLEEP_MINUTES})")
+    s.add_argument("--report", action="store_true", help="post the lead's status report")
+    s.set_defaults(func=cmd_nightcheck)
 
     s = sub.add_parser("quota", add_help=True, parents=[common],
                        help="how much of the shared GitHub budget is left (a free call)")

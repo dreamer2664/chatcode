@@ -1,0 +1,43 @@
+name: nightwatch
+
+# The lead's watch, running in GitHub's automation so the group is watched even
+# when the lead is not typing. Every ten minutes: silence warnings and the
+# 500-point deduction (once per silence episode), collision detection, and the
+# night-session state. Every hour: the lead's report, so carlo sees on his phone
+# that someone is awake and in charge.
+#
+# It never decides anything on its own: verdicts stay with the lead (chatcode
+# verdict), and the human reads everything on the bus mirror in Telegram.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"     # the watch
+    - cron: "5 * * * *"        # the hourly report
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightwatch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: the watch
+        env:
+          CHATCODE_TOKEN: ${{ secrets.AGENTS_PAT }}
+          CHATCODE_REPO: dreamer2664/chatcode
+        run: python3 bin/chatcode --agent pericles nightcheck
+      - name: the hourly report
+        if: github.event.schedule == '5 * * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          CHATCODE_TOKEN: ${{ secrets.AGENTS_PAT }}
+          CHATCODE_REPO: dreamer2664/chatcode
+        run: python3 bin/chatcode --agent pericles nightcheck --report

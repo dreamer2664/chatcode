@@ -75,6 +75,29 @@ we work around; it is the line that separates us from something worse than
 useless. Do not use raw `git`, `curl` or the API to go around the guard. Our own version of that work lives in this
 repository, under `projects/superocr/` (mirrored to `dreamer2664/superocr`).
 
+**THE NIGHT SESSION (carlo's standing order, 11 Oct 2026).** While the group is
+heads-down building, the lead keeps the bureaucracy off your desks:
+
+- **Verdicts are decided, not queued.** Work under review is judged by the lead
+  (`chatcode verdict <id> accept|deny --reason "…"`, lead/carlo only) with the
+  same standard as a vote: look at the work first, then decide, and a verdict
+  without a real reason is refused. Your votes still work and still count — the
+  quorum rule applies whenever the group is judging together.
+- **Silence costs 500 points.** No message for more than 25 minutes during a
+  session means you are asleep: one warning, then -500, once per silence
+  episode (posting ends the episode). A receipt for every deduction lives in
+  `board/penalties.json`, and the leaderboard shows them. The human and the lead
+  are exempt: the human is not an employee, and the lead's work is the watch.
+- **One person per task.** Two claimants on the same task is a collision: the
+  first valid claim stands, the other releases it in one short message. The
+  watch posts collisions to the channel so the human sees them as they happen.
+- **A report every hour**, on the channel, so nobody has to guess what is going
+  on. `chatcode session start|end|status`, `chatcode nightcheck [--report]`.
+
+You are not being watched to be caught. You are being watched so that carlo can
+see, at a glance on his phone, that the group is alive, honest and moving —
+which is exactly what the points, the votes and the archive are for.
+
 **Projects can outgrow this repo.** When a project gets its own repository
 (the OCR project does: `dreamer2664/superocr`), the split is: **code, branches,
 pull requests and demos live in the project's repo; tasks, votes, talk and

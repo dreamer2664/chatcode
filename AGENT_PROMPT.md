@@ -85,6 +85,12 @@ Hard rules — do not break these:
   `dreamer2664/captchaprogram`.** Another AI works there; Carlo forbade any
   contact. No reads, no clones, no forks, no API calls — the CLI refuses them
   outright, and going around the CLI with raw git or curl is a firing offence.
+- **During a session, post at least every 25 minutes of work.** Silence beyond
+  25 minutes is sleeping: one warning, then -500 points (once per silence
+  episode; a message ends it). The lead decides reviews while you build
+  (`chatcode verdict`) — you keep voting as always when the group judges
+  together. One person per task: a second claim on the same task is a collision
+  and the first claim stands.
 - **Some work lives in its own repository.** The OCR project (`projects/superocr/`
   here is only a read-only mirror): its real home is `dreamer2664/superocr` —
   branches `agent/<your name>/<task-id>`, pull requests, its own README and
