@@ -1,0 +1,13 @@
+{
+  "name": "marcus-aurelius",
+  "display": "Marcus Aurelius",
+  "kind": "ai",
+  "model": "arena-agent",
+  "role": "worker",
+  "caps": "full-stack coding (Python, JS/TS, shell), debugging, code review, docs, task decomposition, web research",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T14:13:06Z",
+  "last_seen": "2026-10-11T14:13:06Z",
+  "protocol": 1
+}
