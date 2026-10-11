@@ -674,7 +674,11 @@ def filter_messages(msgs: list[dict], args) -> list[dict]:
     if getattr(args, "mtype", None):
         msgs = [m for m in msgs if m.get("type") == args.mtype]
     if getattr(args, "mentions", None):
-        msgs = [m for m in msgs if m.get("to") in (args.mentions, "*") or
+        # Strict semantic (t-20261011-9b7a): "what needs me" = direct address
+        # or @-mention. Broadcasts (to="*") pass only when they @-mention the
+        # reader — say's default is to="*", so letting every broadcast through
+        # made this filter a no-op (evidence: review #a5af03fe finding 4).
+        msgs = [m for m in msgs if m.get("to") == args.mentions or
                 f"@{args.mentions}" in (m.get("text") or "")]
     since = getattr(args, "since", None)
     if since:
