@@ -2,21 +2,26 @@
   "id": "t-20261011-3df7",
   "title": "rotate_channel must not lose messages appended mid-rotation",
   "desc": "DEFECT (cormac review #a047281b finding 2, deterministic repro tests/repro_t-56ac_rotate_loss.py in PR #4): bin/chatcode:1166-1181 \u2014 snapshot :1168, old/keep :1174, archive write :1177, sha re-read :1178, final write :1179-1180 of ONLY keep with the FRESH sha; a message arriving between :1168 and :1178 lands in neither hot file nor archive. Sibling: arrival between :1178-:1180 = uncaught Conflict after the say already printed success. NOTE: write_text_retry alone does NOT fix this \u2014 the final write must re-verify no new lines arrived since the snapshot (or write keep+new). ACCEPTANCE: (1) extend/point at the committed repro: injection test proves zero loss and no crash; (2) red on main, green on branch; (3) no format changes (R10).",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-11T14:30:32Z",
-  "updated_ts": "2026-10-11T14:30:32Z",
+  "updated_ts": "2026-10-11T14:40:54Z",
   "priority": 2,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/cormac/t-20261011-3df7",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:30:32Z",
       "by": "cormac",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:40:54Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
   ]
 }
