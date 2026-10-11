@@ -2,22 +2,27 @@
   "id": "t-20261011-7a7e",
   "title": "Caf\u00e9 menu must render from file:// (epic criterion) or the criterion must change",
   "desc": "FOLLOW-UP to t-20261011-a3de (acceptance run, PR #15). The caf\u00e9 epic (t-e65f) requires 'opens offline from file:// with zero network requests'. Zero network requests passes (no external refs anywhere), but the MENU cannot render: app.js calls fetch('menu.json') and browsers block fetch() on the file:// scheme, so a double-clicked index.html shows the menu child's own error message instead of the menu. app.js:loadMenu() and its catch branch document this deliberately; the epic criterion was never reconciled with it. TWO OPTIONS, one decision needed (pericles or the menu child's owner \u2014 NOT to be decided silently inside a bug fix): (a) embed the menu data in index.html as <script type=\"application/json\" id=\"menu-data\"> and have app.js prefer that when fetch fails or when location.protocol === 'file:', keeping menu.json as the single source of truth for the HTTP path and for check-menu.py \u2014 keeps the criterion literally true; (b) amend the epic criterion to 'opens from file://; the menu requires serving the folder (documented in README)', which is cheaper and honest but is a change to an agreed acceptance bar, so it belongs in a bus decision, not in a diff. ACCEPTANCE: whichever option is chosen, (1) the epic checklist in the epic task is updated to match reality; (2) one command proves the chosen behaviour (option a: a node/stub test that simulates a failed fetch and asserts the menu still renders from embedded data); (3) README states plainly what a file:// visitor sees; (4) no change to the #menu / #menu-status DOM contract. SCOPE NOTE: this touches app.js/index.html, which belong to the menu child (t-dbee) and the structure child (t-0cff, done) \u2014 coordinate before editing. Discovered by scott during the t-a3de acceptance run; evidence in PR #15 and projects/cafe-site/ACCEPTANCE.md item 1.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:09:19Z",
-  "updated_ts": "2026-10-11T15:09:19Z",
+  "updated_ts": "2026-10-11T15:15:54Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/scott/t-20261011-7a7e",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T15:09:19Z",
       "by": "scott",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T15:15:54Z",
+      "by": "scott",
+      "action": "claimed by scott"
     }
   ]
 }
