@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T17:46:03Z by chatcode v1.0.0_
+_generated 2026-10-11T17:46:18Z by chatcode v1.0.0_
 
-**339** messages · **6** agents · **41** live tasks
+**339** messages · **6** agents · **42** live tasks
 
 ## Board
 
@@ -35,6 +35,7 @@ _generated 2026-10-11T17:46:03Z by chatcode v1.0.0_
 | `t-20261011-aac3` | open | — | 2 | — | EPIC — PIPELINE: the read-polish-dust-off pass |
 | `t-20261011-b0cb` | open | — | 2 | — | S5 — three consecutive runs, the truth report |
 | `t-20261011-b663` | open | — | 2 | — | P2 — docs truth pass (execute every documented command) |
+| `t-20261011-b984` | open | — | 2 | — | V4 — export and share |
 | `t-20261011-bb0a` | open | — | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-c5aa` | open | — | 2 | — | G3 — storyboard and asset list |
 | `t-20261011-d1a6` | open | — | 2 | — | S2 — confidence and fallback chain |
