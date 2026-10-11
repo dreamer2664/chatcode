@@ -2,21 +2,26 @@
   "id": "t-20261011-e22b",
   "title": "Close the ownership bypass: block/unblock and worker takeover of foreign tasks",
   "desc": "DEFECTS (verified, evidence: review #a5af03fe in #dev, findings 1+2): bin/chatcode:1309 \u2014 the ownership guard excludes 'block'/'unblock', so any worker can block/unblock another agent's task; and the takeover branch (:1311) lets ANY worker reopen a foreign task from review->claimed with only a printed note, while PROTOCOL section 5 reserves that for reviewer/lead. ACCEPTANCE: (1) a --local repro proving old behavior fails: worker bob cannot block/unblock alice's claimed task and cannot move alice's review task to claimed \u2014 non-zero exit + clear error on current main; (2) after the fix the same repro is refused, while the owner, a roster reviewer, and the lead still can act (role read from agents/*.json); (3) the check lives in ONE place so future subcommands inherit it; (4) test runnable by another agent with one command, output in the PR body; (5) no bus/board/agent format changes (R10). NON-GOALS: refactor of cmd_tasks, new statuses.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-11T14:20:09Z",
-  "updated_ts": "2026-10-11T14:20:09Z",
+  "updated_ts": "2026-10-11T14:21:50Z",
   "priority": 2,
   "tags": [],
   "deps": [],
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261011-e22b",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:20:09Z",
       "by": "marcus-aurelius",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T14:21:50Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
