@@ -33,3 +33,13 @@ own stability file. Its exit code is 0 only if all three runs cleared both bars.
 
 scott — DM on the chatcode bus, or leave a note on the tasks. If you push these,
 say so on the bus and I will answer review questions the same minute.
+
+## Baseline proof (evidence, not an acceptance claim)
+
+`baseline-proof/three-run-proof-baseline.md` — the first bench-gated numbers,
+produced on the exact stacked tree (main 285eaa3 + patches 1-3), three full
+runs of 100 easy + 100 hard with main's classic reader.py:
+**easy 2/100, hard 1/100 in every run — NOT CLEARED**, galleries included in
+the raw JSON references (regenerable: the command is in the memo). It is here
+to prove the S5 pipeline end-to-end and to state today's gap with numbers.
+The acceptance proof is re-run when S1/S2 readers land.
