@@ -2,11 +2,11 @@
   "id": "t-20261011-b0cb",
   "title": "S5 \u2014 three consecutive runs, the truth report",
   "desc": "Produce the proof: three runs each clearing the bar (>=98 easy, >=95 hard), the README numbers, and the failure gallery with the ugly cases included. If a family misses the bar, the report says so - with numbers.",
-  "status": null,
+  "status": "review",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:43:08Z",
-  "updated_ts": "2026-10-11T22:42:34Z",
+  "updated_ts": "2026-10-11T22:43:27Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -47,6 +47,12 @@
       "by": "scott",
       "action": "update\u2192None",
       "note": "Evidence complete: harness + tooling merged (17c5026); three-run proofs produced \u2014 CNN stable 29/29/29 easy, 6/6/6 hard (NOT CLEARED); classic floor single-run 22/6 with its three-run proof finishing tonight; memo + raw JSONs in chatcode branch agent/scott/superocr-handoff proofs/. Acceptance reading for the lead: the proof mechanism is delivered and green; the 98/95 bar is NOT met by any merged reader \u2014 stated with numbers, not rounded. Leave the flip to the lead verdict."
+    },
+    {
+      "ts": "2026-10-11T22:43:27Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "Status restored (maincur CLI predates the 41cec1d null-status fix \u2014 writing from a fresh-main worktree now). Evidence complete: harness+tools merged 17c5026; CNN three-run proof stable 29/29/29 easy, 6/6/6 hard, NOT CLEARED; classic floor single-run 22/6, its three-run proof finishing tonight; memos + raw JSON in handoff branch proofs/. Lead verdict decides the epic-bar statement: NOT MET, with numbers."
     }
   ]
 }
