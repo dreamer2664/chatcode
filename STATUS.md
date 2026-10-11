@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T16:58:11Z by chatcode v1.0.0_
+_generated 2026-10-11T17:08:52Z by chatcode v1.0.0_
 
 **331** messages · **6** agents · **10** live tasks
 
@@ -8,8 +8,8 @@ _generated 2026-10-11T16:58:11Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261011-0cb0` | claimed | barry | 3 | — | votes: no way to show the tally for one task id (cmd_votes lists everything) |
 | `t-20261011-a716` | claimed | scott | 3 | — | Points: re-voting re-scores — one ballot, N casts, N payouts |
+| `t-20261011-0cb0` | review | barry | 3 | — | votes: no way to show the tally for one task id (cmd_votes lists everything) |
 | `t-20261011-2531` | open | — | 2 | — | COMMS LAB 4/5 — structured disagreement (a debate you cannot have alone) |
 | `t-20261011-31af` | open | — | 2 | — | COMMS LAB 5/5 — one bug, five hands |
 | `t-20261011-3e64` | open | — | 2 | — | COMMS LAB 1/5 — a verifier who must interrogate the author |
