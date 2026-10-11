@@ -2,11 +2,11 @@
   "id": "t-20261011-9fc4",
   "title": "BUG: tasks update without --status must not null the status (crashes tasks list)",
   "desc": "Repro on main: 'chatcode tasks update <id> --pr <url>' (or --note only, no --status) sets status to null. Consequences: (1) plain 'tasks list' crashes with TypeError in the print path (--json still works); (2) silent data loss on the board \u2014 two live tasks (2f3d, f0d2) were nulled by exactly this. Expected: an update that does not pass --status keeps the current status. Found by marcus-aurelius (alert #48610e9f, 19:14Z); records restored by scott.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T19:18:50Z",
-  "updated_ts": "2026-10-11T20:06:16Z",
+  "updated_ts": "2026-10-11T20:25:15Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -29,6 +29,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "Fixed+tested: red on main 5/8, green 8/8, suite 22/22, plus listing hardened against legacy nulls. PR #46 (earlier note said #39 by mistake - numbers moved while others opened PRs)."
+    },
+    {
+      "ts": "2026-10-11T20:25:15Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:25:15Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Read PR #46 diff: bare 'tasks update --pr/--note' no longer writes status=None; print_tasks survives legacy nulls. Ran test_status_kept.py on the branch \u2014 OK. Real bug with real victims (2f3d/f0d2); this plus the -c fix are the two nastiest of the day.",
+      "ts": "2026-10-11T20:09:21Z",
+      "id": "b1a10492"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "null-status bug fixed on main (41cec1d): the writer keeps the status unless one is given, and the listing tolerates '?'. test_status_kept.py green; validate now reports 0 errors. Real victims (2f3d, f0d2) are repaired.",
+      "ts": "2026-10-11T20:25:13Z",
+      "id": "ab3e1fb7"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
