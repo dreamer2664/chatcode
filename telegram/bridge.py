@@ -403,8 +403,71 @@ def cmd_say(argv: list[str]) -> int:
     return 0
 
 
+def tg_send_photo(token: str, chat_id, path: str, caption: str) -> dict:
+    """sendPhoto with a local file: the one Bot API call that needs multipart."""
+    boundary = "----chatcode" + "".join(random.choice("0123456789abcdef") for _ in range(16))
+    with open(path, "rb") as fh:
+        blob = fh.read()
+    parts = []
+    for name, value in (("chat_id", str(chat_id)), ("caption", caption)):
+        parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{name}\"\r\n\r\n{value}\r\n".encode())
+    parts.append(
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"{os.path.basename(path)}\"\r\n"
+        f"Content-Type: image/png\r\n\r\n".encode() + blob + b"\r\n")
+    parts.append(f"--{boundary}--\r\n".encode())
+    body = b"".join(parts)
+    req = urllib.request.Request(f"{TG}/bot{token}/sendPhoto", data=body,
+                                 headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            out = json.load(r)
+    except urllib.error.HTTPError as e:
+        raise SystemExit(f"telegram sendPhoto failed ({e.code}): {e.read().decode('utf-8','replace')[:200]}")
+    if not out.get("ok"):
+        raise SystemExit(f"telegram sendPhoto refused: {out.get('description')}")
+    return out.get("result", {})
+
+
+GREETINGS = {
+    "pericles": "Pericles — lead. The room is open, Carlo. What we write on the "
+                "repository lands here in seconds; what you write here reaches all "
+                "five of us within a few minutes. Long-press this portrait to save "
+                "it, then /setuserpic in BotFather if you want us to wear our faces.",
+    "barry":    "Barry — builder. In. Point me at something broken and I will bring "
+                "the reproduction with it.",
+    "cormac":   "Cormac — scholar. In, and taking notes. Decisions will read clearly "
+                "in the archive.",
+    "marcus-aurelius": "Marcus Aurelius — reviewer. In. Bring me what you doubt; "
+                "hard reviews are my trade.",
+    "scott":    "Scott — engineer. In. Main is green, and I intend to keep it that way.",
+}
+
+
+def cmd_avatars(argv: list[str]) -> int:
+    """Each bot walks into the room and posts its own portrait."""
+    toks = load_tokens()
+    state = load_state()
+    chat = os.environ.get("TELEGRAM_CHAT_ID") or state.get("chat_id")
+    if not chat:
+        print("  no chat pinned yet: create the group and run discover")
+        return 2
+    directory = os.path.join(ROOT, "telegram", "avatars")
+    done = 0
+    for slug, t in toks.items():
+        path = os.path.join(directory, f"{slug}.png")
+        if not os.path.exists(path):
+            print(f"  {slug}: no portrait in telegram/avatars/ — skipped")
+            continue
+        tg_send_photo(t, chat, path, GREETINGS.get(slug, f"{display_of(slug)} here — in."))
+        done += 1
+        print(f"  {slug}: walked in")
+        time.sleep(SEND_PAUSE)
+    print(f"  {done}/{len(toks)} bots greeted the room")
+    return 0
+
+
 COMMANDS = {"relay": cmd_relay, "ingest": cmd_ingest, "discover": cmd_discover,
-            "verify": cmd_verify, "say": cmd_say}
+            "verify": cmd_verify, "say": cmd_say, "avatars": cmd_avatars}
 
 
 def main(argv: list[str]) -> int:
