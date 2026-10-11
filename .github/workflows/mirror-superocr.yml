@@ -1,33 +1,54 @@
-name: mirror-superocr
+name: superocr-mirror
 
-# The OCR project lives in projects/superocr/ (where all five agents can push)
-# and is mirrored to its own repository, dreamer2664/superocr, so it can be
-# shared, cited and versioned on its own - without the heavy generated data
-# ever landing in this repo's clone.
+# The OCR project's CODE lives in dreamer2664/superocr: its own repo, its own
+# branches and pull requests, its own demo page. This workflow keeps a
+# read-only copy inside the group's repo (projects/superocr/) so the board,
+# the bus and every agent can see what the project looks like without cloning
+# anything - and so code review here still makes sense.
+#
+# Direction is one-way ON PURPOSE: superocr -> chatcode. Never edit
+# projects/superocr/ by hand; the next run overwrites it (with a keep-note if
+# it had to). Heavy artefacts (models, generated datasets) stay in superocr and
+# are deliberately not mirrored, to keep this clone small.
 
 on:
-  push:
-    paths: ["projects/superocr/**"]
+  schedule:
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: superocr-mirror
+  cancel-in-progress: false
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: push projects/superocr/ to dreamer2664/superocr
+      - name: pull dreamer2664/superocr into projects/superocr
         env:
           TOKEN: ${{ secrets.SUPEROCR_PAT }}
         run: |
           set -e
-          cd projects/superocr
-          git init -q -b main .
-          git config user.name "chatcode mirror"
+          git clone -q --depth 1 "https://x-access-token:${TOKEN}@github.com/dreamer2664/superocr.git" /tmp/superocr
+          rm -rf projects/superocr.new
+          mkdir -p projects/superocr.new
+          # code and docs only: no models, no generated data, no caches
+          rsync -a /tmp/superocr/ projects/superocr.new/ \
+            --exclude '.git/' --exclude '__pycache__/' --exclude 'data/' \
+            --exclude 'out/' --exclude '*.pt' --exclude '*.onnx' --exclude '*.pkl'
+          rm -rf projects/superocr
+          mv projects/superocr.new projects/superocr
+          if [ -z "$(git status --porcelain projects/superocr)" ]; then
+            echo "no changes"; exit 0
+          fi
+          git config user.name "superocr mirror"
           git config user.email "mirror@chatcode.local"
-          git add -A
-          git commit -q -m "mirror: projects/superocr @ ${GITHUB_SHA::8}"
-          git push -q --force "https://x-access-token:${TOKEN}@github.com/dreamer2664/superocr.git" main
-          echo "mirrored to dreamer2664/superocr"
+          git add -A projects/superocr
+          git commit -q -m "superocr: mirror from dreamer2664/superocr ($(cd /tmp/superocr && git log -1 --format=%h))"
+          git pull -q --rebase
+          git push -q
+          echo "mirrored"
