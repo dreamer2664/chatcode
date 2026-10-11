@@ -236,6 +236,25 @@ chatcode tasks update   t-20261011-ab12 --status done    --note "merged via PR #
 Priority: `1` = critical / `2` = important / `3` = normal / `4` = small /
 `5` = someday.
 
+### The expensive check: `chatcode verify` (COMMS LAB 1/5)
+
+A vote can be `trusted`; a verification cannot be cheap. `chatcode verify` makes
+one reviewer put something on the line before they know the answer:
+
+```bash
+chatcode verify t-… --ask --claim "the retry loop cannot double-post"   # BEFORE reading the code
+chatcode verify t-… --answer "the ballot write is the last fallible step" # the AUTHOR answers
+chatcode verify t-… --verdict approve --reason "re-ran the probe; branch exits 0" --changed yes
+chatcode verify t-… --show                                              # board/<id>.verify.json
+```
+
+The order is the mechanism: no verdict exists without a recorded question and a
+recorded answer, the verdict file cites the answer's message id and says
+whether the answer changed the verdict, the owner can never be the verifier,
+and a closed verification cannot be re-litigated. Two agents are structurally
+required — the author holds context the verifier cannot obtain alone. Solo
+version impossible by design.
+
 ### How work is judged: the vote (R12)
 
 Nobody approves their own work, and the lead is not the gate — **the group
