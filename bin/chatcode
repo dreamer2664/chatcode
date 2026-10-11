@@ -2851,6 +2851,94 @@ def cmd_points(ctx: Ctx, args):
                 "no stored scores, nothing to game.", C_DIM))
 
 
+REP_APPROVE_RX = re.compile(r"\b(approve|approved)\b", re.I)
+REP_DENY_RX = re.compile(r"\b(deny|denied|reject|rejected|changes requested)\b", re.I)
+
+
+def compute_reputation(target: str, tasks: list[dict], archive: list[dict],
+                       msgs: list[dict]) -> dict:
+    """Reputation-as-a-protocol (t-20261011-c261): a score for `target` computed
+    ONLY from bus messages about them — review verdicts on their tasks (+2/-2),
+    peer accept-ballots on their tasks (+1), quorum acceptance announcements
+    (+5), direct asks for help (+1). Every data point cites a bus message id;
+    private opinion and bare mentions never count."""
+    owner = {}
+    for t in list(tasks) + list(archive):
+        if t.get("id") and t.get("owner"):
+            owner[t["id"]] = t["owner"]
+    rows, seen, total = [], set(), 0
+
+    def add(mid, ts, delta, why):
+        nonlocal total
+        if not mid or mid in seen:
+            return
+        seen.add(mid)
+        rows.append({"ts": ts, "id": mid, "delta": delta, "why": why})
+        total += delta
+
+    for m in msgs:
+        ref = m.get("ref") or ""
+        if ref and owner.get(ref) != target:
+            continue  # task-tied records only when the task belongs to target
+        who = m.get("from")
+        mtype = m.get("type")
+        text = m.get("text") or ""
+        if mtype == "review":
+            if not ref:
+                continue
+            if "accepted by vote" in text.lower():
+                # the CLI's own quorum announcement (auto record) — the work
+                # passing the bar, independent of the optional auto flag
+                add(m.get("id"), m.get("ts"), +5,
+                    f"accepted by quorum on {ref}")
+                continue
+            a = REP_APPROVE_RX.search(text)
+            d = REP_DENY_RX.search(text)
+            if a or d:
+                accept = bool(a and (not d or a.start() < d.start()))
+                add(m.get("id"), m.get("ts"), +2 if accept else -2,
+                    f"review verdict by {who} on {ref}: "
+                    + ("accept" if accept else "deny"))
+        elif mtype == "vote" and ref:
+            if (m.get("vote") == "accept") and who and who != target:
+                add(m.get("id"), m.get("ts"), +1,
+                    f"accept ballot by {who} on {ref}")
+        elif mtype == "say":
+            if m.get("to") == target and who and who != target:
+                if "help" in text.lower() or text.rstrip().endswith("?"):
+                    add(m.get("id"), m.get("ts"), +1, f"asked for help by {who}")
+    rows.sort(key=lambda r: (r["ts"] or "", r["id"] or ""))
+    return {"agent": target, "score": total,
+            "rules": {"review_accept": +2, "review_deny": -2, "accept_ballot": +1,
+                      "accepted_by_quorum": +5, "asked_for_help": +1},
+            "data": rows}
+
+
+def cmd_reputation(ctx: Ctx, args):
+    """Reputation for one agent, computed only from messages about them."""
+    if ctx.local:
+        msgs, tasks, _, _ = load_local_state(ctx)
+        archive = load_archive(ctx)
+    else:
+        ctx.require_token(write=False)
+        tasks = load_tasks(ctx)
+        archive = load_archive(ctx)
+        msgs = fetch_messages(ctx, channel="all", include_archive=True)
+    rep = compute_reputation(args.who, tasks, archive, msgs)
+    if args.json:
+        print(json.dumps(rep, indent=2, sort_keys=True, ensure_ascii=False))
+        return
+    print(color(f"reputation for {rep['agent']}: score {rep['score']:+d} "
+                f"({len(rep['data'])} data point(s), each a bus message id)", C_B))
+    if not rep["data"]:
+        print(color("  (no data yet — nothing about them on the bus)", C_DIM))
+        return
+    for r in rep["data"]:
+        print(f"  {r['delta']:+d}  #{r['id']}  {r['why']}")
+    print(color("  rules: +2/-2 review verdicts on their tasks · +1 accept ballots · "
+                "+5 accepted by quorum · +1 asked for help · bus messages only", C_DIM))
+
+
 def cmd_inbox(ctx: Ctx, args):
     """What happened while you were away: messages for you, humans first."""
     me = ctx.require_agent()
@@ -3428,6 +3516,13 @@ def build_parser() -> argparse.ArgumentParser:
                    help=f"minutes of silence that count as sleeping (default {SLEEP_MINUTES})")
     s.add_argument("--report", action="store_true", help="post the lead's status report")
     s.set_defaults(func=cmd_nightcheck)
+
+    s = sub.add_parser("reputation", add_help=True, parents=[common],
+                       help="reputation for one agent, computed only from bus messages "
+                            "about them — every data point is a message id")
+    s.add_argument("who", metavar="AGENT", help="whose reputation to compute")
+    s.add_argument("--json", action="store_true", help="machine-readable")
+    s.set_defaults(func=cmd_reputation, channel=None)
 
     s = sub.add_parser("quota", add_help=True, parents=[common],
                        help="how much of the shared GitHub budget is left (a free call)")
