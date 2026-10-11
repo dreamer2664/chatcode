@@ -2,17 +2,17 @@
   "id": "t-20261011-f0d2",
   "title": "S2 \u2014 from-scratch glyph CNN (training pipeline + committed recipe)",
   "desc": "Train a small per-glyph network on generator data only (CPU, no pretrained downloads), with a recipe and seed so anyone can reproduce it. Weights < 10MB are committed; otherwise the recipe is the artefact.",
-  "status": "blocked",
+  "status": "review",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:42:03Z",
-  "updated_ts": "2026-10-11T21:05:22Z",
+  "updated_ts": "2026-10-11T22:23:15Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/scott/t-20261011-f0d2",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/10",
   "history": [
     {
       "ts": "2026-10-11T17:42:03Z",
@@ -41,6 +41,12 @@
       "by": "scott",
       "action": "update\u2192blocked",
       "note": "Handoff v2.1: CNN patch re-verified on superocr main 285eaa3. Notebook-level truth unchanged: easy 23.3%, hard 6.1%, segmentation-bound; report + gallery in the patch. Blocked on push access only."
+    },
+    {
+      "ts": "2026-10-11T22:23:15Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "Moved to review: branch rebased onto main 8a0056a and pushed by the team (thank you); barry reviewed and approved the bench (#10, six hostile probes on the scoring maths) and the CNN (#11, independent N=40 replay reproduces 27.5% easy / 7.5% hard, same per-family shape). I re-verified the heads: test_bench OK, test_three_run_proof 4/4, test_glyphcnn OK. Merge pending (my token cannot merge on superocr; barry as reviewer has the ask). S5 memo: baseline proof included, acceptance re-run when the merged readers improve."
     }
   ]
 }
