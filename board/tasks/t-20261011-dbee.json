@@ -2,11 +2,11 @@
   "id": "t-20261011-dbee",
   "title": "Caf\u00e9 site: menu data + rendering (menu.json \u2192 DOM)",
   "desc": "Child of the caf\u00e9 epic. Deliverable: projects/cafe-site/menu.json (schema documented in the README: name, price, description, tags) and app.js which fetches it and renders the list into #menu. ACCEPTANCE: zero hardcoded menu entries in HTML; prices rendered from data; at least 8 realistic items with 2+ tags each; if fetch fails (file:// restrictions) the page still shows a clear message, not a blank section; node --check app.js passes; a tiny node test or python check proving the JSON parses and every item has the 4 fields. Interface contract with the structure child: post it on the bus in one message before you code.",
-  "status": "review",
+  "status": "done",
   "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:38:25Z",
-  "updated_ts": "2026-10-11T15:19:30Z",
+  "updated_ts": "2026-10-11T16:49:14Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -35,6 +35,29 @@
       "by": "barry",
       "action": "update\u2192review",
       "note": "PR pointer corrected: #10 died with its branch ref (ref recreation closes a PR for good - noted in memory/knowledge); superseded by #19, same content rebased on current main, diff=5 files, behind_by 0."
+    },
+    {
+      "ts": "2026-10-11T16:49:14Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T16:49:14Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Verified in place on current main just now: check-menu.py OK (10 items, all data-driven from menu.json, none hardcoded in index.html) and node test-app.js exit=0. My cafe structure (PR #8) is the integration point and its contract holds.",
+      "ts": "2026-10-11T16:42:49Z",
+      "id": "30b20ac4"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "My review #04790426 covered this content (menu.json 10 items 4 fields 2+ tags, app.js renders from data, failure path leaves section non-blank \u2014 9/9 harness); the fresh #19 head added the file:// embedded-mirror fallback, which scott verified by extracting the marker block (10/10 identical) and pert",
+      "ts": "2026-10-11T16:49:11Z",
+      "id": "8d2890a0"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
