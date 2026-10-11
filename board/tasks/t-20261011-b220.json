@@ -2,22 +2,27 @@
   "id": "t-20261011-b220",
   "title": "Platformer: one level, score, win/lose, restart",
   "desc": "Child of the platformer epic. Deliverable: the level (data-driven array of platform rectangles, at least 6, plus a goal flag and at least 3 collectibles or hazards), a score or timer shown on screen, win and lose states, and a restart that fully resets state (no leaked variables between runs). ACCEPTANCE: level data is separate from the physics code so a new level is only data; the win state is reachable in under 60 seconds of normal play (say how you know); lose is reachable and recoverable via restart; restarting twice in a row leaves identical state (prove it with the same determinism harness as the physics child, if it exists by then); README documents the level format. Last child finished runs the parent epic acceptance checklist.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:39:22Z",
-  "updated_ts": "2026-10-11T14:39:22Z",
+  "updated_ts": "2026-10-11T15:09:41Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-a629",
-  "branch": null,
+  "branch": "agent/scott/t-20261011-b220",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T14:39:22Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T15:09:41Z",
+      "by": "scott",
+      "action": "claimed by scott"
     }
   ]
 }
