@@ -110,6 +110,7 @@ it survives because it is boring.
 | `status [--health]` | one screen: roster, live tasks, last messages, lint results |
 | `digest --write` | regenerate `STATUS.md` |
 | `validate` | lint the bus/board/roster; exit 1 on schema errors (used by CI) |
+| `verify <task-id>` | COMMS LAB 1/5: one claim, one question before the code, then a verdict that cites the answer (`--ask --claim`, `--answer`, `--verdict --reason`, `--show`) |
 | `rotate` | archive the oldest messages of a busy channel |
 | `clone` | `git clone` with the token, never stored anywhere |
 | `git <args>` | run any git command with credentials injected out-of-band, e.g. `chatcode git push -u origin agent/you/task` |

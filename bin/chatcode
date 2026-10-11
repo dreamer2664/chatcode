@@ -96,7 +96,7 @@ PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
     "task", "claim", "done", "handoff", "review", "vote", "alert",
-    "dm", "archive",
+    "dm", "archive", "verify",
 )
 # A vote is the decision, a review is the evidence. Both are legitimate ways to
 # weigh in; votes are what the tally counts.
@@ -1488,6 +1488,17 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
                                 f"{' and '.join(parts)} (R11)")
             if m.get("to") not in parts:
                 warnings.append(f"{where}: DM has to={m.get('to')!r}, not a participant")
+        if m.get("type") == "verify":
+            # COMMS LAB 1/5 (t-20261011-3e64): a verify message is one step of
+            # ask -> answer -> verdict; a verdict is only a verdict if it names
+            # approve|deny and cites the answer it was written against.
+            if m.get("stage") not in ("ask", "answer", "verdict"):
+                errors.append(f"{where}: verify message needs stage='ask'|'answer'|'verdict'")
+            if m.get("stage") == "verdict":
+                if m.get("verdict") not in ("approve", "deny"):
+                    errors.append(f"{where}: verify verdict needs verdict='approve'|'deny'")
+                if not m.get("answer_msg_id"):
+                    errors.append(f"{where}: verify verdict must cite answer_msg_id")
         if m.get("type") == "vote" and "vote" in m:
             # a vote cast by `chatcode vote` must carry valid tally fields; a
             # free-form opinion vote ("I vote for Idea A") carries neither and is
@@ -2122,6 +2133,149 @@ def cmd_votes(ctx: Ctx, args):
         _print_tally(t, tally_votes(votes, t.get("owner")), verbose=not args.short)
     if not rows:
         print(color("(nothing under vote right now)", C_DIM))
+
+
+# --------------------------------------------------------------- verify
+# COMMS LAB 1/5 (t-20261011-3e64): a verification that costs the verifier
+# something. The order is the mechanism: ONE claim becomes ONE question, filed
+# on #task-<id> BEFORE the verifier reads the code; the author answers with the
+# context only they have; only then can the verdict be written, and it must
+# cite the answer's message id and say whether the answer changed it. The owner
+# can never be the verifier. Solo version impossible by design.
+
+VERIFY_STAGES = ("ask", "answer", "verdict")
+
+
+def verify_path(task_id: str) -> str:
+    return f"board/{task_id}.verify.json"
+
+
+def read_verify(ctx: Ctx, task_id: str):
+    """-> (doc | None, sha | None)."""
+    info = ctx.api.contents(verify_path(task_id))
+    if not info or isinstance(info, list):
+        return None, None
+    try:
+        return json.loads(base64.b64decode(info["content"]).decode("utf-8")), info["sha"]
+    except Exception:
+        die(f"{verify_path(task_id)} is corrupt")
+
+
+def write_verify(ctx: Ctx, task_id: str, doc: dict, sha: str | None, message: str):
+    for attempt in range(5):
+        try:
+            ctx.api.write_text(verify_path(task_id), json.dumps(doc, indent=2) + "\n",
+                               message, sha=sha)
+            return
+        except (Conflict, AlreadyExists):
+            info = ctx.api.contents(verify_path(task_id))
+            sha = info.get("sha") if isinstance(info, dict) else None
+            time.sleep(0.5 + random.random() + attempt * 0.3)
+    die(f"could not write {verify_path(task_id)} — concurrent writers; retry")
+
+
+def _verify_msg(ctx: Ctx, me: str, task: dict, stage: str, text: str,
+                extra: dict | None = None, to: str | None = None):
+    ch = f"task-{task['id']}"
+    msg = make_message(me, text, mtype="verify", channel=ch,
+                       to=to or task.get("owner") or "*", ref=task["id"],
+                       extra={"stage": stage, **(extra or {})})
+    append_bus(ctx, ch, [json.dumps(msg, ensure_ascii=False)],
+               f"bus({ch}): {me} verify {stage}")
+    return msg
+
+
+def cmd_verify(ctx: Ctx, args):
+    """COMMS LAB 1/5 — one claim, one question, before the code is read."""
+    if not ctx.local and not args.show:
+        ctx.require_token()
+    me = ctx.require_agent()
+    task = next((t for t in load_tasks(ctx) if t.get("id") == args.task_id), None)
+    if not task:
+        die(f"no such task: {args.task_id}")
+    doc, sha = read_verify(ctx, task["id"])
+    owner = task.get("owner")
+    channel = f"task-{task['id']}"
+
+    if args.show or not any([args.ask, args.answer, args.verdict]):
+        if not doc:
+            print(color(f"(no verification on record for {task['id']})", C_DIM))
+            return
+        print(json.dumps(doc, indent=2, ensure_ascii=False))
+        return
+
+    if args.ask:
+        if doc and doc.get("state") == "closed":
+            die(f"{task['id']} already has a closed verification (verdict "
+                f"{doc.get('verdict')}) — one round per task, no re-litigating")
+        if doc and doc.get("state") == "asked":
+            die(f"a question is already open on {task['id']} (#{doc.get('question_msg_id')}) "
+                f"— answer it before filing another")
+        if not args.claim:
+            die('--ask needs --claim "<the ONE claim this question tests>"')
+        if owner and me == owner:
+            die(f"you own {task['id']} — the point of COMMS LAB 1/5 is a verifier who is "
+                f"not the author. Ask someone else.")
+        if me in {h.get("by") for h in (task.get("history") or [])} - {None}:
+            die(f"you already touched {task['id']} (board history) — verification goes to "
+                f"someone with no hand in it")
+        doc = {"task": task["id"], "verifier": me, "claim": args.claim,
+               "asked_ts": now_iso(), "state": "asked"}
+        msg = _verify_msg(ctx, me, task, "ask",
+                          f"VERIFY — one claim, and I have not read the code yet: {args.claim}\n"
+                          f"@{owner or 'author'}: does it hold? One reply, please.",
+                          extra={"claim": args.claim})
+        doc["question_msg_id"] = msg["id"]
+        write_verify(ctx, task["id"], doc, None, f"verify: {task['id']} question by {me}")
+        print(f"{color('✓', C_G)} question filed on #{channel} (#{msg['id']}) — "
+              f"state=asked")
+        print(color("  next: the author answers; only then can a verdict be written", C_DIM))
+        return
+
+    if args.answer:
+        if not doc or doc.get("state") != "asked":
+            die(f"no open question on {task['id']} — a question comes first "
+                f"(verify {task['id']} --ask --claim …)")
+        if me == doc.get("verifier"):
+            die("the verifier cannot answer their own question — that is what makes it a check")
+        if owner and me != owner:
+            die(f"the answer must come from the author ({owner}, who holds the context) — "
+                f"a third party answering defeats the point")
+        doc = dict(doc)
+        doc.update({"state": "answered", "answerer": me, "answered_ts": now_iso()})
+        msg = _verify_msg(ctx, me, task, "answer", args.answer, to=doc.get("verifier"))
+        doc["answer_msg_id"] = msg["id"]
+        write_verify(ctx, task["id"], doc, sha, f"verify: {task['id']} answer by {me}")
+        print(f"{color('✓', C_G)} answer recorded (#{msg['id']}) — state=answered, "
+              f"the verifier decides now")
+        return
+
+    # verdict
+    if not doc or doc.get("state") != "answered":
+        die(f"no answer on record for {task['id']} — a verdict before the answer is not "
+            f"a verification")
+    if me != doc.get("verifier"):
+        die(f"only the verifier ({doc.get('verifier')}) writes the verdict")
+    if not args.reason:
+        die('--verdict needs --reason "<what you actually checked>"')
+    changed = args.changed == "yes"
+    msg = _verify_msg(ctx, me, task, "verdict",
+                      f"VERDICT {args.verdict}: {args.reason}\n"
+                      f"cites answer #{doc.get('answer_msg_id')} · answer changed the "
+                      f"verdict: {'yes' if changed else 'no'}",
+                      extra={"verdict": args.verdict, "answer_msg_id": doc.get("answer_msg_id"),
+                             "changed": changed})
+    doc = dict(doc)
+    doc.update({"state": "closed", "verdict": args.verdict, "reason": args.reason,
+                "changed_verdict": changed, "verdict_msg_id": msg["id"],
+                "closed_ts": now_iso()})
+    write_verify(ctx, task["id"], doc, sha, f"verify: {task['id']} verdict {args.verdict} by {me}")
+    update_task(ctx, task["id"],
+                lambda t: (t, f"verify {args.verdict} by {me} "
+                              f"(answer #{doc.get('answer_msg_id')}, changed={changed})"))
+    print(f"{color('✓', C_G)} verdict {args.verdict} filed (#{msg['id']}) — cites answer "
+          f"#{doc.get('answer_msg_id')}, changed_verdict={str(changed).lower()}")
+    print(color(f"  record: {verify_path(task['id'])} (state=closed)", C_DIM))
 
 
 def cmd_archive(ctx: Ctx, args):
@@ -2772,6 +2926,20 @@ def build_parser() -> argparse.ArgumentParser:
                        help="every task under vote, with tallies")
     s.add_argument("--short", action="store_true", help="tallies only")
     s.set_defaults(func=cmd_votes)
+
+    s = sub.add_parser("verify", add_help=True, parents=[common],
+                       help="COMMS LAB 1/5: one claim, one question, then the verdict")
+    s.add_argument("task_id", help="the task being verified")
+    s.add_argument("--claim", help="the ONE claim the question tests (with --ask)")
+    s.add_argument("--ask", action="store_true",
+                   help="file the question BEFORE reading the code")
+    s.add_argument("--answer", metavar="TEXT", help="the author's answer (owner only)")
+    s.add_argument("--verdict", choices=["approve", "deny"], help="close with a verdict")
+    s.add_argument("--reason", default="", help="what you actually checked (with --verdict)")
+    s.add_argument("--changed", choices=["yes", "no"], default="no",
+                   help="did the answer change the verdict?")
+    s.add_argument("--show", action="store_true", help="print board/<id>.verify.json")
+    s.set_defaults(func=cmd_verify)
 
     s = sub.add_parser("archive", add_help=True, parents=[common],
                        help="denied work: what was rejected, by whom, and why")
