@@ -114,22 +114,6 @@ NAME_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{1,31}$")
 TASK_ID_RE = re.compile(r"^t-\d{8}-[0-9a-f]{4}$")
 CHANNEL_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,31}$")
 
-
-def check_channel(name: str, where: str = "-c/--channel") -> str:
-    """Reject a channel name that is not a plain bus file name.
-
-    Without this, `-c ../../x` walks out of the checkout: locally it writes
-    (or reads) outside the repo root, and against the API GitHub normalises
-    `bus/../x.jsonl` to `x.jsonl`, so the write "succeeds" and the message is
-    invisible to every read and to validate. CHANNEL_RE existed but nothing
-    called it.
-    """
-    if not name or not CHANNEL_RE.match(name):
-        die(f"invalid channel name {name!r} ({where}): use 1-32 characters of "
-            "[a-z0-9_-], starting with a letter or digit (e.g. general, dev, "
-            "task-t-20261011-d72a)")
-    return name
-
 C_DIM = "\033[2m"
 C_B = "\033[1m"
 C_G = "\033[32m"
@@ -238,9 +222,6 @@ class Ctx:
             or os.environ.get("GITHUB_TOKEN")
             or None
         )
-        # user-supplied channels are validated once, here, so every command
-        # inherits the check (R10: no data layout change, just a guard)
-        check_channel(self.channel, "-c/--channel, CHATCODE_CHANNEL or config")
         self.local = getattr(args, "local", None)
         self.dry_run = bool(getattr(args, "dry_run", False))
         if self.agent and not NAME_RE.match(self.agent):
@@ -625,11 +606,37 @@ def write_text_retry(api, path: str, text: str, message: str,
         f"(the branch moved under us every time — retry in a moment): {last}")
 
 
+def display_of(slug: str) -> str:
+    """How a slug is shown to humans: the display name we know locally, else a
+    prettified slug ('marcus-aurelius' -> 'Marcus Aurelius')."""
+    slug = slug or "?"
+    cfg = load_config()
+    if cfg.get("agent") == slug and cfg.get("display"):
+        return cfg["display"]
+    return " ".join(w.capitalize() for w in re.split(r"[-_.]+", slug) if w)
+
+
+def strip_own_name(text: str, slug: str) -> str:
+    """Display helper: hide the leading 'Name: ' the sender's tool wrote, on the
+    screens that already show the author (never in the raw file or JSON output)."""
+    name = display_of(slug)
+    return re.sub(rf"^\s*{re.escape(name)}\s*[:\u2014-]\s*", "", text or "",
+                  count=1, flags=re.I)
+
+
 def make_message(author: str, text: str, mtype: str = "say", channel: str = DEFAULT_CHANNEL,
                  to: str = "*", ref: str | None = None, reply: str | None = None,
                  extra: dict | None = None) -> dict:
     if mtype not in MESSAGE_TYPES:
         die(f"unknown message type {mtype!r}; allowed: {', '.join(MESSAGE_TYPES)}")
+    # Your name opens your message, written by the tool, never typed by hand.
+    # It means a message carries its author everywhere it travels - Telegram, a
+    # digest, a copy-paste into another chat - even where the metadata is lost.
+    # Screens that already show the author hide the repeat (strip_own_name).
+    name = display_of(author)
+    if name and name != "?" and not re.match(
+            rf"^\s*{re.escape(name)}\s*[:\u2014-]\s", text or "", re.I):
+        text = f"{name}: {text}"
     if len(text) > MAX_TEXT:
         warn(f"message is {len(text)} chars, truncating to {MAX_TEXT} "
              "(put long content in a file and reference it instead)")
@@ -650,8 +657,7 @@ def make_message(author: str, text: str, mtype: str = "say", channel: str = DEFA
 
 
 def bus_path(channel: str) -> str:
-    # every bus path in this file is built here, so the check lives here too
-    return f"{BUS_DIR}/{check_channel(channel, 'channel for bus_path')}.jsonl"
+    return f"{BUS_DIR}/{channel}.jsonl"
 
 
 def parse_jsonl(text: str, channel: str) -> list[dict]:
@@ -789,7 +795,8 @@ def print_messages(msgs: list[dict], as_json: bool = False, as_jsonl: bool = Fal
             head += color(f" → {m['to']}", C_DIM)
         head += color(f"  #{m.get('id', '????')}", C_DIM)
         print(head)
-        for line in (m.get("text") or "").splitlines() or [""]:
+        body = strip_own_name(m.get("text") or "", m.get("from", ""))
+        for line in body.splitlines() or [""]:
             print(f"    {line}")
         meta = []
         if m.get("ref"):
@@ -1143,7 +1150,7 @@ def collect_votes(messages: list[dict], task_id: str) -> dict[str, dict]:
         votes[who] = {
             "vote": m.get("vote"),
             "inspected": bool(m.get("inspected")),
-            "reason": (m.get("reason") or m.get("text") or "")[:300],
+            "reason": strip_own_name(m.get("reason") or m.get("text") or "", who)[:300],
             "ts": m.get("ts"),
             "id": m.get("id"),
         }
@@ -1456,7 +1463,7 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict],
     L.append("## Last messages")
     L.append("")
     for m in messages[-25:]:
-        text = (m.get("text") or "").replace("\n", " ")
+        text = strip_own_name(m.get("text") or "", m.get("from", "")).replace("\n", " ")
         if len(text) > 220:
             text = text[:217] + "…"
         L.append(f"- `{(m.get('ts') or '')[11:16]}` **{m.get('from')}** "
@@ -1527,6 +1534,9 @@ def cmd_init(ctx: Ctx, args):
     changed = {}
     if cfg.get("agent") != me:
         changed["agent"] = me
+    disp = getattr(args, "display", None) or display_of(me)
+    if cfg.get("display") != disp:
+        changed["display"] = disp
     if not ctx.local and cfg.get("repo") != ctx.repo:
         changed["repo"] = ctx.repo
     if changed:
@@ -1590,8 +1600,8 @@ def rotate_channel(ctx: Ctx, channel: str):
 
 
 def cmd_rotate(ctx: Ctx, args):
-    chans = ([check_channel(args.channel)] if args.channel else [
-        e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR) if e["name"].endswith(".jsonl")])
+    chans = [args.channel] if args.channel else [
+        e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR) if e["name"].endswith(".jsonl")]
     for ch in chans:
         rotate_channel(ctx, ch)
     print("done")

@@ -212,7 +212,7 @@
      - the tab stops asking while it is hidden
    Never replace the If-None-Match path with request headers like Cache-Control:
    that breaks CORS. See apiGET below. */
-const DASH_VERSION = "7";              // bump on every change; shown in the header
+const DASH_VERSION = "8";              // bump on every change; shown in the header
 const HUMAN_CHANNEL = "human-carlo";   // Carlo's own bus channel: nothing else writes here
 const REPO   = "dreamer2664/chatcode";
 const BRANCH = "main";
@@ -242,6 +242,26 @@ function quotaLine(){
 }
 
 function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+/* The tool writes the author's name at the start of every bus message ("Barry:
+   fixed the bug") so it survives any copy, forward or relay. Screens that already
+   show the author - like this one - hide the repeat. See bin/chatcode/display_of. */
+function dispName(slug){
+  const a = (state.agents || []).find(x => x.name === slug);
+  if(a && a.display) return a.display;
+  return String(slug || "?").split(/[-_.]+/).filter(Boolean)
+    .map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
+}
+function stripOwn(m){
+  const t = String(m.text || "");
+  const n = dispName(m.from);
+  if(!n) return t;
+  const low = t.toLowerCase();
+  for(const sep of [":", " —", " –", " -"]){
+    const p = (n + sep).toLowerCase();
+    if(low.startsWith(p)) return t.slice(p.length).replace(/^\s+/, "");
+  }
+  return t;
+}
 function ago(iso){
   if(!iso) return "—";
   const t = Date.parse(iso); if(isNaN(t)) return iso;
@@ -550,7 +570,7 @@ function render(){
     return `<div class="msg ${human?'human':''}">
       <div class="ts">${t}<div class="meta">#${esc(m._ch||"")}</div></div>
       <div><span class="who ${human?'human':''}">${esc(m.from)}</span><span class="ty">${esc(m.type||"say")}${m.to && m.to!=="*" ? " → "+esc(m.to) : ""}</span>
-        <div class="txt">${esc(m.text)}</div>
+        <div class="txt">${esc(stripOwn(m))}</div>
         ${(m.ref||m.reply) ? `<div class="meta">${m.ref?"about <code>"+esc(m.ref)+"</code>":""} ${m.reply?"· reply to <code>"+esc(m.reply)+"</code>":""}</div>` : ""}
       </div></div>`;
   }).join("") : `<div class="empty">no messages match this filter</div>`;

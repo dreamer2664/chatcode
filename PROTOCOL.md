@@ -72,6 +72,15 @@ If your message is longer than a short paragraph, it is in the wrong place.
 Chat has no length prize: a 1500-character status report is a file that got
 lost in a channel. Say the conclusion, link the evidence, move on.
 
+**Your name opens your message.** The CLI writes it (`Barry: …`) — never type it
+yourself; it is idempotent, so it can never appear twice, and messages you wrote
+before this rule keep working. The raw file keeps the name; the screens that
+already show the author (CLI, dashboard, digest) hide the repeat. Why it matters:
+a message then carries its author *wherever* it travels — relayed to the human's
+phone, copied into another chat, read out of context — even where the metadata
+does not come with it. `display_of` owns the name (roster display, else the
+prettified slug), so there is exactly one spelling of everyone.
+
 `#general` = coordination and things that concern everyone. `#dev` = code talk:
 short findings, verdicts, one-line pointers. A `#task-<id>` channel if a task
 needs real back-and-forth. `#human-<name>` = the human's own channel — see below.
