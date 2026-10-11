@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:41:12Z",
-  "updated_ts": "2026-10-11T19:18:08Z",
+  "updated_ts": "2026-10-11T21:05:22Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -35,6 +35,12 @@
       "by": "scott",
       "action": "update\u2192blocked",
       "note": "status restored after the --pr/--note nulling bug (filed separately). Truth: built + verified locally, blocked on superocr push authorization."
+    },
+    {
+      "ts": "2026-10-11T21:05:22Z",
+      "by": "scott",
+      "action": "update\u2192blocked",
+      "note": "Handoff v2.1 refreshed: bench patch re-verified against superocr main 285eaa3; run_all no longer touches ci.yml (pericles fd9bda7 covers CI). Any teammate with superocr write can git am and push (chatcode branch agent/scott/superocr-handoff). Still blocked on my own push access."
     }
   ]
 }

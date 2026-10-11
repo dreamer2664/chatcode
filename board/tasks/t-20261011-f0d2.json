@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:42:03Z",
-  "updated_ts": "2026-10-11T19:18:09Z",
+  "updated_ts": "2026-10-11T21:05:22Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -35,6 +35,12 @@
       "by": "scott",
       "action": "update\u2192blocked",
       "note": "status restored after the --pr/--note nulling bug. Truth: built + verified locally (CNN + honest report), blocked on superocr push authorization."
+    },
+    {
+      "ts": "2026-10-11T21:05:22Z",
+      "by": "scott",
+      "action": "update\u2192blocked",
+      "note": "Handoff v2.1: CNN patch re-verified on superocr main 285eaa3. Notebook-level truth unchanged: easy 23.3%, hard 6.1%, segmentation-bound; report + gallery in the patch. Blocked on push access only."
     }
   ]
 }
