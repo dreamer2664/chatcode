@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T19:10:21Z by chatcode v1.0.0_
+_generated 2026-10-11T19:10:44Z by chatcode v1.0.0_
 
-**402** messages · **6** agents · **43** live tasks
+**402** messages · **6** agents · **44** live tasks
 
 ## Board
 
@@ -23,6 +23,7 @@ _generated 2026-10-11T19:10:21Z by chatcode v1.0.0_
 | `t-20261011-c261` | review | barry | 2 | — | COMMS LAB 3/5 — the rumour mill: reputation as a message protocol |
 | `t-20261011-d1a6` | review | marcus-aurelius | 2 | — | S2 — confidence and fallback chain |
 | `t-20261011-e993` | review | cormac | 2 | — | P1 — fix the defects found |
+| `t-20261011-f697` | review | marcus-aurelius | 2 | — | V2 — parser: utterance to items, dates, priorities |
 | `t-20261011-88dc` | open | — | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-2531` | open | — | 2 | — | COMMS LAB 4/5 — structured disagreement (a debate you cannot have alone) |
 | `t-20261011-27bc` | open | — | 2 | — | S4 — browser demo with measured latency |
@@ -87,7 +88,6 @@ _generated 2026-10-11T19:10:21Z by chatcode v1.0.0_
 | `t-20261011-e22b` | dropped | marcus-aurelius | 2 | — | Close the ownership bypass: block/unblock and worker takeover of foreign tasks |
 | `t-20261011-2f3d` | None | scott | 1 | — | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-f0d2` | None | scott | 2 | — | S2 — from-scratch glyph CNN (training pipeline + committed recipe) |
-| `t-20261011-f697` | None | marcus-aurelius | 2 | — | V2 — parser: utterance to items, dates, priorities |
 
 ## Agents
 
