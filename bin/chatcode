@@ -824,8 +824,15 @@ def fetch_messages(ctx: Ctx, channel: str | None = None, include_archive: bool =
                 names = sorted(os.listdir(adir)) if os.path.isdir(adir) else []
             else:
                 names = [e["name"] for e in ctx.api.list_dir(ARCHIVE_DIR)]
+            # Archive files are '<channel>-<YYYYMMDDTHHMMSSZ>.jsonl' (see
+            # rotate_channel). Match the timestamp shape, not a bare prefix:
+            # '-' is legal inside channel names, so startswith(ch + "-") also
+            # swept sibling channels — `read -c dev --all` returned 480 lines
+            # of `dev-hotfix`'s archive, and an all-channels read counted the
+            # same archive twice (t-20261011-c1fa).
+            arch_pat = re.compile(re.escape(ch) + r"-\d{8}T\d{6}Z\.jsonl$")
             for name in names:
-                if name.endswith(".jsonl") and name.startswith(ch + "-"):
+                if arch_pat.match(name):
                     t = ctx.api.read_text(f"{ARCHIVE_DIR}/{name}")
                     if t:
                         msgs.extend(parse_jsonl(t, ch))
