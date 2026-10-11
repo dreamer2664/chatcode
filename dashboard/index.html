@@ -90,6 +90,8 @@
   .child{padding-left:18px;position:relative}
   .child:before{content:"↳";position:absolute;left:4px;color:var(--dim)}
   .rank1{color:var(--gold);font-weight:700}
+  .vote{border:1px solid currentColor;border-radius:6px;padding:0 5px;font-size:11px}
+  .vote.yes{color:var(--ok)} .vote.no{color:var(--bad)} .vote.pending{color:var(--dim)}
 </style>
 </head>
 <body>
@@ -167,6 +169,11 @@
     </section>
 
     <section>
+      <h2>Votes &amp; archive</h2>
+      <div id="votepanel"></div>
+    </section>
+
+    <section>
       <h2>Bus — what the agents are saying</h2>
       <div class="filters" id="filters">
         <button data-ch="all" class="on">all channels</button>
@@ -175,6 +182,7 @@
         <button data-f="task">tasks</button>
         <button data-f="review">reviews</button>
         <button data-f="carlo">from Carlo</button>
+        <button data-f="dm">DMs</button>
       </div>
       <div class="feed" id="feed"><div class="empty">loading…</div></div>
     </section>
@@ -189,7 +197,7 @@
    minutes (anonymous GitHub limit is 60 calls/hour).
    With a token: everything fresh every 20 seconds, and the composer unlocks so
    you can speak to the group as carlo. The token stays in this browser only. */
-const DASH_VERSION = "5";              // bump on every change; shown in the header
+const DASH_VERSION = "6";              // bump on every change; shown in the header
 const HUMAN_CHANNEL = "human-carlo";   // Carlo's own bus channel: nothing else writes here
 const REPO   = "dreamer2664/chatcode";
 const BRANCH = "main";
@@ -330,6 +338,7 @@ async function load(){
   const paths = tree.tree.filter(t => t.type === "blob").map(t => t.path);
   const busFiles   = paths.filter(p => p.startsWith("bus/") && p.endsWith(".jsonl"));
   const taskFiles  = paths.filter(p => p.startsWith("board/tasks/") && p.endsWith(".json"));
+  const archiveFiles = paths.filter(p => p.startsWith("board/archive/") && p.endsWith(".json"));
   const agentFiles = paths.filter(p => p.startsWith("agents/") && p.endsWith(".json"));
 
   const msgs = [];
@@ -363,12 +372,19 @@ async function load(){
   }
   agents.sort((a,b) => String(a.name||"").localeCompare(String(b.name||"")));
 
+  const archived = [];
+  for(const p of archiveFiles){
+    const t = await getFile(p, !!token);
+    if(t){ try{ archived.push(JSON.parse(t)); }catch(e){} }
+  }
+  archived.sort((a,b) => String(a.denied_ts||"").localeCompare(String(b.denied_ts||"")));
+
   const memory = {};
   for(const key of MEMORY_FILES){
     memory[key] = await getFile(`memory/${key.toUpperCase()}.md`, !!token);
   }
 
-  state = Object.assign(state, {msgs, tasks, agents, memory});
+  state = Object.assign(state, {msgs, tasks, agents, memory, archived});
   render();
   const every = token ? FAST_MS : SLOW_MS;
   $("liveInfo").textContent = (token
@@ -387,6 +403,24 @@ function scheduleBackoff(msg){
   $("liveInfo").textContent = "paused";
   clearTimeout(timer);
   timer = setTimeout(load, wait);
+}
+
+function votesFor(taskId){
+  const votes = {};
+  for(const m of state.msgs){
+    if(m.type === "vote" && m.ref === taskId) votes[m.from] = m;
+  }
+  return votes;
+}
+function tally(taskId, owner){
+  const v = votesFor(taskId);
+  const voters = Object.entries(v).filter(([who]) => who !== owner);
+  const acc = voters.filter(([,x]) => x.vote === "accept").length;
+  const den = voters.filter(([,x]) => x.vote === "deny").length;
+  const insp = voters.filter(([,x]) => x.inspected).length;
+  const quorum = voters.length >= 2;
+  const verdict = !quorum ? "pending" : (acc > den ? "accept" : den > acc ? "deny" : "tie");
+  return {acc, den, insp, trusted: voters.length - insp, n: voters.length, quorum, verdict, voters};
 }
 
 function leaderboard(){
@@ -430,12 +464,16 @@ function render(){
   const ids = new Set(tasks.map(t => t.id));
   const kids = {};
   for(const t of tasks){ if(t.parent && ids.has(t.parent)) (kids[t.parent] ||= []).push(t); }
-  const taskRow = (t, child) => `<tr class="${child?'childrow':''}">
+  const taskRow = (t, child) => {
+    const tl = tally(t.id, t.owner);
+    const chip = tl.n ? `<div class="meta">${tl.acc}✓ ${tl.den}✗ <span class="vote${tl.verdict==='deny'?' no':tl.verdict==='accept'?' yes':''}">${tl.verdict}</span> (${tl.n} vote${tl.n===1?"":"s"}, ${tl.insp} inspected)</div>` : "";
+    return `<tr class="${child?'childrow':''}">
       <td class="${child?'child':''}"><span class="pill ${esc(t.status)}">${esc(t.status)}</span>
         <div class="meta" style="margin-top:4px">${esc(t.title||"")}</div>
         <div class="meta"><code>${esc(t.id)}</code>${t.pr ? ' · <a href="'+esc(t.pr)+'">PR</a>' : ""}
-        ${kids[t.id] ? ` · ${kids[t.id].length} children` : ""}</div></td>
+        ${kids[t.id] ? ` · ${kids[t.id].length} children` : ""}</div>${chip}</td>
       <td>${t.owner ? esc(t.owner) : "—"}</td><td>${esc(String(t.priority ?? 3))}</td></tr>`;
+  };
   $("board").innerHTML = tasks.length
     ? tasks.filter(t => !t.parent || !ids.has(t.parent))
            .map(t => taskRow(t,false) + (kids[t.id]||[]).map(k => taskRow(k,true)).join("")).join("")
@@ -444,7 +482,8 @@ function render(){
   let shown = msgs;
   if(state.filterCh === "carlo"){ shown = shown.filter(m => m.from === "carlo"); }
   else if(state.filterCh !== "all"){ shown = shown.filter(m => m._ch === state.filterCh); }
-  if(state.filterTy) shown = shown.filter(m => m.type === state.filterTy);
+  if(state.filterTy === "dm") shown = shown.filter(m => String(m._ch||"").startsWith("dm-"));
+  else if(state.filterTy) shown = shown.filter(m => m.type === state.filterTy);
   shown = shown.slice(-150).reverse();
   $("feed").innerHTML = shown.length ? shown.map(m => {
     const t = String(m.ts||"").slice(11,16) || "—";
@@ -457,6 +496,7 @@ function render(){
       </div></div>`;
   }).join("") : `<div class="empty">no messages match this filter</div>`;
 
+  renderVotes();
   renderMemory();
 }
 
@@ -496,6 +536,45 @@ $("memtabs").addEventListener("click", e => {
   memFile = b.dataset.file;
   renderMemory();
 });
+
+function renderVotes(){
+  const underReview = state.tasks.filter(t => t.status === "review" || votesFor(t.id) && t.status !== "done");
+  const rows = [];
+  for(const t of underReview){
+    const tl = tally(t.id, t.owner);
+    if(!tl.n) continue;
+    const detail = tl.voters.map(([who,x]) =>
+      `<div class="meta">${x.vote === "accept" ? "✓" : "✗"} ${esc(who)} ` +
+      `<b>${esc(x.vote)}</b> (${x.inspected ? "inspected" : "trusted"})` +
+      (x.reason ? ` — ${esc(x.reason)}` : "") + `</div>`).join("");
+    rows.push(`<div style="padding:6px 0;border-top:1px solid var(--line)">
+      <div><span class="pill ${esc(t.status)}">${esc(t.status)}</span>
+        <b>${esc(t.title||"")}</b> <code>${esc(t.id)}</code></div>
+      <div class="meta">${tl.acc} accept / ${tl.den} deny · ${tl.insp} inspected · ${tl.trusted} trusted
+        · quorum ${tl.quorum ? "met" : "needs " + (2 - tl.n) + " more"} ·
+        <span class="vote${tl.verdict==='deny'?' no':tl.verdict==='accept'?' yes':''}">${tl.verdict}</span></div>
+      ${detail}</div>`);
+  }
+  const arch = (state.archived || []).slice().reverse().map(t => {
+    const v = t.votes || {};
+    const acc = Object.values(v).filter(x => x.vote === "accept").length;
+    const den = Object.values(v).filter(x => x.vote === "deny").length;
+    const why = Object.entries(v).filter(([,x]) => x.vote === "deny")
+      .map(([who,x]) => `✗ ${esc(who)}: ${esc(x.reason || "(no reason)")}`).join("<br>");
+    return `<div style="padding:6px 0;border-top:1px solid var(--line)">
+      <div><span class="pill dropped">denied</span> <b>${esc(t.title||"")}</b>
+        <code>${esc(t.id)}</code></div>
+      <div class="meta">${acc}✓ ${den}✗ · owner ${esc(t.owner||"—")} ·
+        ${esc((t.denied_ts||"").slice(0,16))} ${t.pr ? `· <a href="${esc(t.pr)}">PR</a>` : ""}</div>
+      ${why ? `<div class="meta">${why}</div>` : ""}
+      <div class="meta">archived — the human reviews this with the lead; nothing deleted</div></div>`;
+  }).join("");
+  $("votepanel").innerHTML =
+    (rows.length ? rows.join("") : `<div class="empty">nothing under vote right now</div>`) +
+    (arch ? `<div style="margin-top:12px"><b style="font-size:12px;color:var(--dim)">
+        ARCHIVE — denied by vote (${(state.archived||[]).length})</b>${arch}</div>`
+          : `<div class="meta" style="margin-top:10px">archive is empty — nobody has been denied yet</div>`);
+}
 $("filters").addEventListener("click", e => {
   const b = e.target.closest("button"); if(!b) return;
   if(b.dataset.ch){ state.filterCh = b.dataset.ch; state.filterTy = null; }

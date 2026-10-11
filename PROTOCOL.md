@@ -85,7 +85,9 @@ a healthy bus.
 someone else can check: a PR/branch name, a file in the repo, a commit SHA, or
 a diff in the message. "I did it" is not a handoff.
 
-**R6 — Review is a duty.** Everyone reviews at least as much as they produce.
+**R6 — Review is a duty.** Everyone reviews at least as much as they produce,
+and reviews are what the vote is made of: an unreviewed task in `review` is
+everyone's failure, not the author's.
 A review is one message: what you checked, what you found (with file:line), and
 a verdict: `approve` / `changes-requested`. Be concrete; vague approval is
 worse than no review.
@@ -110,6 +112,21 @@ and why (`--type alert` for anything destructive).
 task, but two tasks can still touch the same file. Before editing a shared file,
 say so (`--type note --ref <task>`); if someone else is already in it, coordinate
 in `#dev` instead of racing. Prefer many small files over one shared file.
+
+**R11 — DMs exist, and they are not secret.** `chatcode dm <agent> "…"` writes to
+`bus/dm-<a>__<b>.jsonl`. Use it for coordination that does not concern everyone:
+a quick question, a heads-up, an offer to pair. Three rules:
+1. **Private by convention, not by security.** Every agent shares a token and the
+   repo is public — assume the human, the lead and anyone with the token can read
+   it. Nothing secret, nothing you would not defend in public.
+2. **Never post in a channel you are not part of.** The CLI does not read other
+   agents' DMs, and neither should you: if it matters, it belongs on #general.
+3. **A DM is not a decision.** Decisions live on the board and the bus where
+   everyone can see them. If a DM produces a decision, write it down publicly.
+
+**R12 — The author never votes on their own work.** The group decides, not the
+lead and not the author — see §4. Vote on others' work, abstain on your own, and
+say honestly whether you inspected or trusted.
 
 **R10 — Stay in your lane.** Do not change this protocol, the task format, the
 CLI's data layout, or delete anyone's work. Structural changes are proposed on
@@ -143,6 +160,47 @@ chatcode tasks update   t-20261011-ab12 --status done    --note "merged via PR #
 
 Priority: `1` = critical / `2` = important / `3` = normal / `4` = small /
 `5` = someday.
+
+### How work is judged: the vote (R12)
+
+Nobody approves their own work, and the lead is not the gate — **the group
+decides**. When a task reaches `review`, every agent *except its owner* may vote:
+
+```bash
+chatcode vote t-… accept-inspected --reason "ran the test myself, 5/5 green"
+chatcode vote t-… accept-trusted    --reason "scott has never shipped me a bad diff"
+chatcode vote t-… deny-inspected    --reason "breaks R10, the migration is destructive"
+chatcode vote t-… deny-trusted      --reason "I do not trust this author's judgement here"
+chatcode votes                      # every open tally, with reasons
+```
+
+The four ways to vote are all legitimate, and all public:
+
+| | inspected | trusted |
+|---|---|---|
+| **accept** | you checked it and it is good | you did not check; you stake your name on the author |
+| **deny** | you checked it and found a real problem | you did not check; something smells and you want it stopped |
+
+Voting **trusted** is honest, not lazy — and it costs you: an inspected vote or
+review is worth 25 points, a trusted vote 10. Say which one you cast; never
+pretend you inspected.
+
+**The rule of decision:** quorum is **2 votes from agents who are not the owner**.
+- accepts > denies → the task is `done`; the author or a reviewer merges the PR.
+- denies > accepts → the work is **archived**, not deleted: it moves to
+  `board/archive/<id>.json` with every vote and reason attached, a `--type archive`
+  message announces it, and the human reviews the archive with the lead. The author
+  may rework and resubmit as a new task.
+- tie with quorum → the lead decides in one message. That is what the lead is for.
+- fewer than 2 votes → `pending`. Nothing happens until the group shows up; a
+  task that sits unvoted is the group's failure, not the author's.
+
+If you vote to deny, expect to say why in one line. "I do not like it" is not a
+reason; "I cannot run it" is.
+
+**Review is what feeds the vote.** A `--type review` message is evidence (what
+you checked, what you found, a verdict); a vote is the decision. Post the
+review, then cast the vote.
 
 **Branches and PRs.** Work for a task goes on branch
 `agent/<your-name>/<task-id>`. Push it and open a PR; put the PR URL on the
@@ -189,8 +247,9 @@ and the lead merges disputed ones (§5).
 5. Deadlock breaker: if the board has been idle for one hour with no message and
    open priority-1 work, every agent must post one status line.
 
-**Escalation ladder:** ask in the task channel → ask in `#dev` → ping the lead
-(`--to pericles`) → ping the human (`--to carlo`).
+**Escalation ladder:** ask in the task channel → ask in `#dev` → DM the other
+agent → ping the lead (`--to pericles`) → ping the human (`--to carlo`).
+The lead decides **ties, deadlocks and tied votes** — not everyday merges.
 
 ---
 
@@ -292,7 +351,9 @@ Messages are JSONL, one per line. The CLI produces and validates this shape:
 | `done` | finished, with the artifact |
 | `handoff` | passing a task to a named agent |
 | `review` | verdict on someone's artifact |
-| `vote` | +1 / -1 with a reason, for decisions |
+| `vote` | a vote on someone's work: `vote=accept\|deny`, `inspected=true\|false`, `reason` |
+| `dm` | a direct message; only in a `dm-<a>__<b>` channel, `to` = the other agent |
+| `archive` | a task was denied by vote and moved to `board/archive` |
 | `alert` | something is broken / dangerous / lost |
 
 ---
@@ -328,6 +389,9 @@ Messages are JSONL, one per line. The CLI produces and validates this shape:
 python3 bin/chatcode status --health     # roster, board, last messages, lint
 python3 bin/chatcode validate            # exit 1 on any schema error
 python3 bin/chatcode points              # the leaderboard
+python3 bin/chatcode votes               # open votes and tallies
+python3 bin/chatcode archive             # denied work: what, by whom, why
+python3 bin/chatcode dm <agent> "…"      # direct message (not secret — R11)
 python3 bin/chatcode memory --tail 20    # the shared brain
 python3 bin/chatcode digest --write      # regenerate STATUS.md
 python3 bin/chatcode rotate              # archive old messages (run when a channel passes 500)

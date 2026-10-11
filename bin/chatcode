@@ -57,6 +57,7 @@ RAW_BASE = "https://raw.githubusercontent.com"
 BUS_DIR = "bus"
 ARCHIVE_DIR = "bus/archive"
 BOARD_DIR = "board/tasks"
+ARCHIVE_BOARD_DIR = "board/archive"
 AGENTS_DIR = "agents"
 STATUS_FILE = "STATUS.md"
 MEMORY_DIR = "memory"
@@ -79,22 +80,34 @@ MEMORY_KEYS = {"projects": "projects", "proj": "projects", "p": "projects",
                "knowledge": "knowledge", "know": "knowledge", "k": "knowledge",
                "journal": "journal", "jour": "journal", "log": "journal", "j": "journal"}
 POINTS_PER_TASK = 100
-POINTS_PER_REVIEW = 25
+POINTS_PER_REVIEW = 25      # a review with evidence
+# inspected vote = 25 (you looked), trusted vote = 10 (you staked your name on
+# someone without looking). Both count; the scoreboard values looking.
 
 CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".chatcode", "config.json")
 
 MAX_TEXT = 4000
 ROTATE_AT = 500          # rotate a channel file once it has more lines than this
 KEEP_AFTER_ROTATE = 120  # lines kept hot after rotation
-DIGEST_WRITE_ATTEMPTS = 5  # `digest --write` retries when STATUS.md moves under us
-PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
-                          # cap; a live 1.15MB PUT has succeeded, so the real
-                          # limit is higher — this is under both it and the
-                          # commonly-assumed 1MB
+
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
     "task", "claim", "done", "handoff", "review", "vote", "alert",
+    "dm", "archive",
 )
+# A vote is the decision, a review is the evidence. Both are legitimate ways to
+# weigh in; votes are what the tally counts.
+VOTE_CHOICES = {
+    "accept-inspected": ("accept", True),
+    "accept-trusted":   ("accept", False),
+    "deny-inspected":   ("deny", True),
+    "deny-trusted":     ("deny", False),
+    "ai": ("accept", True), "at": ("accept", False),
+    "di": ("deny", True),   "dt": ("deny", False),
+}
+VOTE_QUORUM = 2          # at least this many non-owner votes before a verdict
+POINTS_VOTE_INSPECTED = 25
+POINTS_VOTE_TRUSTED = 10
 TASK_STATUSES = ("open", "claimed", "blocked", "review", "done", "dropped")
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{1,31}$")
@@ -638,24 +651,36 @@ def parse_jsonl(text: str, channel: str) -> list[dict]:
 
 
 def fetch_messages(ctx: Ctx, channel: str | None = None, include_archive: bool = False,
-                   all_channels: bool = False) -> list[dict]:
-    """Read messages, newest state, sorted by timestamp."""
-    channels: list[str]
-    if all_channels or channel in (None, "all"):
-        if ctx.local:
-            base = os.path.join(ctx.local, BUS_DIR)
-            channels = [f[:-6] for f in sorted(os.listdir(base))
-                        if f.endswith(".jsonl")] if os.path.isdir(base) else []
-        else:
-            channels = [e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR)
-                        if e["name"].endswith(".jsonl")]
-    else:
-        channels = [channel]
+                   all_channels: bool = False, include_dms: bool = False,
+                   channels: list[str] | None = None) -> list[dict]:
+    """Read messages, sorted by timestamp.
 
-    # Human channels (bus/human-<name>.jsonl) are ALWAYS merged into any read:
-    # a human may be talking on a channel the agent did not think to open, and
-    # "humans outrank everything" is only real if their words actually arrive.
-    if not all_channels and channel not in (None, "all"):
+    Rules that matter:
+      * bus/human-*.jsonl is ALWAYS merged in — a human's words reach every read.
+      * bus/dm-*.jsonl is excluded unless include_dms or an explicit channel
+        argument asks for it: the tool should not go reading other people's mail
+        just because someone typed `read --all`. Carlo's dashboard reads
+        everything, because he owns the repo.
+    """
+    if channels is None:
+        if all_channels or channel in (None, "all"):
+            if ctx.local:
+                base = os.path.join(ctx.local, BUS_DIR)
+                channels = ([f[:-6] for f in sorted(os.listdir(base))
+                             if f.endswith(".jsonl")] if os.path.isdir(base) else [])
+            else:
+                channels = [e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR)
+                            if e["name"].endswith(".jsonl")]
+        else:
+            channels = [channel]
+    channels = list(channels)
+
+    explicit = channel not in (None, "all")
+    if not include_dms and not (explicit and str(channel).startswith("dm-")):
+        channels = [c for c in channels if not c.startswith("dm-")]
+
+    # Human channels are always merged in, whatever was asked for.
+    if explicit:
         existing = set(channels)
         for e in (ctx.api.list_dir(BUS_DIR) if ctx.api else []):
             n = e["name"]
@@ -688,11 +713,7 @@ def filter_messages(msgs: list[dict], args) -> list[dict]:
     if getattr(args, "mtype", None):
         msgs = [m for m in msgs if m.get("type") == args.mtype]
     if getattr(args, "mentions", None):
-        # Strict semantic (t-20261011-9b7a): "what needs me" = direct address
-        # or @-mention. Broadcasts (to="*") pass only when they @-mention the
-        # reader — say's default is to="*", so letting every broadcast through
-        # made this filter a no-op (evidence: review #a5af03fe finding 4).
-        msgs = [m for m in msgs if m.get("to") == args.mentions or
+        msgs = [m for m in msgs if m.get("to") in (args.mentions, "*") or
                 f"@{args.mentions}" in (m.get("text") or "")]
     since = getattr(args, "since", None)
     if since:
@@ -738,7 +759,8 @@ def print_messages(msgs: list[dict], as_json: bool = False, as_jsonl: bool = Fal
         ts = (m.get("ts") or "")[11:16]
         t = m.get("type", "say")
         tc = {"alert": C_R, "done": C_G, "claim": C_C, "task": C_M,
-              "review": C_Y, "handoff": C_Y, "join": C_G}.get(t, C_DIM)
+              "review": C_Y, "handoff": C_Y, "join": C_G,
+              "vote": C_M, "dm": C_C, "archive": C_R}.get(t, C_DIM)
         who = m.get("from", "?")
         who_s = color(who, C_B) if who != me else color(who + " (you)", C_C)
         ch = color(f"[{m['_channel']}] ", C_DIM) if with_channel else ""
@@ -881,6 +903,24 @@ def memory_append(ctx: Ctx, purpose: str, text: str) -> str:
     die(f"could not write {path} after 6 attempts — retry in a moment")
 
 
+def dm_channel(a: str, b: str) -> str:
+    """Deterministic name for a two-agent channel, so both sides land in the
+    same file no matter who writes first.
+
+    The separator is '__' and not '-', because agent names may contain hyphens
+    (marcus-aurelius): 'dm-marcus-aurelius-scott' cannot be split back into two
+    names, 'dm-marcus-aurelius__scott' can.
+    """
+    return "dm-" + "__".join(sorted([a, b]))
+
+
+def dm_partners(channel: str) -> list[str]:
+    if not channel.startswith("dm-") or "__" not in channel[3:]:
+        return []
+    parts = channel[3:].split("__")
+    return parts if len(parts) == 2 else []
+
+
 def human_names(ctx: Ctx) -> set[str]:
     """Agents the roster marks as human. Their messages outrank everything."""
     return {a.get("name") for a in load_agents(ctx)
@@ -906,10 +946,17 @@ def compute_points(tasks: list[dict], messages: list[dict]) -> dict:
             r["total"] += POINTS_PER_TASK
     for m in messages:
         who = m.get("from")
-        if m.get("type") == "review" and who:
+        if not who:
+            continue
+        if m.get("type") == "review":
             r = row(who)
             r["reviews"] += 1
             r["total"] += POINTS_PER_REVIEW
+        elif m.get("type") == "vote":
+            r = row(who)
+            r["reviews"] += 1
+            r["total"] += (POINTS_VOTE_INSPECTED if m.get("inspected")
+                           else POINTS_VOTE_TRUSTED)
     return score
 
 
@@ -1044,6 +1091,113 @@ def claim_task(ctx: Ctx, task_id: str) -> dict:
     return update_task(ctx, task_id, mutate)
 
 
+def board_archive_path(task_id: str) -> str:
+    return f"{ARCHIVE_BOARD_DIR}/{task_id}.json"
+
+
+def load_archive(ctx: Ctx) -> list[dict]:
+    out = []
+    for e in (ctx.api.list_dir(ARCHIVE_BOARD_DIR) if ctx.api else []):
+        if not e["name"].endswith(".json"):
+            continue
+        t = ctx.api.read_text(e["path"])
+        if not t:
+            continue
+        try:
+            out.append(json.loads(t))
+        except Exception:
+            warn(f"{e['path']} is not valid JSON")
+    out.sort(key=lambda t: t.get("denied_ts") or t.get("updated_ts") or "")
+    return out
+
+
+def collect_votes(messages: list[dict], task_id: str) -> dict[str, dict]:
+    """Latest vote per agent for one task. Later votes replace earlier ones."""
+    votes: dict[str, dict] = {}
+    for m in messages:
+        if m.get("type") != "vote" or m.get("ref") != task_id:
+            continue
+        who = m.get("from")
+        if not who:
+            continue
+        votes[who] = {
+            "vote": m.get("vote"),
+            "inspected": bool(m.get("inspected")),
+            "reason": (m.get("reason") or m.get("text") or "")[:300],
+            "ts": m.get("ts"),
+            "id": m.get("id"),
+        }
+    return votes
+
+
+def tally_votes(votes: dict[str, dict], owner: str | None) -> dict:
+    """The democracy: the owner does not vote on their own work.
+
+    quorum    — at least VOTE_QUORUM non-owner agents have voted
+    verdict   — 'accept' | 'deny' | 'tie' | 'pending'
+    tie       — quorum reached with equal counts: escalates to the lead
+    """
+    voters = {k: v for k, v in votes.items() if k != owner}
+    accepts = [v for v in voters.values() if v.get("vote") == "accept"]
+    denies = [v for v in voters.values() if v.get("vote") == "deny"]
+    inspected = [v for v in voters.values() if v.get("inspected")]
+    quorum = len(voters) >= VOTE_QUORUM
+    if not quorum:
+        verdict = "pending"
+    elif len(accepts) > len(denies):
+        verdict = "accept"
+    elif len(denies) > len(accepts):
+        verdict = "deny"
+    else:
+        verdict = "tie"
+    return {"voters": voters, "accept": len(accepts), "deny": len(denies),
+            "inspected": len(inspected), "trusted": len(voters) - len(inspected),
+            "quorum": quorum, "verdict": verdict,
+            "needed": max(0, VOTE_QUORUM - len(voters))}
+
+
+def vote_summary(t: dict) -> str:
+    v = t.get("votes") or {}
+    if not v:
+        return ""
+    acc = sum(1 for x in v.values() if x.get("vote") == "accept")
+    den = sum(1 for x in v.values() if x.get("vote") == "deny")
+    return f"{acc}A/{den}D"
+
+
+def archive_task(ctx: Ctx, task: dict, votes: dict[str, dict], why: str = "") -> dict:
+    """Denied work is never deleted: it moves to board/archive with its reasons."""
+    me = ctx.require_agent()
+    now = now_iso()
+    task = dict(task)
+    task["status"] = "denied"
+    task["denied_ts"] = now
+    task["denied_by"] = me
+    task["votes"] = votes
+    task["archive_note"] = why or ("denied by vote: " +
+                                   ", ".join(f"{k}=" + v.get("vote", "?")
+                                             for k, v in votes.items()))
+    task.setdefault("history", []).append(
+        {"ts": now, "by": me, "action": "archived (denied by vote)"})
+    ctx.api.write_text(board_archive_path(task["id"]),
+                       json.dumps(task, indent=2) + "\n",
+                       f"board: archive {task['id']} (denied by vote)")
+    ctx.api.delete_file(task_path(task["id"]), f"board: {task['id']} denied -> archive")
+    ctx._tasks_cache = None
+    reasons = "; ".join(f"{k} ({'inspected' if v.get('inspected') else 'trusted'}): "
+                        f"{(v.get('reason') or '')[:120]}" for k, v in votes.items()
+                        if v.get("vote") == "deny")
+    msg = make_message(
+        me, f"{task['id']} denied by vote ({vote_summary(task)}) and archived — "
+            f"{reasons or 'no reason given'}. The work is in board/archive/{task['id']}.json, "
+            f"nothing is deleted; the human reviews the archive with the lead. "
+            f"{task['owner'] or 'the author'} may rework and resubmit as a new task.",
+        mtype="archive", channel=ctx.channel, ref=task["id"])
+    ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                         f"bus: {task['id']} denied -> archive")
+    return task
+
+
 def print_tasks(tasks: list[dict], as_json: bool = False, me: str | None = None):
     if as_json:
         print(json.dumps(tasks, indent=2, ensure_ascii=False))
@@ -1087,7 +1241,8 @@ def print_tasks(tasks: list[dict], as_json: bool = False, me: str | None = None)
 # validation + digest (shared by CLI, CI and the dashboard)
 # --------------------------------------------------------------------------
 
-def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) -> tuple[list[str], list[str]]:
+def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
+                   archived: list[dict] | None = None) -> tuple[list[str], list[str]]:
     errors, warnings = [], []
     names = {a.get("name") for a in agents}
     ids: dict[str, str] = {}
@@ -1120,6 +1275,22 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) 
         if m.get("type") not in MESSAGE_TYPES:
             errors.append(f"{where}: unknown type {m.get('type')!r}")
         ch = str(m.get("_channel", ""))
+        if ch.startswith("dm-"):
+            parts = dm_partners(ch)
+            if len(parts) != 2 or not all(NAME_RE.match(p) for p in parts):
+                errors.append(f"{where}: channel {ch} is not dm-<agent>-<agent>")
+            elif frm and frm not in parts:
+                warnings.append(f"{where}: '{frm}' posted in #{ch} which belongs to "
+                                f"{' and '.join(parts)} (R11)")
+            if m.get("to") not in parts:
+                warnings.append(f"{where}: DM has to={m.get('to')!r}, not a participant")
+        if m.get("type") == "vote":
+            if m.get("vote") not in ("accept", "deny"):
+                errors.append(f"{where}: vote needs vote='accept'|'deny'")
+            if not isinstance(m.get("inspected"), bool):
+                errors.append(f"{where}: vote needs inspected=true|false")
+            if not m.get("ref"):
+                errors.append(f"{where}: vote without ref (which task?)")
         if ch.startswith("human-"):
             owner = ch[6:]
             if frm and frm != owner:
@@ -1157,6 +1328,15 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) 
         if not isinstance(t.get("history"), list) or not t["history"]:
             warnings.append(f"{where}: missing history")
 
+    for t in (archived or []):
+        where = f"{ARCHIVE_BOARD_DIR}/{t.get('id','?')}.json"
+        if t.get("status") != "denied":
+            warnings.append(f"{where}: archived item should have status 'denied'")
+        if not t.get("votes"):
+            warnings.append(f"{where}: archived without recorded votes")
+        if not t.get("denied_ts"):
+            warnings.append(f"{where}: archived without denied_ts")
+
     for a in agents:
         where = f"{AGENTS_DIR}/{a.get('name','?')}.json"
         if not NAME_RE.match(str(a.get("name", ""))):
@@ -1166,7 +1346,8 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict]) 
     return errors, warnings
 
 
-def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -> str:
+def render_status(messages: list[dict], tasks: list[dict], agents: list[dict],
+                  archived: list[dict] | None = None) -> str:
     """Human/AI readable snapshot of the collective. Committed as STATUS.md."""
     by_agent: dict[str, dict] = {}
     for m in messages:
@@ -1187,13 +1368,24 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -
     L.append("")
     L.append("## Board")
     L.append("")
-    L.append("| id | status | owner | p | title | branch |")
+    votes_by_task: dict[str, dict] = {}
+    for m in messages:
+        if m.get("type") == "vote" and m.get("ref"):
+            votes_by_task.setdefault(m["ref"], {})[m["from"]] = m
+    L.append("| id | status | owner | p | votes | title |")
     L.append("|---|---|---|---|---|---|")
     order = {"claimed": 0, "review": 1, "blocked": 2, "open": 3, "done": 4, "dropped": 5}
     for t in sorted(tasks, key=lambda t: (order.get(t.get("status"), 9), t.get("priority", 9))):
+        vt = "—"
+        src_v = t.get("votes") or votes_by_task.get(t["id"])
+        if src_v:
+            def _v(x):
+                return x.get("vote") if isinstance(x, dict) else x
+            acc = sum(1 for x in src_v.values() if _v(x) == "accept")
+            den = sum(1 for x in src_v.values() if _v(x) == "deny")
+            vt = f"{acc}✓/{den}✗"
         L.append(f"| `{t.get('id')}` | {t.get('status')} | {t.get('owner') or '—'} | "
-                 f"{t.get('priority', 3)} | {t.get('title', '')} | "
-                 f"{('`' + t['branch'] + '`') if t.get('branch') else '—'} |")
+                 f"{t.get('priority', 3)} | {vt} | {t.get('title', '')} |")
     L.append("")
     L.append("## Agents")
     L.append("")
@@ -1211,8 +1403,9 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -
     if score:
         L.append("## Leaderboard")
         L.append("")
-        L.append(f"+{POINTS_PER_TASK} per task completed · +{POINTS_PER_REVIEW} per review "
-                 "posted · derived from the board and the bus, never stored")
+        L.append(f"+{POINTS_PER_TASK} per task completed · +{POINTS_PER_REVIEW} per inspected "
+                 f"review or vote · +{POINTS_VOTE_TRUSTED} per trusted vote · derived from the "
+                 "board and the bus, never stored")
         L.append("")
         L.append("| # | agent | points | tasks done | reviews |")
         L.append("|---|---|---|---|---|")
@@ -1227,6 +1420,17 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -
     for key, (path, blurb) in MEMORY_FILES.items():
         L.append(f"| [`{path}`]({path}) | {blurb.split(':')[0]} |")
     L.append("")
+    if archived:
+        L.append("## Archive (denied by vote — nothing deleted)")
+        L.append("")
+        for t in archived[-10:]:
+            v = t.get("votes") or {}
+            acc = sum(1 for x in v.values() if x.get("vote") == "accept")
+            den = sum(1 for x in v.values() if x.get("vote") == "deny")
+            L.append(f"- `{t.get('id')}` **{t.get('title','')}** — {acc}✓/{den}✗ "
+                     f"({(t.get('denied_ts') or '')[:16]}, owner {t.get('owner') or '—'}) "
+                     f"— reviewed with the human")
+        L.append("")
     L.append("## Last messages")
     L.append("")
     for m in messages[-25:]:
@@ -1246,7 +1450,8 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict]) -
 
 def load_local_state(ctx: Ctx, include_archive: bool = True):
     base = ctx.local
-    msgs = fetch_messages(ctx, all_channels=True, include_archive=include_archive)
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=include_archive,
+                          include_dms=True)
     tasks = []
     tdir = os.path.join(base, BOARD_DIR)
     if os.path.isdir(tdir):
@@ -1261,7 +1466,15 @@ def load_local_state(ctx: Ctx, include_archive: bool = True):
             if n.endswith(".json") and not n.startswith("_"):
                 with open(os.path.join(adir, n), "r", encoding="utf-8") as fh:
                     agents.append(json.load(fh))
-    return msgs, tasks, agents
+    archived = []
+    ardir = os.path.join(base, ARCHIVE_BOARD_DIR)
+    if os.path.isdir(ardir):
+        for n in sorted(os.listdir(ardir)):
+            if n.endswith(".json"):
+                with open(os.path.join(ardir, n), "r", encoding="utf-8") as fh:
+                    archived.append(json.load(fh))
+    msgs.sort(key=lambda m: m.get("ts") or "")
+    return msgs, tasks, agents, archived
 
 
 # --------------------------------------------------------------------------
@@ -1281,27 +1494,22 @@ def cmd_init(ctx: Ctx, args):
             args.greeting or f"{me} online ({args.kind}"
             + (f"/{args.model}" if args.model else "") + "). Ready to help.",
             mtype="join", channel=ctx.channel, extra={"caps": args.caps} if args.caps else None)
-        n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
-                       f"bus: {me} join {ctx.channel}")
+        n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: {me} join {ctx.channel}")
         if n < 0:
             print(color(f"• join message #{msg['id']} not posted (dry-run)", C_Y))
         else:
             print(f"{color('+', C_G)} posted join message #{msg['id']} to bus/{ctx.channel}.jsonl")
     # remember who you are locally, so the next command knows without env vars
-    # — but only for real (remote) work: a --local init is a sandbox and must
-    # not clobber the agent's global identity (t-20261011-ad9e; barry's audit
-    # A1 side effect: a spoofed/throwaway local init silently replaced the
-    # global agent name and later bare commands kept posting as it).
+    cfg = load_config()
     changed = {}
-    if not ctx.local:
-        cfg = load_config()
-        if cfg.get("agent") != me:
-            changed["agent"] = me
-        if cfg.get("repo") != ctx.repo:
-            changed["repo"] = ctx.repo
-        if changed:
-            cfg.update(changed)
-            save_config(cfg)
+    if cfg.get("agent") != me:
+        changed["agent"] = me
+    if not ctx.local and cfg.get("repo") != ctx.repo:
+        changed["repo"] = ctx.repo
+    if changed:
+        cfg.update(changed)
+        save_config(cfg)
     rate = ctx.api.rate_limit()
     print(f"repo    : {ctx.repo} (branch {ctx.branch})")
     print(f"agent   : {me}   channel: {ctx.channel}")
@@ -1330,8 +1538,8 @@ def cmd_say(ctx: Ctx, args):
         die("nothing to say — pass text")
     msg = make_message(me, text, mtype=args.type, channel=ctx.channel,
                        to=args.to, ref=args.ref, reply=args.reply)
-    count = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
-                       f"bus({ctx.channel}): {me} {args.type}")
+    count = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus({ctx.channel}): {me} {args.type}")
     if count < 0:
         print(color(f"• #{msg['id']} not posted (dry-run)", C_Y))
         return
@@ -1341,122 +1549,22 @@ def cmd_say(ctx: Ctx, args):
         rotate_channel(ctx, ctx.channel)
 
 
-def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5,
-                   max_hot_bytes: int | None = None):
-    """Archive the oldest messages of a channel so hot files stay small.
-
-    Lossless by construction (t-20261011-3df7): the hot file is shrunk only
-    after a fresh read proves it still equals the snapshot the archive was
-    built from. A message that lands mid-rotation fails that check and the
-    whole rotation restarts from a new snapshot, so nothing is dropped; the
-    archive path is computed once and rewritten in place (the bus is
-    append-only, so each retry's archive is a superset of the last).
-
-    With max_hot_bytes (t-20261011-76f7) the trigger is size as well as line
-    count — a 1.2MB channel of 300 lines rotates too — and the kept tail is
-    trimmed from the front until it fits the budget.
-    """
-    path = bus_path(channel)
+def rotate_channel(ctx: Ctx, channel: str):
+    """Archive the oldest messages of a channel so hot files stay small."""
+    text = ctx.api.read_text(bus_path(channel))
+    if not text:
+        return
+    lines = [l for l in text.splitlines() if l.strip()]
+    if len(lines) <= ROTATE_AT:
+        return
+    old, keep = lines[:-KEEP_AFTER_ROTATE], lines[-KEEP_AFTER_ROTATE:]
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     arch = f"{ARCHIVE_DIR}/{channel}-{stamp}.jsonl"
-    for attempt in range(attempts):
-        ctx.api.invalidate(path)  # never rotate from a cached snapshot
-        text = ctx.api.read_text(path)
-        if not text:
-            return
-        lines = [l for l in text.splitlines() if l.strip()]
-        nbytes = len(text.encode("utf-8"))
-        if len(lines) <= ROTATE_AT and (max_hot_bytes is None or nbytes <= max_hot_bytes):
-            return
-        keep_n = KEEP_AFTER_ROTATE
-        if max_hot_bytes is not None:
-            while keep_n > 1 and sum(len(l.encode("utf-8")) + 1
-                                     for l in lines[-keep_n:]) > max_hot_bytes:
-                keep_n -= 1
-        old, keep = lines[:-keep_n], lines[-keep_n:]
-        # archive: create-or-update, computed once for all attempts, so a
-        # retried rotation overwrites the SAME file instead of littering
-        # duplicates. Safe because the bus is append-only: a retry's `old`
-        # is always a superset of the previously archived one.
-        ainfo = ctx.api.contents(arch)
-        asha = ainfo["sha"] if ainfo and isinstance(ainfo, dict) else None
-        try:
-            ctx.api.write_text(arch, "\n".join(old) + "\n",
-                               f"bus: archive {len(old)} msgs from {channel}",
-                               sha=asha)
-        except (Conflict, AlreadyExists):
-            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
-            continue
-        info = ctx.api.contents(path)
-        if not info or not isinstance(info, dict):
-            warn(f"rotate {channel}: hot file vanished, aborting")
-            return
-        # decode the current body; >1 MB files need the git-blobs API because
-        # /contents returns content='' for them
-        current = None
-        if info.get("encoding") == "base64" and info.get("content") is not None:
-            current = base64.b64decode(info["content"]).decode("utf-8", "replace")
-        elif info.get("sha") and hasattr(ctx.api, "request"):
-            try:
-                blob = ctx.api.request(
-                    "GET", f"/repos/{ctx.api.repo}/git/blobs/{info['sha']}")
-                current = base64.b64decode(blob.get("content", "")).decode("utf-8", "replace")
-            except SystemExit:
-                current = None
-        cur_lines = ([l for l in current.splitlines() if l.strip()]
-                     if current is not None else None)
-        if cur_lines != lines:
-            # something landed between our snapshot and now: restart from a
-            # fresh snapshot instead of silently dropping it
-            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
-            continue
-        try:
-            ctx.api.write_text(path, "\n".join(keep) + "\n",
-                               f"bus: rotate {channel} ({len(keep)} hot)",
-                               sha=info["sha"])
-        except (Conflict, AlreadyExists):
-            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
-            continue
-        print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
-        return
-    warn(f"could not rotate {channel} cleanly after {attempts} attempts "
-         "(channel kept changing) — left hot, will retry on the next append")
-
-
-def append_bus(ctx: Ctx, channel: str, lines: list[str], message: str) -> int:
-    """Append messages to a bus channel (t-20261011-76f7).
-
-    If the hot file plus the new block would not fit safely under the
-    contents endpoint's PUT size cap, rotate first: rotation is lossless
-    (t-20261011-3df7) and keeps only the last KEEP_AFTER_ROTATE lines hot —
-    far under the cap — so the append succeeds instead of dying on 422.
-    If even rotation cannot help (the archive itself would exceed the cap),
-    the write refuses loudly with the channel intact: never a silent drop,
-    never a wipe.
-    """
-    path = bus_path(channel)
-    info = ctx.api.contents(path)
-    size = 0
-    if info and isinstance(info, dict):
-        size = info.get("size")
-        if size is None:  # LocalRepo does not report a size
-            size = len((ctx.api.read_text(path) or "").encode("utf-8"))
-    block = sum(len(l.encode("utf-8")) + 1 for l in lines)
-    if size + block > PUT_SAFE_BYTES:
-        rotate_channel(ctx, channel, max_hot_bytes=PUT_SAFE_BYTES)
-        # did the rotation actually get us under the cap? if it could not
-        # (persistent concurrent traffic, or the archive itself would be too
-        # large), refuse loudly rather than let the append risk the file
-        info = ctx.api.contents(path)
-        size = 0
-        if info and isinstance(info, dict):
-            size = info.get("size")
-            if size is None:
-                size = len((ctx.api.read_text(path) or "").encode("utf-8"))
-        if size + block > PUT_SAFE_BYTES:
-            die(f"bus/{channel}.jsonl is {size} bytes and could not be rotated under the "
-                f"PUT size cap — refusing to append rather than risk destroying it")
-    return ctx.api.append_lines(path, lines, message)
+    ctx.api.write_text(arch, "\n".join(old) + "\n", f"bus: archive {len(old)} msgs from {channel}")
+    info = ctx.api.contents(bus_path(channel))
+    ctx.api.write_text(bus_path(channel), "\n".join(keep) + "\n",
+                       f"bus: rotate {channel} ({len(keep)} hot)", sha=info["sha"])
+    print(f"{color('↻', C_Y)} archived {len(old)} messages → {arch}")
 
 
 def cmd_rotate(ctx: Ctx, args):
@@ -1470,8 +1578,22 @@ def cmd_rotate(ctx: Ctx, args):
 def cmd_read(ctx: Ctx, args):
     if not ctx.local:
         ctx.require_token(write=False)
+    if args.dms:
+        me = ctx.require_agent()
+        all_dm = [e["name"][:-6] for e in ctx.api.list_dir(BUS_DIR)
+                  if e["name"].startswith("dm-") and e["name"].endswith(".jsonl")]
+        mine = [c for c in all_dm if me in dm_partners(c)]
+        if not mine:
+            print(color("(no direct messages yet)", C_DIM))
+            return
+        msgs = fetch_messages(ctx, channels=mine, include_dms=True)
+        args.tail = args.tail or 30
+        print_messages(filter_messages(msgs, args), as_json=args.json,
+                       as_jsonl=args.jsonl, me=me, with_channel=True)
+        return
     msgs = fetch_messages(ctx, channel=args.channel, include_archive=args.all,
-                          all_channels=(args.channel in (None, "all")))
+                          all_channels=(args.channel in (None, "all")),
+                          include_dms=args.all_dms)
     msgs = filter_messages(msgs, args)
     if not args.tail and not args.since and not args.json and not args.jsonl:
         args.tail = 25
@@ -1493,9 +1615,7 @@ def cmd_watch(ctx: Ctx, args):
                 f"every {args.interval}s · ctrl-c to stop", C_DIM))
     if msgs:
         print_messages(msgs, me=me, with_channel=(args.channel in (None, "all")))
-    # Malformed lines parse into _broken entries without an id; take the last
-    # message that actually has one, or watch dies with KeyError (t-20261011-792d).
-    last_id = next((m["id"] for m in reversed(msgs) if m.get("id")), None)
+    last_id = msgs[-1]["id"] if msgs else None
     loops = 0
     humans: set[str] = set()
     try:
@@ -1543,7 +1663,7 @@ def cmd_watch(ctx: Ctx, args):
             print(color("  ✓ a human spoke — stopping so you can answer", C_G))
             break
         if new:
-            last_id = next((m["id"] for m in reversed(new) if m.get("id")), last_id)
+            last_id = new[-1]["id"]
         if args.once or (args.for_ and loops * args.interval >= args.for_):
             break
         if args.exit_when:
@@ -1551,6 +1671,168 @@ def cmd_watch(ctx: Ctx, args):
             if hit:
                 print(color(f"  ✓ matched --exit-when {args.exit_when!r}, stopping", C_G))
                 break
+
+
+def cmd_vote(ctx: Ctx, args):
+    """Cast a vote on a task in review. Four ways to vote, all honest ones:
+    accept-inspected, accept-trusted, deny-inspected, deny-trusted."""
+    me = ctx.require_agent()
+    if not ctx.local:
+        ctx.require_token()
+    choice = VOTE_CHOICES.get(args.choice.lower())
+    if not choice:
+        die("choice must be one of: accept-inspected, accept-trusted, "
+            "deny-inspected, deny-trusted (or ai/at/di/dt)")
+    vote, inspected = choice
+    if args.inspected and not inspected:
+        die("you passed --inspected with a *-trusted choice — pick one")
+    if args.trusted and inspected:
+        die("you passed --trusted with an *-inspected choice — pick one")
+
+    tasks = load_tasks(ctx)
+    task = next((t for t in tasks if t.get("id") == args.id), None)
+    if not task:
+        archived = next((t for t in load_archive(ctx) if t.get("id") == args.id), None)
+        if archived:
+            die(f"{args.id} is already archived (status={archived.get('status')}) — "
+                f"see `chatcode archive {args.id}`")
+        die(f"no such task: {args.id}")
+    if task.get("owner") == me:
+        die("you own this work — the author does not vote on their own task (R12)")
+    if task.get("status") not in ("review", "claimed", "blocked"):
+        die(f"{args.id} is '{task['status']}' — votes are for work under review")
+
+    label = f"{vote}{'-inspected' if inspected else '-trusted'}"
+    reason = args.reason or ""
+    text = f"{label}"
+    if reason:
+        text += f": {reason}"
+    msg = make_message(me, text, mtype="vote", channel=ctx.channel,
+                       to=task.get("owner") or "*", ref=task["id"],
+                       extra={"vote": vote, "inspected": inspected, "reason": reason})
+    ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                         f"bus: {me} votes {label} on {task['id']}")
+    print(f"{color('✓', C_G)} #{msg['id']} — {me} votes {label} on {task['id']}"
+          + (f" (own work excluded: owner {task['owner']})" if task.get("owner") else ""))
+
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
+    votes = collect_votes(msgs, task["id"])
+    t = tally_votes(votes, task.get("owner"))
+    _print_tally(task, t)
+
+    if t["verdict"] == "accept":
+        def mutate(x):
+            x["status"] = "done"
+            x["completed_ts"] = now_iso()
+            x["votes"] = votes
+            x["decided_by"] = f"vote {t['accept']}-{t['deny']}"
+            return x, f"done by vote ({t['accept']} accept / {t['deny']} deny)"
+        out = update_task(ctx, task["id"], mutate)
+        print(f"{color('✓', C_G)} accepted by vote — {task['id']} is done. "
+              "The author or a reviewer may merge the PR now.")
+        msg = make_message(me, f"{task['id']} ACCEPTED by vote ({t['accept']}A/{t['deny']}D, "
+                               f"{t['inspected']} inspected) — task is done, PR may be merged",
+                           mtype="review", channel=ctx.channel, ref=task["id"])
+        ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                             f"bus: {task['id']} accepted by vote")
+    elif t["verdict"] == "deny":
+        archive_task(ctx, task, votes)
+        print(color(f"✗ denied by vote — {task['id']} moved to "
+                    f"{ARCHIVE_BOARD_DIR}/ (nothing deleted; the archive is reviewed "
+                    f"with the human)", C_Y))
+    elif t["verdict"] == "tie":
+        print(color("tie with quorum reached — escalates to the lead (pericles). "
+                    "One message, then it is decided.", C_Y))
+    else:
+        print(color(f"{t['needed']} more vote(s) needed before this is decided "
+                    f"(quorum {VOTE_QUORUM}).", C_DIM))
+
+
+def _print_tally(task: dict, t: dict, verbose: bool = True):
+    owner = task.get("owner") or "?"
+    quorum_txt = "quorum met" if t["quorum"] else f"needs {t['needed']} more"
+    print(color(f"  tally for {task['id']} — owner {owner} does not vote · "
+                f"{t['accept']} accept / {t['deny']} deny · "
+                f"{t['inspected']} inspected / {t['trusted']} trusted · "
+                f"{quorum_txt} → {t['verdict']}", C_DIM))
+    if verbose:
+        for who, v in sorted(t["voters"].items()):
+            mark = color("✓", C_G) if v["vote"] == "accept" else color("✗", C_R)
+            kind = "inspected" if v["inspected"] else "trusted"
+            print(f"    {mark} {who:<16} {v['vote']:<6} ({kind}) "
+                  + (f"{(v.get('reason') or '')[:90]}" if v.get("reason") else ""))
+
+
+def cmd_votes(ctx: Ctx, args):
+    """Show every task under vote and the current tallies."""
+    if not ctx.local:
+        ctx.require_token(write=False)
+    tasks = load_tasks(ctx)
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=False, include_dms=False)
+    under = [t for t in tasks if t.get("status") in ("review", "claimed", "blocked")]
+    rows = 0
+    for t in under:
+        votes = collect_votes(msgs, t["id"])
+        if not votes:
+            continue
+        rows += 1
+        print(color(f"{t['id']}  {t['status']:<8} {t['title'][:60]}", C_B))
+        _print_tally(t, tally_votes(votes, t.get("owner")), verbose=not args.short)
+    if not rows:
+        print(color("(nothing under vote right now)", C_DIM))
+
+
+def cmd_archive(ctx: Ctx, args):
+    """The archive of denied work. The lead walks this with the human."""
+    if not ctx.local:
+        ctx.require_token(write=False)
+    items = load_archive(ctx)
+    if args.id:
+        item = next((t for t in items if t.get("id") == args.id), None)
+        if not item:
+            die(f"nothing archived under {args.id}")
+        print(json.dumps(item, indent=2, ensure_ascii=False))
+        return
+    if not items:
+        print(color("(the archive is empty — nobody has been denied yet)", C_DIM))
+        return
+    print(color(f"{len(items)} archived item(s) — denied by vote, nothing deleted", C_DIM))
+    for t in items:
+        print()
+        print(color(f"{t.get('id')}  {t.get('denied_ts', '')[:16]}  owner={t.get('owner') or '-'}", C_M))
+        print(f"  {t.get('title', '')}")
+        v = t.get("votes") or {}
+        for who, x in sorted(v.items()):
+            mark = color("✓", C_G) if x.get("vote") == "accept" else color("✗", C_R)
+            kind = "inspected" if x.get("inspected") else "trusted"
+            print(f"    {mark} {who:<16} {x.get('vote'):<6} ({kind}) "
+                  + (f"{(x.get('reason') or '')[:110]}" if x.get("reason") else ""))
+        if t.get("pr"):
+            print(f"  pr: {t['pr']}")
+
+
+def cmd_dm(ctx: Ctx, args):
+    """Direct message to one agent. Not secret — visible to anyone with the token."""
+    me = ctx.require_agent()
+    if not ctx.local:
+        ctx.require_token()
+    other = args.who
+    if other == me:
+        die("a DM to yourself is what the journal is for")
+    known = {a.get("name") for a in load_agents(ctx)} if ctx.api else None
+    if known and other not in known:
+        die(f"no such agent on the roster: {other} (see `chatcode status`)")
+    text = " ".join(args.text).strip()
+    if not text:
+        die("nothing to send")
+    ch = dm_channel(me, other)
+    msg = make_message(me, text, mtype="dm", channel=ch, to=other)
+    ctx.api.append_lines(bus_path(ch), [json.dumps(msg, ensure_ascii=False)],
+                         f"bus({ch}): {me} -> {other}")
+    print(f"{color('✓', C_G)} #{msg['id']} → {other} (bus/{ch}.jsonl)")
+    print(color("  reminder: DMs are private by *convention*, not by security — the repo "
+                "is public and every agent shares a token. Never put secrets in a DM.",
+                C_DIM))
 
 
 def cmd_remember(ctx: Ctx, args):
@@ -1590,8 +1872,7 @@ def cmd_memory(ctx: Ctx, args):
 
 def cmd_points(ctx: Ctx, args):
     if ctx.local:
-        _, tasks, _ = load_local_state(ctx)
-        msgs = fetch_messages(ctx, all_channels=True, include_archive=True)
+        msgs, tasks, _, _ = load_local_state(ctx)
     else:
         tasks = load_tasks(ctx)
         msgs = fetch_messages(ctx, channel="all", include_archive=True)
@@ -1611,9 +1892,11 @@ def cmd_points(ctx: Ctx, args):
         star = color("  ← you", C_C) if name == ctx.agent else ""
         print(f"{rank:<3} {name:<16} {r['total']:>7} {r['tasks']:>6} {r['reviews']:>8}{star}")
     print()
-    print(color(f"rules: +{POINTS_PER_TASK} per task completed by its owner, "
-                f"+{POINTS_PER_REVIEW} per review posted. Derived from the board and the "
-                "bus — no stored scores, nothing to game.", C_DIM))
+    print(color(f"rules: +{POINTS_PER_TASK} per task completed by its owner · "
+                f"+{POINTS_PER_REVIEW} per inspected review or vote · "
+                f"+{POINTS_VOTE_TRUSTED} per trusted vote (staked your name without looking "
+                "— it counts, it just counts less) · derived from the board and the bus; "
+                "no stored scores, nothing to game.", C_DIM))
 
 
 def cmd_inbox(ctx: Ctx, args):
@@ -1621,16 +1904,28 @@ def cmd_inbox(ctx: Ctx, args):
     me = ctx.require_agent()
     if not ctx.local:
         ctx.require_token(write=False)
-    msgs = fetch_messages(ctx, channel="all", include_archive=False)
+    msgs = fetch_messages(ctx, channel="all", include_archive=False, include_dms=True)
     humans = human_names(ctx) if not ctx.local else {
         a["name"] for a in load_agents(ctx) if (a.get("kind") or "") == "human"}
-    roster = next((a for a in (load_agents(ctx) if not ctx.local else []) 
-                   if a.get("name") == me), {})
+    roster = next((a for a in load_agents(ctx) if a.get("name") == me), {})
     cursor = roster.get("last_read_ts") or ""
     fresh = [m for m in msgs if (m.get("ts") or "") > cursor and m.get("from") != me]
     urgent = [m for m in fresh if m.get("from") in humans]
     direct = [m for m in fresh if m not in urgent and is_for_me(m, me)]
-    other = [m for m in fresh if m not in urgent and m not in direct]
+    mine, others = [], []
+    for m in fresh:
+        ch = str(m.get("_channel", ""))
+        if ch.startswith("dm-"):
+            (mine if me in dm_partners(ch) else others).append(m)
+    # a DM addressed to me belongs in its own section, never twice
+    direct = [m for m in direct if m not in mine]
+    direct.sort(key=lambda m: m.get("ts") or "")
+    other = [m for m in fresh
+             if m not in urgent and m not in direct and m not in others and m not in mine]
+
+    if mine:
+        hr(f"direct messages to you ({len(mine)}) — reply with `chatcode dm <agent> \"…\"`")
+        print_messages([m for m in mine if m not in urgent], me=me, with_channel=False)
 
     if not fresh:
         print(color(f"inbox empty — nothing since {cursor or 'the beginning'}", C_DIM))
@@ -1731,8 +2026,8 @@ def cmd_tasks(ctx: Ctx, args):
             msg = make_message(ctx.agent, f"new task {t['id']}: {t['title']}"
                                + (f" — {t['desc']}" if t['desc'] else ""),
                                mtype="task", channel=ctx.channel, ref=t["id"])
-            n = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
-                           f"bus: announce {t['id']}")
+            n = ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                     f"bus: announce {t['id']}")
             print(color(f"  announced on #{msg['id']} (bus/{ctx.channel}.jsonl)", C_DIM)
                   if n >= 0 else color(f"  not announced (dry-run)", C_Y))
         return
@@ -1748,8 +2043,8 @@ def cmd_tasks(ctx: Ctx, args):
         if args.announce:
             msg = make_message(ctx.agent, f"claiming {t['id']}: {t['title']}",
                                mtype="claim", channel=ctx.channel, ref=t["id"])
-            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
-                       f"bus: claim {t['id']}")  # best-effort announcement
+            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: claim {t['id']}")  # best-effort announcement
         return
     if sub in ("status", "update", "block", "unblock", "done", "drop"):
         if not args.id:
@@ -1789,8 +2084,8 @@ def cmd_tasks(ctx: Ctx, args):
                                + (f": {args.note}" if args.note else ""),
                                mtype=("done" if t["status"] == "done" else "status"),
                                channel=ctx.channel, ref=t["id"])
-            append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
-                       f"bus: {t['id']} {t['status']}")  # best-effort announcement
+            ctx.api.append_lines(bus_path(ctx.channel), [json.dumps(msg, ensure_ascii=False)],
+                                 f"bus: {t['id']} {t['status']}")  # best-effort announcement
         return
     die(f"unknown tasks action {sub!r}")
 
@@ -1799,7 +2094,7 @@ def cmd_status(ctx: Ctx, args):
     msgs = fetch_messages(ctx, channel="all")
     tasks = load_tasks(ctx)
     agents = load_agents(ctx)
-    errors, warnings = validate_state(msgs, tasks, agents)
+    errors, warnings = validate_state(msgs, tasks, agents, load_archive(ctx) if not ctx.local else None)
     hr(f"{ctx.repo}")
     live = [t for t in tasks if t.get("status") != "done"]
     print(f"messages : {len(msgs)}   agents: {len(agents)}   tasks: {len(tasks)} "
@@ -1831,50 +2126,22 @@ def cmd_status(ctx: Ctx, args):
 
 def cmd_digest(ctx: Ctx, args):
     if ctx.local:
-        msgs, tasks, agents = load_local_state(ctx)
+        msgs, tasks, agents, archived = load_local_state(ctx)
     else:
         msgs = fetch_messages(ctx, channel="all", include_archive=True)
         tasks = load_tasks(ctx)
         agents = load_agents(ctx)
-    text = render_status(msgs, tasks, agents)
+        archived = load_archive(ctx)
+    text = render_status(msgs, tasks, agents, archived)
     if args.write:
         if ctx.local:
             with open(os.path.join(ctx.local, STATUS_FILE), "w", encoding="utf-8") as fh:
                 fh.write(text)
         else:
             ctx.require_token()
-            # t-20261011-0920: STATUS.md races with every bus commit (each
-            # message is a push), and a 409 used to escape as a raw traceback.
-            # Same treatment as the other write sites, plus one thing they
-            # cannot afford: the digest is cheap to recompute, so every retry
-            # re-reads the inputs and re-renders the text — the file we write
-            # is never a snapshot older than the sha it cites.
-            for attempt in range(DIGEST_WRITE_ATTEMPTS):
-                if attempt:
-                    # the world moved during the race window: drop ALL cached
-                    # reads (read_text memoizes for 1.5s — a cached bus line
-                    # would make the "fresh" recompute silently stale), then
-                    # refetch inputs and re-render before trying again
-                    ctx.api.invalidate()
-                    ctx._tasks_cache = None
-                    ctx._agents_cache = None
-                    msgs = fetch_messages(ctx, channel="all", include_archive=True)
-                    tasks = load_tasks(ctx)
-                    agents = load_agents(ctx)
-                    text = render_status(msgs, tasks, agents)
-                info = ctx.api.contents(STATUS_FILE)
-                try:
-                    ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
-                                       sha=info["sha"] if info and isinstance(info, dict) else None)
-                    break
-                except (Conflict, AlreadyExists):
-                    warn(f"{STATUS_FILE} moved under us "
-                         f"(attempt {attempt + 1}/{DIGEST_WRITE_ATTEMPTS}); recomputing")
-                    time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
-            else:
-                die(f"digest --write: {STATUS_FILE} kept moving under us after "
-                    f"{DIGEST_WRITE_ATTEMPTS} attempts; nothing was written — "
-                    "re-run `chatcode digest --write` in a moment")
+            info = ctx.api.contents(STATUS_FILE)
+            ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
+                               sha=info["sha"] if info and isinstance(info, dict) else None)
         print(f"{color('✓', C_G)} wrote {STATUS_FILE}", file=sys.stderr)
         if args.print:
             sys.stdout.write(text)
@@ -1884,12 +2151,13 @@ def cmd_digest(ctx: Ctx, args):
 
 def cmd_validate(ctx: Ctx, args):
     if ctx.local:
-        msgs, tasks, agents = load_local_state(ctx)
+        msgs, tasks, agents, archived = load_local_state(ctx)
     else:
         msgs = fetch_messages(ctx, channel="all", include_archive=args.all)
         tasks = load_tasks(ctx)
         agents = load_agents(ctx)
-    errors, warnings = validate_state(msgs, tasks, agents)
+        archived = load_archive(ctx)
+    errors, warnings = validate_state(msgs, tasks, agents, archived)
     for w in warnings:
         print(f"{color('warn', C_Y)}  {w}")
     for e in errors:
@@ -2022,8 +2290,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.set_defaults(func=cmd_init)
 
     s = sub.add_parser("say", add_help=True, parents=[common], help="post a message")
-    s.add_argument("text", nargs="+",
-                   help="words to post; to start the text with a dash, put -- before it")
+    s.add_argument("text", nargs="+")
     s.add_argument("--type", "-T", default="say", choices=MESSAGE_TYPES)
     s.add_argument("--to", default="*", help="agent name or * for everyone")
     s.add_argument("--ref", default=None, help="task id or file this is about")
@@ -2038,6 +2305,9 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--type", "-T", dest="mtype", help="only this message type")
     s.add_argument("--mentions", help="messages addressed to (or @-mentioning) this agent")
     s.add_argument("--all", action="store_true", help="include archived channels")
+    s.add_argument("--dms", action="store_true", help="only your direct messages")
+    s.add_argument("--all-dms", action="store_true",
+                   help="include every DM channel, including other agents' (please don't)")
     s.add_argument("--json", action="store_true")
     s.add_argument("--jsonl", action="store_true")
     s.set_defaults(func=cmd_read)
@@ -2091,6 +2361,32 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("validate", add_help=True, parents=[common], help="lint the bus/board/agents")
     s.add_argument("--all", action="store_true", help="include archives")
     s.set_defaults(func=cmd_validate)
+
+    s = sub.add_parser("vote", add_help=True, parents=[common],
+                       help="vote on someone's work: accept/deny x inspected/trusted")
+    s.add_argument("id", help="task id under review")
+    s.add_argument("choice", help="accept-inspected | accept-trusted | deny-inspected | "
+                                  "deny-trusted (or ai/at/di/dt)")
+    s.add_argument("--reason", default="", help="one line: why. Public and permanent.")
+    s.add_argument("--inspected", action="store_true", help="(redundant with -inspected choices)")
+    s.add_argument("--trusted", action="store_true", help="(redundant with -trusted choices)")
+    s.set_defaults(func=cmd_vote, channel=None)
+
+    s = sub.add_parser("votes", add_help=True, parents=[common],
+                       help="every task under vote, with tallies")
+    s.add_argument("--short", action="store_true", help="tallies only")
+    s.set_defaults(func=cmd_votes, channel=None)
+
+    s = sub.add_parser("archive", add_help=True, parents=[common],
+                       help="denied work: what was rejected, by whom, and why")
+    s.add_argument("id", nargs="?", help="one archived task id")
+    s.set_defaults(func=cmd_archive, channel=None)
+
+    s = sub.add_parser("dm", add_help=True, parents=[common],
+                       help="direct message to one agent (not secret — see R11)")
+    s.add_argument("who", metavar="agent", help="their agent name")
+    s.add_argument("text", nargs="+")
+    s.set_defaults(func=cmd_dm, channel=None)
 
     s = sub.add_parser("remember", add_help=True, parents=[common],
                        help="append one entry to a shared memory file")
@@ -2165,6 +2461,10 @@ staying in sync (the collective is asynchronous)
   chatcode remember journal "claimed t-…"  # memory: journal/decisions/knowledge/projects
   chatcode memory decisions --tail 20      # read what the group has decided
   chatcode points                          # the leaderboard
+  chatcode votes                           # everything under vote, with tallies
+  chatcode vote <id> accept-inspected --reason "ran the test myself"
+  chatcode dm <agent> "…"                  # direct message (private by convention only)
+  chatcode archive                         # denied work: what, by whom, why
 """
 
 
@@ -2174,13 +2474,10 @@ def main(argv=None):
         argv = ["help"]
     parser = build_parser()
     args, unknown = parser.parse_known_args(argv)
-    if unknown:
-        # Never fold unknown flags into say's text (t-20261011-d481): that
-        # silently drops the flag the agent intended and posts garbage.
-        hint = ""
-        if getattr(args, "cmd", None) == "say":
-            hint = " — if those words are message text, put them after --"
-        die(f"unrecognized arguments: {' '.join(unknown)}{hint} (try `chatcode help`)")
+    if unknown and getattr(args, "cmd", None) == "say":
+        args.text = list(args.text) + unknown
+    elif unknown:
+        die(f"unrecognized arguments: {' '.join(unknown)} (try `chatcode help`)")
     ctx = Ctx(args)
     if not getattr(args, "func", None):
         parser.print_help()
