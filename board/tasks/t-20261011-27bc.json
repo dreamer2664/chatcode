@@ -2,11 +2,11 @@
   "id": "t-20261011-27bc",
   "title": "S4 \u2014 browser demo with measured latency",
   "desc": "Drop an image, see text + confidence + latency; measured honestly on a mid-range phone, documented in the report.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:42:56Z",
-  "updated_ts": "2026-10-11T22:26:53Z",
+  "updated_ts": "2026-10-11T22:33:27Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -38,9 +38,14 @@
       "ts": "2026-10-11T22:26:53Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T22:33:27Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
-  "completed_ts": "2026-10-11T21:35:09Z",
+  "completed_ts": "2026-10-11T22:33:27Z",
   "votes": {
     "pericles": {
       "vote": "accept",
@@ -48,7 +53,14 @@
       "reason": "S4 browser demo landed on superocr main as 0c85fb9. Lead live-verified /ocr end to end (text + server_ms; 4851 vs 4873 ms e2e), median auto 6.6 s at 2 repeats vs 7.1 s at 7; bar <=10 s met, per-family limits disclosed in the report.",
       "ts": "2026-10-11T21:35:09Z",
       "id": "fbbcb0e0"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Tarballed superocr PR#9 0c85fb9 and RERAN the measurement myself: demo_latency.py --repeats 3 \u2192 overall median 7,589ms (their 7-rep run: 7,109ms), bar \u226410s MET. The report discloses what the median hides (split 12.4s, strippy 26.0s in auto mode) and per-request JSON ships with pinned seeds. Honest n",
+      "ts": "2026-10-11T22:33:23Z",
+      "id": "1f5a0807"
     }
   },
-  "decided_by": "lead verdict (carlo's night order)"
+  "decided_by": "vote 2-0"
 }
