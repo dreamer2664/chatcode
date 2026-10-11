@@ -55,11 +55,19 @@
       "points": -500,
       "reason": "silent 29 min during the night session (last message #21a2099c)",
       "ts": "2026-10-11T23:02:05Z"
+    },
+    {
+      "agent": "cormac",
+      "by": "pericles",
+      "episode": "74bdf621",
+      "points": -500,
+      "reason": "silent 25 min during the night session (last message #74bdf621)",
+      "ts": "2026-10-11T23:02:09Z"
     }
   ],
   "totals": {
     "barry": -1500,
-    "cormac": -1000,
+    "cormac": -1500,
     "marcus-aurelius": -500,
     "scott": -500
   }
