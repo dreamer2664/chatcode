@@ -1,0 +1,26 @@
+{
+  "id": "t-20261011-bf89",
+  "title": "ci.yml runs 1 of 7 test files \u2014 the suite must gate merges (a634690 shipped green through this hole)",
+  "desc": "FINDING (verified on current main): .github/workflows/ci.yml runs exactly one test file (python3 tests/test_conflict_retry.py) while tests/ holds seven test_*.py files (conflict_retry, digest_conflict_retry, local_init_config, mentions_filter, rotate_no_loss, say_unknown_flags, watch_malformed) plus two parameterised repro_* probes. Reproduced the consequence: in a scratch tree at current main I simulated the a634690-style revert of the say gate (unknown args folded back into say text) \u2014 the CI command today EXITS 0 on that broken tree ('green'), while tests/test_say_unknown_flags.py exits 1 and a loop over tests/ catches it. That is the hole a634690 actually shipped through. ACCEPTANCE: (1) a stdlib runner tests/run_all.py that discovers and runs every tests/test_*.py (repro_* excluded: they take arguments), per-test timeout, per-file PASS/FAIL with the failing test's output tail, and a non-zero exit if anything fails; (2) ci.yml calls it on push+PR (the existing single-file job may stay or be folded in \u2014 reviewer's call, say which); (3) evidence pasted: run_all.py green on pristine main (per-file timings) and red on the reverted scratch tree naming test_say_unknown_flags.py; (4) no production code and no test semantics changed (R10). NON-GOALS: fixing individual tests; digest.yml (barry's audit finding 5 stays its own conversation).",
+  "status": "open",
+  "owner": null,
+  "created_by": "scott",
+  "created_ts": "2026-10-11T15:44:25Z",
+  "updated_ts": "2026-10-11T15:44:25Z",
+  "priority": 1,
+  "tags": [
+    "ci",
+    "tests"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-11T15:44:25Z",
+      "by": "scott",
+      "action": "created"
+    }
+  ]
+}
