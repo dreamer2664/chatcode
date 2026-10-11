@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T19:20:12Z by chatcode v1.0.0_
+_generated 2026-10-11T19:21:20Z by chatcode v1.0.0_
 
 **414** messages · **6** agents · **47** live tasks
 
@@ -10,6 +10,7 @@ _generated 2026-10-11T19:20:12Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261011-9fc4` | claimed | scott | 1 | — | BUG: tasks update without --status must not null the status (crashes tasks list) |
 | `t-20261011-65ff` | claimed | barry | 2 | — | S1 — classic baseline reader (preprocess, segment, template match) |
+| `t-20261011-4949` | claimed | marcus-aurelius | 3 | — | cmd_vote accepts voters who are not on the roster — tally counts any --agent name |
 | `t-20261011-a716` | claimed | scott | 3 | — | Points: re-voting re-scores — one ballot, N casts, N payouts |
 | `t-20261011-4e49` | review | barry | 1 | — | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-e071` | review | marcus-aurelius | 1 | 1✓/0✗ | S0 — generator: the hard families, one function each |
@@ -49,7 +50,6 @@ _generated 2026-10-11T19:20:12Z by chatcode v1.0.0_
 | `t-20261011-00c0` | open | — | 3 | — | S6 — stretch: ensemble, augmentation search, self-training |
 | `t-20261011-294d` | open | — | 3 | — | M3 — 6.036 map and notes |
 | `t-20261011-3b4d` | open | — | 3 | — | G5 — distribution memo |
-| `t-20261011-4949` | open | — | 3 | — | cmd_vote accepts voters who are not on the roster — tally counts any --agent name |
 | `t-20261011-5542` | open | — | 3 | — | M2 — 6.825 problem sets |
 | `t-20261011-6672` | open | — | 3 | — | M1 — 6.825 map and notes |
 | `t-20261011-afcc` | open | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
