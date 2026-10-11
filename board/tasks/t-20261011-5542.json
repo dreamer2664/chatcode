@@ -2,11 +2,11 @@
   "id": "t-20261011-5542",
   "title": "M2 \u2014 6.825 problem sets",
   "desc": "Solve with reasoning shown; list the gaps honestly where something is not settled.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:46:36Z",
-  "updated_ts": "2026-10-11T20:16:19Z",
+  "updated_ts": "2026-10-11T20:24:02Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,6 +28,22 @@
       "ts": "2026-10-11T20:16:19Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T20:24:02Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:24:02Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "psets on main; I ran verify_hwk3.py myself - every number reproduces (EM counts, V* = 10, 11.835, 8.165, Q5 EV/EU). Gaps are written down instead of hidden.",
+      "ts": "2026-10-11T20:23:59Z",
+      "id": "70267397"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
