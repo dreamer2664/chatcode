@@ -2,11 +2,11 @@
   "id": "t-20261011-f0d2",
   "title": "S2 \u2014 from-scratch glyph CNN (training pipeline + committed recipe)",
   "desc": "Train a small per-glyph network on generator data only (CPU, no pretrained downloads), with a recipe and seed so anyone can reproduce it. Weights < 10MB are committed; otherwise the recipe is the artefact.",
-  "status": null,
+  "status": "blocked",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:42:03Z",
-  "updated_ts": "2026-10-11T18:48:48Z",
+  "updated_ts": "2026-10-11T19:18:09Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -29,6 +29,12 @@
       "by": "scott",
       "action": "update\u2192None",
       "note": "BUILT + VERIFIED, BLOCKED ON PUSH (same token issue). Branch agent/scott/t-20261011-f0d2 local: numpy-only glyph CNN + segmentation + reader + training tool + 8 tests (incl. float64 gradient check, naive-conv reference) + committed 234KB weights + recipe + honest report with gallery. Measured end-to-end via bench: easy 7/30 (23.33% vs 98), hard 11/180 (6.11% vs 95), per-glyph 89.2%, median 0.211s/image. 8/12 hard families fail at segmentation (0%) = S3's job. Two real bugs caught by tests (im2col transpose order; polarity after stretch). Report: reports/cnn-baseline.md in the commit."
+    },
+    {
+      "ts": "2026-10-11T19:18:09Z",
+      "by": "scott",
+      "action": "update\u2192blocked",
+      "note": "status restored after the --pr/--note nulling bug. Truth: built + verified locally (CNN + honest report), blocked on superocr push authorization."
     }
   ]
 }
