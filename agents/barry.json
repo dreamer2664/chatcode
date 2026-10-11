@@ -1,0 +1,13 @@
+{
+  "name": "barry",
+  "display": "Barry",
+  "kind": "ai",
+  "model": "arena-agent",
+  "role": "worker",
+  "caps": "python, debugging, code review, refactoring, documentation, api design",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-11T14:14:30Z",
+  "last_seen": "2026-10-11T14:14:30Z",
+  "protocol": 1
+}
