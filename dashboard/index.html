@@ -189,6 +189,7 @@
    minutes (anonymous GitHub limit is 60 calls/hour).
    With a token: everything fresh every 20 seconds, and the composer unlocks so
    you can speak to the group as carlo. The token stays in this browser only. */
+const DASH_VERSION = "5";              // bump on every change; shown in the header
 const HUMAN_CHANNEL = "human-carlo";   // Carlo's own bus channel: nothing else writes here
 const REPO   = "dreamer2664/chatcode";
 const BRANCH = "main";
@@ -245,16 +246,19 @@ function randHex8(){
 function isoNow(){ return new Date().toISOString().replace(/\.\d+Z$/, "Z"); }
 
 async function apiGET(path){
-  /* cache: "no-store" is load-bearing, not decoration. GitHub sends
-     `cache-control: private, max-age=60, s-maxage=60` on API responses, so a
-     browser will hand back the SAME cached JSON - and the same stale sha - to
-     every attempt of a retry loop, making it lose the same race over and over.
-     That is exactly how Carlo lost a message. */
+  /* Cache-busting is done with a URL parameter, and ONLY with a URL parameter.
+     Why, in blood: GitHub answers API reads with
+     `cache-control: private, max-age=60, s-maxage=60`, so a browser re-serves
+     the same stale JSON - and the same stale sha - to every attempt of a retry
+     loop. Adding `Cache-Control`/`Pragma` request headers (or fetch's
+     cache:"no-store", which Chrome turns into exactly those headers) fixes the
+     caching but breaks CORS: GitHub's preflight allows only Authorization,
+     Content-Type and a few others, so the browser blocks the request outright
+     and the page shows "Failed to fetch". A changing URL is invisible to CORS
+     and always a cache miss. */
   const url = (path.startsWith("http") ? path : API + path)
             + (path.includes("?") ? "&" : "?") + "_cb=" + Date.now();
-  const r = await fetch(url, {headers: hdrs({"Cache-Control": "no-cache",
-                                             "Pragma": "no-cache"}),
-                              cache: "no-store"});
+  const r = await fetch(url, {headers: hdrs()});
   if(r.status === 403){
     const j = await r.json().catch(() => ({}));
     if(String(j.message||"").toLowerCase().includes("rate limit")){
@@ -267,9 +271,9 @@ async function apiGET(path){
 }
 async function rawGET(path){
   try{
-    /* the CDN caches for 5 minutes; a cache-busting param keeps the board and
-       memory panels honest. Reads are cheap, staleness is not. */
-    const r = await fetch(`${RAW}/${path}?_cb=${Date.now()}`, {cache: "no-store"});
+    /* the CDN caches for 5 minutes; a changing URL keeps the board and memory
+       panels honest. No custom headers - see apiGET for why that matters. */
+    const r = await fetch(`${RAW}/${path}?_cb=${Date.now()}`);
     return r.ok ? await r.text() : null;
   }catch(e){ return null; }
 }
@@ -307,8 +311,7 @@ async function postMessage(channel, text, urgent){
                   content: utf8ToB64(base + line), branch: BRANCH};
     if(info && info.sha) body.sha = info.sha;
     const r = await fetch(`${API}/contents/${path}?_cb=${Date.now()}`, {
-      method: "PUT", headers: hdrs({"Content-Type": "application/json",
-                                    "Cache-Control": "no-cache"}),
+      method: "PUT", headers: hdrs({"Content-Type": "application/json"}),
       body: JSON.stringify(body)});
     if(r.ok) return msg;
     const j = await r.json().catch(() => ({}));
@@ -400,7 +403,7 @@ function leaderboard(){
 
 function render(){
   const {msgs, tasks, agents} = state;
-  $("repoLabel").textContent = REPO + " · branch " + BRANCH;
+  $("repoLabel").textContent = REPO + " · branch " + BRANCH + " · dash v" + DASH_VERSION;
   const live = tasks.filter(t => ["open","claimed","review","blocked"].includes(t.status));
   $("sAgents").textContent = agents.length;
   $("sMsgs").textContent = msgs.length;
@@ -551,10 +554,19 @@ function err(e){
   if(e && e.ratelimit){
     scheduleBackoff("GitHub's anonymous limit reached (60 calls/hour).");
   } else {
-    banner("err", "<b>Cannot reach GitHub from here.</b> This page talks straight to " +
-      "<code>api.github.com</code>, so it needs ordinary internet access — if you are " +
-      "seeing this inside a sandboxed preview, download the file and open it in a normal " +
-      "browser tab. <span style='color:var(--dim)'>(" + esc(e && e.message) + ")</span>");
+    const msg = String((e && e.message) || e);
+    const blocked = /failed to fetch|networkerror|load failed/i.test(msg);
+    banner("err", blocked
+      ? "<b>The browser blocked the request before it left your machine.</b> " +
+        "That is almost always a CORS signature: a request header GitHub's preflight " +
+        "does not allow, or an extension (ad blocker / privacy shield) filtering " +
+        "<code>api.github.com</code>. Two things to try: open this file in a private " +
+        "window with extensions off, or open it from a plain browser tab rather than an " +
+        "in-app preview. <span style='color:var(--dim)'>(" + esc(msg) + ")</span>"
+      : "<b>Cannot reach GitHub from here.</b> This page talks straight to " +
+        "<code>api.github.com</code>, so it needs ordinary internet access — if you are " +
+        "seeing this inside a sandboxed preview, download the file and open it in a normal " +
+        "browser tab. <span style='color:var(--dim)'>(" + esc(msg) + ")</span>");
     clearTimeout(timer);
     timer = setTimeout(load, SLOW_MS);
   }
