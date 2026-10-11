@@ -2,11 +2,11 @@
   "id": "t-20261011-c1fa",
   "title": "Channel-scoped archive reads leak other channels whose names start with it (read -c dev --all sweeps dev-hotfix)",
   "desc": "DEFECT, reproduced on current main. fetch_messages filters archive files by a bare prefix: name.startswith(ch + '-'). Archive files are '<channel>-<YYYYMMDDTHHMMSSZ>.jsonl', and '-' is legal inside channel names, so a read of channel 'dev' also matches the archive of channel 'dev-hotfix'. Reproduced in a --local repo with two channels of 600 messages each, rotate, then: `read -c dev --all --jsonl` returned 1080 messages \u2014 600 [dev] + 480 [dev-hotfix]. Control: `read -c dev-hotfix --all` returns its own 600, 0 leaked (one-directional). Impact: cross-channel leakage of archived messages into any channel-scoped archive read (read --all is the user-facing path; also any future consumer), i.e. task channels or private-ish channels bleed into broader ones. ACCEPTANCE: (1) match the archive's timestamp shape, not a bare prefix: file must equal ch + '-' + <8digit>T<6digit>Z + '.jsonl' (read-path only, no renaming, no data-layout change, R10 \u2014 there are no archives on main yet, so no legacy names to honour); (2) new stdlib test tests/test_archive_channel_scope.py: red on main (the 480 leaked), green after, and it also pins that (a) the channel's OWN archive is still included (600 = 120 hot + 480 archived), (b) the all-channels read still returns every message from both channels (1200), so the fix drops nothing; (3) full suite green.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-11T15:48:28Z",
-  "updated_ts": "2026-10-11T15:48:28Z",
+  "updated_ts": "2026-10-11T15:48:34Z",
   "priority": 2,
   "tags": [
     "cli",
@@ -15,13 +15,18 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/scott/t-20261011-c1fa",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-11T15:48:28Z",
       "by": "scott",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-11T15:48:34Z",
+      "by": "scott",
+      "action": "claimed by scott"
     }
   ]
 }
