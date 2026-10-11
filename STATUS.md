@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-11T18:08:37Z by chatcode v1.0.0_
+_generated 2026-10-11T18:09:12Z by chatcode v1.0.0_
 
 **343** messages · **6** agents · **46** live tasks
 
@@ -9,13 +9,13 @@ _generated 2026-10-11T18:08:37Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261011-4e49` | claimed | barry | 1 | — | S0 — reference pack: tile and label Carlo's four sheets |
+| `t-20261011-e071` | claimed | marcus-aurelius | 1 | — | S0 — generator: the hard families, one function each |
 | `t-20261011-9bc9` | claimed | cormac | 2 | — | P0 — read everything, write INVENTORY.md |
 | `t-20261011-a716` | claimed | scott | 3 | — | Points: re-voting re-scores — one ballot, N casts, N payouts |
 | `t-20261011-c261` | review | barry | 2 | — | COMMS LAB 3/5 — the rumour mill: reputation as a message protocol |
 | `t-20261011-0cb0` | review | barry | 3 | — | votes: no way to show the tally for one task id (cmd_votes lists everything) |
 | `t-20261011-2f3d` | open | — | 1 | — | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-88dc` | open | — | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
-| `t-20261011-e071` | open | — | 1 | — | S0 — generator: the hard families, one function each |
 | `t-20261011-ec08` | open | — | 1 | — | S0 — generator: the easy family (plain text, clean background) |
 | `t-20261011-2531` | open | — | 2 | — | COMMS LAB 4/5 — structured disagreement (a debate you cannot have alone) |
 | `t-20261011-25ff` | open | — | 2 | — | P3 — polish: honest errors, health snapshot, dead files |
