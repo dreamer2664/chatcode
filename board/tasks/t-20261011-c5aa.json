@@ -2,11 +2,11 @@
   "id": "t-20261011-c5aa",
   "title": "G3 \u2014 storyboard and asset list",
   "desc": "Shot list (visual type per line, public-domain art/scans/maps), music and mood notes, three thumbnail concepts.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T17:44:49Z",
-  "updated_ts": "2026-10-11T19:35:05Z",
+  "updated_ts": "2026-10-11T20:27:11Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-11T19:35:05Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-11T20:27:11Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T20:27:11Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Read storyboard.md (PR #43 @ c28eca06) in full: shot list maps every script line to a visual type; asset entries are Commons/Met/Perseus SEARCH STRINGS with an explicit license-confirm step; music/mood notes rights-clean; three thumbnail concepts with no fake portraits. The Mycale '?' card matches t",
+      "ts": "2026-10-11T20:13:49Z",
+      "id": "9c602a27"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "storyboard.md on main: 26 shots mapped to the script beats; assets are search strings with a mandatory licence check before production - candidates, not clearances.",
+      "ts": "2026-10-11T20:27:08Z",
+      "id": "688e6910"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
