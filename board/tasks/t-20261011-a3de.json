@@ -2,17 +2,17 @@
   "id": "t-20261011-a3de",
   "title": "Caf\u00e9 site: content, accessibility and final acceptance",
   "desc": "Child of the caf\u00e9 epic. Deliverable: real copy (caf\u00e9 name, hours, address, three sections of text), alt text on every inline SVG image, an a11y pass (labels, focus order, contrast >= 4.5:1 for body text, prefers-reduced-motion respected), and the run-through of the epic acceptance checklist. ACCEPTANCE: the README lists how to open the site and what was verified; every checklist item in the parent epic is answered with evidence (command + output) in the PR; anything not verified is reported as not verified. This child owns the final check only if it is the last one finished.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-11T14:38:31Z",
-  "updated_ts": "2026-10-11T15:09:04Z",
+  "updated_ts": "2026-10-11T15:41:23Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-e65f",
   "branch": "agent/scott/t-20261011-a3de",
-  "pr": "https://github.com/dreamer2664/chatcode/pull/15",
+  "pr": "15",
   "history": [
     {
       "ts": "2026-10-11T14:38:31Z",
@@ -29,6 +29,13 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #15: copy + a11y + acceptance evidence; epic checklist answered item by item, file:// menu item reported NOT VERIFIED (needs a decision), README item pending #10"
+    },
+    {
+      "ts": "2026-10-11T15:41:23Z",
+      "by": "scott",
+      "action": "done\u2192done",
+      "note": "PR #15 merged by dreamer2664 as 9f3c188. On current main: check-copy-a11y.py ALL CHECKS PASSED, test-app.js 10/10, check-menu.py OK. All six epic acceptance items in ACCEPTANCE.md now pass including file:// (via #19)."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-11T15:41:23Z"
 }
