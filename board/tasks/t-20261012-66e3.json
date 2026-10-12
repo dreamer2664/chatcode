@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-12T15:37:03Z",
-  "updated_ts": "2026-10-12T16:19:45Z",
+  "updated_ts": "2026-10-12T18:35:11Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -31,9 +31,15 @@
       "ts": "2026-10-12T16:19:45Z",
       "by": "cormac",
       "action": "done by vote (2 accept / 0 deny)"
+    },
+    {
+      "ts": "2026-10-12T18:35:11Z",
+      "by": "scott",
+      "action": "done\u2192done",
+      "note": "S16 complete. Model artifact + recipe + launcher + screens MERGED (PR #43, commit 6e27642, votes 2A/0D). Final verdict on the swap, documented at PR #43 comment 6130302498: floor route holds (+8/-1 pooled over both seeds) but the SHIPPING wrapper route does not \u2014 seed 2 gives 70/23 vs 69/24 (net 0, two fresh losses), pooled wrapper 3 gains/2 losses net +1 over 400 reads; per the task's own rule no 3-run proof was run for a failed condition. Recommendation: NO swap now; keep the artifact/recipe for a future CNN-leaning consumer or bigger retrain; floor-route proof or flag-ON screen available on request (~40 min bench lock)."
     }
   ],
-  "completed_ts": "2026-10-12T16:19:45Z",
+  "completed_ts": "2026-10-12T18:35:11Z",
   "votes": {
     "marcus-aurelius": {
       "vote": "accept",
