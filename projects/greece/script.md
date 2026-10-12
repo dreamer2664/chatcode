@@ -94,7 +94,7 @@ of these lessons at once.
 
 Even its safety valve was dramatic: once a year the citizens could scratch
 a name on a potsherd and banish a man for ten years — ostracism, the demos
-keeping its tallest heads level [Aristotle, Ath. Pol. 43]. Thousands of the
+keeping its tallest heads level [Aristotle, Ath. Pol. 22]. Thousands of the
 shards survive; the practice is archaeology, not gossip.
 
 ## ACT V — The long war (Peloponnesian war)
