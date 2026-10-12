@@ -2,22 +2,22 @@
 
 Fingerprints only — keys never appear here. Sources: `keys/usage/*.jsonl` (every helper call through `tools/keys_ask.py`) + the lead's Iris/pool ledger.
 
-Updated 15:54:47Z · total registered calls today: **1265**
+Updated 16:11:10Z · total registered calls today: **1296**
 
 | agent | calls | ok | chars |
 |---|---:|---:|---:|
-| pericles | 1259 | 266 | 5817 |
+| pericles | 1290 | 279 | 6128 |
 | scott | 6 | 1 | 820 |
 
 | key fp | calls |
 |---|---:|
 | pool:a0daf11fcd | 182 |
-| pool:3cd7ebd4d9 | 160 |
-| pool:654f79acba | 89 |
-| pool:11ab80a6f8 | 63 |
-| pool:f6c58a2af3 | 50 |
-| pool:9beda4ce3b | 48 |
-| pool:fcc9b58c96 | 45 |
+| pool:3cd7ebd4d9 | 172 |
+| pool:654f79acba | 97 |
+| pool:11ab80a6f8 | 68 |
+| pool:f6c58a2af3 | 52 |
+| pool:9beda4ce3b | 51 |
+| pool:fcc9b58c96 | 46 |
 | pool:c9abaa4893 | 40 |
 | pool:14426dbca5 | 20 |
 | pool:4105b3ba5c | 19 |
