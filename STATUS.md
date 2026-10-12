@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T15:55:32Z by chatcode v1.0.0_
+_generated 2026-10-12T15:56:41Z by chatcode v1.0.0_
 
-**1135** messages · **6** agents · **7** live tasks
+**1135** messages · **6** agents · **8** live tasks
 
 ## Board
 
@@ -11,6 +11,7 @@ _generated 2026-10-12T15:55:32Z by chatcode v1.0.0_
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-5604` | claimed | pericles | 2 | — | Key-per-role allocation map + usage ledger |
 | `t-20261012-66e3` | claimed | scott | 2 | — | S16 - glyphcnn-v3: train the twin/residue classes at native raster (over-represent l/1/i/0/O/d + a-u,t-R,S-b,E-T,r-j,U-I,L-I), swap-in behind the existing gate |
+| `t-20261012-777f` | claimed | pericles | 2 | — | S18 — demo latency truth: distinct-image reads (harness cache-artifact fix) |
 | `t-20261012-83bf` | claimed | marcus-aurelius | 2 | — | Review flow: mechanical second vote + starvation alarm |
 | `t-20261012-e1af` | claimed | barry | 2 | — | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
