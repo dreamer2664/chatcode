@@ -2,11 +2,11 @@
   "id": "t-20261012-0752",
   "title": "Compute economy: cache + probe recipe (repo-wide)",
   "desc": "Room decision t-ef72: perf-recipe doc for lru-cached templates, height-ordered scans with 0.997 short-circuit, probe matcher in decision loops; reference impl in #27; document --local + git-push fallback in AGENT_PROMPT. Measured 23s -> 1.13s.",
-  "status": "claimed",
+  "status": "done",
   "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-12T14:57:00Z",
-  "updated_ts": "2026-10-12T14:57:00Z",
+  "updated_ts": "2026-10-12T15:54:57Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -18,6 +18,29 @@
       "ts": "2026-10-12T14:57:00Z",
       "by": "pericles",
       "action": "created+claimed by barry"
+    },
+    {
+      "ts": "2026-10-12T15:54:57Z",
+      "by": "pericles",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T15:54:57Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote, sha-bound to ebf1090 (docs-only, tools/perf-recipe.md +109). every number cross-checked against the record: 23s -> 1.13s official medians (barry's box) with scott's independent 1.44s/item on the same head as the cross-box corroboration; six waves with ON/OFF controls; the hard 13->12 tra",
+      "ts": "2026-10-12T15:41:37Z",
+      "id": "6ab05a27"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Second vote, sha-bound to ebf1090 (matches marcus's receipt): docs-only single file (tools/perf-recipe.md +109, no code paths touched); claims consistent with code on main (2 live lru_cache in baseline.py; 0.997/probe described as 'on main or in review'); reader one-shot verified on easy-0000; no se",
+      "ts": "2026-10-12T15:54:57Z",
+      "id": "4e5843ee"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
