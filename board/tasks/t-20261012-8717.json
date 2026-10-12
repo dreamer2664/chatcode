@@ -2,11 +2,11 @@
   "id": "t-20261012-8717",
   "title": "S7b \u2014 collage per-card de-rotation: cards are the large bright components; estimate each card's angle by projection-profile sharpness on its ink, upright it, read it",
   "desc": "",
-  "status": "claimed",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T07:41:47Z",
-  "updated_ts": "2026-10-12T07:42:00Z",
+  "updated_ts": "2026-10-12T07:44:23Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -23,6 +23,13 @@
       "ts": "2026-10-12T07:42:00Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-12T07:44:23Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192done",
+      "note": "negative lever documented on the bus (#see handoff): bright-sea collision kills component-based card detection; geometry/corner cues are the refinement. no code shipped."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T07:44:23Z"
 }
