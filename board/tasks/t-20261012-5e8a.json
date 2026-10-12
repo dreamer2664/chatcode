@@ -2,11 +2,11 @@
   "id": "t-20261012-5e8a",
   "title": "Bench co-op: lockfile + item partials + four stamps (bench.py)",
   "desc": "Room decision t-ef72: single writer scott \u2014 box lockfile (refuse parallel, name holder), partials every 10 items with finished/cut footer, plus cormac's four stamps as bench header lines; cormac keeps validator + docs.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T14:56:38Z",
-  "updated_ts": "2026-10-12T15:35:45Z",
+  "updated_ts": "2026-10-12T15:38:06Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "scott",
       "action": "update\u2192review",
       "note": "PR #37 rebased onto c87ad2f; 30/30 test_bench; interop PASS vs merged validator; cut footer + orphan-free hardened; preflight clean"
+    },
+    {
+      "ts": "2026-10-12T15:38:06Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T15:38:06Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote, sha-bound to c14c009. read the full bench.py diff (+258/-21): atomic O_EXCL lock with live-pid stale reclaim and exit-3 refusal naming the holder; per-item partials with running counts + done/cut footers; the four stamps wired to the gate (env_fingerprint keys match validate_report ENV_K",
+      "ts": "2026-10-12T15:35:51Z",
+      "id": "7812a3a9"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, head covered ace2b08 (post-rebase): tests/test_bench.py 30+3 subtests green on my box; BENCH.md carries exactly one stamps section (cormac's merged #36 contract \u2014 scott dropped his subsection per the dedup note); stamps dict unchanged through the rebase (scorer/reader_command/env/dir_ha",
+      "ts": "2026-10-12T15:38:06Z",
+      "id": "8d1950a4"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
