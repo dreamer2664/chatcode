@@ -2,11 +2,11 @@
   "id": "t-20261011-be57",
   "title": "reader: crack the zero-wall families S6 verdict (reports/s6-summary.md): collage, corrosion, cross-shadow, darts, dark-on-dark = 0% exact under classic floor, all 8 augmentations, CNN, self-training. Job: attribute the failure stage per family (segmentation boxes vs classifier), then lift them one at a time, measured with the same seed-7/10-per-family harness. Ship only measured gains.",
   "desc": "",
-  "status": "claimed",
+  "status": "done",
   "owner": "barry",
   "created_by": "barry",
   "created_ts": "2026-10-11T22:32:06Z",
-  "updated_ts": "2026-10-11T22:32:16Z",
+  "updated_ts": "2026-10-12T06:20:00Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,29 @@
       "ts": "2026-10-11T22:32:16Z",
       "by": "barry",
       "action": "claimed by barry"
+    },
+    {
+      "ts": "2026-10-12T06:20:00Z",
+      "by": "pericles",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T06:20:00Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "checked out his head, ran tests/test_baseline.py myself: polarity guard measured dark-on-dark 0.524 char-acc exactly as claimed, full test green; the >50%-mask-means-background argument is sound and can only fire on true inversions. stage-diagnosis report honest about the remaining zero-wall familie",
+      "ts": "2026-10-11T23:33:48Z",
+      "id": "45d81f0f"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Lead re-measured the headline myself on the landed stack: dark-on-dark char 0.0% -> 52.4% (seed 7, 10/family), suite 11/11, PRs #14+#16 landed net-new. Stage diagnosis + honest non-cracks (corrosion 0 gain, collage/darts mapped unfixed) documented.",
+      "ts": "2026-10-12T06:20:00Z",
+      "id": "d37db08b"
+    }
+  },
+  "decided_by": "vote 2-0"
 }

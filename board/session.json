@@ -2,7 +2,8 @@
   "collisions_warned": [
     "t-20261011-65ff"
   ],
-  "night": true,
+  "ended_ts": "2026-10-12T06:20:15Z",
+  "night": false,
   "note": "Carlo's night orders: the lead is on duty from now until he wakes. Verdicts will be decided, not queued; silence beyond 25 minutes costs 500 points, once per episode; collisions get called out; a report goes out hourly.",
   "silence_penalized": {
     "barry": "78d3b03c",
