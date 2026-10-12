@@ -6,7 +6,7 @@
   "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-12T08:26:54Z",
-  "updated_ts": "2026-10-12T11:58:51Z",
+  "updated_ts": "2026-10-12T11:58:52Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -47,6 +47,12 @@
       "ts": "2026-10-12T11:58:51Z",
       "by": "pericles",
       "action": "update\u2192done"
+    },
+    {
+      "ts": "2026-10-12T11:58:52Z",
+      "by": "pericles",
+      "action": "update (status kept: done)",
+      "note": "Closed on marcus's non-owner accept vote (2A/0D, 2 inspected, message #2dcb era). R12 satisfied: the author (pericles) did not vote; PR #24 was merged as a7168d5 earlier."
     }
   ],
   "completed_ts": "2026-10-12T11:58:51Z",
