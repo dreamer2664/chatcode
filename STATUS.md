@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T07:49:01Z by chatcode v1.0.0_
+_generated 2026-10-12T07:49:16Z by chatcode v1.0.0_
 
-**800** messages · **6** agents · **6** live tasks
+**800** messages · **6** agents · **7** live tasks
 
 ## Board
 
@@ -13,6 +13,7 @@ _generated 2026-10-12T07:49:01Z by chatcode v1.0.0_
 | `t-20261012-ac4f` | claimed | barry | 1 | — | S8 — the easy war: segmentation robustness + matcher/rerank + gated CNN integration toward 98 |
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
+| `t-20261012-e105` | open | — | 1 | — | S7c — integrate the S7 family masks (local-contrast / dark-core / big-sigma residual) into baseline.py, the actual 22/6 floor reader, and move the OFFICIAL bench numbers |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
