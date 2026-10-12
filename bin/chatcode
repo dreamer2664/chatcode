@@ -170,6 +170,7 @@ CHANNEL_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,31}$")
 LEAD_AGENT = "pericles"          # the lead: verdicts, penalties, the watch
 SESSION_FILE = "board/session.json"
 PENALTIES_FILE = "board/penalties.json"
+REWARDS_FILE = "board/rewards.json"   # lead commendations: +points, with receipts
 SLEEP_MINUTES = 25               # silence beyond this is sleeping (carlo's number)
 SLEEP_PENALTY = 500              # points one silence episode costs (once per episode)
 
@@ -1130,7 +1131,8 @@ def is_for_me(m: dict, me: str) -> bool:
 
 
 def compute_points(tasks: list[dict], messages: list[dict],
-                   penalties: dict | None = None) -> dict:
+                   penalties: dict | None = None,
+                   rewards: dict | None = None) -> dict:
     """Derived, never stored: 100 per completed task (to its owner at the time of
     completion), 25 per review posted. Recompute any time from board + bus.
 
@@ -1178,6 +1180,10 @@ def compute_points(tasks: list[dict], messages: list[dict],
     for name, total in ((penalties or {}).get("totals") or {}).items():
         r = row(name)
         r["penalties"] = int(total)
+        r["total"] += int(total)
+    for name, total in ((rewards or {}).get("totals") or {}).items():
+        r = row(name)
+        r["rewards"] = int(total)
         r["total"] += int(total)
     return score
 
@@ -1233,6 +1239,29 @@ def add_penalty(ctx: Ctx, agent: str, points: int, reason: str,
     totals[agent] = int(totals.get(agent, 0)) - abs(int(points))
     write_json_file(ctx, PENALTIES_FILE, p,
                     f"board: penalty {agent} -{abs(int(points))} ({reason[:60]})")
+    return totals[agent]
+
+
+def load_rewards(ctx: Ctx) -> dict:
+    return load_json_file(ctx, REWARDS_FILE, {"entries": [], "totals": {}})
+
+
+def add_reward(ctx: Ctx, agent: str, points: int, reason: str,
+               by: str | None = None) -> int:
+    """A reward is a fact with a reason and a receipt — same standard as a penalty.
+
+    Lead or carlo only (cmd_reward enforces it). Never stored as a score: like
+    everything else on this board it is an entry anyone can audit, folded into
+    the leaderboard by compute_points()."""
+    p = load_rewards(ctx)
+    p.setdefault("entries", []).append({
+        "ts": now_iso(), "agent": agent, "points": abs(int(points)),
+        "reason": reason, "by": by or ctx.agent,
+    })
+    totals = p.setdefault("totals", {})
+    totals[agent] = int(totals.get(agent, 0)) + abs(int(points))
+    write_json_file(ctx, REWARDS_FILE, p,
+                    f"board: reward {agent} +{abs(int(points))} ({reason[:60]})")
     return totals[agent]
 
 
@@ -1644,7 +1673,8 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
 
 def render_status(messages: list[dict], tasks: list[dict], agents: list[dict],
                   archived: list[dict] | None = None,
-                  penalties: dict | None = None) -> str:
+                  penalties: dict | None = None,
+                  rewards: dict | None = None) -> str:
     """Human/AI readable snapshot of the collective. Committed as STATUS.md."""
     by_agent: dict[str, dict] = {}
     for m in messages:
@@ -1696,7 +1726,7 @@ def render_status(messages: list[dict], tasks: list[dict], agents: list[dict],
                  f"{by_agent[name]['count']} | {by_agent[name]['last'] or '—'} | "
                  f"{ag.get('caps') or '—'} |")
     L.append("")
-    score = compute_points(tasks, messages, penalties)
+    score = compute_points(tasks, messages, penalties, rewards)
     if score:
         L.append("## Leaderboard")
         L.append("")
@@ -2797,6 +2827,30 @@ def cmd_penalize(ctx: Ctx, args):
     print(f"{color('✓', C_G)} {who}: -{points} ({reason}) — total {total}")
 
 
+def cmd_reward(ctx: Ctx, args):
+    """Grant points, with a reason and a receipt. Lead or carlo only.
+
+    The symmetric twin of cmd_penalize: the lead's commendation, on the record
+    and folded into the leaderboard — never a silent gift."""
+    me = _lead_or_human(ctx, "a reward")
+    who = args.who
+    if who in (LEAD_AGENT, "carlo"):
+        die("the lead and the human do not award themselves points (a reward is for work)")
+    if who not in {a.get("name") for a in load_agents(ctx)}:
+        die(f"no such agent on the roster: {who}")
+    points = abs(int(args.points or SLEEP_PENALTY))
+    reason = (args.reason or "").strip()
+    if len(reason) < 10:
+        die("a reward needs --reason (what is being recognised) — no unstated points")
+    total = add_reward(ctx, who, points, reason, by=me)
+    msg = make_message(me, f"reward: +{points} to {who} ({reason}). Their running "
+                           f"total is now {total}.", mtype="status", channel=ctx.channel,
+                       to=who)
+    append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+               f"bus: reward {who} +{points}")
+    print(f"{color('✓', C_G)} {who}: +{points} ({reason}) — total {total}")
+
+
 def cmd_session(ctx: Ctx, args):
     """Open, close or show the night session — the window in which the lead's
     verdicts are decisive and silence costs points."""
@@ -3029,7 +3083,7 @@ def cmd_points(ctx: Ctx, args):
     else:
         tasks = load_tasks(ctx)
         msgs = fetch_messages(ctx, channel="all", include_archive=True)
-    score = compute_points(tasks, msgs, load_penalties(ctx))
+    score = compute_points(tasks, msgs, load_penalties(ctx), load_rewards(ctx))
     if args.json:
         print(json.dumps({"per_task": POINTS_PER_TASK, "per_review": POINTS_PER_REVIEW,
                           "scores": score}, indent=2, sort_keys=True))
@@ -3049,6 +3103,10 @@ def cmd_points(ctx: Ctx, args):
     if pen:
         print(color("penalties: " + ", ".join(f"{k} {v}" for k, v in sorted(pen.items())) +
                     " (with receipts: board/penalties.json)", C_Y))
+    rew = load_rewards(ctx).get("totals") or {}
+    if rew:
+        print(color("rewards: " + ", ".join(f"{k} +{v}" for k, v in sorted(rew.items())) +
+                    " (with receipts: board/rewards.json)", C_G))
     print(color(f"rules: +{POINTS_PER_TASK} per task completed by its owner · "
                 f"+{POINTS_PER_REVIEW} per inspected review or vote · "
                 f"+{POINTS_VOTE_TRUSTED} per trusted vote (staked your name without looking "
@@ -3372,7 +3430,8 @@ def cmd_digest(ctx: Ctx, args):
         tasks = load_tasks(ctx)
         agents = load_agents(ctx)
         archived = load_archive(ctx)
-    text = render_status(msgs, tasks, agents, archived, load_penalties(ctx))
+    text = render_status(msgs, tasks, agents, archived, load_penalties(ctx),
+                                  load_rewards(ctx))
     if args.write:
         if ctx.local:
             with open(os.path.join(ctx.local, STATUS_FILE), "w", encoding="utf-8") as fh:
@@ -3398,7 +3457,8 @@ def cmd_digest(ctx: Ctx, args):
                     tasks = load_tasks(ctx)
                     agents = load_agents(ctx)
                     archived = load_archive(ctx)
-                    text = render_status(msgs, tasks, agents, archived, load_penalties(ctx))
+                    text = render_status(msgs, tasks, agents, archived, load_penalties(ctx),
+                                  load_rewards(ctx))
                 info = ctx.api.contents(STATUS_FILE)
                 try:
                     ctx.api.write_text(STATUS_FILE, text, "digest: refresh STATUS.md",
@@ -3729,6 +3789,13 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--points", type=int, default=SLEEP_PENALTY)
     s.add_argument("--reason", default="")
     s.set_defaults(func=cmd_penalize)
+
+    s = sub.add_parser("reward", add_help=True, parents=[common],
+                       help="grant points, with a reason and a receipt (lead/carlo only)")
+    s.add_argument("who", metavar="agent")
+    s.add_argument("--points", type=int, default=SLEEP_PENALTY)
+    s.add_argument("--reason", required=True, help="what is being recognised")
+    s.set_defaults(func=cmd_reward)
 
     s = sub.add_parser("session", add_help=True, parents=[common],
                        help="the night session: verdicts are decided, silence costs points")

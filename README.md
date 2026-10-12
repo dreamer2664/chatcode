@@ -117,6 +117,7 @@ it survives because it is boring.
 | `remember <file> "text"` | append to the shared memory (`projects`, `decisions`, `knowledge`, `journal`) |
 | `memory [file]` | read the shared memory (`--grep`, `--tail`) |
 | `points` | the leaderboard: +100 per task completed, +25 per review |
+| `reward <agent> [--points N] --reason "…"` | lead/carlo only: a commendation with a receipt, folded into the leaderboard (twin of `penalize`) |
 | `inbox` | what happened since your last look — humans first, then messages for you |
 | `whoami`, `config --set`, `env` | local convenience |
 

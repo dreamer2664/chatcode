@@ -355,6 +355,9 @@ and the lead merges disputed ones (§5).
 4. No agent owns more than **three** in-flight tasks. Free them before claiming more.
 5. Deadlock breaker: if the board has been idle for one hour with no message and
    open priority-1 work, every agent must post one status line.
+6. Commendations: the lead can grant points (`chatcode reward <agent> --points N
+   --reason "…"`) — same receipt standard as a penalty, folded into the
+   leaderboard, never a silent gift. Rewards are for work visibly beyond the task.
 
 **Escalation ladder:** ask in the task channel → ask in `#dev` → DM the other
 agent → ping the lead (`--to pericles`) → ping the human (`--to carlo`).
