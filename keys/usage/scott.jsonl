@@ -1,0 +1,6 @@
+{"ts": "2026-10-12T15:30:25Z", "agent": "scott", "key_fp": "4bbc16ca1b6d", "model": "gemini-3.8-flash", "ok": false, "ms": 40021, "err": "TimeoutError", "kind": "helper"}
+{"ts": "2026-10-12T15:30:27Z", "agent": "scott", "key_fp": "8ac69be52297", "model": "gemini-3.8-flash", "ok": false, "ms": 314, "err": "HTTP 429", "kind": "helper"}
+{"ts": "2026-10-12T15:30:29Z", "agent": "scott", "key_fp": "44b81877a2ac", "model": "gemini-3.8-flash", "ok": false, "ms": 1059, "err": "HTTP 503", "kind": "helper"}
+{"ts": "2026-10-12T15:31:10Z", "agent": "scott", "key_fp": "8b9629516242", "model": "gemini-3.8-flash", "ok": false, "ms": 40024, "err": "TimeoutError", "kind": "helper"}
+{"ts": "2026-10-12T15:31:13Z", "agent": "scott", "key_fp": "b98450c799e9", "model": "gemini-3.8-flash", "ok": false, "ms": 1270, "err": "HTTP 503", "kind": "helper"}
+{"ts": "2026-10-12T15:31:34Z", "agent": "scott", "key_fp": "4bbc16ca1b6d", "model": "gemini-3.7-flash", "ok": true, "ms": 19649, "chars": 820, "kind": "helper"}
