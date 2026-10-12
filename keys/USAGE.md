@@ -2,11 +2,11 @@
 
 Fingerprints only — keys never appear here. Sources: `keys/usage/*.jsonl` (every helper call through `tools/keys_ask.py`) + the lead's Iris/pool ledger.
 
-Updated 17:41:24Z · total registered calls today: **1687**
+Updated 17:56:26Z · total registered calls today: **1758**
 
 | agent | calls | ok | chars |
 |---|---:|---:|---:|
-| pericles | 1681 | 477 | 9259 |
+| pericles | 1752 | 507 | 9767 |
 | scott | 6 | 1 | 820 |
 
 | key fp | calls |
@@ -14,35 +14,35 @@ Updated 17:41:24Z · total registered calls today: **1687**
 | pool:a0daf11fcd | 187 |
 | pool:3cd7ebd4d9 | 175 |
 | pool:654f79acba | 101 |
+| pool:88f5b8371a | 79 |
 | pool:11ab80a6f8 | 71 |
-| pool:88f5b8371a | 62 |
+| pool:99bb36a9c8 | 63 |
 | pool:69d34e414f | 59 |
+| pool:fcfc4470a0 | 58 |
 | pool:f6c58a2af3 | 55 |
 | pool:9beda4ce3b | 54 |
 | pool:4ab6e282f3 | 52 |
-| pool:fcfc4470a0 | 49 |
 | pool:fcc9b58c96 | 48 |
-| pool:99bb36a9c8 | 48 |
+| pool:6293a79ec9 | 45 |
 | pool:c9abaa4893 | 41 |
 | pool:7a6a866f59 | 41 |
-| pool:6293a79ec9 | 38 |
 | pool:3d1427906d | 32 |
 | pool:8348054389 | 32 |
+| pool:f964ba344f | 29 |
 | pool:5c0f4ef4cf | 28 |
-| pool:f964ba344f | 23 |
+| pool:25c999407a | 23 |
+| pool:4767699eac | 23 |
+| pool:6df55644f7 | 22 |
+| pool:41866df4df | 22 |
 | pool:14426dbca5 | 21 |
-| pool:25c999407a | 19 |
-| pool:4767699eac | 19 |
 | pool:4105b3ba5c | 19 |
-| pool:6df55644f7 | 18 |
-| pool:41866df4df | 18 |
 | pool:910cf1f3e3 | 17 |
 | pool:efaa4a08d2 | 16 |
+| pool:1cf26fdd63 | 15 |
 | pool:ef976d88f6 | 15 |
 | pool:7ac452b6c5 | 14 |
 | pool:4bbc16ca1b | 14 |
 | pool:c3ecc75466 | 14 |
-| pool:1cf26fdd63 | 14 |
 | pool:04bd2e5bff | 14 |
 | pool:474ad7fd94 | 14 |
 | pool:8b96295162 | 13 |
