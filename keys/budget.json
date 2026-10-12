@@ -1,0 +1,11 @@
+{
+  "default_per_day": 300,
+  "per_agent": {
+    "pericles": 400,
+    "marcus-aurelius": 300,
+    "barry": 300,
+    "cormac": 300,
+    "scott": 300
+  },
+  "note": "soft caps on helper use via tools/keys_ask.py; Iris traffic has its own role budgets. Ask the lead to raise."
+}
