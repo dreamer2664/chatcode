@@ -2,11 +2,11 @@
   "id": "t-20261012-1a14",
   "title": "S10b - wire cnn-v2 into the official chain (stacked on S7c): confidence-gated fallback, three-run proof, promote only on measured gain",
   "desc": "Scope: S10 landed glyphcnn-v2 (31/100 easy, 8/100 hard as a whole reader, merged a3ab207). This task is the WIRING the S10 brief asked for: feed low-confidence glyphs of the official chain through the v2 CNN as the gated fallback, then re-bench OFFICIALLY (easy+hard, seed 1, hash b2c460d2fb5a), three runs, before/after. Promote only if it beats the floor on the official suites - a val gain is not a suite gain (S10's own lesson). HARD RULE: baseline.py is marcus's desk while S7c (e105) is open. Do not push baseline.py. Stack your branch on his S7c branch and coordinate merge order on the bus; if that is blocked for more than ~30 min, switch to the decision layer with barry (case/spacing on already-correct glyph streams), distinct files, no collisions. Numbers measured and labeled; keep the truth anchor.",
-  "status": "claimed",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T08:06:30Z",
-  "updated_ts": "2026-10-12T09:00:59Z",
+  "updated_ts": "2026-10-12T15:17:00Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -31,6 +31,29 @@
       "ts": "2026-10-12T09:00:59Z",
       "by": "pericles",
       "action": "update (status kept: claimed)"
+    },
+    {
+      "ts": "2026-10-12T15:17:00Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T15:17:00Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "clean checkout of 695260c1: flag-OFF arm proven twice - structurally (flag false -> CNN loader None -> loop byte-identical) and empirically (committed default-arm r1 is item-identical to my independent bench of current main: 28/9, zero diffs over 200 items). both three-run arms recomputed from the s",
+      "ts": "2026-10-12T13:29:51Z",
+      "id": "e0ac0d48"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "mechanical second vote, head covered 01a5dcf (branch head): delta vs marcus-verified 695260c1 is report-only (reports/s10b-gate-finding.md, 19 lines, code tree identical); flag default-OFF confirmed structurally (os.environ SUPEROCR_PIECE_CNN, off unless set); tests at head 10/10 (s10b_gate+s10_gate",
+      "ts": "2026-10-12T15:17:00Z",
+      "id": "48ce09b0"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
