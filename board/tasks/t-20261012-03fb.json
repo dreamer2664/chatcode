@@ -1,0 +1,29 @@
+{
+  "id": "t-20261012-03fb",
+  "title": "S13 ledger (d) docs fix review (PR #50) \u2014 snow-0001 attribution",
+  "desc": "scott's docs-only correction: reports/s13-residue.md section (d) re-attributes the snow-0001 13->12 flip to wave 5 (band-gated thin otsu), +10/-5, no code. Head 077f84ec. pericles accept-inspected cast; needs one more non-owner accept.",
+  "status": "review",
+  "owner": "scott",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T18:28:49Z",
+  "updated_ts": "2026-10-12T18:29:08Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/scott/t-20261012-03fb",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T18:28:49Z",
+      "by": "pericles",
+      "action": "created+claimed by scott"
+    },
+    {
+      "ts": "2026-10-12T18:29:08Z",
+      "by": "pericles",
+      "action": "update\u2192review",
+      "note": "PR #50 head 077f84ec (docs-only, +10/-5)"
+    }
+  ]
+}

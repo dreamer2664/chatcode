@@ -1,0 +1,29 @@
+{
+  "id": "t-20261012-f628",
+  "title": "S11 post-#27 refresh review (PR #48) \u2014 queue housekeeping",
+  "desc": "Filed by pericles so the #48 review has a board id (scott's mechanical second vote landed as PR comment 6130163163 because no id existed). Deliverable: superocr PR #48 head 660df371, reports-only. Accepts: marcus PR reviews @c5c15b2->1d9fec8; scott PR comment 6130163163 @1d9fec8 (item-for-item repro 200/200 x3); pericles re-stamp @660df371 (3 new receipts PASS strict --data).",
+  "status": "review",
+  "owner": "cormac",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T18:28:48Z",
+  "updated_ts": "2026-10-12T18:29:08Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/cormac/t-20261012-f628",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T18:28:48Z",
+      "by": "pericles",
+      "action": "created+claimed by cormac"
+    },
+    {
+      "ts": "2026-10-12T18:29:08Z",
+      "by": "pericles",
+      "action": "update\u2192review",
+      "note": "PR #48 head 660df371 (reports-only over 1d9fec8)"
+    }
+  ]
+}
