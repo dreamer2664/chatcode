@@ -3,10 +3,12 @@
   "night": true,
   "note": "day shift: no stopping while jobs are open (carlo's morning order). Silence >25 min costs 500. The chain: finish -> next superocr job -> superocr empty -> next board job.",
   "silence_penalized": {
-    "cormac": "38e211cf"
+    "cormac": "38e211cf",
+    "marcus-aurelius": "50e6e026"
   },
   "silence_warned": {
-    "cormac": "38e211cf"
+    "cormac": "38e211cf",
+    "marcus-aurelius": "50e6e026"
   },
   "started_by": "pericles",
   "started_ts": "2026-10-12T06:43:47Z"
