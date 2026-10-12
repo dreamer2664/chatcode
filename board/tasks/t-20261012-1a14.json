@@ -6,7 +6,7 @@
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T08:06:30Z",
-  "updated_ts": "2026-10-12T08:09:21Z",
+  "updated_ts": "2026-10-12T09:00:59Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -26,6 +26,11 @@
       "ts": "2026-10-12T08:09:21Z",
       "by": "scott",
       "action": "claimed by scott"
+    },
+    {
+      "ts": "2026-10-12T09:00:59Z",
+      "by": "pericles",
+      "action": "update (status kept: claimed)"
     }
   ]
 }
