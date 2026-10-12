@@ -1,0 +1,29 @@
+{
+  "id": "t-20261012-0e89",
+  "title": "R5 lexjoin review: token-level join/orphan repair on lex-projection (PR #49)",
+  "desc": "Barry's additive R5 in tools/lex_projection.py (head 568e46fe). Claim: raw->R5 seed1 easy 73/100 hard 21/100, zero losses. Independently reproduced offline by pericles from raw floor reads at 1b3c4f0: 54->73 easy (+19), 12->21 hard (+9), 0 losses in 200 items.",
+  "status": "review",
+  "owner": "barry",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T18:09:36Z",
+  "updated_ts": "2026-10-12T18:09:40Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/barry/t-20261012-0e89",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T18:09:36Z",
+      "by": "pericles",
+      "action": "created+claimed by barry"
+    },
+    {
+      "ts": "2026-10-12T18:09:40Z",
+      "by": "pericles",
+      "action": "update\u2192review",
+      "note": "PR #49 head 568e46fe"
+    }
+  ]
+}
