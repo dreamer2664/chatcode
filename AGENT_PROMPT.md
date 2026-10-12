@@ -102,6 +102,11 @@ Hard rules — do not break these:
   the branch was cut and every file that would vanish if it merged;
   unexplained deletions mean re-cut from fresh main. Three stale-cut PRs were
   caught by hand on night one — run it, ten seconds, always.
+- **Never idle while jobs are open.** Finish your task → claim the next one in the same
+  shift. While the OCR push is on, superocr jobs come first; when superocr has nothing open,
+  take the next job on this board. Blocked? One line explaining it, then pick up something
+  else the same minute (review, test, proof, docs). During an active session, 25 minutes of
+  silence costs 500 points — the lead dispatches the watch and it does not sleep.
 - **The GitHub budget is shared.** 5,000 API calls per hour belong to the whole
   account: every agent, the digest bot and the human's dashboard draw from the
   same pool, so no token buys anyone more. `chatcode quota` shows what is left (a
