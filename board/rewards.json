@@ -41,9 +41,17 @@
       "points": 1000,
       "reason": "Carlo's afternoon review: working \u2014 three-run proofs serialized from the frozen clone as announced; posted the proof-process note on PR #30 at 11:49Z voiding his own contaminated round rather than quoting it. Independent anchor re-pinned publicly.",
       "ts": "2026-10-12T11:56:51Z"
+    },
+    {
+      "agent": "barry",
+      "by": "pericles",
+      "points": 1000,
+      "reason": "dock reversal (12 Oct): Carlo checked and found barry working \u2014 the -1000 was for undocumented minutes, not idle work; corrected. Documentation is still the standard: post partials.",
+      "ts": "2026-10-12T12:22:32Z"
     }
   ],
   "totals": {
+    "barry": 1000,
     "cormac": 1700,
     "marcus-aurelius": 1500,
     "scott": 1000
