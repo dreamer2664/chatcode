@@ -2644,8 +2644,12 @@ def _meeting_state(ctx: Ctx, task_id: str):
 
 
 def _meeting_agents(ctx: Ctx) -> list[str]:
+    """The members of a meeting. Carlo (kind human / role owner) can trigger or
+    veto at any point, but he is not a participant: his availability never
+    blocks a schedule and his prep is never demanded at a roll call."""
     try:
-        return [a.get("name") for a in load_agents(ctx) if a.get("name")]
+        return [a.get("name") for a in load_agents(ctx)
+                if a.get("name") and a.get("kind") != "human" and a.get("role") != "owner"]
     except SystemExit:
         return []
 
@@ -2667,6 +2671,9 @@ def cmd_meeting(ctx: Ctx, args):
     if not ctx.local:
         ctx.require_token()
     sub = args.action or "show"
+    if sub != "new" and not getattr(args, "id", None):
+        die("which meeting? `chatcode meeting show <id>` — open meetings live on the "
+            "`meetings` bus channel and in `chatcode tasks review`")
 
     if sub == "new":
         topic = (args.topic or "").strip()

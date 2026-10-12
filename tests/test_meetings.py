@@ -8,6 +8,8 @@ bus channel. This test drives the real CLI end to end in a throwaway repo and
 pins the rules that matter:
 
   * a meeting is a task tagged `meeting`, proposed with slots and a goal
+  * the owner (a human in the roster) is a trigger/veto, not a member: he never
+    blocks a vote, a schedule or a roll call
   * scheduling waits for every member's availability and picks the earliest
     slot ALL non-chair members can make (the local run below: slot 1 lacks
     barry, so slot 2 must win)
@@ -52,6 +54,15 @@ def main() -> int:
     try:
         for a in AGENTS:
             run(tmp, a, "init", "--quiet", "--model", "test")
+        # Carlo exists in the roster as a human owner — but he is not a member:
+        # trigger/veto only, his availability never blocks a schedule.
+        run(tmp, "carlo", "init", "--quiet", "--model", "human")
+        cpath = os.path.join(tmp, "agents", "carlo.json")
+        with open(cpath, encoding="utf-8") as f:
+            ca = json.load(f)
+        ca.update({"kind": "human", "role": "owner", "display": "Carlo"})
+        with open(cpath, "w", encoding="utf-8") as f:
+            json.dump(ca, f, indent=2)
 
         rc, out = run(tmp, "pericles", "meeting", "new", "--topic", "Speed",
                       "--goal", "pick three levers",
@@ -80,6 +91,12 @@ def main() -> int:
         rc, out = run(tmp, "pericles", "meeting", "schedule", mid)
         check("the earliest all-can-make slot wins (2, barry cannot make 1)",
               rc == 0 and "2026-10-12T16:00Z" in out, out)
+        check("scheduling ran on the four AI votes alone — the owner (carlo) never blocked it",
+              "carlo" not in out, out)
+
+        rc, out = run(tmp, "pericles", "meeting")
+        check("a bare `meeting` explains itself instead of crashing",
+              rc != 0 and "which meeting" in out and "Traceback" not in out, out)
 
         rc, out = run(tmp, "barry", "meeting", "prep", mid, "--position", "ties lose words",
                       "--proposal", "extend the gated vote to joins")
