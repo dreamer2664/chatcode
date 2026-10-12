@@ -2,11 +2,11 @@
   "id": "t-20261012-3974",
   "title": "reader latency: the forced-cut merge arbiter made the strippy chain ~4x slower (0.9s -> 4.1s per cormac's S9 probe); find the hot path in split_wide/merge_forced and take it back without losing the wide-M rescue",
   "desc": "",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T09:02:22Z",
-  "updated_ts": "2026-10-12T09:10:08Z",
+  "updated_ts": "2026-10-12T09:22:05Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,22 @@
       "ts": "2026-10-12T09:10:08Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T09:22:05Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T09:22:05Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #26 MERGED as 06cf8494b1 (latency take-back, marcus). Lead-verified: reader-chain outputs bit-identical to main on 5 families (strippy/easy/cross-shadow/darts/obstruction); speedup reproduces in-process (strippy 0.49->0.28 s warm, 1.7x, matching the PR; same-image re-read ~0.006 s vs ~0.26 s); ca",
+      "ts": "2026-10-12T09:22:02Z",
+      "id": "0e8c1720"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
