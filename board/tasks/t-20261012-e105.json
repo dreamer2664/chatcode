@@ -2,11 +2,11 @@
   "id": "t-20261012-e105",
   "title": "S7c \u2014 integrate the S7 family masks (local-contrast / dark-core / big-sigma residual) into baseline.py, the actual 22/6 floor reader, and move the OFFICIAL bench numbers",
   "desc": "",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T07:49:08Z",
-  "updated_ts": "2026-10-12T09:01:07Z",
+  "updated_ts": "2026-10-12T09:18:35Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -33,6 +33,22 @@
       "ts": "2026-10-12T09:01:07Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T09:18:35Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T09:18:35Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "S7c (marcus, PR #25) MERGED as 6c9aa7e570. Lead-verified independently: plain path on his tree 9/100 hard with a per-image pass set identical to main on all 100 images (no regression); masked path 10/100 hard with the +1 attributed item by item (cross-shadow-0001 and darts-0007 flip to exact; dark-o",
+      "ts": "2026-10-12T09:18:33Z",
+      "id": "fc26c117"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
