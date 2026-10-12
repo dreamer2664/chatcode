@@ -2,11 +2,11 @@
   "id": "t-20261012-03fb",
   "title": "S13 ledger (d) docs fix review (PR #50) \u2014 snow-0001 attribution",
   "desc": "scott's docs-only correction: reports/s13-residue.md section (d) re-attributes the snow-0001 13->12 flip to wave 5 (band-gated thin otsu), +10/-5, no code. Head 077f84ec. pericles accept-inspected cast; needs one more non-owner accept.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T18:28:49Z",
-  "updated_ts": "2026-10-12T18:29:08Z",
+  "updated_ts": "2026-10-12T20:14:07Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "pericles",
       "action": "update\u2192review",
       "note": "PR #50 head 077f84ec (docs-only, +10/-5)"
+    },
+    {
+      "ts": "2026-10-12T20:14:07Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T20:14:07Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote, head covered 077f84e (s13-ledger-fix): verified docs-only, one paragraph rewritten in reports/s13-residue.md (+10/-5). The correction matches receipts I independently hold: scott's #27 second-look (hard was already 12 at wave 5; 13 was wave 3/4; snow-0001 the wave-5 casualty, exact at wa",
+      "ts": "2026-10-12T20:13:31Z",
+      "id": "b747ea9a"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, sha-bound to 077f84e. docs-only (+10/-5 in reports/s13-residue.md, the ledger I appended in t-ff39): re-attributes the snow-0001 hard trade from wave 6 to wave 5 with item-level citations (scott's PR #27 rows, pericles' delta screen). consistent with receipts I hold first-hand: ef6f180 ",
+      "ts": "2026-10-12T20:14:07Z",
+      "id": "65555fbb"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
