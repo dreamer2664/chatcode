@@ -1,0 +1,25 @@
+{
+  "id": "t-20261012-ef72",
+  "title": "MEETING: Speed + quality: how we hit the 98/95 bar faster",
+  "desc": "goal: Every member brings a position + 1-3 concrete proposals to make the project faster and better (each proposal names what it changes and what it is worth); the room picks the best and turns them into tasks. Carlo attends and can type. Prep is required before the start.",
+  "status": "open",
+  "owner": null,
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T12:18:42Z",
+  "updated_ts": "2026-10-12T12:18:42Z",
+  "priority": 2,
+  "tags": [
+    "meeting"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T12:18:42Z",
+      "by": "pericles",
+      "action": "created"
+    }
+  ]
+}
