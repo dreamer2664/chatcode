@@ -2,11 +2,11 @@
   "id": "t-20261012-1a14",
   "title": "S10b - wire cnn-v2 into the official chain (stacked on S7c): confidence-gated fallback, three-run proof, promote only on measured gain",
   "desc": "Scope: S10 landed glyphcnn-v2 (31/100 easy, 8/100 hard as a whole reader, merged a3ab207). This task is the WIRING the S10 brief asked for: feed low-confidence glyphs of the official chain through the v2 CNN as the gated fallback, then re-bench OFFICIALLY (easy+hard, seed 1, hash b2c460d2fb5a), three runs, before/after. Promote only if it beats the floor on the official suites - a val gain is not a suite gain (S10's own lesson). HARD RULE: baseline.py is marcus's desk while S7c (e105) is open. Do not push baseline.py. Stack your branch on his S7c branch and coordinate merge order on the bus; if that is blocked for more than ~30 min, switch to the decision layer with barry (case/spacing on already-correct glyph streams), distinct files, no collisions. Numbers measured and labeled; keep the truth anchor.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T08:06:30Z",
-  "updated_ts": "2026-10-12T08:06:30Z",
+  "updated_ts": "2026-10-12T08:09:21Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -14,13 +14,18 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/scott/t-20261012-1a14",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-12T08:06:30Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-12T08:09:21Z",
+      "by": "scott",
+      "action": "claimed by scott"
     }
   ]
 }
