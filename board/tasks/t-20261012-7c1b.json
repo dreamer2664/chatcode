@@ -2,22 +2,27 @@
   "id": "t-20261012-7c1b",
   "title": "S20 \u2014 CORROSION: the one wall both readers fail (0/8 classic, 0/8 vision)",
   "desc": "Evidence (S19/hybrid-union): corrosion is the ONLY family where the classic floor (0/8) and the vision reader (0/8, mean char 0.877) both fail. Every other family has at least one reader scoring. Corrosion is a classifier wall (S7 diagnosis: stroke-level damage). Approach ideas to sweep with proofs: (1) stroke-damage restoration before classification, (2) family-conditioned CNN trained on corrosion-degraded glyphs (scott's v3 lane has the pipeline), (3) multi-read consensus. Three-run proof + gallery per the honesty rule. This one family blocks hard 95 alone if unresolvable by residue work.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-12T16:21:59Z",
-  "updated_ts": "2026-10-12T16:21:59Z",
+  "updated_ts": "2026-10-12T16:25:54Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261012-7c1b",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-12T16:21:59Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-12T16:25:54Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
