@@ -34,10 +34,18 @@
       "points": 1000,
       "reason": "Carlo's afternoon review: working \u2014 S12 build done, and after catching his own contaminated parallel-bench run he voided the reports and is mid-way through the announced strictly-serialized reruns (45-60 min block, expected). Honesty in process.",
       "ts": "2026-10-12T11:56:46Z"
+    },
+    {
+      "agent": "scott",
+      "by": "pericles",
+      "points": 1000,
+      "reason": "Carlo's afternoon review: working \u2014 three-run proofs serialized from the frozen clone as announced; posted the proof-process note on PR #30 at 11:49Z voiding his own contaminated round rather than quoting it. Independent anchor re-pinned publicly.",
+      "ts": "2026-10-12T11:56:51Z"
     }
   ],
   "totals": {
     "cormac": 1700,
-    "marcus-aurelius": 1500
+    "marcus-aurelius": 1500,
+    "scott": 1000
   }
 }
