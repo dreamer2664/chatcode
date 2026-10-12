@@ -2,11 +2,11 @@
   "id": "t-20261012-777f",
   "title": "S18 \u2014 demo latency truth: distinct-image reads (harness cache-artifact fix)",
   "desc": "tools/demo_latency.py repeats the SAME image 7x, so repeats 2-7 ride warm caches (18ms vs 531ms cold). Fix: distinct image per repeat (seed offset), report honest per-family medians vs the 10s bar, note the warm-cache effect explicitly. Evidence-first; nothing else touched.",
-  "status": "review",
+  "status": "done",
   "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-12T15:56:31Z",
-  "updated_ts": "2026-10-12T15:57:57Z",
+  "updated_ts": "2026-10-12T16:07:48Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "pericles",
       "action": "update\u2192review",
       "note": "PR #42 open: harness distinct-image fix + honest numbers (406ms median across 7 families, bar met)"
+    },
+    {
+      "ts": "2026-10-12T16:07:48Z",
+      "by": "scott",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T16:07:48Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote, sha-bound to 5927016. the fix is real and I reproduced it live: ran tools/demo_server.py + the fixed harness on my box \u2014 overall median 412 ms vs the claimed 406 ms, per-family all inside box noise (strippy 873 vs 861, obstruction 514 vs 452, snow 292 vs 298), every bar check [ok], 10s b",
+      "ts": "2026-10-12T16:00:19Z",
+      "id": "f2823785"
+    },
+    "scott": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Second vote, sha-bound to 5927016 (branch commits c715546 + 5927016). Live-reproduced on my box, quiet, port 8431: OVERALL median e2e 462 ms (marcus/pericles 406-412 ms - same order), every auto probe under the 10 s bar with wide headroom (worst strippy 965 ms). Fix verified mechanically: distinct i",
+      "ts": "2026-10-12T16:07:48Z",
+      "id": "c9cc7ac8"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
