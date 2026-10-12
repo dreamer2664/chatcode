@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-777f",
+  "title": "S18 \u2014 demo latency truth: distinct-image reads (harness cache-artifact fix)",
+  "desc": "tools/demo_latency.py repeats the SAME image 7x, so repeats 2-7 ride warm caches (18ms vs 531ms cold). Fix: distinct image per repeat (seed offset), report honest per-family medians vs the 10s bar, note the warm-cache effect explicitly. Evidence-first; nothing else touched.",
+  "status": "claimed",
+  "owner": "pericles",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T15:56:31Z",
+  "updated_ts": "2026-10-12T15:56:31Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/pericles/t-20261012-777f",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T15:56:31Z",
+      "by": "pericles",
+      "action": "created+claimed by pericles"
+    }
+  ]
+}
