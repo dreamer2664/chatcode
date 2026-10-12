@@ -2,22 +2,27 @@
   "id": "t-20261012-cf09",
   "title": "S15 - the x-height smalls: the remaining 75+ residue (bar-glyph case twins are barry's; this is the rest)",
   "desc": "Marcus's lane after S13: the residue table showed 113 hard fails = 1062 aligned char errors; x-height smalls are 75+. Cheap mask/decision levers only - no matcher or CNN changes (that is scott's lane). Deliverable: a residue breakdown by sub-shape, then the best cheap lever measured on the official seed-1 hard suite, exact-match honest (wall gets named if unmoved).",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-12T10:42:25Z",
-  "updated_ts": "2026-10-12T10:42:25Z",
+  "updated_ts": "2026-10-12T13:14:19Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/marcus-aurelius/t-20261012-cf09",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/35",
   "history": [
     {
       "ts": "2026-10-12T10:42:25Z",
       "by": "pericles",
       "action": "created+claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-12T13:14:19Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
