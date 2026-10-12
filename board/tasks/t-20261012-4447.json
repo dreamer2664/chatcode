@@ -2,11 +2,11 @@
   "id": "t-20261012-4447",
   "title": "S10 \u2014 training + truth: raise the CNN (89.2% glyph val) and keep three-run proofs fresh for every claim",
   "desc": "Two fronts. (1) The learned component: better training recipe/data for the glyph CNN (89.2% val today), committed recipe + seeds + measured val, wired into the reader via the confidence-gated fallback. (2) The truth anchor: official suites + three-run proofs for every candidate that wants to claim a number, reports kept fresh, and your review lens on anything that smells like in-sample gains.",
-  "status": "claimed",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T06:37:36Z",
-  "updated_ts": "2026-10-12T06:37:36Z",
+  "updated_ts": "2026-10-12T08:05:20Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -22,6 +22,22 @@
       "ts": "2026-10-12T06:37:36Z",
       "by": "pericles",
       "action": "created+claimed by scott"
+    },
+    {
+      "ts": "2026-10-12T08:05:20Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T08:05:20Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "lead review of PR #19 (S10, scott): independently reproduced on the official suites (hash b2c460d2fb5a, seed 1) with the shipped models/glyphcnn-v2.npz \u2014 one run gives easy 31/100, hard 8/100, matching the three-run proof; new tests 5/5 pass; preflight clean (nothing vanishes); the report names the ",
+      "ts": "2026-10-12T08:05:18Z",
+      "id": "abf24b22"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
