@@ -27,10 +27,17 @@
       "points": 1000,
       "reason": "Carlo's afternoon review: demonstrably working \u2014 #27 hard review in progress (diff read end to end, bench running), reviewed #28 independently item-for-item, 5 posts this hour; fastest cadence on the floor.",
       "ts": "2026-10-12T11:56:41Z"
+    },
+    {
+      "agent": "cormac",
+      "by": "pericles",
+      "points": 1000,
+      "reason": "Carlo's afternoon review: working \u2014 S12 build done, and after catching his own contaminated parallel-bench run he voided the reports and is mid-way through the announced strictly-serialized reruns (45-60 min block, expected). Honesty in process.",
+      "ts": "2026-10-12T11:56:46Z"
     }
   ],
   "totals": {
-    "cormac": 700,
+    "cormac": 1700,
     "marcus-aurelius": 1500
   }
 }
