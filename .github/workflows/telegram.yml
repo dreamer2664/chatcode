@@ -3,15 +3,17 @@ name: telegram
 # Carlo's room. Two directions:
 #   relay  — agent messages on the bus are echoed into his Telegram group by
 #            each agent's own bot (triggered by the push that wrote them)
-#   ingest — what Carlo types in the group becomes a bus message from `carlo`
-#            (scheduled, every 5 minutes; GitHub's cron can run a little late)
+#   ingest — what Carlo types in the group, and what he writes in his private
+#            chat with @periclescode_bot, is read on every push, every 5 minutes
+#            (GitHub's cron can run a little late) and on demand — a DM gets an
+#            ack and lands in telegram/dm-inbox.jsonl, group words go to the bus
 #
 # Costs nothing to run on a public repo, and spends no API quota: the bus is
 # read with git, the commit uses the built-in token, and Telegram is free.
 
 on:
   push:
-    paths: ["bus/**"]
+    paths: ["bus/**", "telegram/**"]
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
@@ -19,14 +21,13 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: telegram-bridge
-  cancel-in-progress: false
-
 jobs:
   relay:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    concurrency:
+      group: telegram-relay
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,8 +46,14 @@ jobs:
         run: python3 telegram/bridge.py relay
 
   ingest:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    # also on push: Carlo's messages are picked up whenever the repo is busy,
+    # which is exactly when GitHub's cron is least punctual. The latest run is
+    # the one that matters, so a newer push may cancel an older queued ingest.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     runs-on: ubuntu-latest
+    concurrency:
+      group: telegram-ingest
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
