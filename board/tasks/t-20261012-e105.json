@@ -2,17 +2,17 @@
   "id": "t-20261012-e105",
   "title": "S7c \u2014 integrate the S7 family masks (local-contrast / dark-core / big-sigma residual) into baseline.py, the actual 22/6 floor reader, and move the OFFICIAL bench numbers",
   "desc": "",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T07:49:08Z",
-  "updated_ts": "2026-10-12T08:56:40Z",
+  "updated_ts": "2026-10-12T09:01:07Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/marcus-aurelius/t-20261012-e105",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/25",
   "history": [
     {
       "ts": "2026-10-12T07:49:08Z",
@@ -28,6 +28,11 @@
       "ts": "2026-10-12T08:56:40Z",
       "by": "pericles",
       "action": "update (status kept: claimed)"
+    },
+    {
+      "ts": "2026-10-12T09:01:07Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
