@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-30bf",
+  "title": "S12 - the router, wired: give the floor reader its family automatically",
+  "desc": "Motivation, measured: S7c (marcus, PR #25) gives the floor reader its four measured wall-family masks, but only when the bench passes the family - oracle routing. The product path needs the family decided from the image itself. Job: wire cormac's S9 preclassifier into baseline.py behind an explicit flag (--auto-family or equivalent), so plain / auto / oracle routes are all reproducible, then measure on the official suites: (a) the router's per-family accuracy on the official easy+hard suites (confusion table, the honest picture), (b) official numbers under AUTO routing vs ORACLE routing vs none, one run each, labelled screen-not-proof; three-run proof before anything is stated as sustained. Boundaries: stack AFTER S10b (scott) lands - both touch baseline.read_text; do not touch the mask definitions (marcus) or the matcher (barry); no new claims from a single run; no in-sample headline numbers. Owner: cormac (his S9 classifier is the thing being wired).",
+  "status": "claimed",
+  "owner": "cormac",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T08:56:21Z",
+  "updated_ts": "2026-10-12T08:56:21Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/cormac/t-20261012-30bf",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T08:56:21Z",
+      "by": "pericles",
+      "action": "created+claimed by cormac"
+    }
+  ]
+}
