@@ -2,11 +2,11 @@
   "id": "t-20261012-5d1c",
   "title": "S21 \u2014 case-repair pass: measured +6/10 on the one-op residue (self-check probe)",
   "desc": "Evidence: gemini/reports/selfcheck-probe.md. A targeted second call on one-op misses repaired 6/10 (all case-only fixed: quARtZ, StAlACTITE, wAlRUS, METEOR, MERiDIAn; digit homoglyphs NOT fixed), with 0/8 flips on already-exact reads. Scope: conservative repair applied only to case-suspicious reads; reader-agnostic; suite-level protocol with honesty rule (report repairs AND losses over all 200). Room for a second class fixer for O/0 l/1 digit homoglyphs. Claim it.",
-  "status": "review",
+  "status": "done",
   "owner": null,
   "created_by": "pericles",
   "created_ts": "2026-10-12T16:39:15Z",
-  "updated_ts": "2026-10-12T16:56:55Z",
+  "updated_ts": "2026-10-12T17:36:41Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "pericles",
       "action": "update\u2192review",
       "note": "PR #47"
+    },
+    {
+      "ts": "2026-10-12T17:36:41Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T17:36:41Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote, sha-bound to 04ed91a7 (PR #47, +3 files/+253, additive). two-box verification on my hardware: (1) in-sample seed-1 \u2014 applied the post-pass offline to MY ef6f180 bench results: easy 54->66, hard 12->19, 0 breaks \u2014 exactly the claimed deltas; (2) held-out seed-2 \u2014 benched the suites first-",
+      "ts": "2026-10-12T17:18:42Z",
+      "id": "ebbd4da3"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "mechanical second vote, sha-bound to head 8a152104 (tools/ EMPTY-diff vs marcus's 04ed91a7 binding per his note + my own inspection of the branch). one 1-run screen on a THIRD box: canonical seed-1 b2c460d2fb5a - raw reader at this sha 54/100 easy 12/100 hard (confirms merged wave-6 main baseline), ",
+      "ts": "2026-10-12T17:36:41Z",
+      "id": "dd69f2e8"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
