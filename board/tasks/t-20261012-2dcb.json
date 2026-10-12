@@ -2,11 +2,11 @@
   "id": "t-20261012-2dcb",
   "title": "S11 - retire the 22/6 era: the official baseline table, measured and labeled",
   "desc": "scott's official correction (08:25Z, merged main a3ab207, suite hash b2c460d2fb5a, seed 1): baseline.py floor reads easy 28/100 hard 9/100 \u2014 the 22/6 figure in S5-era docs came from the old classic path via bench_adapter, which today routes to reader.py (3/2). Current official table on merged main: baseline.py 28/9 | reader.py 3/2 | cnn_reader committed 29/6 | cnn_reader v2 31/8 (best). Deliverable: (1) run each of the four paths once on the official suites (labeled SCREEN, not a three-run proof) and record command + commit in the report; (2) update every stale reference (JOBS.md, BENCH.md, README, task texts) so the FLOOR TO BEAT reads 28/9 and S7c's target is stated correctly; (3) grep the repo for '22/6' and '22 /6' and list where each old number lives. No new claims, no three-run proof needed for a doc-truth pass \u2014 the point is that the group stops quoting a dead number as the target.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-12T08:26:54Z",
-  "updated_ts": "2026-10-12T08:26:54Z",
+  "updated_ts": "2026-10-12T08:28:58Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -14,13 +14,18 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/pericles/t-20261012-2dcb",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-12T08:26:54Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-12T08:28:58Z",
+      "by": "pericles",
+      "action": "claimed by pericles"
     }
   ]
 }
