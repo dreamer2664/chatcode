@@ -96,7 +96,7 @@ PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
     "task", "claim", "done", "handoff", "review", "vote", "alert",
-    "dm", "archive", "verify", "debate",
+    "dm", "archive", "verify", "debate", "meeting",
 )
 # A vote is the decision, a review is the evidence. Both are legitimate ways to
 # weigh in; votes are what the tally counts.
@@ -2604,6 +2604,345 @@ def cmd_debate(ctx: Ctx, args):
     die(f"unknown debate action {sub!r} (new | speak | show | close)")
 
 
+# ---------------------------------------------------------------- meetings
+# Carlo's ask (12 Oct 2026): the AIs must be able to talk to each other in a
+# planned room, not by chance pings. One meeting = one task (state) + messages
+# on the `meetings` channel (record), every message carrying a meeting_slot so
+# the whole protocol is reconstructable from the bus alone.
+MEETING_CHANNEL = "meetings"
+MEETING_STATUSES = ("proposed", "scheduled", "live", "closed", "dropped")
+
+
+def _slot_norm(s: str) -> str:
+    """'2026-10-12T15:00Z' or '2026-10-12T15:00' -> canonical '...T15:00Z'."""
+    s = (s or "").strip()
+    if not s:
+        die("empty slot")
+    if s.endswith("Z"):
+        s = s[:-1]
+    if "T" not in s or len(s) != 16:
+        die(f"slot {s!r} must look like 2026-10-12T15:00Z (UTC, minutes)")
+    return s + "Z"
+
+
+def _meeting_state(ctx: Ctx, task_id: str):
+    """(task, slots, msgs) — first message per slot wins, CLI prevents seconds."""
+    tasks = load_tasks(ctx)
+    task = next((t for t in tasks if t.get("id") == task_id), None)
+    if not task:
+        die(f"no such task: {task_id}")
+    if "meeting" not in (task.get("tags") or []):
+        die(f"{task_id} is not a meeting (open one with `chatcode meeting new`)")
+    msgs = fetch_messages(ctx, channel=MEETING_CHANNEL, include_archive=False,
+                          include_dms=False)
+    slots: dict = {}
+    for m in msgs:
+        slot = m.get("meeting_slot")
+        if m.get("ref") == task_id and slot and slot not in slots:
+            slots[slot] = m
+    return task, slots, msgs
+
+
+def _meeting_agents(ctx: Ctx) -> list[str]:
+    try:
+        return [a.get("name") for a in load_agents(ctx) if a.get("name")]
+    except SystemExit:
+        return []
+
+
+def cmd_meeting(ctx: Ctx, args):
+    """Planned, scheduled talk — propose, vote a time, be prepared, meet.
+
+    Lifecycle: `meeting new` (topic + goal + up to three UTC slots) -> every
+    member votes which slots they can make -> `meeting schedule` picks the
+    earliest slot ALL non-chair members can make (or refuses, loudly) and posts
+    the BE PREPARED packet -> every member must `meeting prep` one position +
+    at least one concrete proposal BEFORE the start (this is what keeps a
+    sleeping session's voice in the room) -> `meeting start` (chair) posts the
+    roll call -> `meeting roll --here` marks presence, `meeting say` speaks ->
+    `meeting close` records decisions, attendance and prep compliance.
+    Carlo can trigger or veto at any point: he is the owner, not a participant.
+    """
+    me = ctx.require_agent()
+    if not ctx.local:
+        ctx.require_token()
+    sub = args.action or "show"
+
+    if sub == "new":
+        topic = (args.topic or "").strip()
+        goal = (args.goal or "").strip()
+        if not topic or not goal:
+            die("meeting new needs --topic and --goal (what are we deciding or improving?)")
+        slots = [_slot_norm(s) for s in (args.slot or [])]
+        if not slots:
+            die("meeting new needs at least one --slot 2026-10-12T15:00Z (max 3)")
+        if len(slots) > 3:
+            die("at most 3 slots per meeting")
+        if len(set(slots)) != len(slots):
+            die("duplicate slots")
+        chair = args.chair or "pericles"
+        reading = list(args.reading or [])
+        t = create_task(ctx, f"MEETING: {topic[:90]}",
+                        desc=f"goal: {goal}" + (f"\nreading: {', '.join(reading)}" if reading else ""),
+                        priority=2, owner=None, tags=["meeting"])
+        def stamp(x):
+            x["meeting_topic"] = topic
+            x["meeting_goal"] = goal
+            x["meeting_reading"] = reading
+            x["meeting_slots"] = slots
+            x["meeting_chair"] = chair
+            x["meeting_status"] = "proposed"
+            x["meeting_votes"] = {}
+            x["status"] = "review"          # votable bookkeeping, no owner
+            return x, "meeting proposed"
+        t = update_task(ctx, t["id"], stamp)
+        listing = " | ".join(f"{i+1}: {s}" for i, s in enumerate(slots))
+        msg = make_message(me, f"MEETING PROPOSED {t['id']}: {topic} — goal: {goal}. "
+                               f"Slots (UTC): {listing}. Every member: vote the slots "
+                               f"you can make with `chatcode meeting vote {t['id']} "
+                               f"--slots 1,2` (or `--no`). Chair: {chair}.",
+                           mtype="meeting", channel=MEETING_CHANNEL, ref=t["id"],
+                           extra={"meeting_slot": "proposal"})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting proposed {t['id']}")
+        print(f"{color('✓', C_G)} meeting {t['id']} proposed (message #{msg['id']}) — slots {listing}")
+        return
+
+    task, slots, _msgs = _meeting_state(ctx, args.id)
+    topic = task.get("meeting_topic") or task["title"]
+    status = task.get("meeting_status") or "proposed"
+
+    if sub == "show":
+        print(color(f"{task['id']} — MEETING [{status}]: {topic[:70]}", C_B))
+        print(f"  goal: {task.get('meeting_goal')}   chair: {task.get('meeting_chair')}")
+        mslots = task.get("meeting_slots") or []
+        votes = task.get("meeting_votes") or {}
+        for i, s in enumerate(mslots):
+            can = sorted(a for a, v in votes.items() if (v or {}).get("avail")
+                         and i + 1 in v["avail"])
+            no = sorted(a for a, v in votes.items() if (v or {}).get("no"))
+            print(f"  slot {i+1}: {s}  can: {', '.join(can) or '—'}   no: {', '.join(no) or '—'}")
+        if task.get("meeting_start"):
+            print(f"  starts: {task['meeting_start']}")
+        prep = sorted(a for a, m in slots.items() if str(a).startswith("prep-"))
+        turns = len([s for s in slots if str(s).startswith("turn-")])
+        here = sorted(a for a, m in slots.items() if str(a).startswith("roll-"))
+        print(f"  prep done: {', '.join(s[5:] for s in prep) or '—'}")
+        if status in ("live", "closed"):
+            print(f"  present: {', '.join(s[5:] for s in here) or '—'}   turns posted: {turns}")
+        if task.get("meeting_decisions"):
+            print(f"  decisions: {task['meeting_decisions']}")
+        return
+
+    if sub == "vote":
+        if status not in ("proposed",):
+            die(f"voting is closed (meeting is {status})")
+        votes = dict(task.get("meeting_votes") or {})
+        if args.no:
+            votes[me] = {"no": True, "avail": []}
+        else:
+            picked = []
+            for chunk in (args.slots or []):
+                for part in str(chunk).split(","):
+                    part = part.strip()
+                    if not part.isdigit() or not (1 <= int(part) <= len(task.get("meeting_slots") or [])):
+                        die(f"slot {part!r} is not one of 1..{len(task.get('meeting_slots') or [])}")
+                    picked.append(int(part))
+            if not picked:
+                die("say which slots you can make: --slots 1,2 (or --no)")
+            votes[me] = {"avail": sorted(set(picked))}
+        def put(x):
+            x["meeting_votes"] = votes
+            return x, f"meeting vote: {me}"
+        update_task(ctx, args.id, put)
+        msg = make_message(me, f"MEETING VOTE {args.id}: {me} — "
+                               + ("cannot make any slot" if args.no
+                                  else "can make slot(s) " + ", ".join(str(i) for i in votes[me]["avail"])),
+                           mtype="meeting", channel=MEETING_CHANNEL, ref=args.id,
+                           extra={"meeting_slot": f"vote-{me}"})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} vote {me}")
+        print(f"{color('✓', C_G)} vote recorded for {me}")
+        return
+
+    if sub == "schedule":
+        if status != "proposed":
+            die(f"meeting is {status}; nothing to schedule")
+        mslots = task.get("meeting_slots") or []
+        votes = task.get("meeting_votes") or {}
+        members = [a for a in _meeting_agents(ctx) if a and a != task.get("meeting_chair")]
+        missing = [a for a in members if a not in votes]
+        if missing:
+            die(f"waiting on availability from: {', '.join(missing)} "
+                f"(members vote with `chatcode meeting vote {args.id} --slots 1,2`)")
+        pick = None
+        for i in range(len(mslots)):
+            if all(i + 1 in (votes.get(a) or {}).get("avail", []) for a in members):
+                pick = i
+                break
+        if pick is None and not args.force:
+            score = {i + 1: sum(1 for a in members if i + 1 in (votes.get(a) or {}).get("avail", []))
+                     for i in range(len(mslots))}
+            best = max(score.values())
+            die(f"no slot works for everyone (best {best}/{len(members)}: "
+                + ", ".join(f"slot {i} ({n})" for i, n in score.items())
+                + "). Re-propose with another slot, or chair decides with --force.")
+        if pick is None:
+            pick = max(range(len(mslots)),
+                       key=lambda i: sum(1 for a in members if i + 1 in (votes.get(a) or {}).get("avail", [])))
+        start = mslots[pick]
+        def sched(x):
+            x["meeting_status"] = "scheduled"
+            x["meeting_start"] = start
+            x["meeting_slot_pick"] = pick + 1
+            return x, f"meeting scheduled {start}"
+        update_task(ctx, args.id, sched)
+        reading = task.get("meeting_reading") or []
+        prep_lines = "\n".join([
+            f"MEETING SCHEDULED {args.id} for {start} (UTC) — BE PREPARED.",
+            f"Topic: {topic}",
+            f"Goal: {task.get('meeting_goal')}",
+            ("Reading: " + ", ".join(reading)) if reading else "Reading: (none set — ask the chair if you need some)",
+            "",
+            "Required before the start, by every member:",
+            f"  1. ONE position (2-4 sentences: what you think, from your own work)",
+            f"  2. 1-3 CONCRETE proposals on making the project faster/better (each one",
+            f"     must name what it changes and what it is worth)",
+            f"Post with: chatcode meeting prep {args.id} --position \"...\" --proposal \"...\" (--proposal can repeat)",
+            "",
+            "Roll call fires at the start. If your session dies, your prep still speaks for you.",
+        ])
+        msg = make_message(me, prep_lines, mtype="alert", channel=MEETING_CHANNEL,
+                           ref=args.id, extra={"meeting_slot": "schedule"})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} scheduled")
+        print(f"{color('✓', C_G)} {args.id} scheduled for {start} — BE PREPARED packet posted "
+              f"(#{msg['id']}); members must prep before then")
+        return
+
+    if sub == "prep":
+        if status not in ("scheduled", "live"):
+            die(f"prep is open once scheduled (meeting is {status})")
+        pos = " ".join(args.position or []).strip()
+        props = [" ".join(p).strip() for p in (args.proposal or [])]
+        props = [p for p in props if p]
+        if not pos or not props:
+            die("prep needs --position \"...\" and at least one --proposal \"...\"")
+        slot = f"prep-{me}"
+        if slot in slots:
+            die(f"your prep is already on the record (#{slots[slot]['id']}) — one per member")
+        body = f"MEETING PREP {args.id} — {me}\nPOSITION: {pos}"
+        for i, p in enumerate(props, 1):
+            body += f"\nPROPOSAL {i}: {p}"
+        msg = make_message(me, body, mtype="meeting", channel=MEETING_CHANNEL,
+                           ref=args.id, extra={"meeting_slot": slot})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} prep {me}")
+        print(f"{color('✓', C_G)} prep on the record (#{msg['id']}) — {len(props)} proposal(s)")
+        return
+
+    if sub == "start":
+        if status != "scheduled":
+            die(f"start needs a scheduled meeting (it is {status})")
+        if me != task.get("meeting_chair") and not args.force:
+            die(f"only the chair ({task.get('meeting_chair')}) starts the meeting")
+        members = [a for a in _meeting_agents(ctx)
+                   if a and a != task.get("meeting_chair") and a != task.get("owner")]
+        prepped = sorted(s[5:] for s in slots if str(s).startswith("prep-"))
+        not_prepped = [a for a in members if a not in prepped]
+        def live(x):
+            x["meeting_status"] = "live"
+            x["meeting_started_ts"] = now_iso()
+            return x, "meeting live"
+        update_task(ctx, args.id, live)
+        body = (f"MEETING LIVE {args.id} — {topic}\n"
+                f"ROLL CALL: every member, post `chatcode meeting roll {args.id} --here` now.\n"
+                f"Prepped: {', '.join(prepped) or '—'}"
+                + (f"   NOT prepped: {', '.join(not_prepped)}" if not_prepped else "")
+                + f"\nRound 1 opens once everyone has rolled. Speak with `chatcode meeting say {args.id} --text \"...\"`.")
+        msg = make_message(me, body, mtype="alert", channel=MEETING_CHANNEL, ref=args.id,
+                           extra={"meeting_slot": "start"})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} live")
+        print(f"{color('✓', C_G)} {args.id} is LIVE — roll call posted (#{msg['id']}); "
+              f"prepped: {', '.join(prepped) or '—'}")
+        return
+
+    if sub == "roll":
+        if status not in ("live", "closed"):
+            die(f"roll call only while live (meeting is {status})")
+        if not args.here:
+            here = sorted(s[5:] for s in slots if str(s).startswith("roll-"))
+            print(f"{args.id} attendance: {', '.join(here) or '—'}")
+            return
+        slot = f"roll-{me}"
+        if slot in slots:
+            die("you are already on the roll call")
+        msg = make_message(me, f"MEETING ROLL {args.id}: {me} — here.",
+                           mtype="meeting", channel=MEETING_CHANNEL, ref=args.id,
+                           extra={"meeting_slot": slot})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} roll {me}")
+        print(f"{color('✓', C_G)} {me} marked present")
+        return
+
+    if sub == "say":
+        if status != "live":
+            die(f"speaking is for a live meeting (it is {status})")
+        text = " ".join(args.text or []).strip()
+        if not text:
+            die("meeting say needs --text")
+        n = len([s for s in slots if str(s).startswith(f"turn-{me}-")]) + 1
+        msg = make_message(me, f"MEETING {args.id} — {me} (turn {n}): {text}",
+                           mtype="meeting", channel=MEETING_CHANNEL, ref=args.id,
+                           extra={"meeting_slot": f"turn-{me}-{n}"})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} turn {me} {n}")
+        print(f"{color('✓', C_G)} turn {n} posted (#{msg['id']})")
+        return
+
+    if sub == "close":
+        if status not in ("live", "scheduled"):
+            die(f"nothing to close (meeting is {status})")
+        if me != task.get("meeting_chair") and not args.force:
+            die(f"only the chair ({task.get('meeting_chair')}) closes the meeting")
+        members = [a for a in _meeting_agents(ctx)
+                   if a and a != task.get("meeting_chair") and a != task.get("owner")]
+        here = sorted(s[5:] for s in slots if str(s).startswith("roll-"))
+        prepped = sorted(s[5:] for s in slots if str(s).startswith("prep-"))
+        absent = [a for a in members if a not in here]
+        decisions = " ".join(args.minutes or []) or "(no minutes given)"
+        def done(x):
+            x["meeting_status"] = "closed"
+            x["meeting_closed_ts"] = now_iso()
+            x["meeting_decisions"] = decisions
+            x["meeting_attendance"] = here
+            x["meeting_prepped"] = prepped
+            x["meeting_absent"] = absent
+            x["status"] = "done"
+            x["completed_ts"] = now_iso()
+            return x, "meeting closed"
+        update_task(ctx, args.id, done)
+        body = (f"MEETING CLOSED {args.id} — {topic}\n"
+                f"DECISIONS: {decisions}\n"
+                f"Present: {', '.join(here) or '—'}"
+                + (f"   Absent: {', '.join(absent)}" if absent else "")
+                + f"   Prepped: {', '.join(prepped) or '—'}"
+                + "\nEvery accepted proposal becomes a task with an owner — the chair files them.")
+        msg = make_message(me, body, mtype="meeting", channel=MEETING_CHANNEL, ref=args.id,
+                           extra={"meeting_slot": "close"})
+        append_bus(ctx, MEETING_CHANNEL, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: meeting {args.id} closed")
+        if absent:
+            print(color(f"  attendance gap: {', '.join(absent)} did not roll — reported, not hidden", C_Y))
+        print(f"{color('✓', C_G)} {args.id} closed (#{msg['id']})")
+        return
+
+    die(f"unknown meeting action {sub!r} "
+        "(new | vote | schedule | prep | start | roll | say | close | show)")
+
+
+
 def cmd_archive(ctx: Ctx, args):
     """The archive of denied work. The lead walks this with the human."""
     if not ctx.local:
@@ -3761,6 +4100,44 @@ def build_parser() -> argparse.ArgumentParser:
                                        "(drops the proposal if no opposition spoke)")
     d.add_argument("id")
     s.set_defaults(func=cmd_debate)
+
+    s = sub.add_parser("meeting", add_help=True, parents=[common],
+                       help="planned talk: propose, vote a time, prep positions + "
+                            "proposals, roll call, minutes (Carlo + chair can trigger)")
+    msub = s.add_subparsers(dest="action")
+    mm = msub.add_parser("new", help="propose a meeting (topic, goal, up to 3 UTC slots)")
+    mm.add_argument("--topic", required=True)
+    mm.add_argument("--goal", required=True)
+    mm.add_argument("--slot", action="append", help="e.g. 2026-10-12T15:00Z (repeat up to 3)")
+    mm.add_argument("--reading", action="append", help="link/PR/report worth reading before (repeatable)")
+    mm.add_argument("--chair", default=None, help="who runs it (default pericles)")
+    mm = msub.add_parser("vote", help="your availability: --slots 1,2 or --no")
+    mm.add_argument("id")
+    mm.add_argument("--slots", action="append", help="slot numbers you can make, e.g. 1,2")
+    mm.add_argument("--no", action="store_true", help="you cannot make any slot")
+    mm = msub.add_parser("schedule", help="pick the slot everyone can make and post BE PREPARED")
+    mm.add_argument("id")
+    mm.add_argument("--force", action="store_true", help="chair decides with an imperfect slot")
+    mm = msub.add_parser("prep", help="one position + 1-3 concrete proposals, before the start")
+    mm.add_argument("id")
+    mm.add_argument("--position", nargs="+", required=True)
+    mm.add_argument("--proposal", nargs="+", action="append", required=True)
+    mm = msub.add_parser("start", help="chair: open the meeting and post the roll call")
+    mm.add_argument("id")
+    mm.add_argument("--force", action="store_true")
+    mm = msub.add_parser("roll", help="attendance: --here to mark yourself present")
+    mm.add_argument("id")
+    mm.add_argument("--here", action="store_true")
+    mm = msub.add_parser("say", help="speak in a live meeting")
+    mm.add_argument("id")
+    mm.add_argument("--text", nargs="+", required=True)
+    mm = msub.add_parser("close", help="chair: minutes + decisions + attendance on the record")
+    mm.add_argument("id")
+    mm.add_argument("--minutes", nargs="+", required=True, help="the decisions, in plain words")
+    mm.add_argument("--force", action="store_true")
+    mm = msub.add_parser("show", help="meeting state, votes, prep and attendance")
+    mm.add_argument("id")
+    s.set_defaults(func=cmd_meeting)
 
     s = sub.add_parser("archive", add_help=True, parents=[common],
                        help="denied work: what was rejected, by whom, and why")
