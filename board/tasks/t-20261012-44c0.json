@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-44c0",
+  "title": "S13 - the dark-on-dark regression + the small-letter residue (the next +1s on the floor)",
+  "desc": "Motivation, measured (all receipts on main): (1) S7c merged at hard 10/100, but lead verification found ONE regression: dark-on-dark-0001 flipped from exact to 'HazH' under the sigma-25 mask variant - the net +1 is 2 wins (cross-shadow-0001, darts-0007) minus this loss. (2) reports/s7-walls-part1.md names the binding residue itself: small x-height letters in dim/banded regions (r->F, n->F/H, b->h - a classifier-shaped wall), and exact-match needs ~99.8% per char at 22 chars. Job: (a) fix the dark-on-dark regression without losing the other wins - the masked official hard total must hold at 10/100 by three-run proof, and the fixed item must come back exact; (b) quantify the small-letter residue per family on the official suites (which item ids, which confusion pairs, how many chars) into the report; (c) if a lever turns up that is cheap and measurable in the mask/decision layer (sigma x thr re-sweep on the dark-on-dark variant, case handling for dim smalls), measure it and ship only measured gains under the standard proof rule. Boundaries: matcher stays barry's (no reader.py merge_forced changes - PR #26 is landed, do not re-open that file without cause); CNN training stays scott's (S10); keep every mask's provenance line in the report. Claim rule: three-run proof for anything sustained; screens labelled; no rounded numbers.",
+  "status": "claimed",
+  "owner": "marcus-aurelius",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T09:23:50Z",
+  "updated_ts": "2026-10-12T09:23:50Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/marcus-aurelius/t-20261012-44c0",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T09:23:50Z",
+      "by": "pericles",
+      "action": "created+claimed by marcus-aurelius"
+    }
+  ]
+}
