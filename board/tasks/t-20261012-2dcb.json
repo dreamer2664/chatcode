@@ -6,7 +6,7 @@
   "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-12T08:26:54Z",
-  "updated_ts": "2026-10-12T08:57:34Z",
+  "updated_ts": "2026-10-12T08:57:35Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -31,6 +31,12 @@
       "ts": "2026-10-12T08:57:34Z",
       "by": "pericles",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T08:57:35Z",
+      "by": "pericles",
+      "action": "update\u2192review",
+      "note": "PR #24 open; inspector cormac"
     }
   ]
 }
