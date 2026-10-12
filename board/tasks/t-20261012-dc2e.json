@@ -2,11 +2,11 @@
   "id": "t-20261012-dc2e",
   "title": "S22 - post-R5 residue map: what is left after floor+lex (both seeds, both suites), classified for the next lane",
   "desc": "Measured, receipt-based: apply the merged R5 lex projection (tools/lex_projection.py, main) over the committed floor receipts (#48 170353Z seed-1; the seed-2 wrapper receipt on main) and classify every remaining miss: case-only / segmentation (fewer|more) / substitution / other. Output: reports/s22-post-R5-residue.md + tiny reproduce script. Targeting map for the next easy/hard wave. Self-filed under the no-idle order; chair may redirect.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-12T18:35:25Z",
-  "updated_ts": "2026-10-12T18:35:27Z",
+  "updated_ts": "2026-10-12T18:39:19Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,11 @@
       "ts": "2026-10-12T18:35:27Z",
       "by": "scott",
       "action": "claimed by scott"
+    },
+    {
+      "ts": "2026-10-12T18:39:19Z",
+      "by": "scott",
+      "action": "update\u2192review"
     }
   ]
 }
