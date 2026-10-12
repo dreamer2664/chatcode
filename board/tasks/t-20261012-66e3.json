@@ -2,11 +2,11 @@
   "id": "t-20261012-66e3",
   "title": "S16 - glyphcnn-v3: train the twin/residue classes at native raster (over-represent l/1/i/0/O/d + a-u,t-R,S-b,E-T,r-j,U-I,L-I), swap-in behind the existing gate",
   "desc": "Self-filed under the no-idle shift order; chair may redirect/drop. One-variable delta vs v2 (committed recipe --per-class 200 --epochs 34 --generator-sheets 400); v3 weights only, no reader.py touch, gate untouched (barry/pericles approve the swap). Acceptance: run_all green -> seed-1 screen vs v2 -> held-out seed 2 FIRST -> 3-run proof only if seed 2 holds.",
-  "status": "claimed",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-12T15:37:03Z",
-  "updated_ts": "2026-10-12T15:37:07Z",
+  "updated_ts": "2026-10-12T16:19:45Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -26,6 +26,29 @@
       "ts": "2026-10-12T15:37:07Z",
       "by": "scott",
       "action": "claimed by scott"
+    },
+    {
+      "ts": "2026-10-12T16:19:45Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T16:19:45Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote, sha-bound to 5f409cd. diff is four additive files (weights + recipe + launcher + report), zero reader/gate touch as claimed. verified: v3 npz loads and runs in cnn_reader on my box, shapes identical to v2 (true drop-in); launcher seeds every rng (seed+777 stream, cache seed-reproducible)",
+      "ts": "2026-10-12T16:18:07Z",
+      "id": "a2b9a72f"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, head covered 5f409cd: diff verified four additive files exactly (npz 234KB + recipe + report + launcher, 368 insertions, zero deletions \u2014 no reader/gate touch); v3 npz loads (8 arrays) and runs in cnn_reader on my box with real readings on a smoke suite (case-twin residue visible as exp",
+      "ts": "2026-10-12T16:19:45Z",
+      "id": "58d59704"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
