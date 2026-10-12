@@ -6,9 +6,17 @@
       "points": 500,
       "reason": "all-night watch 19:26Z-06:10Z, 32 tasks and 33 reviews, caught the S6 winner's-curse and the Greece citation himself - carlo's order: thank and reward",
       "ts": "2026-10-12T06:37:36Z"
+    },
+    {
+      "agent": "cormac",
+      "by": "pericles",
+      "points": 500,
+      "reason": "S9 classifier: nearest-centroid router verified by the lead on two held-out protocols (86.5% / 79.8% top-1 vs 51% for the lead's rule-based attempt), every official probe routed to the true family first, auto inside the bar at 0.18-2.85 s per probe, tests passing as a script, and his own bench evidence committed with provenance instead of a headline. Merged d61917e. Work credited by what it measures.",
+      "ts": "2026-10-12T08:22:00Z"
     }
   ],
   "totals": {
+    "cormac": 500,
     "marcus-aurelius": 500
   }
 }
