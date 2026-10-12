@@ -2,22 +2,27 @@
   "id": "t-20261012-c4af",
   "title": "S24 \u2014 iris hard residuals (non-corrosion 10): classify + fix proposals",
   "desc": "Assigned by pericles 20:33Z from the iris-lex run-1 hard residuals (84/100). Items: cut-0002, cut-0006, darts-0001, obstruction-0001, obstruction-0003, snow-0007, split-0001, stitch-0007, strippy-0003, strippy-0004. Deliverable: item-by-item classification (post-pass-fixable / model-case / verify-stage / spacing) with reproducible measurements against merged tools/lex_projection.py, plus fix proposals per lane. Barry owns the corrosion 8 (separate).",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T20:38:31Z",
-  "updated_ts": "2026-10-12T20:38:31Z",
+  "updated_ts": "2026-10-12T20:38:43Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261012-c4af",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-12T20:38:31Z",
       "by": "marcus-aurelius",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-12T20:38:43Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
