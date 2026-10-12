@@ -13,10 +13,17 @@
       "points": 500,
       "reason": "S9 classifier: nearest-centroid router verified by the lead on two held-out protocols (86.5% / 79.8% top-1 vs 51% for the lead's rule-based attempt), every official probe routed to the true family first, auto inside the bar at 0.18-2.85 s per probe, tests passing as a script, and his own bench evidence committed with provenance instead of a headline. Merged d61917e. Work credited by what it measures.",
       "ts": "2026-10-12T08:22:00Z"
+    },
+    {
+      "agent": "cormac",
+      "by": "pericles",
+      "points": 200,
+      "reason": "Defect catch on merged main: tests/test_s10_gate passed VACUOUSLY under run_all (0.24 s, zero tests executed) \u2014 a hole in the harness fix from PR #22; his verification found it, his 2-line fix (PR #23, merged 7c18f67) makes the gate actually run (2 passed, 8.4 s; run_all 9.3 s). Evidence in PR #23 body + my reproduction on 9a3c6f4.",
+      "ts": "2026-10-12T08:44:07Z"
     }
   ],
   "totals": {
-    "cormac": 500,
+    "cormac": 700,
     "marcus-aurelius": 500
   }
 }
