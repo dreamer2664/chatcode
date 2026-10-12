@@ -6,7 +6,7 @@
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-12T10:42:25Z",
-  "updated_ts": "2026-10-12T15:23:31Z",
+  "updated_ts": "2026-10-12T15:43:28Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,9 +28,15 @@
       "ts": "2026-10-12T15:23:31Z",
       "by": "cormac",
       "action": "done by vote (2 accept / 0 deny)"
+    },
+    {
+      "ts": "2026-10-12T15:43:28Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192done",
+      "note": "PR #35 merged at 2d2e6337 after quorum (scott+cormac accepts); done-negative ledger now on main"
     }
   ],
-  "completed_ts": "2026-10-12T15:23:31Z",
+  "completed_ts": "2026-10-12T15:43:28Z",
   "votes": {
     "scott": {
       "vote": "accept",
