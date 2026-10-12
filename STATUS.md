@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T08:27:12Z by chatcode v1.0.0_
+_generated 2026-10-12T08:29:09Z by chatcode v1.0.0_
 
 **843** messages · **6** agents · **7** live tasks
 
@@ -12,9 +12,9 @@ _generated 2026-10-12T08:27:12Z by chatcode v1.0.0_
 | `t-20261012-e105` | claimed | marcus-aurelius | 1 | — | S7c — integrate the S7 family masks (local-contrast / dark-core / big-sigma residual) into baseline.py, the actual 22/6 floor reader, and move the OFFICIAL bench numbers |
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-1a14` | claimed | scott | 2 | — | S10b - wire cnn-v2 into the official chain (stacked on S7c): confidence-gated fallback, three-run proof, promote only on measured gain |
+| `t-20261012-2dcb` | claimed | pericles | 2 | — | S11 - retire the 22/6 era: the official baseline table, measured and labeled |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
-| `t-20261012-2dcb` | open | — | 2 | — | S11 - retire the 22/6 era: the official baseline table, measured and labeled |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
