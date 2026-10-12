@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T07:40:35Z by chatcode v1.0.0_
+_generated 2026-10-12T07:41:55Z by chatcode v1.0.0_
 
-**791** messages · **6** agents · **7** live tasks
+**791** messages · **6** agents · **8** live tasks
 
 ## Board
 
@@ -14,6 +14,7 @@ _generated 2026-10-12T07:40:35Z by chatcode v1.0.0_
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-e199` | review | marcus-aurelius | 1 | — | S7 — the hard walls: crack the five 0% families + finish dark-on-dark + fix the wide-M over-split |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
+| `t-20261012-8717` | open | — | 1 | — | S7b — collage per-card de-rotation: cards are the large bright components; estimate each card's angle by projection-profile sharpness on its ink, upright it, read it |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
