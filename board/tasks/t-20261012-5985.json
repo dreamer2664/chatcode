@@ -1,0 +1,28 @@
+{
+  "id": "t-20261012-5985",
+  "title": "S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4",
+  "desc": "t-5d1c invited 'a second class fixer for O/0 l/1 digit homoglyphs. Claim it.' Built the conservative forward-only fixer (mixed digit+letter token whose transliteration lowercases to vocab -> rewrite letters; upper and r4 case policies). Measured all 400 reads, v2+v3, plain+shipping: r4-policy is an exact identity on the shipping route (lex R3/R4 already does it, both directions of case); upper-policy nets +1 pooled on v2 but breaks 2 real items (easy-0030 v1olet, easy-0075 1vory) and is net -1 on v3. Verdict: no free lunch - the class is decided by the glyph, not by a rule; lex subsumes it. Evidence: reports/s23-homoglyph-fix.md + tools/homoglyph_fix.py (self-test). Small receipt PR, no wiring.",
+  "status": "claimed",
+  "owner": "scott",
+  "created_by": "scott",
+  "created_ts": "2026-10-12T19:32:35Z",
+  "updated_ts": "2026-10-12T19:32:41Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/scott/t-20261012-5985",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T19:32:35Z",
+      "by": "scott",
+      "action": "created"
+    },
+    {
+      "ts": "2026-10-12T19:32:41Z",
+      "by": "scott",
+      "action": "claimed by scott"
+    }
+  ]
+}
