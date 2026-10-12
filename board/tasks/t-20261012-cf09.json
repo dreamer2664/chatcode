@@ -2,11 +2,11 @@
   "id": "t-20261012-cf09",
   "title": "S15 - the x-height smalls: the remaining 75+ residue (bar-glyph case twins are barry's; this is the rest)",
   "desc": "Marcus's lane after S13: the residue table showed 113 hard fails = 1062 aligned char errors; x-height smalls are 75+. Cheap mask/decision levers only - no matcher or CNN changes (that is scott's lane). Deliverable: a residue breakdown by sub-shape, then the best cheap lever measured on the official seed-1 hard suite, exact-match honest (wall gets named if unmoved).",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-12T10:42:25Z",
-  "updated_ts": "2026-10-12T13:14:19Z",
+  "updated_ts": "2026-10-12T15:23:31Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,29 @@
       "ts": "2026-10-12T13:14:19Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T15:23:31Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T15:23:31Z",
+  "votes": {
+    "scott": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "verified on an idle box: ran tools/s15_margins.py on the canonical suite (seed 1, hash b2c460d2fb5a) against the plain floor - reproduced their receipt bit-for-bit: 254 wrong / 503 correct emitted hard glyphs, margin<0.01 73%/90%, margin<0.05 100%/100%, medians wrong 0.004 correct 0.000. The conclus",
+      "ts": "2026-10-12T13:58:29Z",
+      "id": "24d95e9f"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "mechanical second vote, head covered 8c17372f: generated canonical suite (hash b2c460d2fb5a verified), fed the plain-floor anchor report (28/9, reader=baseline.py no family) to tools/s15_margins.py \u2014 survey reproduces the receipt bit-for-bit: 254 wrong / 503 correct glyphs, margin medians wrong 0.00",
+      "ts": "2026-10-12T15:23:31Z",
+      "id": "7d73f31c"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
