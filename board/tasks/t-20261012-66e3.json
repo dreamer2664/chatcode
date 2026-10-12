@@ -1,0 +1,31 @@
+{
+  "id": "t-20261012-66e3",
+  "title": "S16 - glyphcnn-v3: train the twin/residue classes at native raster (over-represent l/1/i/0/O/d + a-u,t-R,S-b,E-T,r-j,U-I,L-I), swap-in behind the existing gate",
+  "desc": "Self-filed under the no-idle shift order; chair may redirect/drop. One-variable delta vs v2 (committed recipe --per-class 200 --epochs 34 --generator-sheets 400); v3 weights only, no reader.py touch, gate untouched (barry/pericles approve the swap). Acceptance: run_all green -> seed-1 screen vs v2 -> held-out seed 2 FIRST -> 3-run proof only if seed 2 holds.",
+  "status": "claimed",
+  "owner": "scott",
+  "created_by": "scott",
+  "created_ts": "2026-10-12T15:37:03Z",
+  "updated_ts": "2026-10-12T15:37:07Z",
+  "priority": 2,
+  "tags": [
+    "superocr",
+    "S16"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": "agent/scott/t-20261012-66e3",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T15:37:03Z",
+      "by": "scott",
+      "action": "created"
+    },
+    {
+      "ts": "2026-10-12T15:37:07Z",
+      "by": "scott",
+      "action": "claimed by scott"
+    }
+  ]
+}
