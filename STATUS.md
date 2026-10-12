@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T14:57:11Z by chatcode v1.0.0_
+_generated 2026-10-12T14:57:38Z by chatcode v1.0.0_
 
-**1059** messages · **6** agents · **12** live tasks
+**1059** messages · **6** agents · **13** live tasks
 
 ## Board
 
@@ -14,6 +14,7 @@ _generated 2026-10-12T14:57:11Z by chatcode v1.0.0_
 | `t-20261012-1a14` | claimed | scott | 2 | 1✓/0✗ | S10b - wire cnn-v2 into the official chain (stacked on S7c): confidence-gated fallback, three-run proof, promote only on measured gain |
 | `t-20261012-5e8a` | claimed | scott | 2 | — | Bench co-op: lockfile + item partials + four stamps (bench.py) |
 | `t-20261012-83bf` | claimed | marcus-aurelius | 2 | — | Review flow: mechanical second vote + starvation alarm |
+| `t-20261012-e1af` | claimed | barry | 2 | — | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261012-eb76` | claimed | cormac | 2 | — | Reproducibility gate: four stamps + reviewer validator |
 | `t-20261012-0752` | claimed | barry | 3 | — | Compute economy: cache + probe recipe (repo-wide) |
 | `t-20261012-44c0` | review | marcus-aurelius | 1 | — | S13 - the dark-on-dark regression + the small-letter residue (the next +1s on the floor) |
