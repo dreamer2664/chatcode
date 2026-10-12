@@ -2,55 +2,56 @@
 
 Fingerprints only — keys never appear here. Sources: `keys/usage/*.jsonl` (every helper call through `tools/keys_ask.py`) + the lead's Iris/pool ledger.
 
-Updated 17:56:26Z · total registered calls today: **1758**
+Updated 18:11:28Z · total registered calls today: **1849**
 
 | agent | calls | ok | chars |
 |---|---:|---:|---:|
-| pericles | 1752 | 507 | 9767 |
+| pericles | 1843 | 530 | 10166 |
 | scott | 6 | 1 | 820 |
 
 | key fp | calls |
 |---|---:|
-| pool:a0daf11fcd | 187 |
-| pool:3cd7ebd4d9 | 175 |
-| pool:654f79acba | 101 |
-| pool:88f5b8371a | 79 |
-| pool:11ab80a6f8 | 71 |
-| pool:99bb36a9c8 | 63 |
-| pool:69d34e414f | 59 |
-| pool:fcfc4470a0 | 58 |
-| pool:f6c58a2af3 | 55 |
-| pool:9beda4ce3b | 54 |
-| pool:4ab6e282f3 | 52 |
-| pool:fcc9b58c96 | 48 |
-| pool:6293a79ec9 | 45 |
-| pool:c9abaa4893 | 41 |
-| pool:7a6a866f59 | 41 |
-| pool:3d1427906d | 32 |
-| pool:8348054389 | 32 |
-| pool:f964ba344f | 29 |
-| pool:5c0f4ef4cf | 28 |
-| pool:25c999407a | 23 |
-| pool:4767699eac | 23 |
-| pool:6df55644f7 | 22 |
-| pool:41866df4df | 22 |
-| pool:14426dbca5 | 21 |
-| pool:4105b3ba5c | 19 |
+| pool:a0daf11fcd | 195 |
+| pool:3cd7ebd4d9 | 181 |
+| pool:654f79acba | 106 |
+| pool:88f5b8371a | 83 |
+| pool:11ab80a6f8 | 75 |
+| pool:fcfc4470a0 | 73 |
+| pool:99bb36a9c8 | 66 |
+| pool:69d34e414f | 60 |
+| pool:f6c58a2af3 | 59 |
+| pool:9beda4ce3b | 57 |
+| pool:4ab6e282f3 | 53 |
+| pool:fcc9b58c96 | 51 |
+| pool:6293a79ec9 | 49 |
+| pool:c9abaa4893 | 45 |
+| pool:7a6a866f59 | 42 |
+| pool:3d1427906d | 33 |
+| pool:8348054389 | 33 |
+| pool:f964ba344f | 31 |
+| pool:5c0f4ef4cf | 29 |
+| pool:25c999407a | 26 |
+| pool:4767699eac | 26 |
+| pool:6df55644f7 | 24 |
+| pool:41866df4df | 23 |
+| pool:14426dbca5 | 23 |
+| pool:4105b3ba5c | 20 |
 | pool:910cf1f3e3 | 17 |
-| pool:efaa4a08d2 | 16 |
-| pool:1cf26fdd63 | 15 |
-| pool:ef976d88f6 | 15 |
+| pool:efaa4a08d2 | 17 |
+| pool:1cf26fdd63 | 16 |
+| pool:ef976d88f6 | 16 |
+| pool:04bd2e5bff | 15 |
+| pool:474ad7fd94 | 15 |
 | pool:7ac452b6c5 | 14 |
 | pool:4bbc16ca1b | 14 |
 | pool:c3ecc75466 | 14 |
-| pool:04bd2e5bff | 14 |
-| pool:474ad7fd94 | 14 |
+| pool:6141471fa8 | 14 |
+| pool:bc6e7aaf5e | 13 |
 | pool:8b96295162 | 13 |
-| pool:6141471fa8 | 13 |
 | pool:01ddfddb57 | 12 |
 | pool:54e370e95d | 12 |
-| pool:bc6e7aaf5e | 12 |
 | pool:44b81877a2 | 12 |
+| pool:e1b8ed7b70 | 12 |
 | pool:d57c0dca0a | 11 |
 | pool:c6312546bc | 11 |
 | pool:0479b3b310 | 11 |
@@ -63,7 +64,6 @@ Updated 17:56:26Z · total registered calls today: **1758**
 | pool:b98450c799 | 11 |
 | pool:1103351948 | 11 |
 | pool:27ae34fcd7 | 11 |
-| pool:e1b8ed7b70 | 11 |
 | pool:263389c10b | 9 |
 | pool:2ad305d29c | 9 |
 | 6141471fa8ad | 2 |
