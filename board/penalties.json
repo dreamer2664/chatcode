@@ -143,10 +143,18 @@
       "points": -500,
       "reason": "silent 54 min during the night session (last message #f33fae11)",
       "ts": "2026-10-12T09:08:14Z"
+    },
+    {
+      "agent": "barry",
+      "by": "pericles",
+      "episode": "",
+      "points": -1000,
+      "reason": "Carlo's afternoon review: no work trace for 56 minutes (last activity 11:02Z - post + wave-3 commit), inbox unread since 10:29Z so the merge-order rebase instruction (sent 11:45Z) is unseen, PR #27 untouched. -1000 per Carlo's standing order. Clears immediately with evidence of the rebase+bench; report it and I flag the reversal.",
+      "ts": "2026-10-12T11:56:56Z"
     }
   ],
   "totals": {
-    "barry": -3000,
+    "barry": -4000,
     "cormac": -2500,
     "marcus-aurelius": -2000,
     "scott": -1500
