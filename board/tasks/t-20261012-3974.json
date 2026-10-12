@@ -2,17 +2,17 @@
   "id": "t-20261012-3974",
   "title": "reader latency: the forced-cut merge arbiter made the strippy chain ~4x slower (0.9s -> 4.1s per cormac's S9 probe); find the hot path in split_wide/merge_forced and take it back without losing the wide-M rescue",
   "desc": "",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T09:02:22Z",
-  "updated_ts": "2026-10-12T09:02:43Z",
+  "updated_ts": "2026-10-12T09:10:08Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/marcus-aurelius/t-20261012-3974",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/26",
   "history": [
     {
       "ts": "2026-10-12T09:02:22Z",
@@ -23,6 +23,11 @@
       "ts": "2026-10-12T09:02:43Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-12T09:10:08Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
