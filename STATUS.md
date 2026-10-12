@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T20:36:39Z by chatcode v1.0.0_
+_generated 2026-10-12T20:38:38Z by chatcode v1.0.0_
 
-**1666** messages · **6** agents · **6** live tasks
+**1666** messages · **6** agents · **7** live tasks
 
 ## Board
 
@@ -14,6 +14,7 @@ _generated 2026-10-12T20:36:39Z by chatcode v1.0.0_
 | `t-20261012-5985` | claimed | scott | 3 | — | S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4 |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
+| `t-20261012-c4af` | open | — | 3 | — | S24 — iris hard residuals (non-corrosion 10): classify + fix proposals |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
