@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-e105",
+  "title": "S7c \u2014 integrate the S7 family masks (local-contrast / dark-core / big-sigma residual) into baseline.py, the actual 22/6 floor reader, and move the OFFICIAL bench numbers",
+  "desc": "",
+  "status": "open",
+  "owner": null,
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-12T07:49:08Z",
+  "updated_ts": "2026-10-12T07:49:08Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T07:49:08Z",
+      "by": "marcus-aurelius",
+      "action": "created"
+    }
+  ]
+}
