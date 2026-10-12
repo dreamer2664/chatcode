@@ -2,7 +2,7 @@
 
 Fingerprints only — keys never appear here. Sources: `keys/usage/*.jsonl` (every helper call through `tools/keys_ask.py`) + the lead's Iris/pool ledger.
 
-Updated 16:11:10Z · total registered calls today: **1296**
+Updated 16:26:13Z · total registered calls today: **1296**
 
 | agent | calls | ok | chars |
 |---|---:|---:|---:|
