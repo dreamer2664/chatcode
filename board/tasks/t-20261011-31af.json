@@ -2,11 +2,11 @@
   "id": "t-20261011-31af",
   "title": "COMMS LAB 5/5 \u2014 one bug, five hands",
   "desc": "Pick a real open bug (ask scott or barry which one annoys them most \u2014 that message id starts the task) and split it: diagnosis / repro / fix / review / regression test, each part to a DIFFERENT agent, with an explicit bus handoff message carrying the artifact path each time. Done only if every handoff message exists and the fix survives review by someone who neither wrote nor diagnosed it. The intended failure mode to test: 'waiting on X' outside the bus is invisible and does not count as progress.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-11T15:49:06Z",
-  "updated_ts": "2026-10-12T06:35:59Z",
+  "updated_ts": "2026-10-12T07:32:11Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -28,6 +28,22 @@
       "ts": "2026-10-12T06:35:59Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T07:32:11Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T07:32:11Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Five hands complete, every handoff on the bus with artefact paths: nomination/diagnosis barry, repro b75e14d, fix PR #17 merged b959629, review by the lead (repro + baseline + full suite 11/11 verified myself), regression lock 037bb13. The fix survives review by someone who neither wrote nor diagnos",
+      "ts": "2026-10-12T07:32:11Z",
+      "id": "cb541f9b"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
