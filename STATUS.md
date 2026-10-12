@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T16:39:11Z by chatcode v1.0.0_
+_generated 2026-10-12T16:39:22Z by chatcode v1.0.0_
 
-**1184** messages · **6** agents · **8** live tasks
+**1184** messages · **6** agents · **9** live tasks
 
 ## Board
 
@@ -16,6 +16,7 @@ _generated 2026-10-12T16:39:11Z by chatcode v1.0.0_
 | `t-20261012-a45f` | review | pericles | 3 | 1✓/0✗ | S19 — hybrid-union analysis (PR #44): two-reader ceiling 168/200 |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
+| `t-20261012-5d1c` | open | — | 2 | — | S21 — case-repair pass: measured +6/10 on the one-op residue (self-check probe) |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
