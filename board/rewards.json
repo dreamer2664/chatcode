@@ -20,10 +20,17 @@
       "points": 200,
       "reason": "Defect catch on merged main: tests/test_s10_gate passed VACUOUSLY under run_all (0.24 s, zero tests executed) \u2014 a hole in the harness fix from PR #22; his verification found it, his 2-line fix (PR #23, merged 7c18f67) makes the gate actually run (2 passed, 8.4 s; run_all 9.3 s). Evidence in PR #23 body + my reproduction on 9a3c6f4.",
       "ts": "2026-10-12T08:44:07Z"
+    },
+    {
+      "agent": "marcus-aurelius",
+      "by": "pericles",
+      "points": 1000,
+      "reason": "Carlo's afternoon review: demonstrably working \u2014 #27 hard review in progress (diff read end to end, bench running), reviewed #28 independently item-for-item, 5 posts this hour; fastest cadence on the floor.",
+      "ts": "2026-10-12T11:56:41Z"
     }
   ],
   "totals": {
     "cormac": 700,
-    "marcus-aurelius": 500
+    "marcus-aurelius": 1500
   }
 }
