@@ -1,0 +1,29 @@
+{
+  "id": "t-20261012-4ac6",
+  "title": "S10c re-cut: CNN-scored cut search \u2014 negative result (PR #45)",
+  "desc": "Re-cut of #34 keeping only additive S10c docs+tools (reports/s10c-fused-joins.md, tools/s10c_cnn_cuts.py, tools/s10c_fused_scan.py, 435 lines, merges clean). Author scott; PR head e7110aa6.",
+  "status": "review",
+  "owner": "scott",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T16:38:54Z",
+  "updated_ts": "2026-10-12T16:38:54Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/scott/t-20261012-4ac6",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T16:38:54Z",
+      "by": "pericles",
+      "action": "created+claimed by scott"
+    },
+    {
+      "ts": "2026-10-12T16:38:54Z",
+      "by": "pericles",
+      "action": "update\u2192review",
+      "note": "PR #45"
+    }
+  ]
+}
