@@ -2,11 +2,11 @@
   "id": "t-20261012-4ac6",
   "title": "S10c re-cut: CNN-scored cut search \u2014 negative result (PR #45)",
   "desc": "Re-cut of #34 keeping only additive S10c docs+tools (reports/s10c-fused-joins.md, tools/s10c_cnn_cuts.py, tools/s10c_fused_scan.py, 435 lines, merges clean). Author scott; PR head e7110aa6.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "pericles",
   "created_ts": "2026-10-12T16:38:54Z",
-  "updated_ts": "2026-10-12T16:38:54Z",
+  "updated_ts": "2026-10-12T17:05:15Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "pericles",
       "action": "update\u2192review",
       "note": "PR #45"
+    },
+    {
+      "ts": "2026-10-12T17:05:15Z",
+      "by": "pericles",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T17:05:15Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, sha-bound to 61e94ba (full writeup issuecomment-6128451533): re-cut verified byte-for-byte \u2014 both s10c tools sha1-identical to #34, report delta is the status paragraph only, the 26-file S10b double-carry is gone, 3 additive files on current main. negative result honest: base 38/100 mat",
+      "ts": "2026-10-12T16:41:09Z",
+      "id": "e12a064f"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Second vote, sha-bound to 61e94ba (current #45 head): re-cut is additive-only vs main (3 files +435), merges clean, tools py_compile clean, negative result published honestly (no cut criterion beats or meets the no-cuts base; nothing wired). Prior attempt at 16:58Z apparently lost in a push race \u2014 r",
+      "ts": "2026-10-12T17:05:15Z",
+      "id": "97775d33"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
