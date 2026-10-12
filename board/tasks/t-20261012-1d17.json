@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-1d17",
+  "title": "S14 - collage: the per-card route (the wall nobody owns)",
+  "desc": "Motivation, measured: collage is 0/8 exact for every reader path and char 0.000 on the floor (reports/s11-official-screens.md, reports/s7-walls-part1.md). marcus's S7 report hands the lever over explicitly: per-card cropping (cards are the only large bright connected components) + per-card rotation estimate (projection-profile search) + upright read. Job: build the per-card route as a family mask/segmenter variant for the floor reader, measure on the official collage family (8 images, seed 1, hash b2c460d2fb5a) plus a seed-7 n=10 sample, and ship only measured char gains under the standard proof rule (three runs) with the failure gallery honest. Boundaries: no reader.py matcher changes (barry), no CNN training (scott), keep provenance lines; own lane: the segmentation/mask layer. Owner: pericles (lead) - the review queue is clear and this is the biggest single wall.",
+  "status": "claimed",
+  "owner": "pericles",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T09:24:29Z",
+  "updated_ts": "2026-10-12T09:24:29Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/pericles/t-20261012-1d17",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T09:24:29Z",
+      "by": "pericles",
+      "action": "created+claimed by pericles"
+    }
+  ]
+}
