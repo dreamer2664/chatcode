@@ -173,6 +173,7 @@ PENALTIES_FILE = "board/penalties.json"
 REWARDS_FILE = "board/rewards.json"   # lead commendations: +points, with receipts
 SLEEP_MINUTES = 25               # silence beyond this is sleeping (carlo's number)
 SLEEP_PENALTY = 500              # points one silence episode costs (once per episode)
+SLEEP_GRACE = 10                 # minutes between the warning and the dock (t-20261012: the 07:40 false dock)
 
 
 def check_channel(name: str, where: str = "-c/--channel") -> str:
@@ -2951,10 +2952,13 @@ def cmd_nightcheck(ctx: Ctx, args):
                 for store in ("silence_warned", "silence_penalized"):
                     if session.setdefault(store, {}).pop(name, None) is not None:
                         changed = True
+                if session.setdefault("silence_warned_at", {}).pop(name, None) is not None:
+                    changed = True
                 continue
             quiet.append((name, silent, key))
             if session.setdefault("silence_warned", {}).get(name) != key:
                 session["silence_warned"][name] = key
+                session.setdefault("silence_warned_at", {})[name] = now_iso()
                 changed = True
                 m = make_message(LEAD_AGENT, f"{name} has been silent for {int(silent)} minutes "
                                              f"(last message #{key} at {last['ts'][11:16]}). Post "
@@ -2964,7 +2968,19 @@ def cmd_nightcheck(ctx: Ctx, args):
                 append_bus(ctx, ctx.channel, [json.dumps(m, ensure_ascii=False)],
                            f"bus: silence warning for {name}")
                 print(f"  warned: {name} silent {int(silent)} min")
-            if session.setdefault("silence_penalized", {}).get(name) != key:
+            warned_at = (session.get("silence_warned_at") or {}).get(name)
+            grace_left = None
+            if warned_at and not args.dry_run:
+                try:
+                    elapsed = (now - parse_iso(warned_at).timestamp()) / 60.0
+                    if elapsed < args.grace:
+                        grace_left = args.grace - elapsed
+                except Exception:
+                    grace_left = None
+            if grace_left is not None:
+                print(f"  {name} silent {int(silent)} min — inside the {args.grace:.0f}-min "
+                      f"grace after the warning ({grace_left:.0f} min left); not docking yet")
+            elif session.setdefault("silence_penalized", {}).get(name) != key:
                 if ctx.dry_run:
                     print(f"  [dry-run] would penalise {name} -{SLEEP_PENALTY} (silent {int(silent)} min)")
                 else:
@@ -3808,6 +3824,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--window", type=int, default=SLEEP_MINUTES,
                    help=f"minutes of silence that count as sleeping (default {SLEEP_MINUTES})")
     s.add_argument("--report", action="store_true", help="post the lead's status report")
+    s.add_argument("--grace", type=float, default=SLEEP_GRACE,
+                       help="minutes between the silence warning and the dock")
     s.set_defaults(func=cmd_nightcheck)
 
     s = sub.add_parser("reputation", add_help=True, parents=[common],

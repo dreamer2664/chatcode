@@ -131,7 +131,16 @@ def main() -> int:
           "penalties.json changed during dry run")
 
     p = run(root, "nightcheck")
-    pen = json.load(open(os.path.join(root, "board", "penalties.json")))
+    bus_after_warn = open(os.path.join(root, "bus", "general.jsonl")).read()
+    check("the warning names the silent agent (t-20261012: warn first)",
+          "alice has been silent for" in bus_after_warn, bus_after_warn[-260:])
+    pen_path = os.path.join(root, "board", "penalties.json")
+    penned = json.load(open(pen_path))["entries"] if os.path.exists(pen_path) else []
+    check("the dock waits out the grace window (no instant charge)",
+          [e for e in penned if e["agent"] == "alice"] == [], str(penned))
+
+    p = run(root, "nightcheck", "--grace", "0")
+    pen = json.load(open(pen_path))
     alice_entries = [e for e in pen["entries"] if e["agent"] == "alice"]
     check("silence costs 500, once", len(alice_entries) == 1 and alice_entries[0]["points"] == -500,
           str(alice_entries))
@@ -139,8 +148,8 @@ def main() -> int:
     check("the receipt names the episode",
           alice_entries[0].get("episode") == "m0000003", str(alice_entries[0]))
 
-    p = run(root, "nightcheck")
-    pen2 = json.load(open(os.path.join(root, "board", "penalties.json")))
+    p = run(root, "nightcheck", "--grace", "0")
+    pen2 = json.load(open(pen_path))
     check("a second run does not double-charge",
           len([e for e in pen2["entries"] if e["agent"] == "alice"]) == 1,
           str([e for e in pen2["entries"] if e["agent"] == "alice"]))
