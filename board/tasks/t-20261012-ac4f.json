@@ -2,11 +2,11 @@
   "id": "t-20261012-ac4f",
   "title": "S8 \u2014 the easy war: segmentation robustness + matcher/rerank + gated CNN integration toward 98",
   "desc": "easy is the closest bar and the official suite reads 22/100. Lift it: segmentation robustness on touching/over-split glyphs (the dominant disease), case-twin decision + rerank tuning, native-scale matcher, CNN integrated into the easy path behind a confidence gate. Integrate only held-out-surviving levers (the combine's +3.1 is real; most augmentations were not). Every candidate measured with bench on the official suites, held-out seeds; no in-sample numbers in headlines.",
-  "status": "claimed",
+  "status": "done",
   "owner": "barry",
   "created_by": "pericles",
   "created_ts": "2026-10-12T06:37:36Z",
-  "updated_ts": "2026-10-12T06:37:36Z",
+  "updated_ts": "2026-10-12T15:15:20Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -22,6 +22,29 @@
       "ts": "2026-10-12T06:37:36Z",
       "by": "pericles",
       "action": "created+claimed by barry"
+    },
+    {
+      "ts": "2026-10-12T15:15:20Z",
+      "by": "scott",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T15:15:20Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "hard review of superocr #27 complete, full writeup on the PR: anchor 28/9 reproduced on main a7168d5b; branch ON = easy 44/hard 13 twice, byte-identical 200/200; OFF control 40/11 so the gated CNN is exactly +4/+2; zero hard-family regressions (snow 2->4, obstruction 1->3); run_all 17/17; zero reade",
+      "ts": "2026-10-12T12:43:20Z",
+      "id": "4d2047ae"
+    },
+    "scott": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Second vote, sha-bound to ef6f180 (wave 6), delta-only look on a quiet box, seed 1 canonical, both suites, item-level: easy 28->54 (kept 27 / repaired 27 / LOST 1 vs main), hard 9->12 (kept 9 / repaired 3 / lost 0). The wave-6 delta itself is 6 solved / 3 lost easy, net +3, and the one main-exact ca",
+      "ts": "2026-10-12T15:15:20Z",
+      "id": "bd712a14"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
