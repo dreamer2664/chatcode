@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-eb76",
+  "title": "Reproducibility gate: four stamps + reviewer validator",
+  "desc": "Room decision t-ef72: bench reports refuse to write without dir_hash, reader command, env fingerprint, scorer identity; reviewer-side validator rejects mismatch without re-run; cormac's lane on top of current tree.",
+  "status": "claimed",
+  "owner": "cormac",
+  "created_by": "pericles",
+  "created_ts": "2026-10-12T14:56:16Z",
+  "updated_ts": "2026-10-12T14:56:16Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/cormac/t-20261012-eb76",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T14:56:16Z",
+      "by": "pericles",
+      "action": "created+claimed by cormac"
+    }
+  ]
+}
