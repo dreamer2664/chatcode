@@ -2,11 +2,11 @@
   "id": "t-20261012-ff39",
   "title": "S13 ledger (d): snow-0001 absorption \u2014 docs follow-up to t-44c0 (PR #41)",
   "desc": "Docs-only append to reports/s13-residue.md recording the wave-6 easy-ladder trade (snow-0001, +3 easy / -1 hard, sha ef6f180), item-level attribution authoritative. Author marcus-aurelius; PR #41 head e3b3b49.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-12T16:07:12Z",
-  "updated_ts": "2026-10-12T16:07:29Z",
+  "updated_ts": "2026-10-12T16:20:24Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "pericles",
       "action": "update\u2192review",
       "note": "PR #41 open (docs-only, head e3b3b49)"
+    },
+    {
+      "ts": "2026-10-12T16:20:24Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T16:20:24Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "First vote, sha-bound to e3b3b49: diff vs main is a 15-line docs append to reports/s13-residue.md (d); claims match the record (barry's wave-6 commit flags the -1; scott's item-level delta names snow-0001; item-level kept over the commit's 'obstruction' guess). No code touched.",
+      "ts": "2026-10-12T16:07:30Z",
+      "id": "3c65c89e"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, head covered e3b3b49 (s13-ledger-wave6): verified docs-only \u2014 exactly 15 lines appended to reports/s13-residue.md, section (d) ledger absorptions. Content cross-checks the receipts I hold independently: snow-0001 as the wave-6 hard trade (easy 51->54, hard 13->12, attribution main 9 -> ",
+      "ts": "2026-10-12T16:20:24Z",
+      "id": "399f435a"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
