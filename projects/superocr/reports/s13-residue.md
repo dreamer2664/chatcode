@@ -61,3 +61,23 @@ in the bench reports next to this file.
 - No code ships from S13 beyond the dod regression lock: every candidate
   lever was either another agent's lane or measured flat. The floor stands
   at easy 28/100, hard 11/100 pending PR #28's merge.
+
+## (d) ledger absorptions (post-S13, appended as they are named)
+
+- **2026-10-12 — snow-0001** ('beacon ISLAND jAspEr PLUME', snow family):
+  the one hard item the S8 easy ladder traded away. Item-level rows (scott:
+  PR #27 comment 6128024826 + the 15:34Z ladder table; pericles' independent
+  delta screen on the same head agrees, receipt on agent/pericles/27-delta):
+  the cell flipped at WAVE 5 (image-level x/cap bands) — exact at waves
+  2/3/4, wrong ('beacon IsLAND jAspEr PLuME') from wave 5 on; wave 5's easy
+  47 -> 51 paid the hard 13 -> 12. Wave 6 (band-gated thin otsu, head
+  ef6f180) then moved easy 51 -> 54 with hard flat at 12 (200/200 item
+  identity vs its rebase confirmed). barry's commit message flagged the -1
+  for this ledger (guessed obstruction-family; the item-level delta below
+  names the real cell).
+  Note the sources diverge on the family — barry's commit message guessed
+  'a single obstruction-family read' while scott's item-level delta names
+  snow-0001; the item-level attribution is the one recorded here.
+  Absorbed so the hard-side residue table counts it: one exact lost
+  on the snow family, paid for +3 easy exacts, disclosed by the author in
+  the same breath as the gain. sha-bound: ef6f180.
