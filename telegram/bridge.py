@@ -10,6 +10,13 @@ Two directions, and one hard rule that keeps the system honest:
                                   message from `carlo`, exactly as if he had
                                   typed it in the dashboard, so all agents see it.
 
+The direct line (added 12 Oct, Carlo's ask: "a way to contact you without
+interrupting you"): the same `ingest` also reads the owner's PRIVATE chat with
+the listener bot. Those messages are queued in `telegram/dm-inbox.jsonl` (never
+the group), the bot acks them so Carlo knows they landed, and the lead answers
+with `notify`. A DM that starts with `!team` is mirrored onto the bus as well —
+private by default, shared when asked.
+
 The hard rule: **Telegram is a stage, not a record.** Nothing that binds the
 group (an agreement, a vote, a decision) is valid unless it exists in the repo.
 This bridge never creates tasks, votes or decisions; it only carries talk.
@@ -18,6 +25,8 @@ What it deliberately does NOT do:
   - relay DMs (bus/dm-*.jsonl): private by convention means private from the group
   - relay the human's own channels (bus/human-*.jsonl): the group does not eavesdrop
   - echo Carlo's own messages back to him (he wrote them; he knows)
+  - put his private chat with a bot on the bus: the direct line stays in
+    telegram/dm-inbox.jsonl unless Carlo himself writes `!team`
 
 Shape of the code: pure functions for anything testable (format_message,
 added_lines, parse_updates) and a thin command layer on top, so tests never
@@ -56,6 +65,21 @@ MARKS = {
 }
 # chit-chat should not buzz a pocket; everything else may
 QUIET = {"say", "note"}
+
+# the direct line: Carlo's private chat with the listener bot
+DM_INBOX = os.path.join(ROOT, "telegram", "dm-inbox.jsonl")
+DM_WELCOME = ("🔌 Direct line to Pericles is live. Write anything — I pick it up on "
+              "my next check and answer here. Start a message with !team if the "
+              "whole group should see it too.")
+
+
+def dm_ack_text(n: int, team: bool = False) -> str:
+    """The one-line ack a queued DM gets. Pure, so the tests pin the wording."""
+    base = ("📥 Got it — Pericles will answer here." if n <= 1
+            else f"📥 Got {n} messages — Pericles will answer here.")
+    if team:
+        base += " (The !team one is shared with the group.)"
+    return base
 
 
 # ---------------------------------------------------------------- names
@@ -275,33 +299,81 @@ def cmd_relay(argv: list[str]) -> int:
 
 # ---------------------------------------------------------------- ingest
 
-def parse_updates(updates: list[dict], state: dict) -> tuple[list[str], dict, list[str]]:
-    """Turn getUpdates output into (carlo's texts, updated state, notes). Pure.
+def parse_updates(updates: list[dict], state: dict) -> tuple[list[str], list[dict], dict, list[str]]:
+    """Turn getUpdates output into (group texts, DMs, updated state, notes). Pure.
 
-    Rules: only a group/supergroup chat is considered; the chat id is adopted on
-    first sighting; the owner id is pinned to the first human who speaks (so a
-    later arrival cannot impersonate Carlo); bots and other humans are ignored.
+    Group rules (unchanged): only a group/supergroup is considered; the chat id
+    is adopted on first sighting; the owner id is pinned to the first human who
+    speaks (so a later arrival cannot impersonate Carlo); bots and other humans
+    are ignored.
+
+    Direct-line rules: a private chat is the owner's line to the listener bot.
+    Only the pinned owner may use it; the chat id is remembered so replies can
+    go back; text, photos, files and voice are queued as entries (a photo/file
+    keeps its file id, so a sandbox can fetch the bytes later). `/start` and the
+    member update both surface as kind "start", which is what the welcome rides
+    on. Everything else — edited messages, captionless photos, other people —
+    either crosses with a note or does not cross at all.
     """
-    texts, notes = [], []
+    texts, dms, notes = [], [], []
     for u in updates:
         state["offset"] = max(state.get("offset") or 0, u.get("update_id", 0) + 1)
-        msg = u.get("message") or u.get("edited_message")
         member = u.get("my_chat_member")
+        msg = u.get("message") or u.get("edited_message")
         if member:
             chat = member.get("chat", {})
+            frm = member.get("from") or {}
             if chat.get("type") in ("group", "supergroup"):
                 state["chat_id"] = state.get("chat_id") or chat.get("id")
                 notes.append(f"bot added to {chat.get('title')!r} ({chat.get('id')})")
+            elif chat.get("type") == "private" and not frm.get("is_bot"):
+                if state.get("owner_id") is None:
+                    state["owner_id"] = frm.get("id")
+                if frm.get("id") == state.get("owner_id"):
+                    state["dm_chat_id"] = chat.get("id")
+                    dms.append({"update_id": u.get("update_id"), "kind": "start",
+                                "chat_id": chat.get("id"), "message_id": None,
+                                "text": ""})
+                    notes.append("direct line opened (private chat)")
+                else:
+                    notes.append(f"ignored a private chat from {frm.get('first_name')} (not the owner)")
             continue
         if not msg:
             continue
         chat = msg.get("chat", {})
-        if chat.get("type") not in ("group", "supergroup"):
-            continue
-        state["chat_id"] = state.get("chat_id") or chat.get("id")
         frm = msg.get("from") or {}
         if frm.get("is_bot"):
             continue
+        if chat.get("type") == "private":
+            if state.get("owner_id") is None:
+                state["owner_id"] = frm.get("id")
+                notes.append(f"owner pinned to {frm.get('first_name')} ({frm.get('id')}) in a DM")
+            if frm.get("id") != state.get("owner_id"):
+                notes.append(f"ignored a DM from {frm.get('first_name')} (not the owner)")
+                continue
+            state["dm_chat_id"] = chat.get("id") or state.get("dm_chat_id")
+            entry = {"update_id": u.get("update_id"), "chat_id": chat.get("id"),
+                     "message_id": msg.get("message_id"), "kind": "text",
+                     "text": (msg.get("text") or "").strip()}
+            photos = msg.get("photo") or []
+            if photos:
+                entry["kind"] = "photo"
+                entry["file_id"] = photos[-1].get("file_id")           # the largest size
+                entry["text"] = (msg.get("caption") or "").strip()
+            elif msg.get("document"):
+                entry["kind"] = "file"
+                entry["file_id"] = msg["document"].get("file_id")
+                entry["text"] = (msg.get("caption") or "").strip()
+            elif msg.get("voice") or msg.get("audio"):
+                entry["kind"] = "voice"
+                entry["file_id"] = (msg.get("voice") or msg.get("audio")).get("file_id")
+            if entry["kind"] == "text" and entry["text"] == "/start":
+                entry["kind"] = "start"
+            dms.append(entry)
+            continue
+        if chat.get("type") not in ("group", "supergroup"):
+            continue
+        state["chat_id"] = state.get("chat_id") or chat.get("id")
         if state.get("owner_id") is None:
             state["owner_id"] = frm.get("id")
             notes.append(f"owner pinned to {frm.get('first_name')} ({frm.get('id')})")
@@ -313,7 +385,37 @@ def parse_updates(updates: list[dict], state: dict) -> tuple[list[str], dict, li
             texts.append(text)
         elif msg.get("photo") or msg.get("document"):
             notes.append("ignored a photo/file: only text crosses the bridge for now")
-    return texts, state, notes
+    return texts, dms, state, notes
+
+
+
+def existing_dm_ids() -> set:
+    """Update ids already in the direct-line inbox: a redelivery cannot double-queue."""
+    try:
+        with open(DM_INBOX, "r", encoding="utf-8") as fh:
+            return {json.loads(l).get("update_id") for l in fh if l.strip()}
+    except Exception:
+        return set()
+
+
+def bus_line(text: str, stamp: str) -> str:
+    """One human message as a bus jsonl line — the shape `ingest` always wrote."""
+    mid = "".join(random.choice("0123456789abcdef") for _ in range(8))
+    return json.dumps({
+        "id": mid, "ts": stamp, "from": OWNER, "type": "say", "to": "*",
+        "text": f"{display_of(OWNER)}: {clamp_text(text)}",     # name rule + bus limit
+        "ref": None, "reply": None,
+    }, ensure_ascii=False)
+
+
+def commit_or_skip(message: str) -> bool:
+    """Commit what is staged; a clean tree is fine (nothing ran, nothing changed)."""
+    p = subprocess.run(["git", "-C", ROOT, "diff", "--cached", "--quiet"])
+    if p.returncode == 0:
+        return False
+    git("-c", "user.name=chatcode-telegram", "-c", "user.email=telegram@chatcode.local",
+        "commit", "-q", "-m", message)
+    return True
 
 
 def cmd_ingest(argv: list[str]) -> int:
@@ -325,53 +427,147 @@ def cmd_ingest(argv: list[str]) -> int:
     if dry:
         updates = json.loads(os.environ.get("FAKE_UPDATES", "[]"))
     else:
-        updates = tg_call(toks[LISTENER], "getUpdates",
-                          {"offset": state.get("offset") or 0, "timeout": 0,
-                           "allowed_updates": json.dumps(["message", "my_chat_member"])},
-                          timeout=40)
+        try:
+            updates = tg_call(toks[LISTENER], "getUpdates",
+                              {"offset": state.get("offset") or 0, "timeout": 0,
+                               "allowed_updates": json.dumps(["message", "my_chat_member"])},
+                              timeout=40)
+        except SystemExit as e:                    # two pollers at once: let the other win
+            if "409" in str(e) or "Conflict" in str(e):
+                print("  another poller holds the bot (409) — skipping this run")
+                return 0
+            raise
         if not isinstance(updates, list):
             updates = []
-    texts, state, notes = parse_updates(updates, state)
+    texts, dms, state, notes = parse_updates(updates, state)
     for n in notes:
         print(f"  {n}")
-    if not texts:
-        if dry:
-            print("  (no texts to ingest)")
-        else:
-            save_state(state)
-        return 0
-    lines = []
-    for t in texts:
-        mid = "".join(random.choice("0123456789abcdef") for _ in range(8))
-        lines.append(json.dumps({
-            "id": mid, "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "from": OWNER, "type": "say", "to": "*",
-            "text": f"{display_of(OWNER)}: {clamp_text(t)}",  # name rule + bus limit
-            "ref": None, "reply": None,
+
+    stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    bus_lines = [bus_line(t, stamp) for t in texts]
+    inbox_lines, fresh = [], []
+    seen = existing_dm_ids()
+    for d in dms:
+        uid = d.get("update_id")
+        if uid is None or uid in seen:
+            continue
+        text = (d.get("text") or "").strip()
+        team = text.lower().startswith("!team")
+        if team:
+            shared = text[len("!team"):].strip()
+            if shared:
+                bus_lines.append(bus_line(shared, stamp))
+        inbox_lines.append(json.dumps({
+            "id": "".join(random.choice("0123456789abcdef") for _ in range(8)),
+            "ts": stamp, "update_id": uid, "message_id": d.get("message_id"),
+            "kind": d.get("kind") or "text", "team": team,
+            "file_id": d.get("file_id"), "text": clamp_text(text),
         }, ensure_ascii=False))
-    path = os.path.join(ROOT, "bus", f"{HUMAN_CHANNEL}.jsonl")
+        fresh.append(d)
+
     if dry:
-        for l in lines:
+        for l in bus_lines:
             print(f"  would append to bus/{HUMAN_CHANNEL}.jsonl: {json.loads(l)['text'][:90]}")
+        for l in inbox_lines:
+            print(f"  would append to telegram/dm-inbox.jsonl: {l[:130]}")
+        if fresh:
+            print(f"  would ack the direct line ({len(fresh)} message(s))")
+        if not bus_lines and not inbox_lines and not updates:
+            print("  (nothing to ingest)")
         return 0
-    git("pull", "--rebase", "-q")                       # a peer may have pushed first
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "a", encoding="utf-8") as fh:
-        fh.write("\n".join(lines) + "\n")
+
+    if updates:
+        git("pull", "--rebase", "-q")              # a peer may have pushed first
+    if bus_lines:
+        path = os.path.join(ROOT, "bus", f"{HUMAN_CHANNEL}.jsonl")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(bus_lines) + "\n")
+    if inbox_lines:
+        os.makedirs(os.path.dirname(DM_INBOX), exist_ok=True)
+        with open(DM_INBOX, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(inbox_lines) + "\n")
     save_state(state)
-    git("add", f"bus/{HUMAN_CHANNEL}.jsonl", "telegram/state.json")
-    who = ", ".join(f"#{json.loads(l)['id']}" for l in lines)
-    git("-c", "user.name=chatcode-telegram", "-c", "user.email=telegram@chatcode.local",
-        "commit", "-q", "-m", f"telegram: carlo → #{HUMAN_CHANNEL} ({who})")
-    for attempt in range(3):
+
+    acked = 0
+    if fresh:
+        chat = state.get("dm_chat_id") or state.get("owner_id")
+        welcome = any((d.get("kind") == "start") for d in fresh)
+        team_any = any(str(d.get("text") or "").lower().startswith("!team") for d in fresh)
+        body = DM_WELCOME if welcome else dm_ack_text(len(fresh), team_any)
         try:
-            git("push", "-q")
-            break
-        except SystemExit:
-            if attempt == 2:
-                raise
-            git("pull", "--rebase", "-q")
-    print(f"  ingested {len(lines)} message(s) from carlo: {who}")
+            tg_call(toks[LISTENER], "sendMessage",
+                    {"chat_id": chat, "text": body, "disable_web_page_preview": "true"})
+            state["dm_acked_upto"] = max(int(d.get("update_id") or 0) for d in fresh)
+            save_state(state)
+            acked = len(fresh)
+        except SystemExit as e:
+            print(f"  could not ack the direct line ({e}) — the message is safe in the repo")
+
+    if not updates and not bus_lines and not inbox_lines:
+        print("  nothing new")
+        return 0
+    files = [f"bus/{HUMAN_CHANNEL}.jsonl"] if bus_lines else []
+    if inbox_lines:
+        files.append("telegram/dm-inbox.jsonl")
+    files.append("telegram/state.json")
+    git("add", *files)
+    parts = []
+    if bus_lines:
+        parts.append(f"bus +{len(bus_lines)}")
+    if inbox_lines:
+        parts.append(f"direct line +{len(inbox_lines)}")
+    if acked:
+        parts.append(f"acked {acked}")
+    if commit_or_skip(f"telegram: carlo ({', '.join(parts) or 'state'})"):
+        for attempt in range(3):
+            try:
+                git("push", "-q")
+                break
+            except SystemExit:
+                if attempt == 2:
+                    raise
+                git("pull", "--rebase", "-q")
+    else:
+        print("  (nothing to commit)")
+    print(f"  ingested {len(bus_lines)} bus line(s), {len(inbox_lines)} direct-line message(s)"
+          + (f", acked {acked}" if acked else ""))
+    return 0
+
+
+def cmd_notify(argv: list[str]) -> int:
+    """Answer the direct line: send a DM to the owner as one of the bots.
+
+        bridge.py notify <slug> <text...> [--reply-to <message_id>]
+
+    Sending never touches getUpdates, so this cannot collide with the pollers.
+    """
+    toks = load_tokens()
+    state = load_state()
+    args = list(argv)
+    reply_to = None
+    if "--reply-to" in args:
+        i = args.index("--reply-to")
+        try:
+            reply_to = int(args[i + 1])
+        except (IndexError, ValueError):
+            print("  usage: bridge.py notify <slug> <text...> [--reply-to <message_id>]")
+            return 2
+        del args[i:i + 2]
+    if len(args) < 2 or args[0] not in toks:
+        print("  usage: bridge.py notify <slug> <text...> [--reply-to <message_id>]")
+        return 2
+    chat = state.get("dm_chat_id") or state.get("owner_id")
+    if not chat:
+        print("  no direct line yet: Carlo must open the bot once (or speak in the group)")
+        return 2
+    params = {"chat_id": chat, "text": clamp_text(" ".join(args[1:])),
+              "disable_web_page_preview": "true"}
+    if reply_to:
+        params["reply_to_message_id"] = reply_to
+        params["allow_sending_without_reply"] = "true"
+    tg_call(toks[args[0]], "sendMessage", params)
+    print(f"  sent as {args[0]} on the direct line ({chat})")
     return 0
 
 
@@ -484,7 +680,8 @@ def cmd_avatars(argv: list[str]) -> int:
 
 
 COMMANDS = {"relay": cmd_relay, "ingest": cmd_ingest, "discover": cmd_discover,
-            "verify": cmd_verify, "say": cmd_say, "avatars": cmd_avatars}
+            "verify": cmd_verify, "say": cmd_say, "avatars": cmd_avatars,
+            "notify": cmd_notify}
 
 
 def main(argv: list[str]) -> int:

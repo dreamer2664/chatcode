@@ -87,9 +87,10 @@ updates = [
                                  "from": {"id": 42, "first_name": "Carlo", "is_bot": False},
                                  "photo": [{"file_id": "x"}]}},
 ]
-texts, state, notes = b.parse_updates(list(updates), state)
+texts, dms, state, notes = b.parse_updates(list(updates), state)
 check("the group chat is adopted", state["chat_id"] == -1009, str(state))
 check("the first human is pinned as owner", state["owner_id"] == 42, str(state))
+check("a group-only batch queues no DMs", dms == [], str(dms))
 check("only the owner's text crosses", texts == ["hello everyone"], str(texts))
 check("the offset advances past every update", state["offset"] == 6, str(state))
 check("a photo is skipped with a note, not silently",
@@ -106,6 +107,49 @@ check("a short message passes through untouched",
       b.clamp_text("hello") == "hello", "short text was modified")
 check("exactly-4000 stays whole", len(b.clamp_text("y" * 4000)) == 4000,
       "boundary off-by-one")
+
+
+# --- the direct line (Carlo -> Pericles, 12 Oct) ---------------------------
+dstate = {"offset": 100, "chat_id": -1009, "owner_id": 42}
+dupdates = [
+    {"update_id": 101, "message": {"message_id": 5, "chat": {"id": 42, "type": "private"},
+                                   "from": {"id": 42, "first_name": "Carlo", "is_bot": False},
+                                   "text": "add a page for the numbers"}},
+    {"update_id": 102, "message": {"message_id": 6, "chat": {"id": 77, "type": "private"},
+                                   "from": {"id": 77, "first_name": "Stranger", "is_bot": False},
+                                   "text": "let me in"}},
+    {"update_id": 103, "message": {"message_id": 7, "chat": {"id": 42, "type": "private"},
+                                   "from": {"id": 42, "first_name": "Carlo", "is_bot": False},
+                                   "text": "!team tell everyone this"}},
+    {"update_id": 104, "message": {"message_id": 8, "chat": {"id": 42, "type": "private"},
+                                   "from": {"id": 42, "first_name": "Carlo", "is_bot": False},
+                                   "photo": [{"file_id": "small"}, {"file_id": "big"}]}},
+    {"update_id": 105, "message": {"message_id": 9, "chat": {"id": 42, "type": "private"},
+                                   "from": {"id": 42, "first_name": "Carlo", "is_bot": False},
+                                   "text": "/start"}},
+]
+texts, dms, dstate, notes = b.parse_updates(list(dupdates), dstate)
+check("a DM text is queued for the direct line",
+      dms and dms[0]["text"] == "add a page for the numbers" and dms[0]["update_id"] == 101, str(dms))
+check("a DM does not become a group message by itself", texts == [], str(texts))
+check("the stranger's DM is ignored, content and all",
+      all("let me in" != d.get("text") for d in dms) and any("Stranger" in n for n in notes), str(notes))
+check("the owner's DM chat id is remembered", dstate["dm_chat_id"] == 42, str(dstate))
+check("!team keeps its text for the inbox", dms[1]["text"].startswith("!team"), str(dms[1]))
+check("a photo DM carries its largest file id",
+      dms[2]["kind"] == "photo" and dms[2]["file_id"] == "big", str(dms[2]))
+check("/start is a start, not a message to answer", dms[3]["kind"] == "start", str(dms[3]))
+check("the ack reads like a person", b.dm_ack_text(1).startswith("📥 Got it"), b.dm_ack_text(1))
+check("a burst is acked with its count", "3 messages" in b.dm_ack_text(3), b.dm_ack_text(3))
+check("a !team ack says so", "group" in b.dm_ack_text(1, True), b.dm_ack_text(1, True))
+check("a bus line carries the name rule",
+      json.loads(b.bus_line("hi", "2026-01-01T00:00:00Z"))["text"] == "Carlo: hi", "")
+import tempfile
+with tempfile.TemporaryDirectory() as td:
+    b.DM_INBOX = os.path.join(td, "dm-inbox.jsonl")
+    with open(b.DM_INBOX, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps({"update_id": 7, "text": "x"}) + "\n")
+    check("a redelivered update id is recognised", b.existing_dm_ids() == {7}, str(b.existing_dm_ids()))
 
 print()
 if failures:
