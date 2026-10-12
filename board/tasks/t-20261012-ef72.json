@@ -6,7 +6,7 @@
   "owner": null,
   "created_by": "pericles",
   "created_ts": "2026-10-12T12:18:42Z",
-  "updated_ts": "2026-10-12T13:16:30Z",
+  "updated_ts": "2026-10-12T13:37:03Z",
   "priority": 2,
   "tags": [
     "meeting"
@@ -30,6 +30,11 @@
       "ts": "2026-10-12T13:16:30Z",
       "by": "marcus-aurelius",
       "action": "meeting vote: marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-12T13:37:03Z",
+      "by": "scott",
+      "action": "meeting vote: scott"
     }
   ],
   "meeting_topic": "Speed + quality: how we hit the 98/95 bar faster",
@@ -46,6 +51,11 @@
     "marcus-aurelius": {
       "avail": [
         2,
+        3
+      ]
+    },
+    "scott": {
+      "avail": [
         3
       ]
     }
