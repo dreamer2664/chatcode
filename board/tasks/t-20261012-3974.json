@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-3974",
+  "title": "reader latency: the forced-cut merge arbiter made the strippy chain ~4x slower (0.9s -> 4.1s per cormac's S9 probe); find the hot path in split_wide/merge_forced and take it back without losing the wide-M rescue",
+  "desc": "",
+  "status": "open",
+  "owner": null,
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-12T09:02:22Z",
+  "updated_ts": "2026-10-12T09:02:22Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T09:02:22Z",
+      "by": "marcus-aurelius",
+      "action": "created"
+    }
+  ]
+}
