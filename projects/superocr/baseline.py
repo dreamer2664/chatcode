@@ -46,6 +46,7 @@ from __future__ import annotations
 import argparse
 import functools
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -53,10 +54,37 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 import generator as G
+import preclassify as P  # S12: the S9 router, for --auto-family (t-20261012-30bf)
 import reader as R  # shared classic primitives (otsu/trim/segment/split_wide)
 
 ROOT = Path(__file__).resolve().parent
 SAME_SHAPE = set("cCoOsSuUvVwWxXzZ")  # case twins: identical shape, size differs
+
+# --- S10b: the glyphcnn-v2 piece policy (DEFAULT OFF, research flag) --------
+# Read this before enabling: the policy lets glyphcnn-v2 read the glyph
+# pieces; the floor keeps segmentation, splits, word grouping and case. On
+# the canonical suite (seed 1, hash b2c460d2fb5a) it measured easy 28->38 and
+# hard 9->11, but at a held-out seed 2 the exact gain did NOT replicate
+# (36->36 easy, 7->7 hard; pooled 200 easy +10, repairs 18 / losses 8,
+# sign-test p=0.076 suggestive only). See reports/s10b-gate-finding.md. The
+# confidence-gated variant the task asked for was measured flat and is NOT
+# what this flag implements. Off by default; set SUPEROCR_PIECE_CNN=1 to
+# enable for experiments.
+PIECE_CNN = os.environ.get("SUPEROCR_PIECE_CNN", "").lower() in ("1", "on", "true", "yes")
+PIECE_MIN_PROB = float(os.environ.get("SUPEROCR_PIECE_MIN_PROB", "0.3"))
+
+
+@functools.lru_cache(maxsize=1)
+def _piece_cnn():
+    """glyphcnn-v2 for the piece policy; None unless the flag is set."""
+    if not PIECE_CNN:
+        return None
+    try:
+        sys.path.insert(0, str(ROOT / "readers"))
+        from piece_cnn import PieceCNN
+        return PieceCNN()
+    except Exception:
+        return None
 
 
 # --------------------------------------------------------------------------
@@ -189,20 +217,47 @@ def deskew(mask: np.ndarray, max_deg: float = 12.0,
 # --------------------------------------------------------------------------
 # the floor chain
 # --------------------------------------------------------------------------
-def read_text(img: Image.Image) -> tuple[str, list[float]]:
+def _family_mask(img: Image.Image, a: np.ndarray,
+                 family: "str | None") -> "np.ndarray | None":
+    """S7c (t-20261012-e105): the measured wall-family masks, wired into the
+    floor. Each entry is the exact variant that won the seed-7 sweeps in
+    reports/s7-walls-part1.md; every other family stays on the floor's
+    otsu+polarity path (bit-identical behaviour, None here)."""
+    if family == "cross-shadow":
+        # shadow bands kill global thresholds; local contrast is band-immune
+        return R.local_diff_mask(img, 25, 60.0)
+    if family == "darts":
+        # the web is grey, the ink is black: dark core + one bounded regrow
+        return R.dark_core_mask(img)
+    # dark-on-dark is deliberately NOT here: the sigma-25 mask lifts char
+    # (0.351 -> 0.596, reports/s7-walls-part1.md) but drops the floor's
+    # exact-match cell 2/8 -> 1/8, and S11's truth table forbids wiring that
+    # regresses a scoring floor cell. It stays wired in reader.py, where the
+    # family chain can adopt it; the floor keeps its measured otsu+polarity.
+    if family == "corrosion":
+        # close1 heals the 1px pit gaps (floor 0.166 -> 0.186 measured)
+        return R.close_mask(R.otsu(a), 1)
+    return None
+
+
+def read_text(img: Image.Image, family: "str | None" = None) -> tuple[str, list[float]]:
     """Contrast norm, deskew, per-glyph isolation, template match.
     Returns (text, per-glyph confidence). Classic only: over-split touching
-    glyphs are a reported failure, not glued away (see module docstring)."""
+    glyphs are a reported failure, not glued away (see module docstring).
+    `family` (S7c): when the bench adapter passes the family, the measured
+    wall-family mask replaces otsu; everything downstream is unchanged."""
     gray = ImageOps.autocontrast(img.convert("L"), cutoff=0)
     a = np.array(gray, dtype=np.float32)
-    mask = R.otsu(a)
-    # polarity guard (t-20261011-be57): document images have ink << 50%
-    # coverage; dark-on-dark sheets invert the otsu split, returning the
-    # background AS the mask (98% coverage) and the read dies at stage B.
-    # Normal dark-ink families never reach half, so the guard inverts only
-    # true polarity flips.
-    if mask.mean() > 0.5:
-        mask = ~mask
+    mask = _family_mask(img, a, family)
+    if mask is None:
+        mask = R.otsu(a)
+        # polarity guard (t-20261011-be57): document images have ink << 50%
+        # coverage; dark-on-dark sheets invert the otsu split, returning the
+        # background AS the mask (98% coverage) and the read dies at stage B.
+        # Normal dark-ink families never reach half, so the guard inverts only
+        # true polarity flips.
+        if mask.mean() > 0.5:
+            mask = ~mask
     mask = R.trim(R.despeck(mask))
     if mask.any():
         mask, _ = deskew(mask)
@@ -221,9 +276,13 @@ def read_text(img: Image.Image) -> tuple[str, list[float]]:
         if not pieces:
             continue
         cap = max(g.shape[0] for g in pieces)
+        net = _piece_cnn()
+        ops = net.opinions(pieces) if net is not None else None
         chars = []
-        for g in pieces:
+        for i, g in enumerate(pieces):
             ch, s = match_native(g)
+            if ops is not None and ops[i][1] >= PIECE_MIN_PROB:
+                ch, s = ops[i]           # S10b flag: the CNN reads the piece
             if ch in SAME_SHAPE:
                 ch = ch.lower() if g.shape[0] < 0.85 * cap else ch.upper()
             chars.append(ch)
@@ -302,6 +361,13 @@ def score_reference() -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description="classic baseline reader (t-20261011-65ff)")
     ap.add_argument("image", nargs="?", help="one image file -> recognised text on stdout")
+    ap.add_argument("--auto-family", action="store_true",
+                    help="S12: decide the family from the image itself via the "
+                         "S9 pre-classifier (routes to the S7c wall masks); "
+                         "mutually exclusive with --family")
+    ap.add_argument("--family", default=None,
+                    help="S7c: family name from the bench adapter; wall families "
+                         "get their measured mask instead of plain otsu")
     ap.add_argument("--score", action="store_true", help="score all generator families")
     ap.add_argument("--reference", action="store_true", help="score Carlo's reference tiles")
     ap.add_argument("--count", type=int, default=10)
@@ -334,8 +400,15 @@ def main() -> None:
     else:
         if not args.image:
             ap.error("give an image file, or --score / --reference")
+        if args.auto_family and args.family:
+            ap.error("--auto-family and --family are mutually exclusive "
+                     "(auto decides, family pins)")
         img = Image.open(args.image)
-        text, _ = read_text(img)
+        fam = args.family
+        if args.auto_family:
+            fam = P.rank(img)[0]
+            print(f"[baseline] auto-family={fam}", file=sys.stderr)
+        text, _ = read_text(img, fam)
         print(text)
         return
 
