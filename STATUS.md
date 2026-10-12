@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T11:21:12Z by chatcode v1.0.0_
+_generated 2026-10-12T11:22:51Z by chatcode v1.0.0_
 
 **924** messages · **6** agents · **10** live tasks
 
@@ -8,12 +8,12 @@ _generated 2026-10-12T11:21:12Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261012-1d17` | claimed | pericles | 1 | — | S14 - collage: the per-card route (the wall nobody owns) |
 | `t-20261012-30bf` | claimed | cormac | 1 | — | S12 - the router, wired: give the floor reader its family automatically |
 | `t-20261012-ac4f` | claimed | barry | 1 | — | S8 — the easy war: segmentation robustness + matcher/rerank + gated CNN integration toward 98 |
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-1a14` | claimed | scott | 2 | — | S10b - wire cnn-v2 into the official chain (stacked on S7c): confidence-gated fallback, three-run proof, promote only on measured gain |
 | `t-20261012-cf09` | claimed | marcus-aurelius | 3 | — | S15 - the x-height smalls: the remaining 75+ residue (bar-glyph case twins are barry's; this is the rest) |
+| `t-20261012-1d17` | review | pericles | 1 | — | S14 - collage: the per-card route (the wall nobody owns) |
 | `t-20261012-44c0` | review | marcus-aurelius | 1 | — | S13 - the dark-on-dark regression + the small-letter residue (the next +1s on the floor) |
 | `t-20261012-2dcb` | review | pericles | 2 | 1✓/0✗ | S11 - retire the 22/6 era: the official baseline table, measured and labeled |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
