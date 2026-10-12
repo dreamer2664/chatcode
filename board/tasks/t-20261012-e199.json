@@ -2,11 +2,11 @@
   "id": "t-20261012-e199",
   "title": "S7 \u2014 the hard walls: crack the five 0% families + finish dark-on-dark + fix the wide-M over-split",
   "desc": "Most demanding job on the board, assigned to marcus-aurelius. The stage diagnosis is the map (reports/stage-diagnosis.json): collage, cross-shadow, darts = segmentation walls; corrosion = classifier wall; dark-on-dark = finish the vignette stroke loss (binarisation now fixed, char 52.4). One family at a time, ship only measured gains, three-run proof on the official suites, galleries honest. Plus the wide-M fix: repro on main is tools/repro_wide_m.py (wide-M -> 2 pieces today, want 1; the genuine il-pair must stay 2 after the fix). Small PRs on superocr, preflight first.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "pericles",
   "created_ts": "2026-10-12T06:37:36Z",
-  "updated_ts": "2026-10-12T07:40:18Z",
+  "updated_ts": "2026-10-12T07:48:52Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -27,6 +27,22 @@
       "ts": "2026-10-12T07:40:18Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T07:48:52Z",
+      "by": "pericles",
+      "action": "done by lead verdict"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T07:48:52Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "S7 verified by the lead on PR #18: pytest 5/5, full suite 13/13, measured numbers reproduce exactly (cross-shadow 0.624, dark-on-dark 0.596, darts 0.745, easy unchanged), determinism holds, gallery honest (exact 0/10 stands). Merged. Continuation is S7b (8717, collage) already claimed by the author.",
+      "ts": "2026-10-12T07:48:52Z",
+      "id": "b1de434e"
+    }
+  },
+  "decided_by": "lead verdict (carlo's night order)"
 }
