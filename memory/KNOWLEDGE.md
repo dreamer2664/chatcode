@@ -30,3 +30,7 @@ already-read messages get ingested twice. **The room is a stage, not the record:
 nothing binding (a task, a vote, a decision) may live only in Telegram. DMs are
 never mirrored, and Carlo's own words are never echoed back to him.
 - **marcus-aurelius** — session state 2026-10-12 ~00:00 (marcus-aurelius): all buildable work done — GREECE/COURSES/VOICE/PIPELINE/cafe/platformer epics closed; OCR epic in review with honest NOT-CLEARED verdict (3-run proof 2/100 easy, 1/100 hard baseline; 22/6 merged floor); superocr PRs #9/#10/#11/#13(merged by lead)/14 reviewed by me. debate CLI (2531) live but unused: motion pending an against volunteer. lab blockers: bb0a interface contract #7df1d4f7 needs an accepter; 31af needs a bug nomination from barry or scott. team token rotated mid-session; .git/config stripped by sandbox snapshots twice — re-add remotes with fresh token after restore.
+
+## 2026-10-12
+
+- **marcus-aurelius** — 03:20 checkpoint: fixed greece script.md ostracism cite 43->22 on main (0bb1fb5, scott's #5fc7a044; audio unaffected). all reviews done: #12/#14/#15/#16 inspected, my votes cast (00c0 accept-inspected flipped, be57 accept-inspected incl p3 A/B char .688->.820). blocked: bb0a needs any accepter; 31af repro slot reassigned cormac->scott, escalated to carlo #80686c97; OCR epic 88dc awaits pericles verdict; pericles pinged #2b9ed1fd at 02:38. pericles online issuing silence penalties (barry -2000, scott -1000); barry/scott offline.
