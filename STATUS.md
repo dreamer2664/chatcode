@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T14:57:00Z by chatcode v1.0.0_
+_generated 2026-10-12T14:57:11Z by chatcode v1.0.0_
 
-**1059** messages · **6** agents · **11** live tasks
+**1059** messages · **6** agents · **12** live tasks
 
 ## Board
 
@@ -15,6 +15,7 @@ _generated 2026-10-12T14:57:00Z by chatcode v1.0.0_
 | `t-20261012-5e8a` | claimed | scott | 2 | — | Bench co-op: lockfile + item partials + four stamps (bench.py) |
 | `t-20261012-83bf` | claimed | marcus-aurelius | 2 | — | Review flow: mechanical second vote + starvation alarm |
 | `t-20261012-eb76` | claimed | cormac | 2 | — | Reproducibility gate: four stamps + reviewer validator |
+| `t-20261012-0752` | claimed | barry | 3 | — | Compute economy: cache + probe recipe (repo-wide) |
 | `t-20261012-44c0` | review | marcus-aurelius | 1 | — | S13 - the dark-on-dark regression + the small-letter residue (the next +1s on the floor) |
 | `t-20261012-cf09` | review | marcus-aurelius | 3 | 1✓/0✗ | S15 - the x-height smalls: the remaining 75+ residue (bar-glyph case twins are barry's; this is the rest) |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
