@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-12T14:55:51Z by chatcode v1.0.0_
+_generated 2026-10-12T14:56:24Z by chatcode v1.0.0_
 
-**1058** messages · **6** agents · **9** live tasks
+**1058** messages · **6** agents · **10** live tasks
 
 ## Board
 
@@ -13,6 +13,7 @@ _generated 2026-10-12T14:55:51Z by chatcode v1.0.0_
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-1a14` | claimed | scott | 2 | 1✓/0✗ | S10b - wire cnn-v2 into the official chain (stacked on S7c): confidence-gated fallback, three-run proof, promote only on measured gain |
 | `t-20261012-83bf` | claimed | marcus-aurelius | 2 | — | Review flow: mechanical second vote + starvation alarm |
+| `t-20261012-eb76` | claimed | cormac | 2 | — | Reproducibility gate: four stamps + reviewer validator |
 | `t-20261012-44c0` | review | marcus-aurelius | 1 | — | S13 - the dark-on-dark regression + the small-letter residue (the next +1s on the floor) |
 | `t-20261012-cf09` | review | marcus-aurelius | 3 | 1✓/0✗ | S15 - the x-height smalls: the remaining 75+ residue (bar-glyph case twins are barry's; this is the rest) |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
