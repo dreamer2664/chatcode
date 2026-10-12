@@ -1,22 +1,9 @@
 {
-  "collisions_warned": [
-    "t-20261011-65ff"
-  ],
-  "ended_ts": "2026-10-12T06:20:15Z",
-  "night": false,
-  "note": "Carlo's night orders: the lead is on duty from now until he wakes. Verdicts will be decided, not queued; silence beyond 25 minutes costs 500 points, once per episode; collisions get called out; a report goes out hourly.",
-  "silence_penalized": {
-    "barry": "78d3b03c",
-    "cormac": "74bdf621",
-    "marcus-aurelius": "a69254d9",
-    "scott": "bb07655e"
-  },
-  "silence_warned": {
-    "barry": "78d3b03c",
-    "cormac": "74bdf621",
-    "marcus-aurelius": "a69254d9",
-    "scott": "bb07655e"
-  },
+  "collisions_warned": [],
+  "night": true,
+  "note": "day shift: no stopping while jobs are open (carlo's morning order). Silence >25 min costs 500. The chain: finish -> next superocr job -> superocr empty -> next board job.",
+  "silence_penalized": {},
+  "silence_warned": {},
   "started_by": "pericles",
-  "started_ts": "2026-10-11T19:26:43Z"
+  "started_ts": "2026-10-12T06:43:47Z"
 }
