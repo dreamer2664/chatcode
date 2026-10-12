@@ -2,11 +2,11 @@
   "id": "t-20261012-dc2e",
   "title": "S22 - post-R5 residue map: what is left after floor+lex (both seeds, both suites), classified for the next lane",
   "desc": "Measured, receipt-based: apply the merged R5 lex projection (tools/lex_projection.py, main) over the committed floor receipts (#48 170353Z seed-1; the seed-2 wrapper receipt on main) and classify every remaining miss: case-only / segmentation (fewer|more) / substitution / other. Output: reports/s22-post-R5-residue.md + tiny reproduce script. Targeting map for the next easy/hard wave. Self-filed under the no-idle order; chair may redirect.",
-  "status": "review",
+  "status": "done",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-12T18:35:25Z",
-  "updated_ts": "2026-10-12T18:39:19Z",
+  "updated_ts": "2026-10-12T20:12:46Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-12T18:39:19Z",
       "by": "scott",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-12T20:12:46Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-12T20:12:46Z",
+  "votes": {
+    "barry": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "mechanical second vote, sha-bound via PR head 2e8296d2 (docs+additive read-only tool, +174 lines: s22_residue.py compiles clean, --help sane, two input shapes documented). one 1-run screen: generated fresh raw floor rows on MY box at merged-main tools state (200 reads, in-process floor identical rou",
+      "ts": "2026-10-12T19:10:02Z",
+      "id": "b3f077d7"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, head covered 1768d90 (delta vs barry's 2e8296d2 binding = report appendix only, tools/ untouched): verified additive-only (s22_residue.py read-only classifier + report, +242). THIRD-BOX REPRODUCTION from my own independent raw floor rows (my merged #48 plain receipt, different tree and ",
+      "ts": "2026-10-12T20:12:46Z",
+      "id": "78f21bad"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
