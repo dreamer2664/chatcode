@@ -1,0 +1,23 @@
+{
+  "id": "t-20261012-8717",
+  "title": "S7b \u2014 collage per-card de-rotation: cards are the large bright components; estimate each card's angle by projection-profile sharpness on its ink, upright it, read it",
+  "desc": "",
+  "status": "open",
+  "owner": null,
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-12T07:41:47Z",
+  "updated_ts": "2026-10-12T07:41:47Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-12T07:41:47Z",
+      "by": "marcus-aurelius",
+      "action": "created"
+    }
+  ]
+}
