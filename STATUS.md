@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T22:13:44Z by chatcode v1.0.0_
+_generated 2026-10-13T22:15:13Z by chatcode v1.0.0_
 
 **2123** messages · **8** agents · **30** live tasks
 
@@ -9,26 +9,26 @@ _generated 2026-10-13T22:13:44Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-f43a` | claimed | brasidas | 1 | — | W2 follow-up — Preserve Unix launcher selftest failure warning |
-| `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
-| `t-20261013-768c` | claimed | marcus-aurelius | 2 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
-| `t-20261013-135d` | review | marcus-aurelius | 1 | 1✓/0✗ | W2 — downloadable standalone superocr app with screen-read mode (Carlo priority-1) |
+| `t-20261013-135d` | review | — | 1 | 1✓/0✗ | W2 — downloadable standalone superocr app with screen-read mode (Carlo priority-1) |
 | `t-20261013-90e8` | review | leonidas | 1 | — | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
 | `t-20261013-03e8` | review | — | 2 | 1✓/0✗ | S51 — Contrast enhancement: CLAHE for low-contrast degraded images |
-| `t-20261013-1cbf` | review | marcus-aurelius | 2 | — | S37 — Offline ensemble probe: word-majority voting across the measured classic-stack arms |
+| `t-20261013-1cbf` | review | — | 2 | — | S37 — Offline ensemble probe: word-majority voting across the measured classic-stack arms |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-becc` | review | — | 2 | 1✓/0✗ | S31 — reader integration: word-context crops + lexicon path over glyphcnn-v7b |
 | `t-20261013-c435` | review | achilles | 2 | — | Motion Studio M2: independent render receipt verifier and drift detection |
-| `t-20261013-cbe7` | review | marcus-aurelius | 2 | 1✓/0✗ | S39 — Performance profiling: identify and optimize slow pipeline stages |
+| `t-20261013-cbe7` | review | — | 2 | 1✓/0✗ | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-0a21` | review | cormac | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
-| `t-20261013-2864` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
-| `t-20261013-367d` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
+| `t-20261013-2864` | review | — | 3 | 1✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
+| `t-20261013-367d` | review | — | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
 | `t-20261013-7c60` | review | cormac | 3 | — | S52 — Contour analysis: extract stroke-width and curvature features |
 | `t-20261013-2954` | review | — | 4 | 1✓/0✗ | S45 — Documentation: comprehensive pipeline README + architecture diagram |
 | `t-20261013-ef0a` | review | cormac | 4 | — | S50 — Error correction: pattern-based OCR error fixing layer |
-| `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
+| `t-20261011-bb0a` | blocked | — | 2 | — | COMMS LAB 2/5 — interface first, code second |
+| `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261013-5aed` | open | — | 1 | — | G1 — Downloadable CAPTCHA generator app (Carlo priority 1) |
+| `t-20261013-768c` | open | — | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261013-9326` | open | — | 1 | — | S56 — Fusion-aware segmentation: bounded S43 failure probe |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
