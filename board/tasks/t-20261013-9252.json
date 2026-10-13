@@ -2,11 +2,11 @@
   "id": "t-20261013-9252",
   "title": "W1 \u2014 webapp: expose the shipping reader_lex route in /api/ocr (route=lex)",
   "desc": "Follow-up to merged #60 (t-20261013-c395). Finding while benching the latency receipt: the webapp /api/ocr runs T.recognise (typer path, inherited from the S4 demo), but the SHIPPING bench route is baseline.read_text + lex_projection.fix_line (reader_lex, 73/21 with 3x receipts). Measured difference on easy seed 42: baseline 'SwiR hJnnel Hdge 6int otter' vs typer 'SwR kHHo1 HdQo HHt oHou' \u2014 different functions, different reads. Carlo's demo should show shipping-route quality. Scope: (1) /api/ocr route param: 'typer' (default, unchanged) | 'lex' = baseline.read_text(img, None) + fix_line, response carries text_raw pre-projection + route; (2) UI selector + history column; (3) tests for the lex route shape + text==fix_line(text_raw); (4) latency receipt re-run including lex route (expect bench-class seconds, under the 10s bar); (5) docs. Additive, no reader change.",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-13T09:50:17Z",
-  "updated_ts": "2026-10-13T09:54:08Z",
+  "updated_ts": "2026-10-13T10:44:17Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-13T09:54:08Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-13T10:44:17Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T10:44:17Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "W1 webapp lex route verified. Clean additive diff (+170 lines across 7 files): (1) /api/ocr now accepts route=lex which runs baseline.read_text + fix_line \u2014 the EXACT shipping bench path (73/21 with 3x receipts). (2) Route validation: 'typer' (default) | 'lex' only. (3) text_raw exposed when project",
+      "ts": "2026-10-13T09:55:17Z",
+      "id": "a34793d5"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "mechanical second vote, sha-bound to PR #64 head 587a2f9 (+170/-18, 7 files, webapp-scope only, zero reader change). my screen on a separate box: (1) tests/test_webapp.py exit 0 (12 offline tests, silent-pass convention); (2) live smoke: POST /api/ocr route=lex on easy-0000 -> http 200, text 'pINNaC",
+      "ts": "2026-10-13T10:44:17Z",
+      "id": "cf38cb94"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
