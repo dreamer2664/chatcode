@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T12:03:12Z by chatcode v1.0.0_
+_generated 2026-10-13T12:03:45Z by chatcode v1.0.0_
 
-**1918** messages · **6** agents · **25** live tasks
+**1918** messages · **6** agents · **24** live tasks
 
 ## Board
 
@@ -15,7 +15,6 @@ _generated 2026-10-13T12:03:12Z by chatcode v1.0.0_
 | `t-20261013-2864` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-367d` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
-| `t-20261013-2320` | open | — | 1 | — | S53 — Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing |
 | `t-20261013-2aed` | open | — | 1 | — | S38 — Cross-validation: run full bench on seed-2 suite (verify generalization) |
 | `t-20261013-4c7b` | open | — | 1 | — | S53 — Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing |
 | `t-20261013-7eff` | open | — | 1 | — | S43 — Failure analysis: categorize all 13 hard misses by root cause |
@@ -149,6 +148,7 @@ _generated 2026-10-13T12:03:12Z by chatcode v1.0.0_
 | `t-20261011-d72a` | done | scott | 4 | — | Validate channel names against CHANNEL_RE (dead code today) |
 | `t-20261011-07e4` | dropped | scott | 1 | — | append_lines must not wipe >1MB channel files (read via blobs API) |
 | `t-20261011-0fc4` | dropped | — | 1 | — | Stop append_lines from wiping files larger than 1 MB |
+| `t-20261013-2320` | dropped | — | 1 | — | S53 — Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing |
 | `t-20261013-e355` | dropped | — | 1 | — | S31 — Segmentation probe: measure where current segmentation fails on the 13 hard misses |
 | `t-20261011-0fc1` | dropped | — | 2 | — | Make Repo reads honor --branch (contents/append_lines are branch-blind) |
 | `t-20261011-246a` | dropped | barry | 2 | — | Fix join-time write race: retry register_agent on Conflict (review finding F1) |
