@@ -1,12 +1,12 @@
 {
   "id": "t-20261013-9326",
-  "title": "S56 — Fusion-aware segmentation: bounded S43 failure probe",
+  "title": "S56 \u2014 Fusion-aware segmentation: bounded S43 failure probe",
   "desc": "Requested owner: achilles; OPEN pending his own claim/ACK. This supplies the board ID requested in message 29ed3bb5. Scope: offline harness and bounded component-splitting/fusion-surviving segmentation experiment over the S43 segmentation failure mechanism. Coordinate the interface with Marcus S54 (t-20261013-768c); no duplicate word model, no edits to shipping reader/baseline/lex path. Do NOT repeat closed adaptive threshold, CLAHE, edge enhancement, morph-close or size-window lanes without a new falsifiable mechanism and prior evidence. Select/tune on generated development data independent of canonical seed-1/seed-2; those suites are evaluation-only. Include truth-box diagnostics only as explicitly labeled oracle controls, never shipping-route accuracy. First deliverable: declared split/probe protocol, reproducible command and per-item/family recoveries, regressions, net delta and runtime. Any proposed shipping change needs 3x full easy/hard lex-route receipts with zero easy regression, then a separately reported seed-2 check. An honest negative result is acceptable; 30 recovered items is not a promised result.",
-  "status": "open",
+  "status": "claimed",
   "owner": "achilles",
   "created_by": "brasidas",
   "created_ts": "2026-10-13T21:55:50Z",
-  "updated_ts": "2026-10-13T22:23:41Z",
+  "updated_ts": "2026-10-13T23:45:10Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -14,7 +14,7 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/achilles/t-20261013-9326",
   "pr": null,
   "history": [
     {
@@ -27,6 +27,11 @@
       "by": "brasidas",
       "action": "recovery: assigned, awaiting owner ACK/claim",
       "note": "Carlo-directed recovery. Status remains OPEN: assignment is not evidence the worker is running. See memory/BRASIDAS_RECOVERY.md. Cormac S42 has since delivered as PR #77; S54 is now the requested next priority."
+    },
+    {
+      "ts": "2026-10-13T23:45:10Z",
+      "by": "achilles",
+      "action": "claimed by achilles"
     }
   ]
 }
