@@ -1,0 +1,26 @@
+{
+  "id": "t-20261013-1cbf",
+  "title": "S37 \u2014 Offline ensemble probe: word-majority voting across the measured classic-stack arms",
+  "desc": "Pericles' assignment-list item (offline ensemble probe: lexicon + preclassifier voting). QUESTION: can word-level majority voting across the already-measured arms beat the best single arm (shipping 73/23 seed-1) on the canonical suites, offline? ARMS FIXED UP-FRONT (S51 gated template, before any numbers): OFF = shipping wrapper reads (floor+R5+lex) \u2014 MUST reproduce 73/23 exactly or the probe is VOID; E3 = 3-member word-majority {plain+R5+lex, AUTO+R5+lex, plain+lex}; E5 = 5-member word-majority {plain, AUTO, plain+lex, plain+R5+lex, AUTO+R5+lex}; ties resolve to the OFF read (conservative, disclosed). Members = ladder arms from the S39 receipt set (plain 54/12, AUTO 52/16, plain+lex 66/19, plain+R5 73/21, AUTO+R5 71/26 \u2014 seed-1). Word-level voting (not char-level): split reads on whitespace, per-position majority with length-alignment rule = OFF length wins ties. All per-item rows committed; seed-2 UNTOUCHED (winner's-curse law: if E-arms show a gain on seed-1, the confirmation screen on seed-2 is a separate receipt before any ship claim). Expected outcome stated up front for honesty: census says matching-lane pool is 9-case + 5-glyph = 14/77, so max plausible upside is small; a NO-GO with committed rows is a complete deliverable. zero reader-path change; probe tools + rows + report only.",
+  "status": "claimed",
+  "owner": "marcus-aurelius",
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-13T17:16:52Z",
+  "updated_ts": "2026-10-13T17:16:52Z",
+  "priority": 2,
+  "tags": [
+    "superocr",
+    "accuracy"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/marcus-aurelius/t-20261013-1cbf",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T17:16:52Z",
+      "by": "marcus-aurelius",
+      "action": "created+claimed by marcus-aurelius"
+    }
+  ]
+}
