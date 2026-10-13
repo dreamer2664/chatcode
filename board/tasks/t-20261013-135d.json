@@ -1,12 +1,12 @@
 {
   "id": "t-20261013-135d",
-  "title": "W2 — downloadable standalone superocr app with screen-read mode (Carlo priority-1)",
-  "desc": "Pericles DM 15:43 relaying Carlo: webapp must become a real downloadable standalone app that reliably reads screen content; 'unstable'. DELIVERED: root causes (1) 'Share screen' called getUserMedia (CAMERA) not getDisplayMedia — fixed; (2) available_fonts() Linux-only paths — macOS/Windows silently degrade to Pillow bitmap default = garbage reads — fonts/ (8 DejaVu + license) committed as fallback, system wins, canonical machines bit-identical; (3) instability = agent-sandbox preview host (wiped 7x) — bundle runs on Carlo's machine. app/build_bundle.py -> 3.3MB zip: launchers (deps check, selftest vs build-time expected reads, auto-restart watchdog, browser open), version stamp health+header, app.log crash traces, INSTALL.md 3-OS + honesty section. Clean-room verified: selftest 12/12 PASS 0 drift; live lex read == expectation; warm ~0.9s. tests 26/26 incl. new 20-check test_app_bundle.py. PR https://github.com/dreamer2664/superocr/pull/71 @872cac7. Release https://github.com/dreamer2664/superocr/releases/tag/app-v0.1.0-872cac7 sha256 60177b1f1786f74a625cf7270d4de75e81a141c33152b2807bdc9f0d4ebea394. (Task record recreated twice: originals t-b411/t-3d8d lost to my post-wipe identity failure.)",
+  "title": "W2 \u2014 downloadable standalone superocr app with screen-read mode (Carlo priority-1)",
+  "desc": "Pericles DM 15:43 relaying Carlo: webapp must become a real downloadable standalone app that reliably reads screen content; 'unstable'. DELIVERED: root causes (1) 'Share screen' called getUserMedia (CAMERA) not getDisplayMedia \u2014 fixed; (2) available_fonts() Linux-only paths \u2014 macOS/Windows silently degrade to Pillow bitmap default = garbage reads \u2014 fonts/ (8 DejaVu + license) committed as fallback, system wins, canonical machines bit-identical; (3) instability = agent-sandbox preview host (wiped 7x) \u2014 bundle runs on Carlo's machine. app/build_bundle.py -> 3.3MB zip: launchers (deps check, selftest vs build-time expected reads, auto-restart watchdog, browser open), version stamp health+header, app.log crash traces, INSTALL.md 3-OS + honesty section. Clean-room verified: selftest 12/12 PASS 0 drift; live lex read == expectation; warm ~0.9s. tests 26/26 incl. new 20-check test_app_bundle.py. PR https://github.com/dreamer2664/superocr/pull/71 @872cac7. Release https://github.com/dreamer2664/superocr/releases/tag/app-v0.1.0-872cac7 sha256 60177b1f1786f74a625cf7270d4de75e81a141c33152b2807bdc9f0d4ebea394. (Task record recreated twice: originals t-b411/t-3d8d lost to my post-wipe identity failure.)",
   "status": "review",
   "owner": "achilles",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-13T16:33:47Z",
-  "updated_ts": "2026-10-13T22:53:43Z",
+  "updated_ts": "2026-10-13T23:46:59Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -16,7 +16,7 @@
   "deps": [],
   "parent": null,
   "branch": null,
-  "pr": "https://github.com/dreamer2664/superocr/pull/71",
+  "pr": "https://github.com/dreamer2664/superocr/pull/82",
   "history": [
     {
       "ts": "2026-10-13T16:33:47Z",
@@ -26,7 +26,7 @@
     {
       "ts": "2026-10-13T16:33:50Z",
       "by": "marcus-aurelius",
-      "action": "update→review"
+      "action": "update\u2192review"
     },
     {
       "ts": "2026-10-13T22:15:04Z",
@@ -39,6 +39,12 @@
       "by": "brasidas",
       "action": "night-shift: custodial assignment (not authorship or ACK)",
       "note": "W2 release custodian. Preserve Marcus authorship. Coordinate #80, independent current-head approvals, clean-room packaging, and truthful release status. Not permission to self-vote. Original assignment preserved: {\"owner\": null, \"status\": \"review\", \"priority\": 1, \"branch\": \"agent/marcus-aurelius/t-20261013-135d\", \"pr\": \"https://github.com/dreamer2664/superocr/pull/71\"}. See memory/NIGHT_SHIFT_2026-10-14.md. No vote, merge, or completion implied."
+    },
+    {
+      "ts": "2026-10-13T23:46:59Z",
+      "by": "achilles",
+      "action": "update (status kept: review)",
+      "note": "Successor custody PR82 source03321f26cc002a93af80f8e8c907a2af72603f91 (agent/achilles/t-20261013-135d); original Marcus PR71 and authorship retained. Approved PR80 merged normallyf7ec2c7. Final3.8MB draft asset authenticated download/hash PASS, SHA25673282c8a82a48a35cf2ac13d9209377bf07b7aff0149508684cf30a28e94ec69. Final24/24 launcher,21/21 bundle,isolated12-item both-route/bundled-font-only selftests zero drift/livelex12 expectations. Separate demoGT easy6/6 hard0/6, NOT canonical. Waiting Leonidas+Cormac actual-head ballots; no self-vote/publication/W2 merge."
     }
   ]
 }
