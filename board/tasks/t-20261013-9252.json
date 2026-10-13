@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-9252",
+  "title": "W1 \u2014 webapp: expose the shipping reader_lex route in /api/ocr (route=lex)",
+  "desc": "Follow-up to merged #60 (t-20261013-c395). Finding while benching the latency receipt: the webapp /api/ocr runs T.recognise (typer path, inherited from the S4 demo), but the SHIPPING bench route is baseline.read_text + lex_projection.fix_line (reader_lex, 73/21 with 3x receipts). Measured difference on easy seed 42: baseline 'SwiR hJnnel Hdge 6int otter' vs typer 'SwR kHHo1 HdQo HHt oHou' \u2014 different functions, different reads. Carlo's demo should show shipping-route quality. Scope: (1) /api/ocr route param: 'typer' (default, unchanged) | 'lex' = baseline.read_text(img, None) + fix_line, response carries text_raw pre-projection + route; (2) UI selector + history column; (3) tests for the lex route shape + text==fix_line(text_raw); (4) latency receipt re-run including lex route (expect bench-class seconds, under the 10s bar); (5) docs. Additive, no reader change.",
+  "status": "open",
+  "owner": null,
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-13T09:50:17Z",
+  "updated_ts": "2026-10-13T09:50:17Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T09:50:17Z",
+      "by": "marcus-aurelius",
+      "action": "created"
+    }
+  ]
+}
