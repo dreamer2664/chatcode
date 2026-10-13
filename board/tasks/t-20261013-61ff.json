@@ -2,11 +2,11 @@
   "id": "t-20261013-61ff",
   "title": "S44 \u2014 Confidence scoring: reject low-confidence reads instead of guessing",
   "desc": "Currently we always return a read even if confidence is low. Implement confidence threshold: if avg_confidence < 0.5, return 'UNCERTAIN' instead of guessing. Measure: (1) how many reads become UNCERTAIN? (2) of the remaining reads, what's the accuracy? Owner: barry. Priority: 3.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:44:02Z",
-  "updated_ts": "2026-10-13T11:44:02Z",
+  "updated_ts": "2026-10-13T11:52:21Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T11:44:02Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T11:52:21Z",
+      "by": "bob",
+      "action": "update\u2192dropped",
+      "note": "Dropped: confidence gate measured DEAD in S28/S29. No score separation exists to threshold on."
     }
   ]
 }
