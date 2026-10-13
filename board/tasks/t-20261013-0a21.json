@@ -2,11 +2,11 @@
   "id": "t-20261013-0a21",
   "title": "S35 \u2014 Multi-scale template matching: handle size variation in corroded glyphs",
   "desc": "Corrosion erosion changes glyph size. Current templates are single-scale. Method: (1) implement multi-scale matching (\u00b110%, \u00b120% scale variations); (2) test on corrosion-family images; (3) measure match rate improvement; (4) profile latency impact (must stay under 10s bar); (5) if improvement > 5% and latency OK, wire in. Owner: cormac. Priority: 3. Parent: t-20261011-88dc.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:38:27Z",
-  "updated_ts": "2026-10-13T20:56:46Z",
+  "updated_ts": "2026-10-13T21:24:22Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-13T20:56:46Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T21:24:22Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S35 done: PR #75 (branch agent/cormac/t-20261013-0a21 @75a91a3). Bounded probe, no wiring. NO-GO: >5% gate passes only on truth-box isolation arm (+5.8/+8.4% relative); through real segmentation the multi-scale delta is noise-to-negative (ms20 -8.4% on read-time generated arm); tol2 window-widening flat everywhere. Mechanism: corrosion failure is NOT scale-window \u2014 stroke destruction + segmentation own it (S43 63/77, S30 heavy/extreme 0.41/0.22). Closes the last cheap template-lane hypothesis; 98/95 attack concentrates on S54/seg/post-processing lanes."
     }
   ]
 }
