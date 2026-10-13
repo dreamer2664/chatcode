@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-78f8",
+  "title": "S40 \u2014 Ablation study: measure each pipeline stage's contribution to accuracy",
+  "desc": "Which pipeline stages help and which hurt? Method: run bench with stages selectively disabled (no thresholding, no segmentation cleanup, no lex projection, no v3/v4 weights). Measure accuracy delta per stage. Owner: scott. Priority: 2.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:41:59Z",
+  "updated_ts": "2026-10-13T11:41:59Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:41:59Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
