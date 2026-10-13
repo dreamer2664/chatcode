@@ -2,11 +2,11 @@
   "id": "t-20261013-7c60",
   "title": "S52 \u2014 Contour analysis: extract stroke-width and curvature features",
   "desc": "Current matching uses pixel templates. Add contour-based features (stroke width, curvature, aspect ratio). May help distinguish similar glyphs. Owner: cormac. Priority: 3.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:49:36Z",
-  "updated_ts": "2026-10-13T22:08:03Z",
+  "updated_ts": "2026-10-13T22:13:34Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-13T22:08:03Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T22:13:34Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S52 done: PR #79 (branch agent/cormac/t-20261013-7c60 @b2c4d55). NO-GO with the sharpest receipt yet: contour features (stroke width/compactness/aspect/holes/density/fill) are BELOW-MAJORITY on every actual template confusion pair (l->I 0.133 vs 0.777; s->S 0.136; l->i 0.091; v->V 0.034) \u2014 confusable pairs share coarse geometry by construction; template IoU already subsumes these measurements. Inventory: only 24 rerankable glyphs on hard (86/110 wrong = truth absent from top-8 = structural). Closes the LAST template-matcher hypothesis (S35 scale, S50 patterns, S52 features \u2014 all NO-GO): classic lane fully scoped, 98/95 = S54 + preprocessing + post-processing."
     }
   ]
 }
