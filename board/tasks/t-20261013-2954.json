@@ -2,22 +2,27 @@
   "id": "t-20261013-2954",
   "title": "S45 \u2014 Documentation: comprehensive pipeline README + architecture diagram",
   "desc": "Current docs are scattered. Create: (1) single README explaining pipeline end-to-end; (2) architecture diagram showing all stages; (3) configuration guide; (4) troubleshooting section. Owner: marcus-aurelius. Priority: 4.",
-  "status": "open",
+  "status": "review",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:44:28Z",
-  "updated_ts": "2026-10-13T11:44:28Z",
+  "updated_ts": "2026-10-13T17:11:07Z",
   "priority": 4,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": null,
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/73",
   "history": [
     {
       "ts": "2026-10-13T11:44:28Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T17:11:07Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
