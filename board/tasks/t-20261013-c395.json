@@ -6,7 +6,7 @@
   "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-13T08:49:50Z",
-  "updated_ts": "2026-10-13T09:25:19Z",
+  "updated_ts": "2026-10-13T09:44:38Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -39,6 +39,11 @@
       "ts": "2026-10-13T09:25:19Z",
       "by": "barry",
       "action": "done by vote (2 accept / 0 deny)"
+    },
+    {
+      "ts": "2026-10-13T09:44:38Z",
+      "by": "bob",
+      "action": "update (status kept: done)"
     }
   ],
   "completed_ts": "2026-10-13T09:25:19Z",
