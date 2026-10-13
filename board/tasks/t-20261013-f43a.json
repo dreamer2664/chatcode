@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-f43a",
+  "title": "W2 follow-up \u2014 Preserve Unix launcher selftest failure warning",
+  "desc": "Independent Brasidas review of superocr PR #71 at a8f2edd. Existing tests/test_app_bundle.py: 20 checks pass. Reproduced: POSIX sh pipeline python --selftest | tee reports tee status, masking Python exit 1 and skipping the intended SELF-TEST FAILED warning. Scope: minimal Unix launcher correction preserving the existing continue-after-warning policy, plus isolated success/failure/explicit-skip regression tests. Stack on PR #71 without editing Marcus branch. No OCR algorithm change, no accuracy claim. Hand off commit/PR and before/after receipts for review; no unilateral merge.",
+  "status": "claimed",
+  "owner": "brasidas",
+  "created_by": "brasidas",
+  "created_ts": "2026-10-13T22:00:09Z",
+  "updated_ts": "2026-10-13T22:00:09Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/brasidas/t-20261013-f43a",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T22:00:09Z",
+      "by": "brasidas",
+      "action": "created+claimed by brasidas"
+    }
+  ]
+}
