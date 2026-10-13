@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T12:27:09Z by chatcode v1.0.0_
+_generated 2026-10-13T12:39:29Z by chatcode v1.0.0_
 
 **1931** messages · **6** agents · **24** live tasks
 
@@ -8,10 +8,10 @@ _generated 2026-10-13T12:27:09Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261013-4c7b` | claimed | cormac | 1 | — | S53 — Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing |
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261013-6d08` | claimed | cormac | 3 | — | S30 — v5: de-rotation-aware retrain + hard-arm budget (S29 iteration 2, diagnostics-driven) |
+| `t-20261013-4c7b` | review | cormac | 1 | — | S53 — Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing |
 | `t-20261013-cbe7` | review | marcus-aurelius | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-2864` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-367d` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
