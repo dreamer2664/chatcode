@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T11:52:14Z by chatcode v1.0.0_
+_generated 2026-10-13T11:52:37Z by chatcode v1.0.0_
 
-**1913** messages · **6** agents · **31** live tasks
+**1913** messages · **6** agents · **24** live tasks
 
 ## Board
 
@@ -17,24 +17,17 @@ _generated 2026-10-13T11:52:14Z by chatcode v1.0.0_
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261013-2aed` | open | — | 1 | — | S38 — Cross-validation: run full bench on seed-2 suite (verify generalization) |
 | `t-20261013-7eff` | open | — | 1 | — | S43 — Failure analysis: categorize all 13 hard misses by root cause |
-| `t-20261013-e355` | open | — | 1 | — | S31 — Segmentation probe: measure where current segmentation fails on the 13 hard misses |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-03e8` | open | — | 2 | — | S51 — Contrast enhancement: CLAHE for low-contrast degraded images |
-| `t-20261013-39ce` | open | — | 2 | — | S32 — Adaptive thresholding: replace single otsu with local-adaptive for corrosion/collage families |
 | `t-20261013-44ba` | open | — | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
 | `t-20261013-8c67` | open | — | 2 | — | S46 — Morphological cleanup: open/close operations to fix broken strokes |
-| `t-20261013-b8aa` | open | — | 2 | — | S33 — Edge enhancement: sharpen corroded strokes before template matching |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
 | `t-20261013-0a21` | open | — | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
-| `t-20261013-56f8` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
-| `t-20261013-61ff` | open | — | 3 | — | S44 — Confidence scoring: reject low-confidence reads instead of guessing |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
-| `t-20261013-76a0` | open | — | 3 | — | S41 — Glyph normalization: size/position invariance improvements |
 | `t-20261013-7c60` | open | — | 3 | — | S52 — Contour analysis: extract stroke-width and curvature features |
-| `t-20261013-a9d1` | open | — | 3 | — | S48 — Parallelization: multi-threaded image processing pipeline |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
 | `t-20261013-2954` | open | — | 4 | — | S45 — Documentation: comprehensive pipeline README + architecture diagram |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
@@ -155,10 +148,17 @@ _generated 2026-10-13T11:52:14Z by chatcode v1.0.0_
 | `t-20261011-d72a` | done | scott | 4 | — | Validate channel names against CHANNEL_RE (dead code today) |
 | `t-20261011-07e4` | dropped | scott | 1 | — | append_lines must not wipe >1MB channel files (read via blobs API) |
 | `t-20261011-0fc4` | dropped | — | 1 | — | Stop append_lines from wiping files larger than 1 MB |
+| `t-20261013-e355` | dropped | — | 1 | — | S31 — Segmentation probe: measure where current segmentation fails on the 13 hard misses |
 | `t-20261011-0fc1` | dropped | — | 2 | — | Make Repo reads honor --branch (contents/append_lines are branch-blind) |
 | `t-20261011-246a` | dropped | barry | 2 | — | Fix join-time write race: retry register_agent on Conflict (review finding F1) |
 | `t-20261011-e22b` | dropped | marcus-aurelius | 2 | — | Close the ownership bypass: block/unblock and worker takeover of foreign tasks |
+| `t-20261013-39ce` | dropped | — | 2 | — | S32 — Adaptive thresholding: replace single otsu with local-adaptive for corrosion/collage families |
+| `t-20261013-b8aa` | dropped | — | 2 | — | S33 — Edge enhancement: sharpen corroded strokes before template matching |
 | `t-20261011-afcc` | dropped | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
+| `t-20261013-56f8` | dropped | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
+| `t-20261013-61ff` | dropped | — | 3 | — | S44 — Confidence scoring: reject low-confidence reads instead of guessing |
+| `t-20261013-76a0` | dropped | — | 3 | — | S41 — Glyph normalization: size/position invariance improvements |
+| `t-20261013-a9d1` | dropped | — | 3 | — | S48 — Parallelization: multi-threaded image processing pipeline |
 
 ## Agents
 
