@@ -12,6 +12,9 @@ const require = createRequire(import.meta.url);
 export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ffmpegPath = process.env.FFMPEG_PATH || path.join(path.dirname(require.resolve('@ffmpeg-installer/linux-x64/package.json')), 'ffmpeg');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+// Fingerprint at module-load time, not from files edited after importing the engine.
+const runtimeEngineHashes={};
+for(const rel of ['engine/render.mjs','engine/quality.mjs','engine/config.mjs']) runtimeEngineHashes[rel]=sha(await readFile(path.join(projectRoot,rel)));
 
 export async function runProcess(command, args, signal) {
   if (signal?.aborted) throw new Error('Cancelled');
@@ -33,12 +36,14 @@ export async function renderVideo({ outputDir, config = {}, scene = 'scenes/demo
   const scenePath = path.resolve(projectRoot, scene);
   if (!scenePath.startsWith(projectRoot + path.sep)) throw new Error('Scene must be inside the project');
   const source = await readFile(scenePath);
+  const normalizedScene=path.relative(projectRoot,scenePath).split(path.sep).join('/');
   await mkdir(path.join(outputDir, 'frames'), {recursive:true});
   const started = new Date().toISOString();
-  const manifest = { version:1, started, config:c, scene, sceneSHA256:sha(source),
+  const manifest = { version:1, started, config:c, scene:normalizedScene, sceneSHA256:sha(source),
     renderer:'playwright-canvas', node:process.version, browser:null, status:'rendering',
     grading:'structural engineering checks; NOT perceptual/artistic quality', semanticProvider:critic ? 'supplied' : 'not-provided',
-    audio:audioFile ? 'supplied' : 'none', frames:[], errors:[] };
+    audio:audioFile ? 'supplied' : 'none', moduleHashes:{}, engineHashes:{...runtimeEngineHashes}, frames:[], errors:[] };
+  const moduleCache=new Map([[path.relative(projectRoot,scenePath).split(path.sep).join('/'),source]]);
   const manifestPath = path.join(outputDir,'manifest.json');
   let browser;
   const persist = () => writeFile(manifestPath, JSON.stringify(manifest,null,2)+'\n');
@@ -57,7 +62,8 @@ export async function renderVideo({ outputDir, config = {}, scene = 'scenes/demo
         if (!target.startsWith(projectRoot+path.sep) || !/^(scenes|assets|quality)\//.test(rel)) return await route.abort();
         const mime = {'.mjs':'text/javascript','.js':'text/javascript','.json':'application/json','.png':'image/png','.svg':'image/svg+xml','.jpg':'image/jpeg'}[path.extname(target)];
         if (!mime) return await route.abort();
-        await route.fulfill({status:200,body:await readFile(target),contentType:mime,headers:{'Access-Control-Allow-Origin':'*'}});
+        const bytes=moduleCache.get(rel)??await readFile(target);moduleCache.set(rel,bytes);manifest.moduleHashes[rel]=sha(bytes);
+        await route.fulfill({status:200,body:bytes,contentType:mime,headers:{'Access-Control-Allow-Origin':'*'}});
       } catch { await route.abort(); }
     });
     await context.addInitScript(() => {
@@ -98,7 +104,9 @@ export async function renderVideo({ outputDir, config = {}, scene = 'scenes/demo
         const structural=analyzePNG(bytes,previous,{...c,intentionalHold:captured.intentionalHold});
         const semantic=critic ? await critic.analyze({imagePath:file,frame,time:payload.time,beatMap:c.beatMap,metrics:structural.metrics,revision}) : null;
         const verdict=decideQuality(structural,semantic,c.threshold);
-        record.attempts.push({revision,sha256:sha(bytes),...verdict,metrics:structural.metrics});
+        const artifact=verdict.passed ? `frames/${String(frame).padStart(6,'0')}.png` : `attempts/${String(frame).padStart(6,'0')}-r${revision}.png`;
+        if(!verdict.passed){await mkdir(path.join(outputDir,'attempts'),{recursive:true});await writeFile(path.join(outputDir,artifact),bytes);}
+        record.attempts.push({revision,artifact,sha256:sha(bytes),intentionalHold:captured.intentionalHold,...verdict,metrics:structural.metrics});
         onProgress({phase:'rendering',frame:frame+1,total:c.frameCount,revision,score:verdict.structuralScore,semanticReview:verdict.semanticReview});
         if (verdict.passed) { record.accepted=true; acceptedSamples=structural.samples; break; }
         patch=semantic?.patch ?? null;

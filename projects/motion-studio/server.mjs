@@ -7,7 +7,7 @@ import { renderVideo, projectRoot } from './engine/render.mjs';
 import { validateConfig } from './engine/config.mjs';
 
 const jobs=new Map();let active=null;
-const root=path.join(projectRoot,'renders');
+const root=path.resolve(process.env.RENDER_ROOT || path.join(projectRoot,'renders'));
 const json=(res,code,payload)=>{res.writeHead(code,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(payload));};
 const publicJob=j=>({...j,controller:undefined});
 async function body(req){let s='';for await(const chunk of req){s+=chunk;if(s.length>8192)throw new Error('Request too large');}return JSON.parse(s||'{}');}
@@ -37,7 +37,7 @@ const server=http.createServer(async(req,res)=>{
  }
  const match=/^\/api\/jobs\/([a-f0-9-]{36})\/cancel$/.exec(p);
  if(req.method==='POST'&&match){const j=jobs.get(match[1]);if(!j)return json(res,404,{error:'Unknown job'});j.controller.abort();return json(res,200,{cancelRequested:true});}
- const render=/^\/renders\/([a-zA-Z0-9_-]+)\/(film\.mp4|manifest\.json|frames\/[0-9]{6}\.png)$/.exec(p);
+ const render=/^\/renders\/([a-zA-Z0-9_-]+)\/(film\.mp4|manifest\.json|frames\/[0-9]{6}\.png|attempts\/[0-9]{6}-r[0-9]\.png)$/.exec(p);
  if(req.method==='GET'&&render)return await file(req,res,path.join(root,render[1],render[2]),render[2].endsWith('.mp4')?'video/mp4':render[2].endsWith('.png')?'image/png':'application/json');
  const assets={'/':['ui/index.html','text/html'],'/app.js':['ui/app.js','text/javascript'],'/style.css':['ui/style.css','text/css'],'/scenes/demo.mjs':['scenes/demo.mjs','text/javascript']};
  if(req.method==='GET'&&assets[p]){const [f,type]=assets[p];return await file(req,res,path.join(projectRoot,f),type);}

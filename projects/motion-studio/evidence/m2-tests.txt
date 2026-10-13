@@ -1,0 +1,169 @@
+
+> motion-studio-infrastructure@0.1.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: real browser capture and FFmpeg export are deterministic across two runs
+ok 1 - real browser capture and FFmpeg export are deterministic across two runs
+  ---
+  duration_ms: 734.767854
+  ...
+# Subtest: blank frames terminate after bounded retries, never produce approved video
+ok 2 - blank frames terminate after bounded retries, never produce approved video
+  ---
+  duration_ms: 249.665139
+  ...
+# Subtest: revision-aware scene records actual measured improvements
+ok 3 - revision-aware scene records actual measured improvements
+  ---
+  duration_ms: 306.604005
+  ...
+# Subtest: external critic must pass independently; low artistic score fails export
+ok 4 - external critic must pass independently; low artistic score fails export
+  ---
+  duration_ms: 197.858348
+  ...
+# Subtest: pre-cancelled render records cancellation instead of fake success
+ok 5 - pre-cancelled render records cancellation instead of fake success
+  ---
+  duration_ms: 202.927974
+  ...
+# Subtest: optional audio is muxed and short input padded to film duration
+ok 6 - optional audio is muxed and short input padded to film duration
+  ---
+  duration_ms: 313.13165
+  ...
+# Subtest: default config and exact frame budget
+ok 7 - default config and exact frame budget
+  ---
+  duration_ms: 2.402094
+  ...
+# Subtest: invalid config rejected
+ok 8 - invalid config rejected
+  ---
+  duration_ms: 0.752129
+  ...
+# Subtest: beat map must be bounded and monotonic
+ok 9 - beat map must be bounded and monotonic
+  ---
+  duration_ms: 1.737972
+  ...
+# Subtest: blank frame fails even if unrelated checks pass
+ok 10 - blank frame fails even if unrelated checks pass
+  ---
+  duration_ms: 42.434243
+  ...
+# Subtest: detailed frame has meaningful structural evidence
+ok 11 - detailed frame has meaningful structural evidence
+  ---
+  duration_ms: 33.064141
+  ...
+# Subtest: repeated frame is dead unless explicitly held
+ok 12 - repeated frame is dead unless explicitly held
+  ---
+  duration_ms: 29.295226
+  ...
+# Subtest: semantic critic cannot approve malformed/blank frames
+ok 13 - semantic critic cannot approve malformed/blank frames
+  ---
+  duration_ms: 7.126561
+  ...
+# Subtest: bad semantic scores refused
+ok 14 - bad semantic scores refused
+  ---
+  duration_ms: 13.101683
+  ...
+# Subtest: wrong dimensions never pass
+ok 15 - wrong dimensions never pass
+  ---
+  duration_ms: 8.760484
+  ...
+# Subtest: independent hash/pixel/source/decode audit passes genuine render
+ok 16 - independent hash/pixel/source/decode audit passes genuine render
+  ---
+  duration_ms: 546.054269
+  ...
+# Subtest: tampered frame bytes rejected
+ok 17 - tampered frame bytes rejected
+  ---
+  duration_ms: 26.049638
+  ...
+# Subtest: tampered video rejected
+ok 18 - tampered video rejected
+  ---
+  duration_ms: 37.346229
+  ...
+# Subtest: missing frame rejected
+ok 19 - missing frame rejected
+  ---
+  duration_ms: 9.320414
+  ...
+# Subtest: extra frame rejected
+ok 20 - extra frame rejected
+  ---
+  duration_ms: 7.349652
+  ...
+# Subtest: wrong frame timestamp rejected
+ok 21 - wrong frame timestamp rejected
+  ---
+  duration_ms: 10.604831
+  ...
+# Subtest: duplicate frame ID rejected
+ok 22 - duplicate frame ID rejected
+  ---
+  duration_ms: 12.414023
+  ...
+# Subtest: fake artistic approval rejected
+ok 23 - fake artistic approval rejected
+  ---
+  duration_ms: 8.489497
+  ...
+# Subtest: required semantic provider is not silently substituted
+ok 24 - required semantic provider is not silently substituted
+  ---
+  duration_ms: 3.331095
+  ...
+# Subtest: fake metrics rejected even when PNG hash is unchanged
+ok 25 - fake metrics rejected even when PNG hash is unchanged
+  ---
+  duration_ms: 12.893034
+  ...
+# Subtest: blank pixels with rewritten hashes do not inherit a passing score
+ok 26 - blank pixels with rewritten hashes do not inherit a passing score
+  ---
+  duration_ms: 45.748298
+  ...
+# Subtest: forged retry/improvement totals rejected
+ok 27 - forged retry/improvement totals rejected
+  ---
+  duration_ms: 24.204742
+  ...
+# Subtest: attempt-artifact traversal rejected
+ok 28 - attempt-artifact traversal rejected
+  ---
+  duration_ms: 6.900792
+  ...
+# Subtest: engine drift is detected when source-root checking is requested
+ok 29 - engine drift is detected when source-root checking is requested
+  ---
+  duration_ms: 27.336701
+  ...
+# Subtest: rejected-attempt pixels are retained and independently audited
+ok 30 - rejected-attempt pixels are retained and independently audited
+  ---
+  duration_ms: 402.964422
+  ...
+# Subtest: intentional hold is explicit, persisted and recomputed without calling it artistic
+ok 31 - intentional hold is explicit, persisted and recomputed without calling it artistic
+  ---
+  duration_ms: 377.319255
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5004.02821
