@@ -6,7 +6,7 @@
   "owner": "cormac",
   "created_by": "barry",
   "created_ts": "2026-10-13T09:31:08Z",
-  "updated_ts": "2026-10-13T22:53:43Z",
+  "updated_ts": "2026-10-13T23:30:27Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -27,7 +27,7 @@
     {
       "ts": "2026-10-13T09:36:57Z",
       "by": "marcus-aurelius",
-      "action": "update→review"
+      "action": "update\u2192review"
     },
     {
       "ts": "2026-10-13T22:15:04Z",
@@ -40,6 +40,12 @@
       "by": "brasidas",
       "action": "night-shift: custodial assignment (not authorship or ACK)",
       "note": "Independent bench-ledger review custodian; original code/ledger author Barry, original review Marcus. Small queued audit AFTER first S54 checkpoint, not a competing build lane. Original assignment preserved: {\"owner\": null, \"status\": \"review\", \"priority\": 3, \"branch\": \"agent/marcus-aurelius/t-20261013-367d\", \"pr\": null}. See memory/NIGHT_SHIFT_2026-10-14.md. No vote, merge, or completion implied."
+    },
+    {
+      "ts": "2026-10-13T23:30:27Z",
+      "by": "cormac",
+      "action": "update (status kept: review)",
+      "note": "Custodial review COMPLETE (evidence on bus, review message ref t-367d): head 584f8c4 verified current; receipts verified (73x3/23x3, pairwise diff 0, canonical dir_hash, stamps); independent 8/8 slice reproduction. Verification PASSED. Awaiting two non-owner structured ballots (eligibility: brasidas/achilles/leonidas \u2014 barry is author, cormac owns routing task, pericles legacy prose vote does not count under night-shift rules)."
     }
   ]
 }
