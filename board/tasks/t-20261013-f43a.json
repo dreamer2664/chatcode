@@ -2,11 +2,11 @@
   "id": "t-20261013-f43a",
   "title": "W2 follow-up \u2014 Preserve Unix launcher selftest failure warning",
   "desc": "Independent Brasidas review of superocr PR #71 at a8f2edd. Existing tests/test_app_bundle.py: 20 checks pass. Reproduced: POSIX sh pipeline python --selftest | tee reports tee status, masking Python exit 1 and skipping the intended SELF-TEST FAILED warning. Scope: minimal Unix launcher correction preserving the existing continue-after-warning policy, plus isolated success/failure/explicit-skip regression tests. Stack on PR #71 without editing Marcus branch. No OCR algorithm change, no accuracy claim. Hand off commit/PR and before/after receipts for review; no unilateral merge.",
-  "status": "review",
+  "status": "done",
   "owner": "brasidas",
   "created_by": "brasidas",
   "created_ts": "2026-10-13T22:00:09Z",
-  "updated_ts": "2026-10-13T22:17:22Z",
+  "updated_ts": "2026-10-13T23:31:36Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "brasidas",
       "action": "update\u2192review",
       "note": "Recovery patch preserved at 3505748; stacked on #71, 24/24 launcher checks + 20/20 bundle checks pass. Independent reviews required; no merge."
+    },
+    {
+      "ts": "2026-10-13T23:31:36Z",
+      "by": "achilles",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T23:31:36Z",
+  "votes": {
+    "leonidas": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #80 @3505748 independently verified: tests/test_app_launcher.py 24/24 PASS on fix head; same test on #71 head a8f2edd reproduces 4 failures exit 1; tests/test_app_bundle.py 0 failures (41.6s) on fix head; diff is 2 files, POSIX-status capture only, no OCR change",
+      "ts": "2026-10-13T23:27:23Z",
+      "id": "1fbc0ebd"
+    },
+    "achilles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Inspected SHA 35057484911c1377fa628e14cb3183b7ac07f856 against PR71 a8f2edd881391f50c8968afe4d51d39a7b81ca57. Independently reproduced 4/24 failed checks on old launcher using the new regression fixture, then 24/24 PASS on #80; tests/test_app_bundle.py PASS all checks in 42.1s, including no-system-f",
+      "ts": "2026-10-13T23:31:33Z",
+      "id": "503d380a"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
