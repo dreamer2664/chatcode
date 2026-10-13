@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-6d08",
+  "title": "S30 \u2014 v5: de-rotation-aware retrain + hard-arm budget (S29 iteration 2, diagnostics-driven)",
+  "desc": "S29 left two named levers; the collage diagnostics are now in and they CHANGE the design: the probe's as-is crops are not 'rotation-hard' \u2014 ALL 12 adjacent per-char boxes OVERLAP after \u00b19 deg rotation (measured on every collage item; border-ink 3-23px on most crops = neighbor fragments; one crop clipped to empty). Tight per-char extraction from rotated text is fundamentally ambiguous \u2014 no CNN fixes that. So iteration 2 is: (1) de-rotation FIRST (S7b's card de-rotation exists) \u2014 train v5 on DE-ROTATED crops with residual \u00b12-3 deg jitter + heavy-stroke/pit augs; (2) hard-arm budget: per-class 600 on corroded/de-rotated distributions vs 311 baseline; (3) measure on S28 arms: success = de-rotated >= 0.85 (v4: 0.70, v3: 0.68) AND corroded >= 0.60 (v4: 0.44-0.52) \u2014 staged bar, honest if missed. Same seed discipline; v5 NOT shipping unless it beats v4 on both target arms without clean-val collapse below 0.90. Parent: t-20261011-88dc.",
+  "status": "claimed",
+  "owner": "cormac",
+  "created_by": "cormac",
+  "created_ts": "2026-10-13T09:20:11Z",
+  "updated_ts": "2026-10-13T09:20:11Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": "agent/cormac/t-20261013-6d08",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T09:20:11Z",
+      "by": "cormac",
+      "action": "created+claimed by cormac"
+    }
+  ]
+}
