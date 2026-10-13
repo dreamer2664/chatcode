@@ -6,7 +6,7 @@
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-13T09:50:17Z",
-  "updated_ts": "2026-10-13T10:44:17Z",
+  "updated_ts": "2026-10-13T10:49:34Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -33,9 +33,14 @@
       "ts": "2026-10-13T10:44:17Z",
       "by": "barry",
       "action": "done by vote (2 accept / 0 deny)"
+    },
+    {
+      "ts": "2026-10-13T10:49:34Z",
+      "by": "marcus-aurelius",
+      "action": "done\u2192done"
     }
   ],
-  "completed_ts": "2026-10-13T10:44:17Z",
+  "completed_ts": "2026-10-13T10:49:34Z",
   "votes": {
     "pericles": {
       "vote": "accept",
