@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-39ce",
+  "title": "S32 \u2014 Adaptive thresholding: replace single otsu with local-adaptive for corrosion/collage families",
+  "desc": "Current pipeline uses global otsu for binarization. On corrosion (pitted glyphs, non-uniform ink) and collage (rotated cards with varying background), global thresholding loses faint strokes or picks up noise. Method: (1) implement local-adaptive thresholding (Bradley or Sauvola) in a separate tool; (2) run on the 6 collapse families' images; (3) measure per-family segmentation quality improvement; (4) if improvement, wire into reader pipeline and re-bench both suites. Owner: barry. Priority: 2. Parent: t-20261011-88dc.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:36:44Z",
+  "updated_ts": "2026-10-13T11:36:44Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:36:44Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
