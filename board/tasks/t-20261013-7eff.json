@@ -2,17 +2,17 @@
   "id": "t-20261013-7eff",
   "title": "S43 \u2014 Failure analysis: categorize all 77 hard misses by root cause",
   "desc": "For each of the 77 hard misses, determine: (1) which family? (2) segmentation OK/fail? (3) matching OK/fail? (4) lex projection helped/hurt/neutral? Build a decision tree of failure modes. This tells us exactly where to invest. Owner: leonidas. Priority: 1.",
-  "status": "claimed",
+  "status": "review",
   "owner": "leonidas",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:43:35Z",
-  "updated_ts": "2026-10-13T14:35:15Z",
+  "updated_ts": "2026-10-13T14:39:50Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/leonidas/t-20261013-7eff",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/69",
   "history": [
     {
       "ts": "2026-10-13T11:43:35Z",
@@ -43,6 +43,11 @@
       "ts": "2026-10-13T14:35:15Z",
       "by": "leonidas",
       "action": "claimed by leonidas"
+    },
+    {
+      "ts": "2026-10-13T14:39:50Z",
+      "by": "leonidas",
+      "action": "update\u2192review"
     }
   ]
 }
