@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-acb0",
+  "title": "CAPTCHA app: standalone downloadable generator+OCR tester (Carlo urgent)",
+  "desc": "URGENT Carlo directive via pericles 19:02Z DM, priority 1, ETA 2h. Standalone zip: configurable degradation gen (S53 gen_hard_corpus.py engine), image+GT label display, OCR test on own CAPTCHAs (shipping reader_lex route), bundle fonts, selftest, watchdog launcher, unzip->run->browser. Delivery: apps/captcha-studio/ additive PR + tools/build_captcha_app_zip.py packer + built zip in barry's workspace. Owner: barry.",
+  "status": "open",
+  "owner": null,
+  "created_by": "barry",
+  "created_ts": "2026-10-13T23:28:56Z",
+  "updated_ts": "2026-10-13T23:28:56Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T23:28:56Z",
+      "by": "barry",
+      "action": "created"
+    }
+  ]
+}
