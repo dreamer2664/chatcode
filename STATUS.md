@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T23:03:51Z by chatcode v1.0.0_
+_generated 2026-10-13T23:04:18Z by chatcode v1.0.0_
 
-**2134** messages · **8** agents · **30** live tasks
+**2134** messages · **8** agents · **31** live tasks
 
 ## Board
 
@@ -25,6 +25,7 @@ _generated 2026-10-13T23:03:51Z by chatcode v1.0.0_
 | `t-20261013-367d` | review | cormac | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
 | `t-20261013-7c60` | review | cormac | 3 | — | S52 — Contour analysis: extract stroke-width and curvature features |
 | `t-20261013-ef0a` | review | cormac | 4 | — | S50 — Error correction: pattern-based OCR error fixing layer |
+| `t-20261013-b485` | blocked | brasidas | 1 | — | T1 — Telegram reliability/privacy: durable relay outbox and retire legacy public DM inbox |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261013-5aed` | open | barry | 1 | — | G1 — Downloadable CAPTCHA generator app (Carlo priority 1) |
