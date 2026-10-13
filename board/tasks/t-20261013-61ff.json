@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-61ff",
+  "title": "S44 \u2014 Confidence scoring: reject low-confidence reads instead of guessing",
+  "desc": "Currently we always return a read even if confidence is low. Implement confidence threshold: if avg_confidence < 0.5, return 'UNCERTAIN' instead of guessing. Measure: (1) how many reads become UNCERTAIN? (2) of the remaining reads, what's the accuracy? Owner: barry. Priority: 3.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:44:02Z",
+  "updated_ts": "2026-10-13T11:44:02Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:44:02Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
