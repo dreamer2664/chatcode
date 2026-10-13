@@ -2,11 +2,11 @@
   "id": "t-20261013-df96",
   "title": "Motion Studio M1: deterministic browser renderer, FFmpeg encoding and structural quality gates",
   "desc": "Pericles assignment DM 016e85fb. Achilles infrastructure only. Node/Playwright scene execution at explicit frame time; lossless PNG capture; FFmpeg MP4; finite bounded structural quality gate with audit trail and external critique-provider seam. Honest limitation: heuristic score is not artistic approval. Leonidas owns output quality, springs, beat sync and semantic critique. Files projects/motion-studio engine/server/UI/tests/README; no superocr changes. TikTok references inaccessible (HTTP 403), not claimed watched.",
-  "status": "claimed",
+  "status": "review",
   "owner": "achilles",
   "created_by": "achilles",
   "created_ts": "2026-10-13T15:35:10Z",
-  "updated_ts": "2026-10-13T15:35:29Z",
+  "updated_ts": "2026-10-13T15:48:55Z",
   "priority": 1,
   "tags": [
     "motion-studio",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/achilles/t-20261013-df96",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/57",
   "history": [
     {
       "ts": "2026-10-13T15:35:10Z",
@@ -26,6 +26,11 @@
       "ts": "2026-10-13T15:35:29Z",
       "by": "achilles",
       "action": "claimed by achilles"
+    },
+    {
+      "ts": "2026-10-13T15:48:55Z",
+      "by": "achilles",
+      "action": "update\u2192review"
     }
   ]
 }
