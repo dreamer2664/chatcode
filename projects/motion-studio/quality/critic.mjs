@@ -22,6 +22,7 @@
  */
 import { readFile } from 'node:fs/promises';
 import { PNG } from 'pngjs';
+import { beatPhase } from './beat.mjs';
 
 const clamp01 = v => Math.min(1, Math.max(0, v));
 
@@ -72,22 +73,48 @@ export async function analyze({ imagePath, frame, time, beatMap, metrics, revisi
     contrast: clamp01(contrast / 40) * 2.0,
     // Content coverage is computed below from non-background samples.
     composition: 0,
-    beatMotion: delta == null ? 0.75 : clamp01(delta / 6) * 1.5,
+    beatMotion: 0, // filled below, once the beat grid is consulted
   };
+  // Beat-motion IS measured against the supplied grid (Achilles review
+  // on PR #58): a cut-sized luminance jump earns full marks only at a
+  // cut/beat; the same jump mid-beat is motion OFF the grid and is
+  // flagged, while ordinary spring motion mid-beat is expected small.
+  let beatAlignment = 'no-grid';
+  if (delta != null) {
+    if (beatMap && Array.isArray(beatMap.beats) && beatMap.beats.length) {
+      const bm = { ...beatMap, secondsPerBeat: beatMap.secondsPerBeat
+        ?? (beatMap.beats[1] - beatMap.beats[0]) };
+      const frameInterval = frame > 0 && time > 0 ? time / frame : 1 / 24;
+      const nearCut = (beatMap.cuts ?? []).some(c => Math.abs(c - time) <= frameInterval * 1.5);
+      const phase = beatPhase(bm, time);
+      const expected = nearCut ? 14 : phase < 0.25 ? 8 : 4;
+      const miss = Math.abs(delta - expected) / Math.max(expected, delta, 1);
+      parts.beatMotion = 1.5 * clamp01(1 - miss);
+      beatAlignment = nearCut ? 'at-cut' : phase < 0.25 ? 'at-beat' : 'mid-beat';
+      if (!nearCut && delta > expected * 2.5) parts.beatMotion = Math.min(parts.beatMotion, 0.4);
+    } else {
+      parts.beatMotion = clamp01(delta / 6) * 1.5; // no grid supplied: magnitude only
+      beatAlignment = 'no-grid-magnitude';
+    }
+  }
   const coverage = n ? content / n : 0;
   parts.composition = clamp01(coverage / 0.22) * 2.0;
   if (coverage > 0.97) parts.composition = 0.4; // a flat wash is not composition
   // A component that cannot be measured (frame 0 has no predecessor to
-  // diff against) is excluded and the rest rescaled to 10 — the same
-  // convention as Achilles' structural gate, not a free pass.
+  // diff against) is EXCLUDED, then the remaining 8.5 points rescale
+  // to 10 — never counted in the numerator (Achilles PR #58 bug: the
+  // 0.75 placeholder used to survive into `raw` and yield 10.88).
   const raw = Object.values(parts).reduce((a, b) => a + b, 0);
-  const score = Math.round((delta == null ? raw / 8.5 * 10 : raw) * 100) / 100;
+  const score = Math.min(10, Math.round(
+    (delta == null ? (raw - parts.beatMotion) / 8.5 * 10 : raw) * 100) / 100);
   const issues = [];
   if (parts.colour < 1.0) issues.push('low-colour-diversity');
   if (parts.edge < 1.25) issues.push('low-edge-detail');
   if (parts.contrast < 1.0) issues.push('low-contrast');
   if (parts.composition < 1.0) issues.push('dead-composition');
-  if (delta != null && parts.beatMotion < 0.5) issues.push('low-motion-vs-beat');
+  if (delta != null && parts.beatMotion < 0.5) {
+    issues.push(beatAlignment === 'mid-beat' ? 'motion-off-beat' : 'low-motion-vs-beat');
+  }
   return {
     score,
     issues,
@@ -97,7 +124,7 @@ export async function analyze({ imagePath, frame, time, beatMap, metrics, revisi
       contrast: Math.round(contrast * 100) / 100,
       coverage: Math.round(coverage * 1000) / 1000,
       centroidOffset: Math.round(centroidOff * 1000) / 1000,
-      parts, frame, time,
+      parts, frame, time, beatAlignment,
       note: 'measurable composition evidence; not a taste verdict',
     },
   };
