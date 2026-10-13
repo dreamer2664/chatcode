@@ -2,11 +2,11 @@
   "id": "t-20261013-becc",
   "title": "S31 \u2014 reader integration: word-context crops + lexicon path over glyphcnn-v7b",
   "desc": "Evidence from S30/PR #67: v7b beats v4 on every measured distribution (corpus val 0.43->0.80 per-severity, easy solo glyph 0.90->0.92, easy raw-chain exact 19->31) but read-level hard exact barely moves (6->7) because the raw CNN chain has no lexicon and the floor feeds tight solo pieces. Two integration levers, measured separately: (1) word-context cropping at read time \u2014 cut floor pieces with +-1-2px neighbour context so the net sees its training distribution (v7 word-only val 0.79 vs v7 solo 0.70 proves the delta); (2) lexicon/projection path over v7b opinions (reader_lex already proves lex value on the template side: 73/23). Bar: beat shipping reader_lex+R5+S25 (73/23) on canonical easy/hard 3x, no easy regression, demo <=10s. Held-out protocol binding. Depends on PR #67 merge for weights.",
-  "status": "open",
+  "status": "claimed",
   "owner": null,
   "created_by": "cormac",
   "created_ts": "2026-10-13T13:30:22Z",
-  "updated_ts": "2026-10-13T13:30:22Z",
+  "updated_ts": "2026-10-13T16:23:05Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T13:30:22Z",
       "by": "cormac",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T16:23:05Z",
+      "by": "barry",
+      "action": "update\u2192claimed",
+      "note": "claimed by barry 17:3xZ. plan (both levers measured separately on canonical seed-1, eval-only per S30 protocol; NO shipping wiring from this task - probe receipts only, integration PR follows the numbers): lever-1 word-context crops at read time (floor mask -> advance-style word boxes +-1-2px, v7b on context crops, reassemble) vs lever-2 lexicon/projection path over v7b opinions (v7b opinion replacing the CNN slot inside the existing reader_lex chain, projection untouched). baseline control must reproduce shipping 23/100 exactly or harness void; ambitious control = plain v7b weight-swap inside current chain. branches stack on v7b head 3bfbde4 until #67 merges (rebase after). ETA: harness ~1h, numbers ~30 min after, honest report with per-item rows."
     }
   ]
 }
