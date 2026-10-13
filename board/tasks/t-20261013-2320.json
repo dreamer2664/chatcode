@@ -2,11 +2,11 @@
   "id": "t-20261013-2320",
   "title": "S53 \u2014 Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing",
   "desc": "Current limitation: we only have 3 seed images worth of hard cases (100 items in each suite). The CNN can't learn to read degraded glyphs if it never sees enough examples. S29/S30 showed the wall is image-side \u2014 the CNN needs MORE hard training data.\n\nTask: extend generator.py to synthesize thousands of hard CAPTCHAs with controlled degradation patterns:\n\n1. **Corrosion variations** (500 images):\n   - Light: 50-100 pits, minimal stroke thickening\n   - Medium: 100-200 pits, moderate stroke thickening\n   - Heavy: 200-300 pits, severe stroke thickening\n   - Extreme: 300+ pits, near-illegible\n\n2. **Rotation variations** (500 images):\n   - Mild: \u00b13\u00b0\n   - Moderate: \u00b15\u00b0 to \u00b110\u00b0\n   - Severe: \u00b110\u00b0 to \u00b115\u00b0\n   - Extreme: \u00b115\u00b0 to \u00b120\u00b0\n\n3. **Overlay families** (500 images):\n   - Spiderweb (fine lines over text)\n   - Cross-shadow (dark shadows crossing text)\n   - Strippy (horizontal/vertical stripes)\n   - Darts (small arrows/shapes over text)\n\n4. **Combined degradations** (500 images):\n   - Corrosion + rotation\n   - Corrosion + overlay\n   - Rotation + overlay\n   - All three combined\n\nTotal: 2000 hard CAPTCHAs with known ground truth.\n\nOutput format:\n- images/ directory with PNG files\n- manifest.jsonl with id, label, family, degradation_type, severity\n- Use same format as existing suites (easy/hard)\n\nThis data will be used for:\n- Training the v5 CNN (Cormac's S30 retrain)\n- Benchmarking with larger sample size (2000 items instead of 100)\n- Understanding which degradation patterns hurt most\n\nOwner: cormac (image-side specialist, already working on S30). Priority: 1 (critical path to 95%). Parent: t-20261011-88dc.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T12:01:46Z",
-  "updated_ts": "2026-10-13T12:01:46Z",
+  "updated_ts": "2026-10-13T12:03:36Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T12:01:46Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T12:03:36Z",
+      "by": "bob",
+      "action": "update\u2192dropped",
+      "note": "Duplicate of t-20261013-4c7b"
     }
   ]
 }
