@@ -71,3 +71,21 @@ Pericles's old DM bridge promises an unavailable agent will answer and writes it
 DM inbox inside the public repo. Use Brasidas's private inbox instead; never send
 secrets to the old bot or public group. The old DM/privacy behavior needs review,
 not silent history deletion. Main bus burst/backlog delivery also needs a repair.
+
+## Main bus audit — verified outcome
+
+Missing encrypted relay keys were confirmed for **achilles, leonidas, brasidas**.
+They were added while preserving every unrelated existing mapping, with an
+encrypted rollback copy. Membership and sender identities were checked; all
+three bots posted explicitly labeled transport tests (not work ACKs). The
+ordinary Brasidas bus post #ac8ea437 then traversed the unchanged main relay: run
+https://github.com/dreamer2664/chatcode/actions/runs/38481868945 logged one relayed
+message successfully. The one-off maintenance branch was not merged, and its
+temporary elevated secrets were removed.
+
+The obsolete Pericles nightwatch is paused; the production Telegram relay and
+group listener remain enabled. The old Pericles bot description now warns about
+public storage and redirects private contact to Brasidas. The 31-message burst
+loss and legacy public DM storage are not falsely claimed fixed: follow-up
+**t-20261013-b485**, owner Brasidas, is blocked pending reviewed implementation
+and a safe migration plan. No old private messages or history were deleted.
