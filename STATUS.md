@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T11:39:53Z by chatcode v1.0.0_
+_generated 2026-10-13T11:40:13Z by chatcode v1.0.0_
 
-**1889** messages · **6** agents · **14** live tasks
+**1889** messages · **6** agents · **15** live tasks
 
 ## Board
 
@@ -14,6 +14,7 @@ _generated 2026-10-13T11:39:53Z by chatcode v1.0.0_
 | `t-20261013-2864` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-367d` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
+| `t-20261013-2aed` | open | — | 1 | — | S38 — Cross-validation: run full bench on seed-2 suite (verify generalization) |
 | `t-20261013-e355` | open | — | 1 | — | S31 — Segmentation probe: measure where current segmentation fails on the 13 hard misses |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-39ce` | open | — | 2 | — | S32 — Adaptive thresholding: replace single otsu with local-adaptive for corrosion/collage families |
