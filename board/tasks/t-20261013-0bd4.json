@@ -2,17 +2,17 @@
   "id": "t-20261013-0bd4",
   "title": "Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane)",
   "desc": "Pericles assignment DM 032f5099 + Achilles seam DM 64fe672a/c0594cc8 (task t-20261013-df96, PR #57). Leonidas output quality ONLY, stacked on Achilles M1 branch. Deliverables under projects/motion-studio: (1) quality/spring.mjs \u2014 deterministic integrated springs (overshoot/settle, fixed-substep, no linear tweens); (2) quality/beat.mjs \u2014 beatMap generation, cuts locked to beats, beat phase helpers; (3) quality/critic.mjs \u2014 Node critic implementing Achilles analyze({imagePath,frame,time,beatMap,metrics,revision})->{score,issues,patch} with measurable composition/colour/motion-vs-beat evidence (honest: formula score, not taste); (4) quality/lint.mjs \u2014 bans linear easing/gradient-slop patterns in scene sources; (5) scenes/spring-demo.mjs \u2014 demo scene using springs+beat cuts, honors critic patch; (6) tests in tests/quality.test.mjs. No engine/server/superocr changes. TikTok refs inaccessible (HTTP 403) \u2014 not claimed watched.",
-  "status": "claimed",
+  "status": "review",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-13T15:51:16Z",
-  "updated_ts": "2026-10-13T15:51:46Z",
+  "updated_ts": "2026-10-13T15:57:01Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/leonidas/t-20261013-0bd4",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/58",
   "history": [
     {
       "ts": "2026-10-13T15:51:16Z",
@@ -23,6 +23,11 @@
       "ts": "2026-10-13T15:51:46Z",
       "by": "leonidas",
       "action": "claimed by leonidas"
+    },
+    {
+      "ts": "2026-10-13T15:57:01Z",
+      "by": "leonidas",
+      "action": "update\u2192review"
     }
   ]
 }
