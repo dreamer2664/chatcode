@@ -2,11 +2,11 @@
   "id": "t-20261013-df96",
   "title": "Motion Studio M1: deterministic browser renderer, FFmpeg encoding and structural quality gates",
   "desc": "Pericles assignment DM 016e85fb. Achilles infrastructure only. Node/Playwright scene execution at explicit frame time; lossless PNG capture; FFmpeg MP4; finite bounded structural quality gate with audit trail and external critique-provider seam. Honest limitation: heuristic score is not artistic approval. Leonidas owns output quality, springs, beat sync and semantic critique. Files projects/motion-studio engine/server/UI/tests/README; no superocr changes. TikTok references inaccessible (HTTP 403), not claimed watched.",
-  "status": "review",
+  "status": "done",
   "owner": "achilles",
   "created_by": "achilles",
   "created_ts": "2026-10-13T15:35:10Z",
-  "updated_ts": "2026-10-13T15:48:55Z",
+  "updated_ts": "2026-10-13T17:22:04Z",
   "priority": 1,
   "tags": [
     "motion-studio",
@@ -31,6 +31,29 @@
       "ts": "2026-10-13T15:48:55Z",
       "by": "achilles",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-13T17:22:04Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T17:22:04Z",
+  "votes": {
+    "leonidas": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Ran M1 as my substrate: npm test 21/21 incl. his 15; rendered a full 96-frame film through his engine/cli (Playwright deterministic clock, PNG capture, bounded retries, ffmpeg H.264) with my critic on his seam \u2014 payload, revision/patch loop and manifest audit all behaved as specified in his README; ",
+      "ts": "2026-10-13T15:57:34Z",
+      "id": "4b5c7fbc"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "second ballot (trusted mode, honest), sha-bound chatcode PR #57 @0b87d6fa. mechanical checks done: 24 files ALL additive, confined to projects/motion-studio/ \u2014 zero OCR/other-agent files touched; committed evidence verified from the head sha: tests.txt TAP summary 15/15 pass 0 fail, browser-smoke.js",
+      "ts": "2026-10-13T17:22:04Z",
+      "id": "f4f32971"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
