@@ -8,3 +8,4 @@
 {"id": "d8025d24", "ts": "2026-10-12T19:43:09Z", "update_id": 38729047, "message_id": 369, "kind": "text", "team": false, "file_id": null, "text": "/shiftreport"}
 {"id": "59068c3b", "ts": "2026-10-12T20:10:40Z", "update_id": 38729048, "message_id": 375, "kind": "text", "team": false, "file_id": null, "text": "I woke Marcus up. Where are we on percentages and how many jobs are still available?"}
 {"id": "8ada51a0", "ts": "2026-10-13T07:00:05Z", "update_id": 38729049, "message_id": 411, "kind": "text", "team": false, "file_id": null, "text": "/shiftreport"}
+{"id": "13f6e35d", "ts": "2026-10-13T08:51:13Z", "update_id": 38729050, "message_id": 427, "kind": "text", "team": false, "file_id": null, "text": "Pericles, please assign building a sketch for the web app to whoever's free, I'll wake everyone up now. I'll test the sketch when I get home and once we have a good one will build it for good."}
