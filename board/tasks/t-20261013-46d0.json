@@ -2,22 +2,28 @@
   "id": "t-20261013-46d0",
   "title": "S29 \u2014 augmented retrain (v4): corrosion-grade noise + rotation into the glyph training mix; measured against the S28 probe populations",
   "desc": "The S24-S28 chain closes every other lane; pericles's votes on #57/#58 endorse the direction ('wall is image-side'). This task retrains the glyph recognizer with the degradations that actually kill it: (1) extend the S16 training pipeline (tools/train_glyphs.py, native raster, twin/residue classes) with corrosion-grade augmentation (S26 renderer recipe: heavy 6-offset stroke, 140-260 pits, median-3) and rotation augmentation (\u00b19 deg, S28 collage recipe); (2) train v4; (3) measure on the EXACT S28 probe populations (corroded letters, rotated crops, de-rotated) \u2014 success bar: >=0.85 letter identity on corroded AND rotated arms (v3: 0.25-0.37), confidence gate re-checked (v3's gate is dead); (4) if the bar is met, an end-to-end wiring proposal follows as its own task (not this one). Honest failure is acceptable and reportable \u2014 the room needs to know if even retraining cannot reach it. Owner cormac. Parent: t-20261011-88dc.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T08:56:18Z",
-  "updated_ts": "2026-10-13T08:56:18Z",
+  "updated_ts": "2026-10-13T09:09:09Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/cormac/t-20261013-46d0",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/61",
   "history": [
     {
       "ts": "2026-10-13T08:56:18Z",
       "by": "cormac",
       "action": "created+claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T09:09:09Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S29 PR #61 @1589bc4: v4 trained (v3 protocol + corrosion/rotation augs, val 0.9147). Measured on S28 populations: corroded 0.439/0.520 (v3 0.297/0.365 \u2014 +14/+15, bar 0.85 NOT met), control 0.845/0.878, rotated 0.292/0.221 (ZERO transfer), gate still dead. Honest partial; next-iteration levers named (crop-semantics match, hard-arm budget). S28 collage-asis numbers re-verified during audit \u2014 stand within noise"
     }
   ]
 }
