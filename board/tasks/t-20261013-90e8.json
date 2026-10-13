@@ -2,22 +2,27 @@
   "id": "t-20261013-90e8",
   "title": "S55 \u2014 Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first",
   "desc": "Pericles DM 0f86380a / all-hands 63e08f84. From S43 census (PR #69, merged): 77 hard misses = 63 segmentation + 9 matching-case + 5 matching-glyph. Scope: (1) audit _case_of twin logic in baseline.py against the 9 case misses (4 stitch) AND the closed-lane evidence (S22: lex re-casing rejected; S24/S25: case lane closed by converging negatives) \u2014 re-open only with new measured evidence; (2) audit fix_line/lex_projection against the 5 glyph-substitution misses, no overfit rules (single-item rules rejected); (3) validation harness over the 14 item ids, then FULL canonical seed-1 easy+hard gate (must beat/keep 73/23 with zero regression to ship) + seed-2 screen for any winner. Branch agent/leonidas/<task> per convention (supersedes DM branch name). Deliverable: harness + audit report; code change ONLY if measured gain, else honest negative report. baseline.py is production \u2014 no unmeasured edits.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-13T20:53:54Z",
-  "updated_ts": "2026-10-13T20:53:54Z",
+  "updated_ts": "2026-10-13T20:54:04Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/leonidas/t-20261013-90e8",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-13T20:53:54Z",
       "by": "leonidas",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T20:54:04Z",
+      "by": "leonidas",
+      "action": "claimed by leonidas"
     }
   ]
 }
