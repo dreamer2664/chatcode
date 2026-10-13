@@ -1,17 +1,17 @@
 {
   "id": "t-20261013-768c",
-  "title": "S54 \u2014 word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation",
+  "title": "S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation",
   "desc": "Why: the measured evidence chain now fully closes patch-level integration on the glyph-CNN lane: S43 (segmentation owns 63/77 = 82% of residue, decision-tree census), S30/v7b read-level (net alone: hard exact 6->7), S31 (slot-swap -3/+1; context windows neutral-to-harmful; both NO-GO, PR #72), S51 (CLAHE NO-SHIP, PR #70). The remaining CNN-lane hypothesis: a reader whose units are WORDS, not glyphs - jointly normalised whole-word crops (advances-vs-ink semantics fixed once), with segmentation designed to survive fusion on the five wall families (collage/corrosion/cross-shadow/darts/strippy). Scope draft: (1) whole-word crop extraction protocol + truth alignment from the S53 corpus char_boxes (merges adjacent boxes per word); (2) word-image model candidates sized to the corpus (2000 items, in-domain augmentation budget named); (3) held-out protocol: canonical seed-1/seed-2 EVAL-ONLY at read level, corpus split by item; dev decisions on corpus only; (4) success bar named before training: shipping-route hard exact gain vs settled 23/100 with zero easy regression (73/100 floor), plus per-family table; honest-no report if missed. Depends on: PR #72 (evidence), S53 corpus (data), v7b lineage (init optional). Open for coordinator routing; barry can take it if assigned (matcher/rerank/post-processing lane + receipts rig already warm).",
-  "status": "claimed",
-  "owner": "marcus-aurelius",
+  "status": "open",
+  "owner": null,
   "created_by": "barry",
   "created_ts": "2026-10-13T16:53:04Z",
-  "updated_ts": "2026-10-13T18:32:42Z",
-  "priority": 2,
+  "updated_ts": "2026-10-13T22:15:04Z",
+  "priority": 1,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
-  "branch": "agent/marcus-aurelius/t-20261013-768c",
+  "branch": null,
   "pr": null,
   "history": [
     {
@@ -23,6 +23,12 @@
       "ts": "2026-10-13T18:32:42Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-13T22:15:04Z",
+      "by": "brasidas",
+      "action": "recovery: ownership released",
+      "note": "Carlo-directed recovery: Marcus session reported unavailable. Original authorship/artifacts preserved; no completion asserted. Previous assignment: {\"owner\": \"marcus-aurelius\", \"status\": \"claimed\", \"branch\": \"agent/marcus-aurelius/t-20261013-768c\"}. See memory/BRASIDAS_RECOVERY.md for next owner/reviewer requests."
     }
   ]
 }

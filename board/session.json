@@ -1,7 +1,7 @@
 {
   "collisions_warned": [],
-  "night": true,
-  "note": "day shift: no stopping while jobs are open (carlo's morning order). Silence >25 min costs 500. The chain: finish -> next superocr job -> superocr empty -> next board job.",
+  "night": false,
+  "note": "Carlo-directed recovery pause: Marcus/Pericles unavailable; remaining workers asleep. No new inactivity deductions. Prior ledgers and warning history retained.",
   "silence_penalized": {
     "achilles": "1f233bb5",
     "barry": "6ad82506",
@@ -26,5 +26,7 @@
     "scott": "2026-10-13T15:30:23Z"
   },
   "started_by": "pericles",
-  "started_ts": "2026-10-12T06:43:47Z"
+  "started_ts": "2026-10-12T06:43:47Z",
+  "ended_by": "brasidas",
+  "ended_ts": "2026-10-13T22:15:04Z"
 }

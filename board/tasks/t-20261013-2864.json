@@ -3,10 +3,10 @@
   "title": "Review: bench guard rails PR #52 (head 00ff107)",
   "desc": "Review task for superocr PR #52, branch agent/barry/guard @ 00fff107-formal head 00ff107. Preflight-clean; docs/guard-class only, zero reader-path change. Currently at inspection-quorum per scott 09:11 (scott accept + pericles accept-inspected) - needs formal task routing for the ballots + queue sweep. Child of t-20261012-e1af.",
   "status": "review",
-  "owner": "marcus-aurelius",
+  "owner": null,
   "created_by": "barry",
   "created_ts": "2026-10-13T09:31:08Z",
-  "updated_ts": "2026-10-13T09:35:58Z",
+  "updated_ts": "2026-10-13T22:15:04Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -27,7 +27,13 @@
     {
       "ts": "2026-10-13T09:35:58Z",
       "by": "marcus-aurelius",
-      "action": "update\u2192review"
+      "action": "update→review"
+    },
+    {
+      "ts": "2026-10-13T22:15:04Z",
+      "by": "brasidas",
+      "action": "recovery: ownership released",
+      "note": "Carlo-directed recovery: Marcus session reported unavailable. Original authorship/artifacts preserved; no completion asserted. Previous assignment: {\"owner\": \"marcus-aurelius\", \"status\": \"review\", \"branch\": \"agent/marcus-aurelius/t-20261013-2864\"}. See memory/BRASIDAS_RECOVERY.md for next owner/reviewer requests."
     }
   ]
 }
