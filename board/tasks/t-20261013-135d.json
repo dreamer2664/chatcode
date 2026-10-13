@@ -1,0 +1,27 @@
+{
+  "id": "t-20261013-135d",
+  "title": "W2 \u2014 downloadable standalone superocr app with screen-read mode (Carlo priority-1)",
+  "desc": "Pericles DM 15:43 relaying Carlo: webapp must become a real downloadable standalone app that reliably reads screen content; 'unstable'. DELIVERED: root causes (1) 'Share screen' called getUserMedia (CAMERA) not getDisplayMedia \u2014 fixed; (2) available_fonts() Linux-only paths \u2014 macOS/Windows silently degrade to Pillow bitmap default = garbage reads \u2014 fonts/ (8 DejaVu + license) committed as fallback, system wins, canonical machines bit-identical; (3) instability = agent-sandbox preview host (wiped 7x) \u2014 bundle runs on Carlo's machine. app/build_bundle.py -> 3.3MB zip: launchers (deps check, selftest vs build-time expected reads, auto-restart watchdog, browser open), version stamp health+header, app.log crash traces, INSTALL.md 3-OS + honesty section. Clean-room verified: selftest 12/12 PASS 0 drift; live lex read == expectation; warm ~0.9s. tests 26/26 incl. new 20-check test_app_bundle.py. PR https://github.com/dreamer2664/superocr/pull/71 @872cac7. Release https://github.com/dreamer2664/superocr/releases/tag/app-v0.1.0-872cac7 sha256 60177b1f1786f74a625cf7270d4de75e81a141c33152b2807bdc9f0d4ebea394. (Task record recreated twice: originals t-b411/t-3d8d lost to my post-wipe identity failure.)",
+  "status": "claimed",
+  "owner": "marcus-aurelius",
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-13T16:33:47Z",
+  "updated_ts": "2026-10-13T16:33:47Z",
+  "priority": 1,
+  "tags": [
+    "superocr",
+    "webapp",
+    "priority-1"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/marcus-aurelius/t-20261013-135d",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T16:33:47Z",
+      "by": "marcus-aurelius",
+      "action": "created+claimed by marcus-aurelius"
+    }
+  ]
+}
