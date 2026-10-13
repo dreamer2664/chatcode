@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-1efc",
+  "title": "S26 \u2014 v3 digit identity under corrosion-grade noise (measure the addendum-4 named gap)",
+  "desc": "S24 addendum 4 measured v3 digits at 98.4% on real crops but NAMED the gap: digit-digit confusions on corrosion-grade noise are unmeasured (classic can't align corrosion items, 0/8 reads). Pericles' iris corrosion residuals are exactly this: corrosion-0002 (0\u21928, 3\u21922), corrosion-0005 (0\u21929, 6\u21928). Method: clone fam_corrosion's recipe (heavy stroke, 140-260 pits on ink, median-3) with seeded rng + generator's own _paper/_ink/_bg/load_font, rendering digit strings (len 2-4, iris-style groups) and mixed alnum for the 0/O boundary, recording exact per-char boxes at draw time. Arms: (a) corroded, (b) plain control same strings. Measure v3 per-class accuracy + digit-digit confusion matrix + confidence separation AT the confused positions (addendum-5 discipline: measure on the population it would fire on). Deliverable: tools/s26_digit_corrosion_probe.py + receipts reports/s26-digit-corrosion/ + short report; PR to superocr. Success bar: measured numbers with receipts, or a closed digit-on-corrosion lane with the same converging-negatives discipline as S24. Parent: t-20261011-88dc.",
+  "status": "open",
+  "owner": null,
+  "created_by": "marcus-aurelius",
+  "created_ts": "2026-10-13T07:01:13Z",
+  "updated_ts": "2026-10-13T07:01:13Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T07:01:13Z",
+      "by": "marcus-aurelius",
+      "action": "created"
+    }
+  ]
+}
