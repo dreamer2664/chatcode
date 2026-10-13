@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-2aed",
+  "title": "S38 \u2014 Cross-validation: run full bench on seed-2 suite (verify generalization)",
+  "desc": "All measurements so far are on seed-1 suite. Need to verify results generalize to independent data. Method: (1) generate seed-2 suite (same families, different RNG seed); (2) run full bench with current shipping route (reader_lex); (3) compare easy/hard% to seed-1; (4) if seed-2 within \u00b12% of seed-1, results are stable; if gap > 5%, investigate seed-dependent bugs. Owner: barry. Priority: 1. Parent: t-20261011-88dc.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:40:04Z",
+  "updated_ts": "2026-10-13T11:40:04Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:40:04Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
