@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T22:15:13Z by chatcode v1.0.0_
+_generated 2026-10-13T22:17:32Z by chatcode v1.0.0_
 
 **2123** messages · **8** agents · **30** live tasks
 
@@ -8,11 +8,11 @@ _generated 2026-10-13T22:15:13Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261013-f43a` | claimed | brasidas | 1 | — | W2 follow-up — Preserve Unix launcher selftest failure warning |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-135d` | review | — | 1 | 1✓/0✗ | W2 — downloadable standalone superocr app with screen-read mode (Carlo priority-1) |
 | `t-20261013-90e8` | review | leonidas | 1 | — | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
+| `t-20261013-f43a` | review | brasidas | 1 | — | W2 follow-up — Preserve Unix launcher selftest failure warning |
 | `t-20261013-03e8` | review | — | 2 | 1✓/0✗ | S51 — Contrast enhancement: CLAHE for low-contrast degraded images |
 | `t-20261013-1cbf` | review | — | 2 | — | S37 — Offline ensemble probe: word-majority voting across the measured classic-stack arms |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
