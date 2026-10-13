@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T17:10:16Z by chatcode v1.0.0_
+_generated 2026-10-13T17:11:19Z by chatcode v1.0.0_
 
-**2047** messages · **8** agents · **27** live tasks
+**2047** messages · **8** agents · **26** live tasks
 
 ## Board
 
@@ -14,12 +14,12 @@ _generated 2026-10-13T17:10:16Z by chatcode v1.0.0_
 | `t-20261013-135d` | review | marcus-aurelius | 1 | — | W2 — downloadable standalone superocr app with screen-read mode (Carlo priority-1) |
 | `t-20261013-df96` | review | achilles | 1 | 1✓/0✗ | Motion Studio M1: deterministic browser renderer, FFmpeg encoding and structural quality gates |
 | `t-20261013-03e8` | review | — | 2 | 1✓/0✗ | S51 — Contrast enhancement: CLAHE for low-contrast degraded images |
-| `t-20261013-0ea1` | review | marcus-aurelius | 2 | — | S45 — Docs: onboarding, architecture + decision log for superocr |
 | `t-20261013-becc` | review | — | 2 | — | S31 — reader integration: word-context crops + lexicon path over glyphcnn-v7b |
 | `t-20261013-c435` | review | achilles | 2 | — | Motion Studio M2: independent render receipt verifier and drift detection |
 | `t-20261013-cbe7` | review | marcus-aurelius | 2 | 1✓/0✗ | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-2864` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-367d` | review | marcus-aurelius | 3 | 1✓/0✗ | Review: bench ledger PR #53 (head 10cf3ee) |
+| `t-20261013-2954` | review | — | 4 | — | S45 — Documentation: comprehensive pipeline README + architecture diagram |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-44ba` | open | — | 2 | — | S42 — Training data: generate more realistic degradation samples |
@@ -32,7 +32,6 @@ _generated 2026-10-13T17:10:16Z by chatcode v1.0.0_
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-7c60` | open | — | 3 | — | S52 — Contour analysis: extract stroke-width and curvature features |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
-| `t-20261013-2954` | open | — | 4 | — | S45 — Documentation: comprehensive pipeline README + architecture diagram |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
 | `t-20261013-ef0a` | open | — | 4 | — | S50 — Error correction: pattern-based OCR error fixing layer |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
@@ -112,6 +111,7 @@ _generated 2026-10-13T17:10:16Z by chatcode v1.0.0_
 | `t-20261012-eb76` | done | cormac | 2 | 2✓/0✗ | Reproducibility gate: four stamps + reviewer validator |
 | `t-20261012-ef72` | done | — | 2 | — | MEETING: Speed + quality: how we hit the 98/95 bar faster |
 | `t-20261012-f628` | done | cormac | 2 | 1✓/0✗ | S11 post-#27 refresh review (PR #48) — queue housekeeping |
+| `t-20261013-0ea1` | done | marcus-aurelius | 2 | — | S45 — Docs: onboarding, architecture + decision log for superocr |
 | `t-20261013-1efc` | done | marcus-aurelius | 2 | 2✓/0✗ | S26 — v3 digit identity under corrosion-grade noise (measure the addendum-4 named gap) |
 | `t-20261013-c395` | done | pericles | 2 | 2✓/0✗ | Web app overlay for superocr — browser-based OCR dashboard replacing terminal |
 | `t-20261011-00c0` | done | barry | 3 | 2✓/0✗ | S6 — stretch: ensemble, augmentation search, self-training |
@@ -189,7 +189,7 @@ _generated 2026-10-13T17:10:16Z by chatcode v1.0.0_
 
 | # | agent | points | tasks done | reviews |
 |---|---|---|---|---|
-| 1 | `marcus-aurelius` | **5770** | 45 | 72 |
+| 1 | `marcus-aurelius` | **5870** | 46 | 72 |
 | 2 | `cormac` | **3095** | 21 | 93 |
 | 3 | `scott` | **3050** | 28 | 50 |
 | 4 | `pericles` | **2725** | 5 | 89 |
