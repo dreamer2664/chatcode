@@ -1,0 +1,8 @@
+{
+  "cacheRootEnabled": true,
+  "historyRecovered": 4,
+  "newExportFrames": 12,
+  "newExportAudit": "PASS",
+  "videoRangeStatus": 206,
+  "note": "Runtime-generated full-frame bundles are transient. Committed evidence samples remain in the workspace."
+}

@@ -7,7 +7,7 @@ import { renderVideo, projectRoot } from './engine/render.mjs';
 import { validateConfig } from './engine/config.mjs';
 
 const jobs=new Map();let active=null;
-const root=path.join(projectRoot,'renders');
+const root=path.resolve(process.env.RENDER_ROOT || path.join(projectRoot,'renders'));
 const json=(res,code,payload)=>{res.writeHead(code,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(payload));};
 const publicJob=j=>({...j,controller:undefined});
 async function body(req){let s='';for await(const chunk of req){s+=chunk;if(s.length>8192)throw new Error('Request too large');}return JSON.parse(s||'{}');}

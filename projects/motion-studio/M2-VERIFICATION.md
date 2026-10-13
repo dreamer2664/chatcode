@@ -76,6 +76,11 @@ Pericles is asked to decide the stacked-branch preflight policy before merge.
   of 48 frames independently re-audited with decoder and all four source
   fingerprints; zero page errors/mobile overflow; arbitrary scene submission
   correctly rejected with HTTP 400.
+- [Configurable render-cache smoke](evidence/m2-cache-smoke.json): four completed
+  jobs recovered after moving generated runs to a transient cache, a new
+  12-frame export independently audited PASS, and cached MP4 range serving
+  still returns 206. `RENDER_ROOT` is server-side configuration only; the API
+  cannot choose arbitrary output paths.
 - [M1 legacy 48-frame audit PASS](evidence/m2-legacy-audit.json), explicitly
   scene-only source coverage, not upgraded to full fingerprints.
 - [M1 → M2 output identity](evidence/m2-output-identity.json): all 48 PNG hashes

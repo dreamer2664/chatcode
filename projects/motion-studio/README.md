@@ -24,6 +24,7 @@ npx playwright install --with-deps chromium
 npm test
 npm start                    # binds 0.0.0.0:8787, accepts preview hosts
 # PORT=9000 npm start        # optional
+# RENDER_ROOT=/absolute/cache/path npm start  # server artifacts; API cannot choose it
 npm run render -- --out renders/my-film --duration 4 --fps 24
 ```
 
