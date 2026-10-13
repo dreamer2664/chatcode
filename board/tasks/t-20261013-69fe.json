@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-69fe",
+  "title": "S36 \u2014 Better deskew: Hough transform + RANSAC for rotated cards (collage family)",
+  "desc": "Current deskew fails on collage's \u00b19\u00b0 rotations. S7b's card de-rotation works but is specific to collage. Method: (1) implement general-purpose deskew using Hough line transform + RANSAC outlier rejection; (2) test on all rotation-family images; (3) measure deskew accuracy (angle error < 1\u00b0); (4) if improvement, replace S7b's card-specific deskew with general version. Owner: barry. Priority: 3. Parent: t-20261011-88dc.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:38:57Z",
+  "updated_ts": "2026-10-13T11:38:57Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:38:57Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
