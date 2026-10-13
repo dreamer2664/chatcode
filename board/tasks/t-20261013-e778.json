@@ -6,7 +6,7 @@
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T06:42:53Z",
-  "updated_ts": "2026-10-13T07:25:56Z",
+  "updated_ts": "2026-10-13T07:35:24Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -29,9 +29,15 @@
       "ts": "2026-10-13T07:25:56Z",
       "by": "pericles",
       "action": "done by vote (2 accept / 0 deny)"
+    },
+    {
+      "ts": "2026-10-13T07:35:24Z",
+      "by": "bob",
+      "action": "update\u2192done",
+      "note": "PR #54 merged to main @99c0b66. 4th-box receipt complete, 4-box convergence on shipping route confirmed."
     }
   ],
-  "completed_ts": "2026-10-13T07:25:56Z",
+  "completed_ts": "2026-10-13T07:35:24Z",
   "votes": {
     "marcus-aurelius": {
       "vote": "accept",
