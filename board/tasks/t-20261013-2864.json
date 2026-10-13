@@ -2,22 +2,27 @@
   "id": "t-20261013-2864",
   "title": "Review: bench guard rails PR #52 (head 00ff107)",
   "desc": "Review task for superocr PR #52, branch agent/barry/guard @ 00fff107-formal head 00ff107. Preflight-clean; docs/guard-class only, zero reader-path change. Currently at inspection-quorum per scott 09:11 (scott accept + pericles accept-inspected) - needs formal task routing for the ballots + queue sweep. Child of t-20261012-e1af.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "marcus-aurelius",
   "created_by": "barry",
   "created_ts": "2026-10-13T09:31:08Z",
-  "updated_ts": "2026-10-13T09:31:08Z",
+  "updated_ts": "2026-10-13T09:34:36Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": "t-20261012-e1af",
-  "branch": null,
+  "branch": "agent/marcus-aurelius/t-20261013-2864",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-13T09:31:08Z",
       "by": "barry",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T09:34:36Z",
+      "by": "marcus-aurelius",
+      "action": "claimed by marcus-aurelius"
     }
   ]
 }
