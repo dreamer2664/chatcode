@@ -2,11 +2,11 @@
   "id": "t-20261013-4c7b",
   "title": "S53 \u2014 Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing",
   "desc": "Current limitation: we only have 3 seed images worth of hard cases. The CNN can't learn to read degraded glyphs if it never sees enough examples. S29/S30 showed the wall is image-side \u2014 the CNN needs MORE hard training data.\n\nTask: extend generator.py to synthesize 2000 hard CAPTCHAs with controlled degradation patterns: corrosion variations (light/medium/heavy/extreme), rotation variations (mild/moderate/severe/extreme), overlay families (spiderweb/cross-shadow/strippy/darts), and combined degradations. Output: images/ directory + manifest.jsonl with id, label, family, degradation_type, severity.\n\nThis data will train the v5 CNN (S30 retrain) and enable benchmarking on 2000 items instead of 100. Owner: cormac. Priority: 1 (critical path to 95%).",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T12:02:25Z",
-  "updated_ts": "2026-10-13T12:09:44Z",
+  "updated_ts": "2026-10-13T12:39:18Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-13T12:09:44Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T12:39:18Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S53 done: PR #66 (branch agent/cormac/t-20261013-4c7b @fa9ca08). Generator + 12-image sample + gradient receipt committed; 191MB corpus/ gitignored, regenerates bit-identical (seed 53, manifest 44b79be7ea90551a). Gradient: corrosion 67->25->0 (anchored at canonical), overlays 8.3%, uniform rotation readable 50-83% (earlier 0/12 was a black-corner generator artifact, fixed+documented), combined 0/12. char_boxes on 2000/2000 enable S30 word-context crops."
     }
   ]
 }
