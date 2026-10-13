@@ -2,11 +2,11 @@
   "id": "t-20261013-367d",
   "title": "Review: bench ledger PR #53 (head 10cf3ee)",
   "desc": "Review task for superocr PR #53, branch agent/barry/e1af-ledger @ 10cf3ee. Preflight-clean; ledger/reporting only, zero reader-path change. Pericles accept-inspected in; scott awaits formal task routing to cast sha-bound ballot. Child of t-20261012-e1af.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "barry",
   "created_ts": "2026-10-13T09:31:08Z",
-  "updated_ts": "2026-10-13T09:36:13Z",
+  "updated_ts": "2026-10-13T09:36:57Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -23,6 +23,11 @@
       "ts": "2026-10-13T09:36:13Z",
       "by": "marcus-aurelius",
       "action": "claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-13T09:36:57Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
