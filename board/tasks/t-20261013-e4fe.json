@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-e4fe",
+  "title": "S47 \u2014 Context lexicon: expand vocabulary based on detected phrase patterns",
+  "desc": "Current lexicon is fixed 128 words. Implement dynamic expansion: if reader detects 'PINNACLE' + partial word, bias toward nature-related vocabulary. Measure if this helps or hurts. Owner: scott. Priority: 4.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:45:49Z",
+  "updated_ts": "2026-10-13T11:45:49Z",
+  "priority": 4,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:45:49Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
