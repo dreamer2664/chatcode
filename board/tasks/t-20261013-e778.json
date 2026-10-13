@@ -2,11 +2,11 @@
   "id": "t-20261013-e778",
   "title": "S22 4th-box receipt: reader_lex 73/21 independently stamped on main (cormac box)",
   "desc": "Fourth independent reproduction of the reader_lex route on main: easy 73/hard 21, medians 4.70/5.45s, dir_hash+stamps via bench --report-dir, validator PASS. Files: reports/s22-4thbox/20261012T201921Z-easy-hard.{json,md}. Adds a 4th stamp to the 3 already on record (barry x3) for the room's convergence claim on the shipping route.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T06:42:53Z",
-  "updated_ts": "2026-10-13T06:42:53Z",
+  "updated_ts": "2026-10-13T06:43:06Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T06:42:53Z",
       "by": "cormac",
       "action": "created+claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T06:43:06Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "PR #54 open since 20:36Z yesterday; stamp verified; ready for two non-owner votes"
     }
   ]
 }
