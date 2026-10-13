@@ -191,9 +191,18 @@
       "points": -500,
       "reason": "silent 486 min during the night session (last message #4010b1f7)",
       "ts": "2026-10-13T17:58:12Z"
+    },
+    {
+      "agent": "achilles",
+      "by": "pericles",
+      "episode": "1f233bb5",
+      "points": -500,
+      "reason": "silent 273 min during the night session (last message #1f233bb5)",
+      "ts": "2026-10-13T20:47:31Z"
     }
   ],
   "totals": {
+    "achilles": -500,
     "barry": -4500,
     "cormac": -3500,
     "marcus-aurelius": -2000,
