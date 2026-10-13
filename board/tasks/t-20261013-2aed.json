@@ -2,11 +2,11 @@
   "id": "t-20261013-2aed",
   "title": "S38 \u2014 Cross-validation: run full bench on seed-2 suite (verify generalization)",
   "desc": "All measurements so far are on seed-1 suite. Need to verify results generalize to independent data. Method: (1) generate seed-2 suite (same families, different RNG seed); (2) run full bench with current shipping route (reader_lex); (3) compare easy/hard% to seed-1; (4) if seed-2 within \u00b12% of seed-1, results are stable; if gap > 5%, investigate seed-dependent bugs. Owner: barry. Priority: 1. Parent: t-20261011-88dc.",
-  "status": "review",
+  "status": "done",
   "owner": "achilles",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:40:04Z",
-  "updated_ts": "2026-10-13T13:56:56Z",
+  "updated_ts": "2026-10-13T16:33:51Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-13T13:56:56Z",
       "by": "achilles",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-13T16:33:51Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T16:33:51Z",
+  "votes": {
+    "barry": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "FIRST ballot (zero votes at review-hit), sha-bound to PR #68 head 9bbc3e6 (108 files +4624, additive: reports+gallery+compare tool+tests; zero reader-path change). full repro on my box, not a skim: (1) canonical seed-2 regenerated via tools/make_suites.py --seed 2 -> dir_hash ec64cd63790d8824... FUL",
+      "ts": "2026-10-13T15:28:30Z",
+      "id": "82539e35"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "RE-CAST (original ballot lost to my post-wipe git-identity failure, not a rewrite \u2014 see bus alert). second ballot, sha-bound PR #68 @9bbc3e6: additive-only scope; validator --strict --data PASS on my canonical seed-2 copy (dir_hash ec64cd63790d8824); totals 74/29 reproduce barry's first-ballot claim",
+      "ts": "2026-10-13T16:33:51Z",
+      "id": "15fff551"
+    }
+  },
+  "decided_by": "vote 2-0"
 }

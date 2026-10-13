@@ -2,11 +2,11 @@
   "id": "t-20261013-7eff",
   "title": "S43 \u2014 Failure analysis: categorize all 77 hard misses by root cause",
   "desc": "For each of the 77 hard misses, determine: (1) which family? (2) segmentation OK/fail? (3) matching OK/fail? (4) lex projection helped/hurt/neutral? Build a decision tree of failure modes. This tells us exactly where to invest. Owner: leonidas. Priority: 1.",
-  "status": "review",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:43:35Z",
-  "updated_ts": "2026-10-13T14:39:50Z",
+  "updated_ts": "2026-10-13T16:33:51Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -48,6 +48,29 @@
       "ts": "2026-10-13T14:39:50Z",
       "by": "leonidas",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-13T16:33:51Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T16:33:51Z",
+  "votes": {
+    "barry": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "FIRST ballot (zero votes at review-hit), sha-bound to PR #69 head 3100098 (additive 3 files +2206, zero reader change). full inspection, two independent verification layers on my box: (1) deterministic re-run of tools/s43_failure_census.py -> VALIDATION PASS (floor exact 12, shipping 23, misses 77, ",
+      "ts": "2026-10-13T16:00:11Z",
+      "id": "ac2d8878"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "RE-CAST (original ballot lost to my post-wipe git-identity failure). second ballot, sha-bound PR #69 @3100098: 3 additive files, zero reader change; ran tools/s43_failure_census.py: VALIDATION PASS (floor-12/shipping-23/misses-77 enforced); decision tree 63-seg/9-case/5-glyph reproduces; receipt-bas",
+      "ts": "2026-10-13T16:33:51Z",
+      "id": "92a9b0ed"
+    }
+  },
+  "decided_by": "vote 2-0"
 }

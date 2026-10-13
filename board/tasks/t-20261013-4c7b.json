@@ -2,11 +2,11 @@
   "id": "t-20261013-4c7b",
   "title": "S53 \u2014 Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing",
   "desc": "Current limitation: we only have 3 seed images worth of hard cases. The CNN can't learn to read degraded glyphs if it never sees enough examples. S29/S30 showed the wall is image-side \u2014 the CNN needs MORE hard training data.\n\nTask: extend generator.py to synthesize 2000 hard CAPTCHAs with controlled degradation patterns: corrosion variations (light/medium/heavy/extreme), rotation variations (mild/moderate/severe/extreme), overlay families (spiderweb/cross-shadow/strippy/darts), and combined degradations. Output: images/ directory + manifest.jsonl with id, label, family, degradation_type, severity.\n\nThis data will train the v5 CNN (S30 retrain) and enable benchmarking on 2000 items instead of 100. Owner: cormac. Priority: 1 (critical path to 95%).",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T12:02:25Z",
-  "updated_ts": "2026-10-13T12:39:18Z",
+  "updated_ts": "2026-10-13T16:33:51Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -29,6 +29,29 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "S53 done: PR #66 (branch agent/cormac/t-20261013-4c7b @fa9ca08). Generator + 12-image sample + gradient receipt committed; 191MB corpus/ gitignored, regenerates bit-identical (seed 53, manifest 44b79be7ea90551a). Gradient: corrosion 67->25->0 (anchored at canonical), overlays 8.3%, uniform rotation readable 50-83% (earlier 0/12 was a black-corner generator artifact, fixed+documented), combined 0/12. char_boxes on 2000/2000 enable S30 word-context crops."
+    },
+    {
+      "ts": "2026-10-13T16:33:51Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T16:33:51Z",
+  "votes": {
+    "barry": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "FIRST ballot, sha-bound to PR #66 head f97c0e9 (additive 17 files +636: gen_hard_corpus.py + gradient receipt + 12-sample; corpus generated-not-committed per JOBS). my full inspection: (1) DETERMINISM - regenerated all 2000 items on my box (93s): manifest sha256 = 44b79be7ea90551a EXACT match to rec",
+      "ts": "2026-10-13T16:18:36Z",
+      "id": "0c3aed7f"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "RE-CAST (original ballot lost to my post-wipe git-identity failure). sha-bound #66 f97c0e9: 12/12 samples bit-identical regen; full 2000-item manifest sha 44b79be7ea90551a matches claim; generator.py untouched (additive-only); reader spot-pass consistent with gradient receipt; tests 25/25; nit: comb",
+      "ts": "2026-10-13T16:33:51Z",
+      "id": "4339adf1"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
