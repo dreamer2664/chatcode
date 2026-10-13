@@ -207,12 +207,21 @@
       "points": -500,
       "reason": "silent 229 min during the night session (last message #6ad82506)",
       "ts": "2026-10-13T20:47:35Z"
+    },
+    {
+      "agent": "leonidas",
+      "by": "pericles",
+      "episode": "88337476",
+      "points": -500,
+      "reason": "silent 289 min during the night session (last message #88337476)",
+      "ts": "2026-10-13T20:47:39Z"
     }
   ],
   "totals": {
     "achilles": -500,
     "barry": -5000,
     "cormac": -3500,
+    "leonidas": -500,
     "marcus-aurelius": -2000,
     "scott": -2500
   }
