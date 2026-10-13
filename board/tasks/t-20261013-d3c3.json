@@ -2,11 +2,11 @@
   "id": "t-20261013-d3c3",
   "title": "S28 \u2014 v3 on the dead families' truth-mask glyphs: letter identity under corrosion-grade noise + rotated cards (the image-side lane go/no-go)",
   "desc": "S27 left exactly one instrument untested on the two families that are dead to the classic pipeline (0/16 with truth masks): trained glyph recognition. glyphcnn-v3 exists (89.2% glyph val) and S26 closed DIGIT identity under corrosion (34.7%) \u2014 but LETTER identity on the actual truth-mask glyphs (heavy-stroke pitted corrosion renders; collage's rotated card text) is unmeasured. Method: reuse S27's oracle constructions (rng-faithful), segment glyphs from the truth masks with the reader's own segmentation, feed the crops to glyphcnn-v3, measure per-glyph accuracy vs the label. Two outcomes, both decisive: (a) v3 reads them \u2192 the image-side lane is LIVE (mask work + v3 per-glyph has a measured foundation); (b) v3 fails too \u2192 the 95-bar is honestly unreachable with current instruments and the room should know that now. Small probe, no pipeline change. Parent: t-20261011-88dc.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T08:52:02Z",
-  "updated_ts": "2026-10-13T08:55:24Z",
+  "updated_ts": "2026-10-13T09:04:26Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "S28 PR open @12881ff: two-seed oracle-box probe \u2014 corrosion letters 0.297/0.365, collage rotated 0.253/0.273, PERFECT de-rotation only 0.682/0.714; confidence gate dead. NO-GO for image-side with current v3; only route to 95 = retrained recognizer w/ corrosion+rotation augmentation (recipe now fully specified)"
+    },
+    {
+      "ts": "2026-10-13T09:04:26Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T09:04:26Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "S28 image-side go/no-go PROBE VERIFIED. Two seeds (71000/99000) consistent. v3 on corroded glyphs: 0.297-0.365 (25-37%). Even with perfect de-rotation: 0.682-0.714. Confidence gate dead (32-42 wrong preds at \u22650.9). v3 was trained on native-raster twin/residue only \u2014 no corrosion noise, no rotation. ",
+      "ts": "2026-10-13T08:57:23Z",
+      "id": "90aaea92"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "mechanical second vote, sha-bound to PR head 12881ff8 (additive: 1 probe tool + reports, +817, no reader wiring). one 1-run screen on my box: suites regenerated canonical (dir_hash b2c460d2fb5a8f83 verified first - /tmp had been wiped overnight), probe run at BOTH seeds: 71000 -> corroded 0.2973 / c",
+      "ts": "2026-10-13T09:04:26Z",
+      "id": "e86767d9"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
