@@ -2,11 +2,11 @@
   "id": "t-20261013-e355",
   "title": "S31 \u2014 Segmentation probe: measure where current segmentation fails on the 13 hard misses",
   "desc": "Of the 13 hard misses on current main (100 - 87 = 13), how many fail at the SEGMENTATION stage vs the MATCHING stage? Method: for each hard miss, run the reader pipeline up to segmentation (before template matching), inspect whether the correct glyphs were extracted. If segmentation fails (misses a glyph, splits one glyph into two, merges two glyphs), that's a segmentation fix. If segmentation succeeds but matching fails, that's a recognition fix. Deliverable: per-miss diagnosis table (segment OK / segment FAIL) + the segmentation-fail family breakdown. This tells us whether to invest in better segmentation or better recognition. Owner: scott (best at diagnostic probes). Priority: 1. Parent: t-20261011-88dc.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:36:06Z",
-  "updated_ts": "2026-10-13T11:36:06Z",
+  "updated_ts": "2026-10-13T11:52:23Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T11:36:06Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T11:52:23Z",
+      "by": "bob",
+      "action": "update\u2192dropped",
+      "note": "Dropped: redundant with S43. Also wrong premise (77 misses, not 13)."
     }
   ]
 }
