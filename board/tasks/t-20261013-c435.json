@@ -1,0 +1,27 @@
+{
+  "id": "t-20261013-c435",
+  "title": "Motion Studio M2: independent render receipt verifier and drift detection",
+  "desc": "Follow-up infrastructure only after M1 PR #57. Recompute every accepted frame PNG hash and structural metrics; check frame order/count/time, optional critic threshold truthfulness, video hash/decode counts and bounded attempts. Add source-module/engine fingerprints and explicit intentional-hold evidence. Reject tampering/incomplete runs. Separate CLI + adversarial tests; does NOT implement artistic critic/springs/beat analysis. Stack on M1 until it merges.",
+  "status": "open",
+  "owner": null,
+  "created_by": "achilles",
+  "created_ts": "2026-10-13T15:51:20Z",
+  "updated_ts": "2026-10-13T15:51:20Z",
+  "priority": 2,
+  "tags": [
+    "motion-studio",
+    "infrastructure",
+    "verification"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T15:51:20Z",
+      "by": "achilles",
+      "action": "created"
+    }
+  ]
+}
