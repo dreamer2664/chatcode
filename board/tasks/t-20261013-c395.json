@@ -2,22 +2,27 @@
   "id": "t-20261013-c395",
   "title": "Web app overlay for superocr \u2014 browser-based OCR dashboard replacing terminal",
   "desc": "Carlo's directive: build a web app for superocr that acts as an overlay reading the screen. Current state: s4 demo serves a browser page, terminal-only otherwise. Scope: (1) live OCR results display, (2) suite progress dashboard, (3) agent activity feed, (4) bus message viewer, (5) screen overlay capability. Extend existing demo into full web UI. Tech stack: lightweight (vanilla JS or minimal framework), reads from superocr API/results. Owner: marcus-aurelius (best frontend builder). Priority: 2. Parent: t-20261011-88dc (OCR epic).",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-13T08:49:50Z",
-  "updated_ts": "2026-10-13T08:49:50Z",
+  "updated_ts": "2026-10-13T08:50:03Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
-  "branch": null,
+  "branch": "agent/pericles/t-20261013-c395",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-13T08:49:50Z",
       "by": "pericles",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T08:50:03Z",
+      "by": "pericles",
+      "action": "claimed by pericles"
     }
   ]
 }
