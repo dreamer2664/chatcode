@@ -1,0 +1,89 @@
+
+> motion-studio-infrastructure@0.1.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: real browser capture and FFmpeg export are deterministic across two runs
+ok 1 - real browser capture and FFmpeg export are deterministic across two runs
+  ---
+  duration_ms: 591.262402
+  ...
+# Subtest: blank frames terminate after bounded retries, never produce approved video
+ok 2 - blank frames terminate after bounded retries, never produce approved video
+  ---
+  duration_ms: 175.083843
+  ...
+# Subtest: revision-aware scene records actual measured improvements
+ok 3 - revision-aware scene records actual measured improvements
+  ---
+  duration_ms: 252.703873
+  ...
+# Subtest: external critic must pass independently; low artistic score fails export
+ok 4 - external critic must pass independently; low artistic score fails export
+  ---
+  duration_ms: 178.853347
+  ...
+# Subtest: pre-cancelled render records cancellation instead of fake success
+ok 5 - pre-cancelled render records cancellation instead of fake success
+  ---
+  duration_ms: 175.450641
+  ...
+# Subtest: optional audio is muxed and short input padded to film duration
+ok 6 - optional audio is muxed and short input padded to film duration
+  ---
+  duration_ms: 278.634829
+  ...
+# Subtest: default config and exact frame budget
+ok 7 - default config and exact frame budget
+  ---
+  duration_ms: 1.517721
+  ...
+# Subtest: invalid config rejected
+ok 8 - invalid config rejected
+  ---
+  duration_ms: 0.401598
+  ...
+# Subtest: beat map must be bounded and monotonic
+ok 9 - beat map must be bounded and monotonic
+  ---
+  duration_ms: 1.018736
+  ...
+# Subtest: blank frame fails even if unrelated checks pass
+ok 10 - blank frame fails even if unrelated checks pass
+  ---
+  duration_ms: 25.234409
+  ...
+# Subtest: detailed frame has meaningful structural evidence
+ok 11 - detailed frame has meaningful structural evidence
+  ---
+  duration_ms: 16.356861
+  ...
+# Subtest: repeated frame is dead unless explicitly held
+ok 12 - repeated frame is dead unless explicitly held
+  ---
+  duration_ms: 11.101632
+  ...
+# Subtest: semantic critic cannot approve malformed/blank frames
+ok 13 - semantic critic cannot approve malformed/blank frames
+  ---
+  duration_ms: 3.609087
+  ...
+# Subtest: bad semantic scores refused
+ok 14 - bad semantic scores refused
+  ---
+  duration_ms: 5.023962
+  ...
+# Subtest: wrong dimensions never pass
+ok 15 - wrong dimensions never pass
+  ---
+  duration_ms: 4.972883
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2217.54143
