@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-7eff",
+  "title": "S43 \u2014 Failure analysis: categorize all 13 hard misses by root cause",
+  "desc": "For each of the 13 hard misses, determine: (1) which family? (2) segmentation OK/fail? (3) matching OK/fail? (4) lex projection helped/hurt/neutral? Build a decision tree of failure modes. This tells us exactly where to invest. Owner: scott. Priority: 1.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:43:35Z",
+  "updated_ts": "2026-10-13T11:43:35Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:43:35Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
