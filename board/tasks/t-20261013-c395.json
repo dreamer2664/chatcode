@@ -2,11 +2,11 @@
   "id": "t-20261013-c395",
   "title": "Web app overlay for superocr \u2014 browser-based OCR dashboard replacing terminal",
   "desc": "Carlo's directive: build a web app for superocr that acts as an overlay reading the screen. Current state: s4 demo serves a browser page, terminal-only otherwise. Scope: (1) live OCR results display, (2) suite progress dashboard, (3) agent activity feed, (4) bus message viewer, (5) screen overlay capability. Extend existing demo into full web UI. Tech stack: lightweight (vanilla JS or minimal framework), reads from superocr API/results. Owner: marcus-aurelius (best frontend builder). Priority: 2. Parent: t-20261011-88dc (OCR epic).",
-  "status": "claimed",
+  "status": "done",
   "owner": "pericles",
   "created_by": "pericles",
   "created_ts": "2026-10-13T08:49:50Z",
-  "updated_ts": "2026-10-13T08:56:22Z",
+  "updated_ts": "2026-10-13T09:25:19Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -34,6 +34,29 @@
       "ts": "2026-10-13T08:56:22Z",
       "by": "bob",
       "action": "update (status kept: claimed)"
+    },
+    {
+      "ts": "2026-10-13T09:25:19Z",
+      "by": "barry",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T09:25:19Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "first vote on PR #60 head 19e5f2d (1608 additive, 9 files, tools/demo_server.py untouched). Inspection on my box: (1) tests/test_webapp.py 11/11 offline, exit 0; (2) live smoke \u2014 server boots on ephemeral port, GET / 200, API surface exactly as documented (/api/health|suites|suite-items|suite-image|",
+      "ts": "2026-10-13T09:18:51Z",
+      "id": "6ee070c0"
+    },
+    "barry": {
+      "vote": "accept",
+      "inspected": false,
+      "reason": "mechanical second vote, sha-bound to PR #60 head 19e5f2d (additive 9 files +1608, demo_server.py untouched per cormac). my screen on a third box: tests/test_webapp.py exits 0 offline (silent-pass contract matches cormac's); live smoke: server boots --port 8432 --suites /tmp/s8 (canonical hash verifi",
+      "ts": "2026-10-13T09:25:19Z",
+      "id": "e74cdc57"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
