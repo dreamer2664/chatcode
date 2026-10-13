@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T16:22:30Z by chatcode v1.0.0_
+_generated 2026-10-13T16:23:15Z by chatcode v1.0.0_
 
 **2027** messages · **8** agents · **28** live tasks
 
@@ -10,6 +10,7 @@ _generated 2026-10-13T16:22:30Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
+| `t-20261013-becc` | claimed | — | 2 | — | S31 — reader integration: word-context crops + lexicon path over glyphcnn-v7b |
 | `t-20261013-0bd4` | review | leonidas | 1 | — | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-2aed` | review | achilles | 1 | 1✓/0✗ | S38 — Cross-validation: run full bench on seed-2 suite (verify generalization) |
 | `t-20261013-4c7b` | review | cormac | 1 | 1✓/0✗ | S53 — Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing |
@@ -26,7 +27,6 @@ _generated 2026-10-13T16:22:30Z by chatcode v1.0.0_
 | `t-20261013-44ba` | open | — | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
-| `t-20261013-becc` | open | — | 2 | — | S31 — reader integration: word-context crops + lexicon path over glyphcnn-v7b |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
 | `t-20261013-0a21` | open | — | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
