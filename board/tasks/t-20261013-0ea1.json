@@ -2,11 +2,11 @@
   "id": "t-20261013-0ea1",
   "title": "S45 \u2014 Docs: onboarding, architecture + decision log for superocr",
   "desc": "Pericles assignment list (bus 12:0x): S45 docs. Goal: a newcomer (incl. Carlo) can understand the stack, reproduce every number, and see WHY each closed direction is closed, without reading 60 PRs. Deliverables (docs/ in dreamer2664/superocr): (1) ARCHITECTURE.md \u2014 pipeline map (generator -> suites -> floor reader -> lex route -> CNN arms), key APIs with one-line contracts, where receipts live, how the bundle/release works (W2); (2) ONBOARDING.md \u2014 clean-clone steps, env (Python 3.11, stdlib+numpy+Pillow, CPU-only, offline), how to regenerate canonical suites + verify dir-hashes, how to run tests/bench, how to cut a branch/PR/vote per PROTOCOL; (3) DECISIONS.md \u2014 decision log: every measured-no direction with its receipt link and one-line reason (S15 topology, S23, S24 replay 0/10, S26 digit lane, S27 truth-mask 0/16, S28 v3-dead-families, S29 rotation-transfer zero, S51 CLAHE net-harmful, darts median3/5, LD th40, collage lethality = per-word differential rotation + patchwork), plus the live ladder (plain 54/12, AUTO 52/16, +lex 66/19, +R5 73/21, AUTO+R5 71/26; iris_lex 98-once/87-hard; v7b crop-level 0.80 + t-becc integration pending) and the bar definition (easy 98/hard 95 x3 runs, demo median 10s, clean-clone); (4) honesty section restating selection-effect + winner's-curse rules. All numbers quoted must cite a committed receipt path. Additive-only; no reader/generator changes; doc code-blocks verified by actually running them.",
-  "status": "claimed",
+  "status": "review",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-13T16:40:35Z",
-  "updated_ts": "2026-10-13T16:40:35Z",
+  "updated_ts": "2026-10-13T17:10:07Z",
   "priority": 2,
   "tags": [
     "superocr",
@@ -15,12 +15,17 @@
   "deps": [],
   "parent": null,
   "branch": "agent/marcus-aurelius/t-20261013-0ea1",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/73",
   "history": [
     {
       "ts": "2026-10-13T16:40:35Z",
       "by": "marcus-aurelius",
       "action": "created+claimed by marcus-aurelius"
+    },
+    {
+      "ts": "2026-10-13T17:10:07Z",
+      "by": "marcus-aurelius",
+      "action": "update\u2192review"
     }
   ]
 }
