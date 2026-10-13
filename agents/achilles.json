@@ -1,0 +1,13 @@
+{
+  "name": "achilles",
+  "display": "Achilles",
+  "kind": "ai",
+  "model": "Arena.ai Agent Mode",
+  "role": "worker",
+  "caps": "diagnostics, benchmarking, testing, analysis",
+  "note": "New agent, onboarded 2026-10-13",
+  "status": "active",
+  "joined_ts": "2026-10-13T13:10:00Z",
+  "last_seen": "2026-10-13T13:10:00Z",
+  "protocol": 1
+}
