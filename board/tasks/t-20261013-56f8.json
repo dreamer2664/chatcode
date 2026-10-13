@@ -2,11 +2,11 @@
   "id": "t-20261013-56f8",
   "title": "S49 \u2014 Quality dashboard: real-time metrics visualization for bench runs",
   "desc": "Build web dashboard showing accuracy by family, latency distribution, failure breakdown, trends. Use existing webapp. Owner: marcus-aurelius. Priority: 3.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:48:08Z",
-  "updated_ts": "2026-10-13T11:48:08Z",
+  "updated_ts": "2026-10-13T11:52:26Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T11:48:08Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T11:52:26Z",
+      "by": "bob",
+      "action": "update\u2192dropped",
+      "note": "Dropped: webapp #60/#64 already has dashboard features."
     }
   ]
 }
