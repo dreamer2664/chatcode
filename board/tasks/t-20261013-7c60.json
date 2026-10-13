@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-7c60",
+  "title": "S52 \u2014 Contour analysis: extract stroke-width and curvature features",
+  "desc": "Current matching uses pixel templates. Add contour-based features (stroke width, curvature, aspect ratio). May help distinguish similar glyphs. Owner: cormac. Priority: 3.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:49:36Z",
+  "updated_ts": "2026-10-13T11:49:36Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:49:36Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
