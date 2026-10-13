@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-a9d1",
+  "title": "S48 \u2014 Parallelization: multi-threaded image processing pipeline",
+  "desc": "Current pipeline is single-threaded. Implement: (1) parallel glyph extraction; (2) parallel template matching; (3) thread-safe result aggregation. Target: 2x speedup on multi-core systems. Owner: marcus-aurelius. Priority: 3.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:46:18Z",
+  "updated_ts": "2026-10-13T11:46:18Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:46:18Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
