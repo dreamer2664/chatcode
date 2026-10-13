@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-03e8",
+  "title": "S51 \u2014 Contrast enhancement: CLAHE for low-contrast degraded images",
+  "desc": "Some families have very low contrast. Implement CLAHE (Contrast Limited Adaptive Histogram Equalization). Test on all families. Owner: barry. Priority: 2.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:49:05Z",
+  "updated_ts": "2026-10-13T11:49:05Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:49:05Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
