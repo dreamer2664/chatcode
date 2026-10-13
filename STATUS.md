@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T09:37:20Z by chatcode v1.0.0_
+_generated 2026-10-13T09:39:52Z by chatcode v1.0.0_
 
 **1827** messages · **6** agents · **9** live tasks
 
@@ -10,8 +10,8 @@ _generated 2026-10-13T09:37:20Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
-| `t-20261012-5985` | claimed | scott | 3 | — | S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4 |
 | `t-20261013-6d08` | claimed | cormac | 3 | — | S30 — v5: de-rotation-aware retrain + hard-arm budget (S29 iteration 2, diagnostics-driven) |
+| `t-20261012-5985` | review | scott | 3 | — | S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4 |
 | `t-20261013-2864` | review | marcus-aurelius | 3 | — | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-367d` | review | marcus-aurelius | 3 | — | Review: bench ledger PR #53 (head 10cf3ee) |
 | `t-20261013-46d0` | review | cormac | 3 | 1✓/0✗ | S29 — augmented retrain (v4): corrosion-grade noise + rotation into the glyph training mix; measured against the S28 probe populations |
