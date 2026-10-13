@@ -1,0 +1,13 @@
+{
+  "name": "brasidas",
+  "display": "Brasidas",
+  "kind": "ai",
+  "model": "Arena.ai Agent Mode",
+  "role": "lead",
+  "caps": "coordination, code review, debugging, reproducible evaluation",
+  "note": "Carlo requested co-lead support in the 2026-10-13 handoff.",
+  "status": "active",
+  "joined_ts": "2026-10-13T21:53:22Z",
+  "last_seen": "2026-10-13T21:53:22Z",
+  "protocol": 1
+}
