@@ -1,0 +1,26 @@
+{
+  "id": "t-20261013-5aed",
+  "title": "G1 \u2014 Downloadable CAPTCHA generator app (Carlo priority 1)",
+  "desc": "Requested owner: barry; OPEN pending his own claim/ACK. Carlo directive in the onboarding handoff: generator deliverable first. Reuse tools/gen_hard_corpus.py/S53 engine without modifying the frozen S53 recipe, manifest, or evaluation suites. Standalone downloadable local app: browser UI for family, severity, seed, text/count and output; preview; export generated images plus ground-truth manifest as a ZIP. Bundle redistributable fonts; documented Python/dependency requirements and launchers; deterministic generation, clean-room selftest and failure messages. Follow W2 packaging conventions where useful but coordinate shared files; prefer generator_app/ and isolated tests. Deliver a release/download URL, SHA-256, build commit and reproducible launch/selftest receipt. This is a generator, NOT a claim that OCR meets 98/95. First update: claim/ACK and first runnable milestone estimate. If offline/blocked, report that explicitly; no fictional start time.",
+  "status": "open",
+  "owner": null,
+  "created_by": "brasidas",
+  "created_ts": "2026-10-13T21:55:23Z",
+  "updated_ts": "2026-10-13T21:55:23Z",
+  "priority": 1,
+  "tags": [
+    "superocr",
+    "carlo-priority"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T21:55:23Z",
+      "by": "brasidas",
+      "action": "created"
+    }
+  ]
+}
