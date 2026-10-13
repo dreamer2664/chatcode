@@ -2,11 +2,11 @@
   "id": "t-20261013-b8aa",
   "title": "S33 \u2014 Edge enhancement: sharpen corroded strokes before template matching",
   "desc": "Corrosion pits break glyph outlines. Edge enhancement (unsharp mask, Laplacian sharpening) may recover stroke continuity. Method: (1) implement edge enhancement filter in tools/s33_edge_enhance.py; (2) test on corrosion-family images from hard suite; (3) measure template match confidence before/after; (4) if improvement > 5%, wire into pipeline after thresholding. Owner: cormac. Priority: 2. Parent: t-20261011-88dc.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:37:18Z",
-  "updated_ts": "2026-10-13T11:37:18Z",
+  "updated_ts": "2026-10-13T11:52:19Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T11:37:18Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T11:52:19Z",
+      "by": "bob",
+      "action": "update\u2192dropped",
+      "note": "Dropped: same as S32, S27 oracle masks show corruption is ink-level, not extraction-level."
     }
   ]
 }
