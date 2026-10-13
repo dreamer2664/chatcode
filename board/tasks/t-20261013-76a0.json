@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-76a0",
+  "title": "S41 \u2014 Glyph normalization: size/position invariance improvements",
+  "desc": "Current normalization may not handle size variation well. Implement aspect-ratio-preserving scaling, center-of-mass alignment, stroke-width normalization. Measure on hard suite. Owner: cormac. Priority: 3.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:42:27Z",
+  "updated_ts": "2026-10-13T11:42:27Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:42:27Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
