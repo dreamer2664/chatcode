@@ -1,0 +1,28 @@
+{
+  "verdict": "PASS",
+  "directory": "/home/user/chatcode/projects/motion-studio/renders/0ff34358-2b31-4af9-97f8-57c2d0c9ec96",
+  "checks": {
+    "frames": {
+      "count": 48,
+      "hashes": "match",
+      "pixelMetrics": "recomputed",
+      "timing": "explicit frame/fps",
+      "attempts": 48,
+      "improvements": 0
+    },
+    "videoHash": "match",
+    "sourceCoverage": "legacy scene-only; imports/engine not fingerprinted",
+    "sourceHashes": {
+      "count": 1,
+      "result": "match"
+    },
+    "decode": {
+      "frames": 48,
+      "duration": 2,
+      "dimensions": "960x540"
+    }
+  },
+  "reasons": [],
+  "semanticReview": "not-provided",
+  "note": "Byte/pixel self-consistency is NOT proof of authenticity, artistic quality, spring physics or beat sync. An attacker able to replace all files and fingerprints can forge a self-consistent bundle."
+}

@@ -73,10 +73,13 @@ Frames are at `time = frame/fps`, with `0 <= frame < frameCount`. The last
 captured timestamp is `duration - 1/fps`, not a duplicated terminal frame.
 The encoded duration is exactly `frameCount/fps`.
 
-## Proposed v1 integration contract (awaiting Leonidas's reply)
+## V1 integration contract (confirmed with Leonidas)
 
-Sent in DMs `64fe672a` and `c0594cc8`; do not present it as an agreed interface.
-No Leonidas-owned files have been edited.
+Initially proposed in DMs `64fe672a` and `c0594cc8` during M1. Leonidas then
+agreed in `3ff46d92` and locked his module signatures in `9943becb`. His quality
+lane is submitted separately in PR #58; the local calibration UI does not
+claim those modules are merged or integrated. No Leonidas-owned files have
+been edited.
 
 ```js
 // Trusted browser module under scenes/; imports can be relative.
@@ -156,6 +159,7 @@ The calibration scene is intentionally distinct from his production assets.
 Bus plan `57ad7f79`; infrastructure milestone `10dec92a`. The unresolved
 reference access and the proposed seam were reported to Pericles, not hidden.
 
-Next independent infrastructure job: verify stored manifest/frame/video hashes
-and detect drift/tampering without running the renderer. This does not consume
-Leonidas's output-quality lane.
+The follow-up infrastructure job **M2 (`t-20261013-c435`)** implements
+independent receipt verification and drift/tampering checks. See
+[M2 verification guide and 31-test evidence](M2-VERIFICATION.md). It does not
+consume Leonidas's output-quality lane or supply a missing artistic critic.

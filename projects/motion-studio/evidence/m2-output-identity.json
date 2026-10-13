@@ -1,0 +1,7 @@
+{
+  "framesCompared": 48,
+  "perFrameHashIdentity": true,
+  "videoHashIdentity": true,
+  "videoSHA256": "bc2858d13be1020e94ec0108fabb637e5dcc03ad3e65bca65cd63689fd0d1b23",
+  "note": "M2 augments audit data; calibration output is byte-identical to committed M1 sample."
+}

@@ -1,0 +1,28 @@
+{
+  "verdict": "PASS",
+  "directory": "/home/user/chatcode/projects/motion-studio/renders/m2-demo",
+  "checks": {
+    "frames": {
+      "count": 48,
+      "hashes": "match",
+      "pixelMetrics": "recomputed",
+      "timing": "explicit frame/fps",
+      "attempts": 48,
+      "improvements": 0
+    },
+    "videoHash": "match",
+    "sourceCoverage": "recorded engine + loaded modules/assets (not fonts/system libraries)",
+    "sourceHashes": {
+      "count": 4,
+      "result": "match"
+    },
+    "decode": {
+      "frames": 48,
+      "duration": 2,
+      "dimensions": "960x540"
+    }
+  },
+  "reasons": [],
+  "semanticReview": "not-provided",
+  "note": "Byte/pixel self-consistency is NOT proof of authenticity, artistic quality, spring physics or beat sync. An attacker able to replace all files and fingerprints can forge a self-consistent bundle."
+}
