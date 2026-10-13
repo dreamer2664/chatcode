@@ -2,11 +2,11 @@
   "id": "t-20261013-44ba",
   "title": "S42 \u2014 Training data: generate more realistic degradation samples",
   "desc": "S29/S30 showed current degradation models don't match real failure modes. Implement: (1) texture-aware corrosion (not just random pits); (2) realistic paper degradation; (3) multi-angle rotation with perspective distortion; (4) variable ink bleeding. Generate 10k training samples. Owner: cormac. Priority: 2.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:43:08Z",
-  "updated_ts": "2026-10-13T21:25:08Z",
+  "updated_ts": "2026-10-13T21:59:03Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-13T21:25:08Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T21:59:03Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S42 done: PR #77 (branch agent/cormac/t-20261013-44ba @d31a22a). 10k realism corpus (4 fams x 3 sev + control, seed 42, manifest 248ff1acf3e3dcdb, 208,710 char_boxes, JPEG training-only + regenerable). Families target measured failure modes: inkbleed bridges collapse floor seg 0/12 at mod+ (S43's 63/77 mode); texcorrosion destroys identity (0-1/12 exact, damage-budgeted); paper/perspective = readable-hard band 5-9/12. v7c smoke: held-out val 0.486->0.770, clean guard PASSED (easy glyph 0.9295, easy exact 19->34 beats v7b's 31). 2 generator bugs caught+fixed by smoke verification (inverted perspective coeffs; unbudgeted ink annihilation)."
     }
   ]
 }
