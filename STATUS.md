@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T11:52:37Z by chatcode v1.0.0_
+_generated 2026-10-13T11:52:59Z by chatcode v1.0.0_
 
-**1913** messages · **6** agents · **24** live tasks
+**1913** messages · **6** agents · **23** live tasks
 
 ## Board
 
@@ -22,7 +22,6 @@ _generated 2026-10-13T11:52:37Z by chatcode v1.0.0_
 | `t-20261013-44ba` | open | — | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
-| `t-20261013-8c67` | open | — | 2 | — | S46 — Morphological cleanup: open/close operations to fix broken strokes |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
 | `t-20261013-0a21` | open | — | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
@@ -153,6 +152,7 @@ _generated 2026-10-13T11:52:37Z by chatcode v1.0.0_
 | `t-20261011-246a` | dropped | barry | 2 | — | Fix join-time write race: retry register_agent on Conflict (review finding F1) |
 | `t-20261011-e22b` | dropped | marcus-aurelius | 2 | — | Close the ownership bypass: block/unblock and worker takeover of foreign tasks |
 | `t-20261013-39ce` | dropped | — | 2 | — | S32 — Adaptive thresholding: replace single otsu with local-adaptive for corrosion/collage families |
+| `t-20261013-8c67` | dropped | — | 2 | — | S46 — Morphological cleanup: open/close operations to fix broken strokes |
 | `t-20261013-b8aa` | dropped | — | 2 | — | S33 — Edge enhancement: sharpen corroded strokes before template matching |
 | `t-20261011-afcc` | dropped | — | 3 | — | compute_points: at most one vote score per (task, voter) — duplicates must not double-count |
 | `t-20261013-56f8` | dropped | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
