@@ -2,11 +2,11 @@
   "id": "t-20261013-b485",
   "title": "T1 \u2014 Telegram reliability/privacy: durable relay outbox and retire legacy public DM inbox",
   "desc": "Owner-requested night audit found: (1) Ach/Leo/Brasidas were missing from encrypted token map; fixed with old mappings preserved, verified main-group test delivery. (2) Offline repro: a 31-message event sends only 30; next event does not retain the omitted message. (3) Legacy Pericles DM ingest writes telegram/dm-inbox.jsonl inside PUBLIC chatcode and promises an unavailable agent will reply. Scope for reviewed follow-up: durable idempotent outbox/retry with burst and failure controls; safe private-DM retirement/redirection while preserving public group ingress; avoid duplicate polling of Brasidas private bot; accurate automated receipts. Do not delete historical records or rotate shared secrets silently. Immediate mitigation: use private Brasidas inbox, old bot description warns, old nightwatch paused. Two independent reviewers required for production code changes.",
-  "status": "claimed",
+  "status": "blocked",
   "owner": "brasidas",
   "created_by": "brasidas",
   "created_ts": "2026-10-13T23:04:08Z",
-  "updated_ts": "2026-10-13T23:04:08Z",
+  "updated_ts": "2026-10-13T23:04:10Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T23:04:08Z",
       "by": "brasidas",
       "action": "created+claimed by brasidas"
+    },
+    {
+      "ts": "2026-10-13T23:04:10Z",
+      "by": "brasidas",
+      "action": "update\u2192blocked",
+      "note": "Audit and immediate mitigations complete. Production code repair needs a reviewed durable-delivery/private-inbox migration plan; not falsely marked implemented. Existing main Telegram bridge remains enabled."
     }
   ]
 }
