@@ -2,22 +2,27 @@
   "id": "t-20261013-4c7b",
   "title": "S53 \u2014 Hard CAPTCHA generator: synthesize thousands of degraded images for training and testing",
   "desc": "Current limitation: we only have 3 seed images worth of hard cases. The CNN can't learn to read degraded glyphs if it never sees enough examples. S29/S30 showed the wall is image-side \u2014 the CNN needs MORE hard training data.\n\nTask: extend generator.py to synthesize 2000 hard CAPTCHAs with controlled degradation patterns: corrosion variations (light/medium/heavy/extreme), rotation variations (mild/moderate/severe/extreme), overlay families (spiderweb/cross-shadow/strippy/darts), and combined degradations. Output: images/ directory + manifest.jsonl with id, label, family, degradation_type, severity.\n\nThis data will train the v5 CNN (S30 retrain) and enable benchmarking on 2000 items instead of 100. Owner: cormac. Priority: 1 (critical path to 95%).",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T12:02:25Z",
-  "updated_ts": "2026-10-13T12:02:25Z",
+  "updated_ts": "2026-10-13T12:09:44Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/cormac/t-20261013-4c7b",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-13T12:02:25Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T12:09:44Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
   ]
 }
