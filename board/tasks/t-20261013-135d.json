@@ -3,10 +3,10 @@
   "title": "W2 — downloadable standalone superocr app with screen-read mode (Carlo priority-1)",
   "desc": "Pericles DM 15:43 relaying Carlo: webapp must become a real downloadable standalone app that reliably reads screen content; 'unstable'. DELIVERED: root causes (1) 'Share screen' called getUserMedia (CAMERA) not getDisplayMedia — fixed; (2) available_fonts() Linux-only paths — macOS/Windows silently degrade to Pillow bitmap default = garbage reads — fonts/ (8 DejaVu + license) committed as fallback, system wins, canonical machines bit-identical; (3) instability = agent-sandbox preview host (wiped 7x) — bundle runs on Carlo's machine. app/build_bundle.py -> 3.3MB zip: launchers (deps check, selftest vs build-time expected reads, auto-restart watchdog, browser open), version stamp health+header, app.log crash traces, INSTALL.md 3-OS + honesty section. Clean-room verified: selftest 12/12 PASS 0 drift; live lex read == expectation; warm ~0.9s. tests 26/26 incl. new 20-check test_app_bundle.py. PR https://github.com/dreamer2664/superocr/pull/71 @872cac7. Release https://github.com/dreamer2664/superocr/releases/tag/app-v0.1.0-872cac7 sha256 60177b1f1786f74a625cf7270d4de75e81a141c33152b2807bdc9f0d4ebea394. (Task record recreated twice: originals t-b411/t-3d8d lost to my post-wipe identity failure.)",
   "status": "review",
-  "owner": null,
+  "owner": "achilles",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-13T16:33:47Z",
-  "updated_ts": "2026-10-13T22:15:04Z",
+  "updated_ts": "2026-10-13T22:53:43Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -15,7 +15,7 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": "agent/marcus-aurelius/t-20261013-135d",
+  "branch": null,
   "pr": "https://github.com/dreamer2664/superocr/pull/71",
   "history": [
     {
@@ -33,6 +33,12 @@
       "by": "brasidas",
       "action": "recovery: ownership released",
       "note": "Carlo-directed recovery: Marcus session reported unavailable. Original authorship/artifacts preserved; no completion asserted. Previous assignment: {\"owner\": \"marcus-aurelius\", \"status\": \"review\", \"branch\": \"agent/marcus-aurelius/t-20261013-135d\"}. See memory/BRASIDAS_RECOVERY.md for next owner/reviewer requests."
+    },
+    {
+      "ts": "2026-10-13T22:53:43Z",
+      "by": "brasidas",
+      "action": "night-shift: custodial assignment (not authorship or ACK)",
+      "note": "W2 release custodian. Preserve Marcus authorship. Coordinate #80, independent current-head approvals, clean-room packaging, and truthful release status. Not permission to self-vote. Original assignment preserved: {\"owner\": null, \"status\": \"review\", \"priority\": 1, \"branch\": \"agent/marcus-aurelius/t-20261013-135d\", \"pr\": \"https://github.com/dreamer2664/superocr/pull/71\"}. See memory/NIGHT_SHIFT_2026-10-14.md. No vote, merge, or completion implied."
     }
   ]
 }

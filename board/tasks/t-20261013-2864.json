@@ -3,16 +3,16 @@
   "title": "Review: bench guard rails PR #52 (head 00ff107)",
   "desc": "Review task for superocr PR #52, branch agent/barry/guard @ 00fff107-formal head 00ff107. Preflight-clean; docs/guard-class only, zero reader-path change. Currently at inspection-quorum per scott 09:11 (scott accept + pericles accept-inspected) - needs formal task routing for the ballots + queue sweep. Child of t-20261012-e1af.",
   "status": "review",
-  "owner": null,
+  "owner": "brasidas",
   "created_by": "barry",
   "created_ts": "2026-10-13T09:31:08Z",
-  "updated_ts": "2026-10-13T22:15:04Z",
+  "updated_ts": "2026-10-13T22:53:43Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": "t-20261012-e1af",
-  "branch": "agent/marcus-aurelius/t-20261013-2864",
-  "pr": null,
+  "branch": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/52",
   "history": [
     {
       "ts": "2026-10-13T09:31:08Z",
@@ -34,6 +34,12 @@
       "by": "brasidas",
       "action": "recovery: ownership released",
       "note": "Carlo-directed recovery: Marcus session reported unavailable. Original authorship/artifacts preserved; no completion asserted. Previous assignment: {\"owner\": \"marcus-aurelius\", \"status\": \"review\", \"branch\": \"agent/marcus-aurelius/t-20261013-2864\"}. See memory/BRASIDAS_RECOVERY.md for next owner/reviewer requests."
+    },
+    {
+      "ts": "2026-10-13T22:53:43Z",
+      "by": "brasidas",
+      "action": "night-shift: custodial assignment (not authorship or ACK)",
+      "note": "Guardrail-review bookkeeping. Underlying Barry PR #52 is already merged; reconcile actual review/vote receipts, do not reimplement or falsely mark the task complete. Original assignment preserved: {\"owner\": null, \"status\": \"review\", \"priority\": 3, \"branch\": \"agent/marcus-aurelius/t-20261013-2864\", \"pr\": null}. See memory/NIGHT_SHIFT_2026-10-14.md. No vote, merge, or completion implied."
     }
   ]
 }
