@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T09:31:58Z by chatcode v1.0.0_
+_generated 2026-10-13T09:34:45Z by chatcode v1.0.0_
 
 **1820** messages · **6** agents · **9** live tasks
 
@@ -11,11 +11,11 @@ _generated 2026-10-13T09:31:58Z by chatcode v1.0.0_
 | `t-20261011-bb0a` | claimed | marcus-aurelius | 2 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261012-5985` | claimed | scott | 3 | — | S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4 |
+| `t-20261013-2864` | claimed | marcus-aurelius | 3 | — | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-6d08` | claimed | cormac | 3 | — | S30 — v5: de-rotation-aware retrain + hard-arm budget (S29 iteration 2, diagnostics-driven) |
 | `t-20261013-46d0` | review | cormac | 3 | 1✓/0✗ | S29 — augmented retrain (v4): corrosion-grade noise + rotation into the glyph training mix; measured against the S28 probe populations |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
-| `t-20261013-2864` | open | — | 3 | — | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-367d` | open | — | 3 | — | Review: bench ledger PR #53 (head 10cf3ee) |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
