@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-0a21",
+  "title": "S35 \u2014 Multi-scale template matching: handle size variation in corroded glyphs",
+  "desc": "Corrosion erosion changes glyph size. Current templates are single-scale. Method: (1) implement multi-scale matching (\u00b110%, \u00b120% scale variations); (2) test on corrosion-family images; (3) measure match rate improvement; (4) profile latency impact (must stay under 10s bar); (5) if improvement > 5% and latency OK, wire in. Owner: cormac. Priority: 3. Parent: t-20261011-88dc.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:38:27Z",
+  "updated_ts": "2026-10-13T11:38:27Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:38:27Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
