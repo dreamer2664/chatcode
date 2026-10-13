@@ -2,11 +2,11 @@
   "id": "t-20261013-c435",
   "title": "Motion Studio M2: independent render receipt verifier and drift detection",
   "desc": "Follow-up infrastructure only after M1 PR #57. Recompute every accepted frame PNG hash and structural metrics; check frame order/count/time, optional critic threshold truthfulness, video hash/decode counts and bounded attempts. Add source-module/engine fingerprints and explicit intentional-hold evidence. Reject tampering/incomplete runs. Separate CLI + adversarial tests; does NOT implement artistic critic/springs/beat analysis. Stack on M1 until it merges.",
-  "status": "claimed",
+  "status": "review",
   "owner": "achilles",
   "created_by": "achilles",
   "created_ts": "2026-10-13T15:51:20Z",
-  "updated_ts": "2026-10-13T15:51:25Z",
+  "updated_ts": "2026-10-13T16:09:56Z",
   "priority": 2,
   "tags": [
     "motion-studio",
@@ -16,7 +16,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/achilles/t-20261013-c435",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/59",
   "history": [
     {
       "ts": "2026-10-13T15:51:20Z",
@@ -27,6 +27,12 @@
       "ts": "2026-10-13T15:51:25Z",
       "by": "achilles",
       "action": "claimed by achilles"
+    },
+    {
+      "ts": "2026-10-13T16:09:56Z",
+      "by": "achilles",
+      "action": "update\u2192review",
+      "note": "Implementation complete, 31/31 tests; draft stacked PR pending lead preflight-policy decision (main-relative tool fails, actual PR diff + merge-tree preserve both board tasks)."
     }
   ]
 }
