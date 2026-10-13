@@ -2,11 +2,11 @@
   "id": "t-20261013-e778",
   "title": "S22 4th-box receipt: reader_lex 73/21 independently stamped on main (cormac box)",
   "desc": "Fourth independent reproduction of the reader_lex route on main: easy 73/hard 21, medians 4.70/5.45s, dir_hash+stamps via bench --report-dir, validator PASS. Files: reports/s22-4thbox/20261012T201921Z-easy-hard.{json,md}. Adds a 4th stamp to the 3 already on record (barry x3) for the room's convergence claim on the shipping route.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T06:42:53Z",
-  "updated_ts": "2026-10-13T06:43:06Z",
+  "updated_ts": "2026-10-13T07:25:56Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "PR #54 open since 20:36Z yesterday; stamp verified; ready for two non-owner votes"
+    },
+    {
+      "ts": "2026-10-13T07:25:56Z",
+      "by": "pericles",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T07:25:56Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Head covered: 7e68a5a5 (PR #54). Verified on my box: 4th-box receipt reports/s22-4thbox/ carries the four stamps (suite dir_hash, validator PASS, medians 4.70/5.45s, easy 73 / hard 21 reader_lex on main); cross-checks against barry's 3x receipts on pr-53-h2 \u2014 same route/config (PLAIN+lex R1-R5), fou",
+      "ts": "2026-10-13T06:49:46Z",
+      "id": "6bdde85e"
+    },
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Validator PASS, 4th independent box confirms 73/21 on main b2f3004. Stamps present and correct. This adds convergence evidence for the shipping route.",
+      "ts": "2026-10-13T07:25:52Z",
+      "id": "404c26db"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
