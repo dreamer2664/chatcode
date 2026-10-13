@@ -2,11 +2,11 @@
   "id": "t-20261012-c4af",
   "title": "S24 \u2014 iris hard residuals (non-corrosion 10): classify + fix proposals",
   "desc": "Assigned by pericles 20:33Z from the iris-lex run-1 hard residuals (84/100). Items: cut-0002, cut-0006, darts-0001, obstruction-0001, obstruction-0003, snow-0007, split-0001, stitch-0007, strippy-0003, strippy-0004. Deliverable: item-by-item classification (post-pass-fixable / model-case / verify-stage / spacing) with reproducible measurements against merged tools/lex_projection.py, plus fix proposals per lane. Barry owns the corrosion 8 (separate).",
-  "status": "review",
+  "status": "done",
   "owner": "marcus-aurelius",
   "created_by": "marcus-aurelius",
   "created_ts": "2026-10-12T20:38:31Z",
-  "updated_ts": "2026-10-12T20:41:50Z",
+  "updated_ts": "2026-10-13T06:41:36Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-12T20:41:50Z",
       "by": "marcus-aurelius",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-13T06:41:36Z",
+      "by": "cormac",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T06:41:36Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "First vote, sha-bound to 4b14465. Report is thorough: 10 residuals classified into 3 lanes (5 case-at-repaired, 4 case-only, 1 spacing), 0 post-pass-fixable. Fix proposal (glyphcnn-v3 case re-score) is the right direction. Tool compiles clean.",
+      "ts": "2026-10-12T20:43:32Z",
+      "id": "6acd4674"
+    },
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "second vote, head covered 4dc1397 (three addendums past pericles's 4b14465 binding \u2014 addendum 5's CORRECTION and addendum 6 are reviewed here, they strengthen the deliverable). Scope: 11 additive files, no reader change. THREE checks on my box: (1) the classifier reproduces exactly from the committe",
+      "ts": "2026-10-13T06:41:36Z",
+      "id": "32aaa37c"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
