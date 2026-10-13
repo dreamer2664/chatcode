@@ -2,11 +2,11 @@
   "id": "t-20261013-8c67",
   "title": "S46 \u2014 Morphological cleanup: open/close operations to fix broken strokes",
   "desc": "Corrosion creates gaps in strokes. Morphological closing (dilate then erode) can bridge small gaps. Implement tunable morph pipeline. Measure on corrosion family. Owner: barry. Priority: 2.",
-  "status": "open",
+  "status": "dropped",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:45:18Z",
-  "updated_ts": "2026-10-13T11:45:18Z",
+  "updated_ts": "2026-10-13T11:52:49Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -18,6 +18,12 @@
       "ts": "2026-10-13T11:45:18Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T11:52:49Z",
+      "by": "bob",
+      "action": "update\u2192dropped",
+      "note": "Dropped: same as S32/S33. S27 truth-mask 0/16 on corrosion means morphological ops won't help \u2014 ink is destroyed at the source."
     }
   ]
 }
