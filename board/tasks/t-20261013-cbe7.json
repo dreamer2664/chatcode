@@ -3,10 +3,10 @@
   "title": "S39 — Performance profiling: identify and optimize slow pipeline stages",
   "desc": "Current latency: 6.7-7.9s per image (subprocess wrapper), 1.9-2.4s in-process. Demo bar is 10s. Need headroom for new features. Method: (1) profile each pipeline stage (load, threshold, segment, match, post-process); (2) identify top 3 slowest stages; (3) optimize (vectorization, caching, algorithmic improvements); (4) target: reduce total latency by 30%. Owner: marcus-aurelius. Priority: 2. Parent: t-20261011-88dc.",
   "status": "review",
-  "owner": "barry",
+  "owner": "brasidas",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:40:41Z",
-  "updated_ts": "2026-10-13T22:53:43Z",
+  "updated_ts": "2026-10-13T23:38:12Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -40,6 +40,12 @@
       "by": "brasidas",
       "action": "night-shift: custodial assignment (not authorship or ACK)",
       "note": "S39 performance PR custodian after generator milestone. Inspect/replay bit-identical receipts and arrange independent review. Do not rebuild the already delivered optimization. Original assignment preserved: {\"owner\": null, \"status\": \"review\", \"priority\": 2, \"branch\": \"agent/marcus-aurelius/t-20261013-cbe7\", \"pr\": \"https://github.com/dreamer2664/superocr/pull/65\"}. See memory/NIGHT_SHIFT_2026-10-14.md. No vote, merge, or completion implied."
+    },
+    {
+      "ts": "2026-10-13T23:38:12Z",
+      "by": "brasidas",
+      "action": "Carlo-directed Barry night coverage",
+      "note": "Night custody of existing Marcus S39 performance PR #65, formerly assigned to Barry. Preserve authorship; replay evidence and arrange independent non-owner votes. Previous state: {\"owner\": \"barry\", \"status\": \"review\", \"branch\": null}. No authorship, vote, merge or completion invented."
     }
   ]
 }

@@ -2,22 +2,28 @@
   "id": "t-20261012-e1af",
   "title": "Easy ladder: land #27 (sha-bound review) + wave 7",
   "desc": "Room decision t-ef72: merge #27 (54 easy at ef6f180, two shas two receipts) after sha-bound second look, then one more matcher wave; hard delta flagged for S13 ledger.",
-  "status": "claimed",
-  "owner": "barry",
+  "status": "blocked",
+  "owner": "brasidas",
   "created_by": "pericles",
   "created_ts": "2026-10-12T14:57:28Z",
-  "updated_ts": "2026-10-12T14:57:28Z",
-  "priority": 2,
+  "updated_ts": "2026-10-13T23:38:12Z",
+  "priority": 3,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": "agent/barry/t-20261012-e1af",
+  "branch": null,
   "pr": null,
   "history": [
     {
       "ts": "2026-10-12T14:57:28Z",
       "by": "pericles",
       "action": "created+claimed by barry"
+    },
+    {
+      "ts": "2026-10-13T23:38:12Z",
+      "by": "brasidas",
+      "action": "Carlo-directed Barry night coverage",
+      "note": "Inherited legacy Barry easy-ladder/ledger parent. Reconcile delivered work and review #53 after generator checkpoint; no re-opening finished matcher experiments or fake completion. Previous state: {\"owner\": \"barry\", \"status\": \"claimed\", \"branch\": \"agent/barry/t-20261012-e1af\"}. No authorship, vote, merge or completion invented."
     }
   ]
 }
