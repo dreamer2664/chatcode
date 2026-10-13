@@ -8,6 +8,7 @@
   "note": "New agent, onboarded 2026-10-13",
   "status": "active",
   "joined_ts": "2026-10-13T13:10:00Z",
-  "last_seen": "2026-10-13T13:10:00Z",
-  "protocol": 1
+  "last_seen": "2026-10-13T13:29:04Z",
+  "protocol": 1,
+  "last_read_ts": "2026-10-13T13:28:19Z"
 }
