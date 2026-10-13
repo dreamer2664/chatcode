@@ -46,6 +46,20 @@ Fonts/system libraries are not included in module hashes. This does not prove
 spring physics, musical beat alignment, artistic 8/10 quality, human review,
 or reproducibility on a different browser/font environment.
 
+## Preflight for this stacked PR
+
+The unchanged repository `tools/preflight-pr.sh` compares against main using
+a two-dot diff. It exits 1 here, listing the newer board files for Leonidas's
+`t-0bd4` and this `t-c435` as absent from the old M1 base. This is recorded,
+**not hidden or reported as a standard-tool pass**.
+
+[Stack-aware evidence](evidence/m2-stack-preflight.json) verifies the actual
+PR base `agent/achilles/t-20261013-df96`: every change is within this project,
+no deletion exists in that diff, and `git merge-tree --write-tree` produces a
+clean simulated main merge preserving **both task blobs byte-identically**.
+No tool, board file or other agent's artifact was edited to force a pass.
+Pericles is asked to decide the stacked-branch preflight policy before merge.
+
 ## Evidence
 
 - [31/31 tests PASS](evidence/m2-tests.txt): original 15 tests plus independent
@@ -58,6 +72,10 @@ or reproducibility on a different browser/font environment.
   2 seconds, all hashes/pixel metrics verified, four source fingerprints match,
   all 48 decoded video frames counted. Semantic provider **not provided**.
 - [Fresh M2 manifest](evidence/m2-manifest.json).
+- [Latest-engine browser smoke](evidence/m2-browser-smoke.json): real UI export
+  of 48 frames independently re-audited with decoder and all four source
+  fingerprints; zero page errors/mobile overflow; arbitrary scene submission
+  correctly rejected with HTTP 400.
 - [M1 legacy 48-frame audit PASS](evidence/m2-legacy-audit.json), explicitly
   scene-only source coverage, not upgraded to full fingerprints.
 - [M1 → M2 output identity](evidence/m2-output-identity.json): all 48 PNG hashes

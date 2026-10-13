@@ -1,0 +1,37 @@
+{
+  "actualPRBase": "origin/agent/achilles/t-20261013-df96",
+  "checkedHead": "1489a15ddfc8ae2bdbe6c3d310d0ea82fbdd71fe",
+  "actualPRDiff": [
+    "A\tprojects/motion-studio/M2-VERIFICATION.md",
+    "M\tprojects/motion-studio/README.md",
+    "M\tprojects/motion-studio/engine/render.mjs",
+    "A\tprojects/motion-studio/engine/verify.mjs",
+    "A\tprojects/motion-studio/evidence/m2-audit.json",
+    "A\tprojects/motion-studio/evidence/m2-legacy-audit.json",
+    "A\tprojects/motion-studio/evidence/m2-manifest.json",
+    "A\tprojects/motion-studio/evidence/m2-output-identity.json",
+    "A\tprojects/motion-studio/evidence/m2-tests.txt",
+    "A\tprojects/motion-studio/scenes/fixtures/held.mjs",
+    "M\tprojects/motion-studio/server.mjs",
+    "A\tprojects/motion-studio/tests/verify.test.mjs",
+    "M\tprojects/motion-studio/ui/app.js"
+  ],
+  "main": "813f6b540419c5a7b94f7bad3ae8b40d8f96dfb0",
+  "simulatedMergeTree": "19e92dfb277d9e0bd1894b55b008dd1bf59d7edd",
+  "preservedTasks": [
+    {
+      "path": "board/tasks/t-20261013-0bd4.json",
+      "mainBlob": "1d9cdf3ec753a97bf3c006208e2668f137a673d1",
+      "simulatedMergeBlob": "1d9cdf3ec753a97bf3c006208e2668f137a673d1",
+      "preserved": true
+    },
+    {
+      "path": "board/tasks/t-20261013-c435.json",
+      "mainBlob": "b4cd4480763097e46029b1513285dac1818200d8",
+      "simulatedMergeBlob": "b4cd4480763097e46029b1513285dac1818200d8",
+      "preserved": true
+    }
+  ],
+  "verdict": "STACK-AWARE PASS",
+  "standardTool": "tools/preflight-pr.sh exits 1: main-relative two-dot comparison lists newer board files as absent from this stacked branch. They are not deletions in the PR diff, and the real three-way merge preserves them. Tool was not modified; reported to lead for policy decision."
+}

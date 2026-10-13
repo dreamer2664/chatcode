@@ -1,0 +1,16 @@
+{
+  "latestEngine": true,
+  "uiErrors": [],
+  "browserExport": {
+    "job": "b873d667-3496-4f12-8528-c44538a1db09",
+    "frames": 48,
+    "verdict": "PASS",
+    "semanticReview": "not-provided",
+    "sourceHashes": {
+      "count": 4,
+      "result": "match"
+    }
+  },
+  "untrustedSceneRequest": 400,
+  "mobileOverflow": false
+}
