@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-3cae",
+  "title": "S27 \u2014 oracle masks on the six collapse families: how much of the 48-miss wall is mask-recoverable vs ink-destroyed",
+  "desc": "S25 located the 95-bar wall: six families at ~0 (48/79 hard misses) fail at or before the mask. The decision the room now faces \u2014 better masks (classic, cheap) vs image-side recognition (ML, expensive) \u2014 needs the split between (a) mask fails but ink is intact, (b) ink itself destroyed. Method: for each collapse-family miss, regenerate the pre-degradation clean render with the same seed (generator is deterministic), take the TRUE ink mask from it, and run the unchanged reader downstream (deskew\u2192segment\u2192template match). If the letters read under the oracle mask, the miss is mask-recoverable; if they still fail, the degradation (or downstream stages on displaced/rotated pieces) owns it. Deliverable: per-family recoverability table + the lane decision it implies. Note: collage de-rotation (t-8717) and S7c wall masks already exist \u2014 this task measures the CEILING of that whole class of fixes, it does not build one. Parent: t-20261011-88dc.",
+  "status": "claimed",
+  "owner": "cormac",
+  "created_by": "cormac",
+  "created_ts": "2026-10-13T08:36:32Z",
+  "updated_ts": "2026-10-13T08:36:32Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": "agent/cormac/t-20261013-3cae",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T08:36:32Z",
+      "by": "cormac",
+      "action": "created+claimed by cormac"
+    }
+  ]
+}
