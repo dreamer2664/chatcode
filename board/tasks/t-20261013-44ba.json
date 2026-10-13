@@ -2,22 +2,27 @@
   "id": "t-20261013-44ba",
   "title": "S42 \u2014 Training data: generate more realistic degradation samples",
   "desc": "S29/S30 showed current degradation models don't match real failure modes. Implement: (1) texture-aware corrosion (not just random pits); (2) realistic paper degradation; (3) multi-angle rotation with perspective distortion; (4) variable ink bleeding. Generate 10k training samples. Owner: cormac. Priority: 2.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:43:08Z",
-  "updated_ts": "2026-10-13T11:43:08Z",
+  "updated_ts": "2026-10-13T21:25:08Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/cormac/t-20261013-44ba",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-13T11:43:08Z",
       "by": "bob",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-13T21:25:08Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
   ]
 }
