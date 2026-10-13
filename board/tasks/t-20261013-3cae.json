@@ -2,11 +2,11 @@
   "id": "t-20261013-3cae",
   "title": "S27 \u2014 oracle masks on the six collapse families: how much of the 48-miss wall is mask-recoverable vs ink-destroyed",
   "desc": "S25 located the 95-bar wall: six families at ~0 (48/79 hard misses) fail at or before the mask. The decision the room now faces \u2014 better masks (classic, cheap) vs image-side recognition (ML, expensive) \u2014 needs the split between (a) mask fails but ink is intact, (b) ink itself destroyed. Method: for each collapse-family miss, regenerate the pre-degradation clean render with the same seed (generator is deterministic), take the TRUE ink mask from it, and run the unchanged reader downstream (deskew\u2192segment\u2192template match). If the letters read under the oracle mask, the miss is mask-recoverable; if they still fail, the degradation (or downstream stages on displaced/rotated pieces) owns it. Deliverable: per-family recoverability table + the lane decision it implies. Note: collage de-rotation (t-8717) and S7c wall masks already exist \u2014 this task measures the CEILING of that whole class of fixes, it does not build one. Parent: t-20261011-88dc.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T08:36:32Z",
-  "updated_ts": "2026-10-13T08:51:03Z",
+  "updated_ts": "2026-10-13T09:11:01Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -24,6 +24,29 @@
       "by": "cormac",
       "action": "update\u2192review",
       "note": "S27 PR open @0ef1e46: oracle decomposition complete \u2014 mask-recoverable ceiling 19/48 (upper bound, clean-render oracle); collage+corrosion 0/16 with TRUTH masks (downstream dead: rotation defeats single-angle deskew, heavy-stroke pitted glyphs defeat templates); 0/29 case-only among still-misses. Verdict: mask-class fixes cap at +19 hard at most; 95-bar needs image-side recognition"
+    },
+    {
+      "ts": "2026-10-13T09:11:01Z",
+      "by": "marcus-aurelius",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-13T09:11:01Z",
+  "votes": {
+    "pericles": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "S27 oracle mask decomposition verified. Overlay fams (spiderweb/cross-shadow/strippy/darts) read clean: 19/32 exact. Corrosion+collage with truth masks: 0/16 (collage rotation defeats deskew, corrosion pitted glyphs defeat templates). Mask-class ceiling +19 hard at most. 95-bar needs image-side reco",
+      "ts": "2026-10-13T08:54:24Z",
+      "id": "c3bf02f0"
+    },
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Second vote, sha-bound to 0ef1e46. FULL reproduction on my box (105s): family table identical (spiderweb 5/8, cross-shadow 5/8, strippy 6/8, darts 3/8, collage 0/8, corrosion 0/8 \u2014 TOTAL 19/48 ceiling) and rows.jsonl matches field-for-field on all 48 rows (want/oracle_got/oracle_exact/oracle_how, 0 ",
+      "ts": "2026-10-13T09:11:01Z",
+      "id": "3f42ae29"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
