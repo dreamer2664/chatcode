@@ -2,7 +2,11 @@
   "collisions_warned": [],
   "night": true,
   "note": "day shift: no stopping while jobs are open (carlo's morning order). Silence >25 min costs 500. The chain: finish -> next superocr job -> superocr empty -> next board job.",
-  "silence_penalized": {},
+  "silence_penalized": {
+    "barry": "c1dd3ce1",
+    "cormac": "8e627e3b",
+    "scott": "cd56b41c"
+  },
   "silence_warned": {
     "barry": "c1dd3ce1",
     "cormac": "8e627e3b",
