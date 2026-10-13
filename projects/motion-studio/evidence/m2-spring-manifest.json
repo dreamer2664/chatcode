@@ -1,0 +1,2368 @@
+{
+  "version": 1,
+  "started": "2026-10-13T15:56:20.548Z",
+  "config": {
+    "width": 640,
+    "height": 360,
+    "fps": 24,
+    "duration": 4,
+    "maxAttempts": 2,
+    "threshold": 8,
+    "frameCount": 96,
+    "beatMap": {
+      "beats": [],
+      "cuts": []
+    }
+  },
+  "scene": "scenes/spring-demo.mjs",
+  "sceneSHA256": "8e3be0a9083672518050fbf1af68d0a7a193ebd3b75c9ddd66edcc2fb6803a67",
+  "renderer": "playwright-canvas",
+  "node": "v20.20.2",
+  "browser": "145.0.7632.6",
+  "status": "provider-approved",
+  "grading": "structural engineering checks; NOT perceptual/artistic quality",
+  "semanticProvider": "supplied",
+  "audio": "none",
+  "frames": [
+    {
+      "frame": 0,
+      "time": 0,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "359aa091c2beaf8fede59d36a5ea6cf11e46d7802d790f1a1cd00bca52144db8",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.32,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 29.57690069888306,
+            "entropy": 1.6699333635990485,
+            "diversity": 28,
+            "meanLuminance": 54.37311811111204,
+            "meanFrameDelta": null
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 1,
+      "time": 0.041666666666666664,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "3b44cee0b27888f01b0e15ac79e3736764b596fc3edbe82ad05304999390031c",
+          "passed": false,
+          "structuralScore": 10,
+          "semanticScore": 7.66,
+          "semanticReview": "provider-fail",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 30.398752040090276,
+            "entropy": 1.6956173413451034,
+            "diversity": 28,
+            "meanLuminance": 54.647360527778766,
+            "meanFrameDelta": 1.6351963333333328
+          }
+        },
+        {
+          "revision": 1,
+          "sha256": "d0e47341476592c4e6b4ef764bbdcb9b6fcb043915ed4a45ed57f66339bd197e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.52,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.501264798903126,
+            "entropy": 1.7564919546888478,
+            "diversity": 28,
+            "meanLuminance": 54.73448108333505,
+            "meanFrameDelta": 4.858478805555554
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 2,
+      "time": 0.08333333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "85f0675814798769421b54f3320069b640051e70ee112bc3b2be3b277d8c7f1e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.64,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.695785727617018,
+            "entropy": 1.778437615546737,
+            "diversity": 28,
+            "meanLuminance": 55.141130263890254,
+            "meanFrameDelta": 4.836091847222221
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 3,
+      "time": 0.125,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "07f3688e69520fbc9ddf00fae7bddac3cc54474b1ae425b50d73bf1f8613380e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.46,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 33.58345162894285,
+            "entropy": 1.8591186678496623,
+            "diversity": 28,
+            "meanLuminance": 55.6234766388909,
+            "meanFrameDelta": 3.4900150694444396
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 4,
+      "time": 0.16666666666666666,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "257595846db1b821ef36a0b46b24eed3a8ed3f280f97af93cf016b65cedce90d",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.92,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.527967372909636,
+            "entropy": 1.9591459663838826,
+            "diversity": 28,
+            "meanLuminance": 55.821247930558386,
+            "meanFrameDelta": 4.407242986111112
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 5,
+      "time": 0.20833333333333334,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "a533f6a1b30e78b4a1635603f471641ea928de987b7ef4e71139a46e20beafc8",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.25,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 36.61581785137429,
+            "entropy": 2.04064787268199,
+            "diversity": 28,
+            "meanLuminance": 55.40135951389299,
+            "meanFrameDelta": 4.976135527777797
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 6,
+      "time": 0.25,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "86804c5bdec31e273e557e48949400f40adf9ad04fd51339fdd15240e1fe5ff2",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.4,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 37.25511117668854,
+            "entropy": 2.09874382382535,
+            "diversity": 28,
+            "meanLuminance": 54.63086825000458,
+            "meanFrameDelta": 4.806428347222214
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 7,
+      "time": 0.2916666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "54ba2dbc25b49c370ac27878d3e1a986e72399b645ffa367e2b17fdcfb80fd86",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.25,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 38.09498101940843,
+            "entropy": 2.1241599671275297,
+            "diversity": 28,
+            "meanLuminance": 53.884946069449775,
+            "meanFrameDelta": 4.146263930555549
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 8,
+      "time": 0.3333333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "b5070ec747d229214928836b6b7297862698ed748133b5fef29a5fe437c9c140",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.14,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 38.1959061717735,
+            "entropy": 2.1323901458779746,
+            "diversity": 28,
+            "meanLuminance": 52.93974891667244,
+            "meanFrameDelta": 3.2535634027777625
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 9,
+      "time": 0.375,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "ad70106e03d5f63a83ebaa5e8d6c2023c08ced3d5a881688e88a31405a44c2eb",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.32,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 38.0373556979679,
+            "entropy": 2.1249038576753705,
+            "diversity": 28,
+            "meanLuminance": 51.79965081944995,
+            "meanFrameDelta": 3.885215791666655
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 10,
+      "time": 0.4166666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "91e5d0cb0c703ff4153064ec60cd2c00535fb0e2500d055d4b4665891ce3ae1f",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.46,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 38.00284428249949,
+            "entropy": 2.151831648708459,
+            "diversity": 28,
+            "meanLuminance": 50.669588208339235,
+            "meanFrameDelta": 4.387864138888891
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 11,
+      "time": 0.4583333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "50d7db958ec3b1090b750347a898b974de822ade56af5efc90afc3510831d4e1",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.36,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 37.40730922334969,
+            "entropy": 2.112905922660364,
+            "diversity": 28,
+            "meanLuminance": 49.57375698611587,
+            "meanFrameDelta": 4.017549638888872
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 12,
+      "time": 0.5,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "a4a8dd2e7b1578fc21c13c0caaaab427db672e31fc6ff0f87f966b158a04bee0",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.39,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 37.73005585701074,
+            "entropy": 2.0995773876791253,
+            "diversity": 28,
+            "meanLuminance": 49.070471861115145,
+            "meanFrameDelta": 4.032695791666639
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 13,
+      "time": 0.5416666666666666,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "89d694943968ff935f932eeba9622519c54d050280283a65b3216be559e7cb2d",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.19,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 38.035935407358956,
+            "entropy": 2.0985912214604943,
+            "diversity": 28,
+            "meanLuminance": 48.90154501389238,
+            "meanFrameDelta": 3.1705940694444315
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 14,
+      "time": 0.5833333333333334,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "62dda30a19a1293fce1b7fc285471fabbea1b0b348a05ad2da635e9464fd20cc",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.99,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 37.22700046461732,
+            "entropy": 2.1013852041148637,
+            "diversity": 28,
+            "meanLuminance": 48.481712791670084,
+            "meanFrameDelta": 2.5294347222222195
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 15,
+      "time": 0.625,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "7664b0067d114e1887ef7a456122cbd8e9c1a9ba8a700fb8e762732c5cdce771",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.85,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.80739026335903,
+            "entropy": 2.1086366359832676,
+            "diversity": 28,
+            "meanLuminance": 48.79513347222576,
+            "meanFrameDelta": 1.83450179166667
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 16,
+      "time": 0.6666666666666666,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "97dd987814318365221201bf04cef7d3a98bce3b77b6af49f77abf95a04ef157",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.74,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.53961135489721,
+            "entropy": 2.118013444048659,
+            "diversity": 28,
+            "meanLuminance": 48.87828502778168,
+            "meanFrameDelta": 1.4647655000000008
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 17,
+      "time": 0.7083333333333334,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "617abbaf1aab345f446892bba1436f2792d128c2785109f06290a2e0589a2412",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.75,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.659360595401075,
+            "entropy": 2.109764794578852,
+            "diversity": 28,
+            "meanLuminance": 49.07988036111556,
+            "meanFrameDelta": 1.4939107222222239
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 18,
+      "time": 0.75,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "92fc3a92cc922345c280a016e50403bc6a246a9bcbe4e9fb19561fb9c65978c1",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.76,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.928066050338366,
+            "entropy": 2.130533339218667,
+            "diversity": 28,
+            "meanLuminance": 49.37543794444902,
+            "meanFrameDelta": 1.4440100555555553
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 19,
+      "time": 0.7916666666666666,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "26fb12552020eb4a203723c23042358eefc0b4745950bd7d7770ee92f27a75b6",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.63,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.67008544071748,
+            "entropy": 2.100264228571674,
+            "diversity": 28,
+            "meanLuminance": 49.316399152782466,
+            "meanFrameDelta": 1.0156757916666683
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 20,
+      "time": 0.8333333333333334,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "90cfefdbd2aaaa61c2349790174cdbd33d5bbaba6df7af8a368c09f6a6442b38",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.58,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.802679935137526,
+            "entropy": 2.1179163049667,
+            "diversity": 28,
+            "meanLuminance": 49.46632572222712,
+            "meanFrameDelta": 0.8918100694444457
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 21,
+      "time": 0.875,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "f8f1cd13dd06db49bd617d3c2ae635a97e190fa561dd57c62abd92f158f2a67e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.54,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.731982434500594,
+            "entropy": 2.104319151791948,
+            "diversity": 28,
+            "meanLuminance": 49.4888288750048,
+            "meanFrameDelta": 0.6885983472222225
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 22,
+      "time": 0.9166666666666666,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4811ad8784eb4036bcc45b38580abba4de73ee39899cbb0130588d1404319dd3",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.49,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.54162100943234,
+            "entropy": 2.109771049716895,
+            "diversity": 28,
+            "meanLuminance": 49.416946236116,
+            "meanFrameDelta": 0.5707187499999999
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 23,
+      "time": 0.9583333333333334,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "68b1bc09ad6c8657ddabf4af10ad4f4db03f13030fad0e43628dcb300c4106e2",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.48,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.434217810226876,
+            "entropy": 2.128102574067401,
+            "diversity": 28,
+            "meanLuminance": 49.38106701389372,
+            "meanFrameDelta": 0.533274611111111
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 24,
+      "time": 1,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "ced418edee7ac809b743b0ba384ca7c79989afb9af5ef0dc6a1bded61ab4fab7",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.56,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.89971183706037,
+            "entropy": 1.6200193874178297,
+            "diversity": 25,
+            "meanLuminance": 60.081708513889026,
+            "meanFrameDelta": 25.07076974999878
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 25,
+      "time": 1.0416666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "c9492470e4cf0fd0b0ccf339155ead653578b33e621081088d7db82c0250e2a3",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.18,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 36.10629450373644,
+            "entropy": 1.6241656417914587,
+            "diversity": 25,
+            "meanLuminance": 60.21461081944465,
+            "meanFrameDelta": 0.34857486111111124
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 26,
+      "time": 1.0833333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "b6e406c99bcc314ef1a3bb6ab388152908833bf2b29750c113d0acb7708c3b72",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.53,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 37.09355665845994,
+            "entropy": 1.657400277996371,
+            "diversity": 26,
+            "meanLuminance": 60.93692965277846,
+            "meanFrameDelta": 1.1067384444444461
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 27,
+      "time": 1.125,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "6233723a2b8ccd7bb55caa28db3cac8227d4cef8eb92de0bacea629d929732ba",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.01,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 39.25406553313441,
+            "entropy": 1.7089807877057068,
+            "diversity": 25,
+            "meanLuminance": 62.49259340277946,
+            "meanFrameDelta": 2.1756831944444537
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 28,
+      "time": 1.1666666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "bf1eb2c3ca9b795d34d04453034effd857865c2007c70f3b98491acd42d4fed2",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.28,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 42.16839371323345,
+            "entropy": 1.7903504835179906,
+            "diversity": 26,
+            "meanLuminance": 64.92923629166978,
+            "meanFrameDelta": 3.112324333333354
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 29,
+      "time": 1.2083333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "1e66d199ca0a15d1d7a3a7e21504f77d94fd276568d537a0fd88243a76deb98e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.45,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 45.42397958390883,
+            "entropy": 1.8701665168320338,
+            "diversity": 26,
+            "meanLuminance": 68.0823094444492,
+            "meanFrameDelta": 3.8013832361111453
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 30,
+      "time": 1.25,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "dd46c9b4cbbf986a0964e14fdf8b5ea4ec60da9902f430e8131953f6f388ab0a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.5,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 48.4864917742236,
+            "entropy": 1.9411282046596283,
+            "diversity": 26,
+            "meanLuminance": 71.47123376389497,
+            "meanFrameDelta": 4.015828402777809
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 31,
+      "time": 1.2916666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4e2068b71680976a26629e401980c192ed7b66357bd0003adb06ba85b3521e0f",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.31,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 50.40619992376469,
+            "entropy": 1.9676965466469052,
+            "diversity": 26,
+            "meanLuminance": 73.95529723611409,
+            "meanFrameDelta": 3.239753277777792
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 32,
+      "time": 1.3333333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4fbf4ce31761ad5bc3f1d17a3d8bfabc49555d5840569cbb24a381d3ba513d6a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.08,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 51.39135393599366,
+            "entropy": 1.985198994720252,
+            "diversity": 26,
+            "meanLuminance": 75.56712937499881,
+            "meanFrameDelta": 2.3241007777777867
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 33,
+      "time": 1.375,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "269e2cc637d39a5292b1ce092bdacb0863fe54ef2bb53c7dc7e35c81af598eba",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.96,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 51.846417399236955,
+            "entropy": 2.01828736814738,
+            "diversity": 26,
+            "meanLuminance": 76.50677602777343,
+            "meanFrameDelta": 1.8279708750000048
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 34,
+      "time": 1.4166666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "82f8d81a6e875a4eaa884052d698c6c43715e59d087dd9160bb73fdc3d82a0a4",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.83,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 51.984039095103896,
+            "entropy": 2.0132600014564366,
+            "diversity": 26,
+            "meanLuminance": 76.72702931943942,
+            "meanFrameDelta": 1.3141684861111127
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 35,
+      "time": 1.4583333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "88863e1425de4d81a3cb1903671038f6ae7218fde61367946790956d9b3b06db",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.78,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 51.97513944295167,
+            "entropy": 2.0118736920158127,
+            "diversity": 26,
+            "meanLuminance": 76.52849559721781,
+            "meanFrameDelta": 1.129161166666666
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 36,
+      "time": 1.5,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "b60b907fc9bef9b25cdee780f18597832ccd5c97872872a26b942c0d0f6dfa2a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.58,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.75302455628636,
+            "entropy": 1.616884395062295,
+            "diversity": 26,
+            "meanLuminance": 59.84758100000028,
+            "meanFrameDelta": 17.450380874999077
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 37,
+      "time": 1.5416666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "bd124647a2fd37c92db8e53b7ccba7b68d7948010bac965cdda60a792325105b",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.37,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.726900996855896,
+            "entropy": 1.6166414851606015,
+            "diversity": 26,
+            "meanLuminance": 59.85579070833372,
+            "meanFrameDelta": 1.1849855972222227
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 38,
+      "time": 1.5833333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "25273ccf9768a962f27372ef77a7b29b70f747109deec6f74f5fcc5a7ac4fe95",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.75,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 37.00916256167563,
+            "entropy": 1.6508109220981357,
+            "diversity": 26,
+            "meanLuminance": 60.636843569445325,
+            "meanFrameDelta": 2.0174581666666693
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 39,
+      "time": 1.625,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "8930526d6daa705e96c06ff496b499148b6062d10171f1db19e74c09600c665e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.07,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 38.626722233373435,
+            "entropy": 1.7027001036550304,
+            "diversity": 25,
+            "meanLuminance": 62.02874079166858,
+            "meanFrameDelta": 2.541839388888897
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 40,
+      "time": 1.6666666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "f63fb33ef10e225e14e5fc619a9b9884ba431ff34d2740cd627c4073144bb02f",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.34,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 41.938870932885614,
+            "entropy": 1.788939026915882,
+            "diversity": 26,
+            "meanLuminance": 64.59449745833669,
+            "meanFrameDelta": 3.359949500000025
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 41,
+      "time": 1.7083333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "ef6390c9e1cc7836c9d9b8b487016c5f8375392ff00837ff86438ea1844bfcbf",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.46,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 45.09305526099717,
+            "entropy": 1.859229572832862,
+            "diversity": 26,
+            "meanLuminance": 67.58124694444923,
+            "meanFrameDelta": 3.830736319444476
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 42,
+      "time": 1.75,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "9ff23657e525ea2147988330289689122ecc5b3a1561e64a6b438352ad259576",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.58,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 47.884659917042995,
+            "entropy": 1.9306999353678789,
+            "diversity": 26,
+            "meanLuminance": 70.75794581945063,
+            "meanFrameDelta": 4.3087261805555865
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 43,
+      "time": 1.7916666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "013ed9997dc6345e71afb1d79d05e2bf41430f80862ea8278959072a02b7967e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.4,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 50.159017944820405,
+            "entropy": 1.9617548923502302,
+            "diversity": 26,
+            "meanLuminance": 73.45161600000485,
+            "meanFrameDelta": 3.618554013888906
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 44,
+      "time": 1.8333333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "549c8d8d8f70cfdd72834fd1f3bedd2f99dd9d3ad7dbec9ab97f20df17e049ed",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.15,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 51.01328612661124,
+            "entropy": 1.9719362727553715,
+            "diversity": 26,
+            "meanLuminance": 74.9758527777783,
+            "meanFrameDelta": 2.6129454166666704
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 45,
+      "time": 1.875,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "36ab89cae344ebc74e171f36d716c42d9ab2e6b357406c0322cd68c1524cff0a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.98,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 51.822384409967796,
+            "entropy": 2.0146025956786637,
+            "diversity": 26,
+            "meanLuminance": 76.21747236110784,
+            "meanFrameDelta": 1.907221111111116
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 46,
+      "time": 1.9166666666666667,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "ac9d9d6e4fe99e2b87cd31752a1775656de19e0d1f439061fa0837cd7fa9742f",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.88,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 52.00769384039889,
+            "entropy": 2.0170021197123074,
+            "diversity": 26,
+            "meanLuminance": 76.47669330555154,
+            "meanFrameDelta": 1.5086515000000016
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 47,
+      "time": 1.9583333333333333,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4823a346c2a2ebab51da357b1f18ee1095515fc07576e349ce118f11a93b2ac3",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.75,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 51.75517636287895,
+            "entropy": 2.008805052656334,
+            "diversity": 26,
+            "meanLuminance": 76.17730520833028,
+            "meanFrameDelta": 1.0068684861111108
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 48,
+      "time": 2,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4a6895d125046ea1ebc077da305369455273efa6d9b269fb6bf2e0632467fef5",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.56,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 29.532806475376226,
+            "entropy": 1.6150355918801118,
+            "diversity": 27,
+            "meanLuminance": 52.62918536111318,
+            "meanFrameDelta": 29.602628374998748
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 49,
+      "time": 2.0416666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "3deebf15a65257d40b637f93dccbd0148e0a31f58cd6b09371238c668b8be153",
+          "passed": false,
+          "structuralScore": 10,
+          "semanticScore": 7.58,
+          "semanticReview": "provider-fail",
+          "issues": [],
+          "metrics": {
+            "contrast": 29.494447132073383,
+            "entropy": 1.6309967761095208,
+            "diversity": 28,
+            "meanLuminance": 52.564581486113276,
+            "meanFrameDelta": 2.0639627638888887
+          }
+        },
+        {
+          "revision": 1,
+          "sha256": "b88940f29b13c307069b085113a025a36b0c67fa63aa11cd6bf9992c0bbba7a4",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.62,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.507840699370593,
+            "entropy": 1.669593416555498,
+            "diversity": 28,
+            "meanLuminance": 52.395316763891756,
+            "meanFrameDelta": 6.444226375000049
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 50,
+      "time": 2.0833333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "993cec5af8c0430091e67a2273b19599b65418ef7682128e4cb06313a70fcf19",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.6,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 29.922581885257184,
+            "entropy": 1.6508813133474136,
+            "diversity": 27,
+            "meanLuminance": 52.45013715278017,
+            "meanFrameDelta": 6.561126305555607
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 51,
+      "time": 2.125,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "5c6d0c114010b7dadecc997ac412be3d5707cf7b72431ea396373c0ec03cddab",
+          "passed": false,
+          "structuralScore": 10,
+          "semanticScore": 7.95,
+          "semanticReview": "provider-fail",
+          "issues": [],
+          "metrics": {
+            "contrast": 29.956592384403898,
+            "entropy": 1.6873043318594554,
+            "diversity": 28,
+            "meanLuminance": 51.899576013891235,
+            "meanFrameDelta": 3.211830444444423
+          }
+        },
+        {
+          "revision": 1,
+          "sha256": "fa98e83808211d1ee3b8a9d81791587be6af0d5a2de9d4d19c677c39a3de7e2f",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.72,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.000597090020847,
+            "entropy": 1.756017997115015,
+            "diversity": 28,
+            "meanLuminance": 51.58875393055855,
+            "meanFrameDelta": 7.207412194444543
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 52,
+      "time": 2.1666666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "901d1eabcc9b111a843c5f026c58f0029664a1f8e67c423f7c7df5cac2712c3e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.69,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.318511604209913,
+            "entropy": 1.7353568621409972,
+            "diversity": 28,
+            "meanLuminance": 51.13695079166892,
+            "meanFrameDelta": 6.817604277777836
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 53,
+      "time": 2.2083333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "25ad0711854fb6cd31aca6bc9a97e87871ee97d120aec27503a56076ebf5a140",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.43,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.567752827814573,
+            "entropy": 1.8025262766597585,
+            "diversity": 27,
+            "meanLuminance": 50.11452856944622,
+            "meanFrameDelta": 4.650561250000003
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 54,
+      "time": 2.25,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "7754cb2a5b6ce108127bfc451abe8a6190b3cb305366d097b216b7770a6071ba",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.53,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.068620454583545,
+            "entropy": 1.8286006612606798,
+            "diversity": 28,
+            "meanLuminance": 48.78464440277792,
+            "meanFrameDelta": 4.8421174166666905
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 55,
+      "time": 2.2916666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "efac214a77e6fad128dc8b94d4a02800f8260d21b832e10f946f737187d62fc1",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.34,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 29.58384649707162,
+            "entropy": 1.8381869376061493,
+            "diversity": 28,
+            "meanLuminance": 47.13459313888791,
+            "meanFrameDelta": 3.706366569444427
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 56,
+      "time": 2.3333333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "552b16bd977275f36b58133698f9912c0f2de00c23f6a1f79a6cd9c2be193684",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.47,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.001908797358347,
+            "entropy": 1.8858637966127374,
+            "diversity": 28,
+            "meanLuminance": 45.9413982222205,
+            "meanFrameDelta": 3.6842046944444267
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 57,
+      "time": 2.375,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "5c95525d2b7646a8e1091817780471aaf9f913d7bf6afe7b4fb261bbb2f7b01f",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.55,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.918760732664055,
+            "entropy": 1.9191327056720116,
+            "diversity": 28,
+            "meanLuminance": 45.022271777775195,
+            "meanFrameDelta": 3.4181891388888697
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 58,
+      "time": 2.4166666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "bd3321edff1424db0afe658ec3eddd99471bc5df7789981359c3607ee04a6e64",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.87,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.723543569604946,
+            "entropy": 1.8850665866966452,
+            "diversity": 27,
+            "meanLuminance": 43.705619083329026,
+            "meanFrameDelta": 4.385079111111107
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 59,
+      "time": 2.4583333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "2cf9d0075f505c075d5560b7edb26d5c84726d9b4665f186eafcc317dea901f5",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.93,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.818296051533647,
+            "entropy": 1.8893264838477914,
+            "diversity": 28,
+            "meanLuminance": 42.88828616666111,
+            "meanFrameDelta": 4.304836222222211
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 60,
+      "time": 2.5,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "df1711b6115a6a5a1439e62dbca9d64b4b1243a7ce2008d6fbd7f7ba20e136c0",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.84,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.719466196185824,
+            "entropy": 1.8793549921083046,
+            "diversity": 28,
+            "meanLuminance": 42.38123120832748,
+            "meanFrameDelta": 3.9006531805555213
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 61,
+      "time": 2.5416666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "d6ec3e8780f2fa21ad7db297996161637286848956502fff82afe70f270a5ca5",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.79,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.295291357869843,
+            "entropy": 1.9090101997095716,
+            "diversity": 28,
+            "meanLuminance": 42.41302268054959,
+            "meanFrameDelta": 3.564499277777767
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 62,
+      "time": 2.5833333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "47ff70d2f4293e0de822fd96d3378a2ad9a9ee2007839259c6277ffc77738786",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.64,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.648706194388563,
+            "entropy": 1.8668950899114078,
+            "diversity": 28,
+            "meanLuminance": 42.18978511110496,
+            "meanFrameDelta": 3.241448569444436
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 63,
+      "time": 2.625,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "df0934b6cc6b8b9a2a079e0feb0ddf6a1702ca17f2eae4e18375e2a6b4aae81a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.52,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.952496265053192,
+            "entropy": 1.8947052819260068,
+            "diversity": 28,
+            "meanLuminance": 42.452819847216226,
+            "meanFrameDelta": 2.6101687083333336
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 64,
+      "time": 2.6666666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "da38e29ae3e739309b612fdff6ddc7eb9cde3ec06d64b29fd6906e3639282987",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.45,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 30.63776449518143,
+            "entropy": 1.8709231018569463,
+            "diversity": 28,
+            "meanLuminance": 42.516357736104965,
+            "meanFrameDelta": 2.4311606111111104
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 65,
+      "time": 2.7083333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4ccd9e5f81ba7ccf6d8574b623e8cbaf3f73a8ba6c4d4964e85b3c77120b1282",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.41,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.376627759965096,
+            "entropy": 1.899328455070384,
+            "diversity": 28,
+            "meanLuminance": 42.916039083327114,
+            "meanFrameDelta": 2.2676569027777815
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 66,
+      "time": 2.75,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "1988c46c19add12cef4dc5d167b5db44c75fbdbbcaf77c2b4b1630129b3f4b90",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.51,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.653026672982453,
+            "entropy": 1.8961527210917337,
+            "diversity": 28,
+            "meanLuminance": 43.20313994443823,
+            "meanFrameDelta": 2.5354638888888923
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 67,
+      "time": 2.7916666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "41dc0580c1c94f0ba0315cc501654bed4d642371eb2406142e00600058cb8618",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.35,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 31.210367384124698,
+            "entropy": 1.8957728694679028,
+            "diversity": 28,
+            "meanLuminance": 43.16981415277149,
+            "meanFrameDelta": 2.128831736111117
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 68,
+      "time": 2.8333333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "c1b5303a64e76d964aee65b44714936806deb4e7ae825060fd40d15f0a5dc053",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.25,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 31.17170914809882,
+            "entropy": 1.9159147460386388,
+            "diversity": 27,
+            "meanLuminance": 43.22367970832689,
+            "meanFrameDelta": 1.7576008611111127
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 69,
+      "time": 2.875,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "ad975cd5323804ac9105a459dd98e67339da17f5515df52caed39fb8cbaef805",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.21,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 31.139585019772476,
+            "entropy": 1.8769947587103426,
+            "diversity": 28,
+            "meanLuminance": 43.102618763882525,
+            "meanFrameDelta": 1.573908805555557
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 70,
+      "time": 2.9166666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4fe257d3e8dd597870c3c576570b74128135e98b62433cf211e0d2b914e81d0a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.11,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 30.685380064286033,
+            "entropy": 1.8754712251034822,
+            "diversity": 28,
+            "meanLuminance": 42.929296611104476,
+            "meanFrameDelta": 1.3410749305555574
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 71,
+      "time": 2.9583333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "32a6018c24bf76ffd4576f78f46a6a00562388ee967027e2228e782134aa6c4e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.09,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 30.68598627499347,
+            "entropy": 1.8957318439919024,
+            "diversity": 28,
+            "meanLuminance": 42.91397231943789,
+            "meanFrameDelta": 1.1168139861111124
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 72,
+      "time": 3,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "68444ca61222420d0fd6896372454b485212330d5cf5af3b89079e1d408fcfa4",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.91,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 32.290011207289446,
+            "entropy": 1.8047515696782785,
+            "diversity": 27,
+            "meanLuminance": 56.4303997222238,
+            "meanFrameDelta": 21.68998587499902
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 73,
+      "time": 3.0416666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "6656b27a75931772b0eb59c7c81a63a18eaae952535ffb8f8d7a9a790a127b29",
+          "passed": false,
+          "structuralScore": 10,
+          "semanticScore": 7.64,
+          "semanticReview": "provider-fail",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 32.39870159244384,
+            "entropy": 1.8134697249142944,
+            "diversity": 28,
+            "meanLuminance": 56.40376738889056,
+            "meanFrameDelta": 0.9077037777777769
+          }
+        },
+        {
+          "revision": 1,
+          "sha256": "da67cada4fa05d4d7c2ffcabbfa93f3ac78a70f7db5fd0a38fee0497493710d2",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.38,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 32.53300681327146,
+            "entropy": 1.8278322820918844,
+            "diversity": 27,
+            "meanLuminance": 55.8821660972245,
+            "meanFrameDelta": 3.842340597222213
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 74,
+      "time": 3.0833333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "241f51b0119460ba70d8a14785a0d939a73e65b90462398cb883a79765fde8f7",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.49,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 32.61045672564189,
+            "entropy": 1.8471959700463447,
+            "diversity": 27,
+            "meanLuminance": 56.20871779166867,
+            "meanFrameDelta": 4.1669100833333195
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 75,
+      "time": 3.125,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "d8dc265718c2aac537936d78f88c414687dc295f00fb00c2c66dcb622d8407f1",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.26,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 33.14937783218773,
+            "entropy": 1.891119577075354,
+            "diversity": 28,
+            "meanLuminance": 55.91724979166932,
+            "meanFrameDelta": 2.4757965833333255
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 76,
+      "time": 3.1666666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "3e80a7beb8cff8ae83e47501ef2b380c436dbd613e2a79c53bc0bca2389fa3b9",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.09,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 34.096243733077216,
+            "entropy": 2.0201030197106906,
+            "diversity": 27,
+            "meanLuminance": 55.64535088889237,
+            "meanFrameDelta": 3.5569530416666444
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 77,
+      "time": 3.2083333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "edec1e6072c0ffae5ede4cd8d0d17f65c3d0ec3cb802aacb97e183f7f7af3ce7",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.4,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 34.37514539543526,
+            "entropy": 2.0788119085804246,
+            "diversity": 27,
+            "meanLuminance": 54.677106861115405,
+            "meanFrameDelta": 4.739585027777789
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 78,
+      "time": 3.25,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "c3a52e8b3b6f4d1c362ad0130bd9ba4e374fbb8e3e768d9579cccb9255360bca",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.38,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 34.22254707558018,
+            "entropy": 2.1359119476997304,
+            "diversity": 27,
+            "meanLuminance": 53.70525104167094,
+            "meanFrameDelta": 4.675013958333313
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 79,
+      "time": 3.2916666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "d1ec5a6fcadfd7bec84c7170fa1797562efdc7a8e5a86380f2a3f58a301b842a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.43,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 34.85751580635366,
+            "entropy": 2.1706534851190646,
+            "diversity": 27,
+            "meanLuminance": 52.91398923611593,
+            "meanFrameDelta": 4.742538111111117
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 80,
+      "time": 3.3333333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "9881c96a04a866d166de07da2c6b9351c7be5fb5ecdab0f58f756c7f16981fd3",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.36,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.04027519478388,
+            "entropy": 2.1617172878853634,
+            "diversity": 27,
+            "meanLuminance": 52.02258165278252,
+            "meanFrameDelta": 4.424056888888874
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 81,
+      "time": 3.375,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "c7994a8aee1e660fd1319c5aaf36ced7b1dcd6c5012e8a9019478a9516f2a4b7",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.13,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.3958737684728,
+            "entropy": 2.1632770407130866,
+            "diversity": 27,
+            "meanLuminance": 51.22959434722672,
+            "meanFrameDelta": 3.4395246944444247
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 82,
+      "time": 3.4166666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "923a832095757d57b59db92e56fa210a85f48e5b691d2e80b77a528d3a4007d5",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.36,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.49781321178716,
+            "entropy": 2.2073635780291556,
+            "diversity": 28,
+            "meanLuminance": 50.45570000000481,
+            "meanFrameDelta": 4.325612763888864
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 83,
+      "time": 3.4583333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "c396f4334802dfaab103ee05ff253ba90477120cb41b326d7ab801cfe886b53a",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.34,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.21758225963569,
+            "entropy": 2.1619689411948637,
+            "diversity": 27,
+            "meanLuminance": 49.409905055559115,
+            "meanFrameDelta": 4.320133333333299
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 84,
+      "time": 3.5,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "4a83c9c3f094929f7cde5cd42ae191c6f9f262bbc795ae994d8361eeb267a0c4",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.4,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.55344806312812,
+            "entropy": 2.150427457510463,
+            "diversity": 27,
+            "meanLuminance": 49.015401708336235,
+            "meanFrameDelta": 4.476131986111066
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 85,
+      "time": 3.5416666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "c55c856d923bce4bb7a02d608a75c5bed13eedd1df440111510d394bbf47853e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.27,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.90731642005148,
+            "entropy": 2.1427426733772252,
+            "diversity": 27,
+            "meanLuminance": 48.804210569446624,
+            "meanFrameDelta": 3.898804277777755
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 86,
+      "time": 3.5833333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "e4765195cd3a7fee59226f0ea7a780ff35e347362bb73148bc7932dca5a83ac5",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.14,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.078143101315206,
+            "entropy": 2.1635161031727197,
+            "diversity": 27,
+            "meanLuminance": 48.45058197222462,
+            "meanFrameDelta": 3.528947263888873
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 87,
+      "time": 3.625,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "8fae968214288147a751ad8c18123c19bb98c084d4be4664a1110c116597a956",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 9.11,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.7709190082449,
+            "entropy": 2.1578017703441055,
+            "diversity": 27,
+            "meanLuminance": 48.671763805557916,
+            "meanFrameDelta": 3.3037677222222057
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 88,
+      "time": 3.6666666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "04f8ddd7192b60bb61f1bbd28ea9e6a73c74a1f89a4cf554c4a03043c9b17257",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.86,
+          "semanticReview": "provider-pass",
+          "issues": [],
+          "metrics": {
+            "contrast": 35.279058622820834,
+            "entropy": 2.141964764206075,
+            "diversity": 27,
+            "meanLuminance": 48.65104731944709,
+            "meanFrameDelta": 2.373175402777781
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 89,
+      "time": 3.7083333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "23970e2bf7a13f718a5afb6aa52c867c2f6c906514eb0e0c5beeb1575f9d22d4",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.77,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.39497840032883,
+            "entropy": 2.1448618730199893,
+            "diversity": 27,
+            "meanLuminance": 48.829671958336235,
+            "meanFrameDelta": 1.9941616111111127
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 90,
+      "time": 3.75,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "36d776a2edc169fbdff60719fe457fd912134c155b62027190180f87cccad749",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.61,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.79376874942209,
+            "entropy": 2.158072152884914,
+            "diversity": 28,
+            "meanLuminance": 49.08759476389191,
+            "meanFrameDelta": 1.2976663055555564
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 91,
+      "time": 3.7916666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "25c85e3fd426b8fa51c2a9397ace640fcb5b0965f8cb18d89e1850b612b2ac58",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.69,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.674477322710906,
+            "entropy": 2.1373436806384376,
+            "diversity": 28,
+            "meanLuminance": 49.14786759722544,
+            "meanFrameDelta": 1.6346788333333353
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 92,
+      "time": 3.8333333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "b0678acae61e87dbd0a284bf3ede4fc708940b7cb5ac8b61c6805b8c72d708b2",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.72,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.791891703172105,
+            "entropy": 2.156621882626549,
+            "diversity": 28,
+            "meanLuminance": 49.25450831944781,
+            "meanFrameDelta": 1.711312583333336
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 93,
+      "time": 3.875,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "ca3566d8ca8cfb479395ebf2498ed8527ac6024dc46ba6145ae534c53268b59e",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.7,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.51994955613689,
+            "entropy": 2.1509920314748863,
+            "diversity": 28,
+            "meanLuminance": 49.24941877778122,
+            "meanFrameDelta": 1.7021180972222263
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 94,
+      "time": 3.9166666666666665,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "35fcdc9e16d54772b2d3bddd7d0972ddf950829f0374ba0bd8e19920b8134700",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.67,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.336527787615665,
+            "entropy": 2.1698606980555324,
+            "diversity": 28,
+            "meanLuminance": 49.2024888055591,
+            "meanFrameDelta": 1.59569863888889
+          }
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "frame": 95,
+      "time": 3.9583333333333335,
+      "attempts": [
+        {
+          "revision": 0,
+          "sha256": "b570a7a8da266a559aaeeb7b5022c78bb09c5dac4b0c14cbfbed75b42d1a9019",
+          "passed": true,
+          "structuralScore": 10,
+          "semanticScore": 8.64,
+          "semanticReview": "provider-pass",
+          "issues": [
+            "low-motion-vs-beat"
+          ],
+          "metrics": {
+            "contrast": 35.130485689712344,
+            "entropy": 2.171621643543888,
+            "diversity": 28,
+            "meanLuminance": 49.15735651389244,
+            "meanFrameDelta": 1.5414598472222245
+          }
+        }
+      ],
+      "accepted": true
+    }
+  ],
+  "errors": [],
+  "ffmpeg": "ffmpeg version N-47683-g0e8eb07980-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2018 the FFmpeg developers",
+  "videoSHA256": "177eaf62cd124b97694674bf5193e22e056b6ceab63d7c617b13bd2e5e844780",
+  "finished": "2026-10-13T15:56:23.344Z",
+  "iterations": 100,
+  "improvements": 4
+}
