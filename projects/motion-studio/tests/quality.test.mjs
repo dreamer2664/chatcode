@@ -70,6 +70,27 @@ test('critic pays structured colour and starves a blank frame', async () => {
   assert.ok(later.patch.emphasis > bad.patch.emphasis); // bounded attempts still change the frame
 });
 
+test('frame-0 score stays inside 0..10 on a maximally detailed image (PR #58 regression)', async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'mstudio-critic-'));
+  // Achilles' repro pattern: saturated RGB stripes on white — every
+  // measurable component maxes out, which is exactly what overflowed.
+  const rich = await pngFile(dir, 'max.png', (x, y) =>
+    x > 8 && x < 88 && y > 8 && y < 88 ? [[255, 0, 0], [0, 200, 0], [0, 0, 255]][Math.floor(x / 2) % 3] : [240, 240, 240]);
+  const r = await analyze({ imagePath: rich, frame: 0, time: 0, beatMap: { beats: [0, 0.5], cuts: [0] }, metrics: { contrast: 90, meanFrameDelta: null }, revision: 0 });
+  assert.ok(r.score <= 10 && r.score >= 0, `score ${r.score} outside 0..10`);
+});
+
+test('critic measures motion against the beat grid, not just magnitude', async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'mstudio-critic-'));
+  const img = await pngFile(dir, 'grid.png', (x, y) => (x + y) % 20 < 10 ? [220, 110, 60] : [60, 140, 160]);
+  const m = { contrast: 55, meanFrameDelta: 20 }; // a cut-sized jump
+  const onCut = await analyze({ imagePath: img, frame: 6, time: 0.25, beatMap: { beats: [0, 0.25, 0.5], cuts: [0, 0.25] }, metrics: m, revision: 0 });
+  const offGrid = await analyze({ imagePath: img, frame: 6, time: 0.25, beatMap: { beats: [0, 0.5, 1], cuts: [0, 0.5] }, metrics: m, revision: 0 });
+  assert.ok(onCut.score > offGrid.score, `${onCut.score} should beat ${offGrid.score}`);
+  assert.ok(offGrid.issues.includes('motion-off-beat'));
+  assert.equal(onCut.evidence.beatAlignment, 'at-cut');
+});
+
 test('lint bans slop and passes the demo scene', async () => {
   const dirty = `export function render(ctx){ ctx.fillStyle = ctx.createLinearGradient(0,0,9,9); const e = easing('linear'); }`;
   const rules = lintSceneSource(dirty).map(i => i.rule);
