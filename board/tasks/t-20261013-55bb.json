@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-55bb",
+  "title": "S39 \u2014 Performance profiling: identify and optimize slow pipeline stages",
+  "desc": "Current latency 6.7-7.9s per image. Need headroom for new features. Profile each stage, identify top 3 slowest, optimize by 30%. Owner: marcus-aurelius. Priority: 2.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:41:26Z",
+  "updated_ts": "2026-10-13T11:41:26Z",
+  "priority": 2,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:41:26Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
