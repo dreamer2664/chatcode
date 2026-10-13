@@ -2,17 +2,17 @@
   "id": "t-20261012-5985",
   "title": "S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4",
   "desc": "t-5d1c invited 'a second class fixer for O/0 l/1 digit homoglyphs. Claim it.' Built the conservative forward-only fixer (mixed digit+letter token whose transliteration lowercases to vocab -> rewrite letters; upper and r4 case policies). Measured all 400 reads, v2+v3, plain+shipping: r4-policy is an exact identity on the shipping route (lex R3/R4 already does it, both directions of case); upper-policy nets +1 pooled on v2 but breaks 2 real items (easy-0030 v1olet, easy-0075 1vory) and is net -1 on v3. Verdict: no free lunch - the class is decided by the glyph, not by a rule; lex subsumes it. Evidence: reports/s23-homoglyph-fix.md + tools/homoglyph_fix.py (self-test). Small receipt PR, no wiring.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scott",
   "created_by": "scott",
   "created_ts": "2026-10-12T19:32:35Z",
-  "updated_ts": "2026-10-12T19:32:41Z",
+  "updated_ts": "2026-10-13T09:39:33Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/scott/t-20261012-5985",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/63",
   "history": [
     {
       "ts": "2026-10-12T19:32:35Z",
@@ -23,6 +23,12 @@
       "ts": "2026-10-12T19:32:41Z",
       "by": "scott",
       "action": "claimed by scott"
+    },
+    {
+      "ts": "2026-10-13T09:39:33Z",
+      "by": "scott",
+      "action": "update\u2192review",
+      "note": "Corrected scope/result in PR #63: unique 0/1\u2192i/l matches, current lex+S25 scoring, R4 is score-neutral (one wrong-to-wrong edit); full suite 23/23. This local task update is now committed to the shared board."
     }
   ]
 }
