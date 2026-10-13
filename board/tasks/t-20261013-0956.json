@@ -2,22 +2,28 @@
   "id": "t-20261013-0956",
   "title": "S25 \u2014 hard segmentation wall: piece-count reconciliation on the hard residue (measure + one lever)",
   "desc": "S22 mapped the hard residue (21 exact): 83% is segmentation-class (35 fewer-pieces, 32 more-pieces). S24 probes could not even ALIGN the degraded stitches (13v12, 22v20, 24v22). This lane: (1) from my 4th-box receipt, classify the ~79 hard misses at PIECE level \u2014 pieces emitted vs pieces implied by the label (dropped vs over-split vs mis-ordered); (2) measure ONE repair lever: a lexicon piece-count prior to arbitrate re-merge/re-split when the reader's piece count disagrees with the best lexicon parse; (3) report per-family recoverability (split/stitch/strippy/cut/corrosion/obstruction/darts/snow). Success bar: either a measured lever with net-positive positions on the residue, or a closed lane with the same three-converging-negatives discipline as S24. Parent: t-20261011-88dc.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "cormac",
   "created_ts": "2026-10-13T06:44:08Z",
-  "updated_ts": "2026-10-13T06:44:08Z",
+  "updated_ts": "2026-10-13T08:35:59Z",
   "priority": 3,
   "tags": [],
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/cormac/t-20261013-0956",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/57",
   "history": [
     {
       "ts": "2026-10-13T06:44:08Z",
       "by": "cormac",
       "action": "created+claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T08:35:59Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S25 PR open: mode decomposition (mask collapse 48 / stroke destruction / glyph-case / count 2) + _s25_count_repairs wired post-projection. easy 73\u219273 (0/0), hard 21\u219223 (+2, 0 broken), tests 22/22, receipt-final stamped on a3528cc, validator PASS with --data re-hash"
     }
   ]
 }
