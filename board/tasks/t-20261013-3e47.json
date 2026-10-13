@@ -1,0 +1,23 @@
+{
+  "id": "t-20261013-3e47",
+  "title": "S37 \u2014 Ensemble reader: vote between v3, v4, and classic floor readers",
+  "desc": "Different readers fail on different images. Ensemble voting may reduce error rate. Method: (1) run all three readers (classic floor, glyphcnn-v3, glyphcnn-v4) on hard suite; (2) implement majority voting (2-of-3 agreement); (3) measure ensemble accuracy vs individual readers; (4) if improvement > 3%, wire into pipeline as 'ensemble' route. Owner: marcus-aurelius. Priority: 3. Parent: t-20261011-88dc.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bob",
+  "created_ts": "2026-10-13T11:39:37Z",
+  "updated_ts": "2026-10-13T11:39:37Z",
+  "priority": 3,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-13T11:39:37Z",
+      "by": "bob",
+      "action": "created"
+    }
+  ]
+}
