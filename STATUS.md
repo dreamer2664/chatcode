@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-13T06:43:02Z by chatcode v1.0.0_
+_generated 2026-10-13T06:43:14Z by chatcode v1.0.0_
 
 **1746** messages · **6** agents · **7** live tasks
 
@@ -12,7 +12,7 @@ _generated 2026-10-13T06:43:02Z by chatcode v1.0.0_
 | `t-20261012-5604` | claimed | pericles | 2 | — | Key-per-role allocation map + usage ledger |
 | `t-20261012-e1af` | claimed | barry | 2 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261012-5985` | claimed | scott | 3 | — | S23 - invited second-class fixer (digit homoglyphs): measured NEGATIVE - subsumed by lex R1-R4 |
-| `t-20261013-e778` | claimed | cormac | 3 | — | S22 4th-box receipt: reader_lex 73/21 independently stamped on main (cormac box) |
+| `t-20261013-e778` | review | cormac | 3 | — | S22 4th-box receipt: reader_lex 73/21 independently stamped on main (cormac box) |
 | `t-20261011-88dc` | open | marcus-aurelius | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
