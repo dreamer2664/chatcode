@@ -2,11 +2,11 @@
   "id": "t-20261013-ef0a",
   "title": "S50 \u2014 Error correction: pattern-based OCR error fixing layer",
   "desc": "Common OCR errors follow patterns (O/0, l/1, S/5). Implement context-aware error correction. Measure on hard suite. Owner: cormac. Priority: 4.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:48:37Z",
-  "updated_ts": "2026-10-13T22:00:16Z",
+  "updated_ts": "2026-10-13T22:07:43Z",
   "priority": 4,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-13T22:00:16Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-13T22:07:43Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S50 done: PR #78 (branch agent/cormac/t-20261013-ef0a @993c500). NO-GO: after reader_lex, ZERO pair-confusion residue on 200 items \u2014 R-digit (O/0 l/1 S/5) has 0 fixes 0 breaks (lex R2 already normalizes); only 5/104 one-swap misses exist and ALL are case-only, which R-case shows is rule-unreachable (1 fix vs 21/67 breaks \u2014 case_word randomizes casing; quantifies S22/S24/S25 closure). Residue stays structural: seg 63/77 + stroke destruction. Case one-swaps handed to leonidas/S55."
     }
   ]
 }
