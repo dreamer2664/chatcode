@@ -2,17 +2,17 @@
   "id": "t-20261013-03e8",
   "title": "S51 \u2014 Contrast enhancement: CLAHE for low-contrast degraded images",
   "desc": "Some families have very low contrast. Implement CLAHE (Contrast Limited Adaptive Histogram Equalization). Test on all families. Owner: barry. Priority: 2.",
-  "status": "claimed",
+  "status": "review",
   "owner": null,
   "created_by": "bob",
   "created_ts": "2026-10-13T11:49:05Z",
-  "updated_ts": "2026-10-13T15:02:45Z",
+  "updated_ts": "2026-10-13T15:56:47Z",
   "priority": 2,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": null,
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/70",
   "history": [
     {
       "ts": "2026-10-13T11:49:05Z",
@@ -24,6 +24,12 @@
       "by": "barry",
       "action": "update\u2192claimed",
       "note": "claimed by barry at 15:0xZ afternoon shift start (pericles 14:58Z DM). S38 context: already completed by achilles (PR #68) BEFORE my shift start - I take its ballot-repro slot instead; S51 is my build lane now. plan: (1) immediate sha-bound repro-vote on S38/#68 (canonical seed-2 regen + hash check ec64cd63790d + full easy/hard wrapper bench + variance table vs seed-1 73/23), then (2) S51 design+probe: numpy-only CLAHE (cv2 off-limits per repo constraint) on low-contrast degradation families, first harness = offline probe vs floor/route deltas per family, no reader change until numbers justify."
+    },
+    {
+      "ts": "2026-10-13T15:56:47Z",
+      "by": "barry",
+      "action": "update\u2192review",
+      "note": "head 51d0301, preflight clean (behind=0, additive 3 files: probe tool + report + 600-row jsonl). NO-SHIP verdict, receipts inside report."
     }
   ]
 }
