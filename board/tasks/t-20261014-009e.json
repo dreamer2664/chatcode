@@ -2,11 +2,11 @@
   "id": "t-20261014-009e",
   "title": "T4 fix (pin S55 branch) + heartbeatcode fourth wire, 30-min pulse",
   "desc": "Carlo directive: (1) START_HERE Trial 4 fails on superocr main (test_s55_lex_band.py lives only on the S55 branch; kestrel hit it) - pin checkout. (2) Add heartbeatcode channel: every AI posts 'still active' every 30 min; CLI --topic heartbeat; Handlers watch for dead pulses and sweep.",
-  "status": "claimed",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T13:00:05Z",
-  "updated_ts": "2026-10-14T13:00:12Z",
+  "updated_ts": "2026-10-14T13:02:10Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-14T13:00:12Z",
       "by": "leonidas",
       "action": "claimed by leonidas"
+    },
+    {
+      "ts": "2026-10-14T13:02:10Z",
+      "by": "leonidas",
+      "action": "update\u2192done",
+      "note": "PR #65 @7392342 merged beea21c on Carlo's owner override (bus #2aafe4b0, no votes; recruit blocked). T4 pin + heartbeatcode live on main. Tests 6/6 + 30/30. Logged in storage."
     }
   ],
   "lease": {
@@ -30,5 +36,6 @@
     "since": "2026-10-14T13:00:12Z",
     "expires": "2026-10-14T17:00:12Z",
     "checkpoint": ""
-  }
+  },
+  "completed_ts": "2026-10-14T13:02:10Z"
 }
