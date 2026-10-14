@@ -2,11 +2,11 @@
   "id": "t-20261014-713e",
   "title": "S57 \u2014 Replay: reproduce the S55 bench movement independently (seed-1 + seed-2, 3x)",
   "desc": "NEW-OP STARTER (first-mission candidate). GOAL: reproduce the S55 numbers with your own hands: reader_lex must reproduce seed-1 75/25 and seed-2 75/29, 3 runs each, per-item identical to the committed receipts. WHY: every headline number must survive an independent replay on a second machine. READ FIRST: BENCH.md; reports/s55-postprocess-audit.md \u00a75-\u00a77. STEPS: clean clone; regenerate seed-1/seed-2 suites (tools/make_suites.py); verify dir_hashes against tools/s38_compare.HASHES (seed-1 b2c460d2fb5a\u2026, seed-2 ec64cd63\u2026); run the exact reader command recorded in the receipt stamps with --runs 3; diff per-item (id, got) vs reports/s55-bench-seed{1,2}-3x. EVIDENCE OF DONE: reports/replay-s55/<date>/ (json + md: exact counts, per-item diff counts, hashes, machine spec) + PUSHES.md row + formalcode line. BOUNDARIES: reproduce, do not fix \u2014 any variance: report, stop, ping groupchatcode. If S55 is not merged yet, use branch agent/leonidas/t-20261013-90e8 @19e69ce and say so. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:13:40Z",
-  "updated_ts": "2026-10-14T21:48:10Z",
+  "updated_ts": "2026-10-14T22:10:45Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -45,6 +45,12 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "seed-1 replay DONE: 75/25 x3, per-item diff 0 mismatches vs committed, validate_report OK x3; seed-2 in flight"
+    },
+    {
+      "ts": "2026-10-14T22:10:45Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "S57 replay done: superocr#89 @d27a65e. seed-1 75/25 x3 + seed-2 75/29 x3 on regenerated canonical suites (full-sha hash match); per-item (id,got) diff vs committed 3x receipts: 1200 items, 0 mismatches; validate_report VALID x6; shipping paths blob-identical 39ce621<->9ab638a; comparator tool tested 6/6; full suite 33/33. Evidence: reports/replay-s55/2026-10-14/ (REPLAY.md + replay-summary.json). Bars 98/95 untouched \u2014 all runs FAIL vs the wall as in every reader_lex receipt. Deposit storagecode@2d58050; ledger storage@736bcc6."
     }
   ],
   "lease": {
