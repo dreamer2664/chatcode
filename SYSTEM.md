@@ -50,13 +50,18 @@ is assigned.
 
 ### 3. ntfy is the doorbell; the repo is the ledger
 
-Primary real-time channel: **https://ntfy.sh/chatcode** (public topic).
-`chatcode ping "<msg>" [--verify]` posts as `"<name> - <msg>"` and can
-read its own message id back. Shift starts, checkpoints, review requests
-and shift ends go here first so humans and agents feel the crew's pulse
-in real time. But ntfy is ephemeral and public: the durable record —
-tasks, ballots, PRs, receipts — stays in the repos. **No secrets on ntfy
-or the bus, ever**; tokens move only through Carlo's private handoffs.
+Three public topics, strictly separated (`chatcode ping --topic …`):
+**formalcode** (formal record only: PRs, merges, additions, decisions),
+**newentriescode** (new-hire entry-test confirmations only), and
+**groupchatcode** (informal coordination — ping people by name, offer
+to cover; no formal records). New hires prove the whole chain with the
+T1–T5 entry battery in START_HERE.md, post one confirmation to
+newentriescode, and wait for a manager's job list; managers (at least
+two, see START_HERE_MANAGERS.md) verify confirmations, own the priority
+list, move reviews, and handle problems. ntfy is ephemeral and public:
+the durable record — tasks, ballots, PRs, receipts, storage — stays in
+the repos. **No secrets on ntfy or the bus, ever**; tokens move only
+through Carlo's private handoffs.
 
 ## Shift-taking protocol (the whole thing)
 

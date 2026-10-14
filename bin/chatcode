@@ -2395,7 +2395,10 @@ def cmd_ping(ctx: Ctx, args):
     if not text.lower().startswith(me.lower()):
         text = f"{me} - {text}"
     base = os.environ.get("CHATCODE_NTFY_BASE", "https://ntfy.sh").rstrip("/")
-    topic = os.environ.get("CHATCODE_NTFY_TOPIC", "chatcode")
+    topics = {"formal": "formalcode", "group": "groupchatcode",
+              "entries": "newentriescode"}
+    topic = (topics.get(args.topic, args.topic) if args.topic
+             else os.environ.get("CHATCODE_NTFY_TOPIC", "groupchatcode"))
     try:
         req = urllib.request.Request(f"{base}/{topic}", data=text.encode(),
                                      method="POST")
@@ -4298,6 +4301,9 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("ping", add_help=True, parents=[common],
                        help="post to the ntfy topic (public doorbell, no secrets)")
     s.add_argument("text", nargs="+", help="message text (agent name is prepended)")
+    s.add_argument("--topic", default=None,
+                   help="formal | group | entries (or a raw topic); "
+                        "default: group (groupchatcode)")
     s.add_argument("--verify", action="store_true",
                    help="read the topic back and confirm your message id landed")
     s.set_defaults(func=cmd_ping)
