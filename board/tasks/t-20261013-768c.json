@@ -1,52 +1,63 @@
 {
-  "id": "t-20261013-768c",
-  "title": "S54 \u2014 word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation",
-  "desc": "Why: the measured evidence chain now fully closes patch-level integration on the glyph-CNN lane: S43 (segmentation owns 63/77 = 82% of residue, decision-tree census), S30/v7b read-level (net alone: hard exact 6->7), S31 (slot-swap -3/+1; context windows neutral-to-harmful; both NO-GO, PR #72), S51 (CLAHE NO-SHIP, PR #70). The remaining CNN-lane hypothesis: a reader whose units are WORDS, not glyphs - jointly normalised whole-word crops (advances-vs-ink semantics fixed once), with segmentation designed to survive fusion on the five wall families (collage/corrosion/cross-shadow/darts/strippy). Scope draft: (1) whole-word crop extraction protocol + truth alignment from the S53 corpus char_boxes (merges adjacent boxes per word); (2) word-image model candidates sized to the corpus (2000 items, in-domain augmentation budget named); (3) held-out protocol: canonical seed-1/seed-2 EVAL-ONLY at read level, corpus split by item; dev decisions on corpus only; (4) success bar named before training: shipping-route hard exact gain vs settled 23/100 with zero easy regression (73/100 floor), plus per-family table; honest-no report if missed. Depends on: PR #72 (evidence), S53 corpus (data), v7b lineage (init optional). Open for coordinator routing; barry can take it if assigned (matcher/rerank/post-processing lane + receipts rig already warm).",
-  "status": "open",
-  "owner": null,
-  "created_by": "barry",
-  "created_ts": "2026-10-13T16:53:04Z",
-  "updated_ts": "2026-10-14T20:46:21Z",
-  "priority": 1,
-  "tags": [],
-  "deps": [],
-  "parent": "t-20261011-88dc",
-  "branch": "agent/cormac/t-20261013-768c",
-  "pr": null,
-  "history": [
-    {
-      "ts": "2026-10-13T16:53:04Z",
-      "by": "barry",
-      "action": "created"
-    },
-    {
-      "ts": "2026-10-13T18:32:42Z",
-      "by": "marcus-aurelius",
-      "action": "claimed by marcus-aurelius"
-    },
-    {
-      "ts": "2026-10-13T22:15:04Z",
-      "by": "brasidas",
-      "action": "recovery: ownership released",
-      "note": "Carlo-directed recovery: Marcus session reported unavailable. Original authorship/artifacts preserved; no completion asserted. Previous assignment: {\"owner\": \"marcus-aurelius\", \"status\": \"claimed\", \"branch\": \"agent/marcus-aurelius/t-20261013-768c\"}. See memory/BRASIDAS_RECOVERY.md for next owner/reviewer requests."
-    },
-    {
-      "ts": "2026-10-13T22:23:41Z",
-      "by": "brasidas",
-      "action": "recovery: assigned, awaiting owner ACK/claim",
-      "note": "Carlo-directed recovery. Status remains OPEN: assignment is not evidence the worker is running. See memory/BRASIDAS_RECOVERY.md. Cormac S42 has since delivered as PR #77; S54 is now the requested next priority."
-    },
-    {
-      "ts": "2026-10-13T23:23:35Z",
-      "by": "cormac",
-      "action": "claimed by cormac"
-    },
-    {
-      "ts": "2026-10-14T20:46:21Z",
-      "by": "vesta",
-      "action": "released by vesta (back to the pool)",
-      "note": "Manager action (vesta, 2026-10-14): claim predates leases (no expiry, sweeper blind to it) and the holder has been silent since 08:09Z (~13h) on a P1 card. Branch agent/cormac/t-20261013-768c is preserved on GitHub \u2014 5 commits, ending in the S54 C2c whole-word v0 NO-GO (preregistered bar missed). Next holder: read that receipt first, then go. Returned to the open pool."
-    }
-  ],
-  "lease": null
+ "id": "t-20261013-768c",
+ "title": "S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation",
+ "desc": "Why: the measured evidence chain now fully closes patch-level integration on the glyph-CNN lane: S43 (segmentation owns 63/77 = 82% of residue, decision-tree census), S30/v7b read-level (net alone: hard exact 6->7), S31 (slot-swap -3/+1; context windows neutral-to-harmful; both NO-GO, PR #72), S51 (CLAHE NO-SHIP, PR #70). The remaining CNN-lane hypothesis: a reader whose units are WORDS, not glyphs - jointly normalised whole-word crops (advances-vs-ink semantics fixed once), with segmentation designed to survive fusion on the five wall families (collage/corrosion/cross-shadow/darts/strippy). Scope draft: (1) whole-word crop extraction protocol + truth alignment from the S53 corpus char_boxes (merges adjacent boxes per word); (2) word-image model candidates sized to the corpus (2000 items, in-domain augmentation budget named); (3) held-out protocol: canonical seed-1/seed-2 EVAL-ONLY at read level, corpus split by item; dev decisions on corpus only; (4) success bar named before training: shipping-route hard exact gain vs settled 23/100 with zero easy regression (73/100 floor), plus per-family table; honest-no report if missed. Depends on: PR #72 (evidence), S53 corpus (data), v7b lineage (init optional). Open for coordinator routing; barry can take it if assigned (matcher/rerank/post-processing lane + receipts rig already warm).",
+ "status": "claimed",
+ "owner": "cormac",
+ "created_by": "barry",
+ "created_ts": "2026-10-13T16:53:04Z",
+ "updated_ts": "2026-10-14T20:52:00Z",
+ "priority": 1,
+ "tags": [],
+ "deps": [],
+ "parent": "t-20261011-88dc",
+ "branch": "agent/cormac/t-20261013-768c",
+ "pr": null,
+ "history": [
+  {
+   "ts": "2026-10-13T16:53:04Z",
+   "by": "barry",
+   "action": "created"
+  },
+  {
+   "ts": "2026-10-13T18:32:42Z",
+   "by": "marcus-aurelius",
+   "action": "claimed by marcus-aurelius"
+  },
+  {
+   "ts": "2026-10-13T22:15:04Z",
+   "by": "brasidas",
+   "action": "recovery: ownership released",
+   "note": "Carlo-directed recovery: Marcus session reported unavailable. Original authorship/artifacts preserved; no completion asserted. Previous assignment: {\"owner\": \"marcus-aurelius\", \"status\": \"claimed\", \"branch\": \"agent/marcus-aurelius/t-20261013-768c\"}. See memory/BRASIDAS_RECOVERY.md for next owner/reviewer requests."
+  },
+  {
+   "ts": "2026-10-13T22:23:41Z",
+   "by": "brasidas",
+   "action": "recovery: assigned, awaiting owner ACK/claim",
+   "note": "Carlo-directed recovery. Status remains OPEN: assignment is not evidence the worker is running. See memory/BRASIDAS_RECOVERY.md. Cormac S42 has since delivered as PR #77; S54 is now the requested next priority."
+  },
+  {
+   "ts": "2026-10-13T23:23:35Z",
+   "by": "cormac",
+   "action": "claimed by cormac"
+  },
+  {
+   "ts": "2026-10-14T20:46:21Z",
+   "by": "vesta",
+   "action": "released by vesta (back to the pool)",
+   "note": "Manager action (vesta, 2026-10-14): claim predates leases (no expiry, sweeper blind to it) and the holder has been silent since 08:09Z (~13h) on a P1 card. Branch agent/cormac/t-20261013-768c is preserved on GitHub — 5 commits, ending in the S54 C2c whole-word v0 NO-GO (preregistered bar missed). Next holder: read that receipt first, then go. Returned to the open pool."
+  },
+  {
+   "ts": "2026-10-14T20:52:00Z",
+   "by": "cormac",
+   "action": "claimed by cormac",
+   "note": "re-claim after sweep; original author of all 5 branch commits; closing out to PR + ballots"
+  }
+ ],
+ "lease": {
+  "agent": "cormac",
+  "since": "2026-10-14T20:52:00Z",
+  "expires": "2026-10-15T00:52:00Z",
+  "checkpoint": "re-claim after vesta sweep: S54 work already complete on branch agent/cormac/t-20261013-768c @935b161 (5 commits: C1 oracle ceiling, C2a lex ceiling, C2b context NO-GO, C2c whole-word v0 NO-GO, all preregistered). Remaining: rebase on current main, re-verify receipts, open PR, drive to 2 ballots."
+ }
 }
