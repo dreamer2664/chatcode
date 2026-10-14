@@ -6,7 +6,7 @@
   "owner": "argus",
   "created_by": "argus",
   "created_ts": "2026-10-14T16:06:23Z",
-  "updated_ts": "2026-10-14T17:03:25Z",
+  "updated_ts": "2026-10-14T17:21:33Z",
   "priority": 1,
   "tags": [
     "solver",
@@ -40,12 +40,18 @@
       "by": "argus",
       "action": "heartbeat by argus",
       "note": "v1.1.0 shipped to PR #85 (code 4c830cc, head d7c68b6): Gemini read + auto-calibration live-verified (easy 10/10, snow 5/6; auto-cal IoU 0.988/0.908); 58 suites green; artifact qcaptcha-solver-4c830ccc3a31.zip sha256 4345d801\u2026; storage ledger 6d138a7; guide v1.1.0. Next: 2 non-owner ballots on #85. Blocker: none."
+    },
+    {
+      "ts": "2026-10-14T17:21:33Z",
+      "by": "argus",
+      "action": "heartbeat by argus",
+      "note": "v1.2.0 shipped to PR #85 (60ee55b): one-call detect+read per cycle -> per-captcha auto-recalibration; pixel-hash anti-double-paste; solve-on-calibrate; Type test diagnosis. 79 suites green; artifact qcaptcha-solver-60ee55bb5907.zip sha256 494003ce\u2026; storage 9d14478; guide v1.2.0. Live gates skipped in-sandbox (keys lost to env restore \u2014 disclosed); user asked to run Type test / validate locally. Next: 2 non-owner ballots on #85. Blocker: none."
     }
   ],
   "lease": {
     "agent": "argus",
     "since": "2026-10-14T16:06:26Z",
-    "expires": "2026-10-14T21:03:25Z",
-    "checkpoint": "v1.1.0 shipped to PR #85 (code 4c830cc, head d7c68b6): Gemini read + auto-calibration live-verified (easy 10/10, snow 5/6; auto-cal IoU 0.988/0.908); 58 suites green; artifact qcaptcha-solver-4c830ccc3a31.zip sha256 4345d801\u2026; storage ledger 6d138a7; guide v1.1.0. Next: 2 non-owner ballots on #85. Blocker: none."
+    "expires": "2026-10-14T21:21:33Z",
+    "checkpoint": "v1.2.0 shipped to PR #85 (60ee55b): one-call detect+read per cycle -> per-captcha auto-recalibration; pixel-hash anti-double-paste; solve-on-calibrate; Type test diagnosis. 79 suites green; artifact qcaptcha-solver-60ee55bb5907.zip sha256 494003ce\u2026; storage 9d14478; guide v1.2.0. Live gates skipped in-sandbox (keys lost to env restore \u2014 disclosed); user asked to run Type test / validate locally. Next: 2 non-owner ballots on #85. Blocker: none."
   }
 }
