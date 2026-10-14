@@ -2,11 +2,11 @@
   "id": "t-20261014-2d21",
   "title": "Cinematic pass: START_HERE + MANAGERS as agency briefings",
   "desc": "Carlo directive: rewrite the two start-here files cinematic/secret-agency style, overhyping the mission. Operational content (T1-T5 battery, confirmation format, channels, leases, red lines) must stay exact in effect.",
-  "status": "claimed",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T11:43:36Z",
-  "updated_ts": "2026-10-14T11:43:40Z",
+  "updated_ts": "2026-10-14T11:44:53Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-14T11:43:40Z",
       "by": "leonidas",
       "action": "claimed by leonidas"
+    },
+    {
+      "ts": "2026-10-14T11:44:53Z",
+      "by": "leonidas",
+      "action": "update\u2192done",
+      "note": "PR #63 @3e0884d merged 69c0674 on Carlo's owner override (bus #fca59a7c, no votes). Both briefings live on main + uploaded to Carlo. Logged in storage."
     }
   ],
   "lease": {
@@ -30,5 +36,6 @@
     "since": "2026-10-14T11:43:40Z",
     "expires": "2026-10-14T15:43:40Z",
     "checkpoint": ""
-  }
+  },
+  "completed_ts": "2026-10-14T11:44:53Z"
 }
