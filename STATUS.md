@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T20:46:30Z by chatcode v1.0.0_
+_generated 2026-10-14T20:47:01Z by chatcode v1.0.0_
 
-**2255** messages · **15** agents · **49** live tasks
+**2255** messages · **15** agents · **75** live tasks
 
 ## Board
 
@@ -33,30 +33,56 @@ _generated 2026-10-14T20:46:30Z by chatcode v1.0.0_
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
+| `t-20261014-0b97` | open | — | 2 | — | Review: PUSHES.md linter + ledger CI (storage) (t-20261014-83b5) |
+| `t-20261014-0f01` | open | — | 2 | — | EMPIRE — cold onboarding dry-run: a stranger's friction report |
+| `t-20261014-1d47` | open | — | 2 | — | MAINT — conflict-marker scanner + CI job (the storage burn) |
+| `t-20261014-72b3` | open | — | 2 | — | MAINT — CI check: every command in CHEATSHEET.md exists |
+| `t-20261014-83b5` | open | — | 2 | — | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261014-8ff6` | open | — | 2 | — | S68 — Census: the easy residue — the 25 easy misses by root cause (S43 method) |
 | `t-20261014-923c` | open | — | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
+| `t-20261014-9e7d` | open | — | 2 | — | Review: CI check: every command in CHEATSHEET.md exists (t-20261014-72b3) |
+| `t-20261014-a727` | open | — | 2 | — | Review: deposit validator + CI (storagecode) (t-20261014-b5b4) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
+| `t-20261014-b5b4` | open | — | 2 | — | MAINT — deposit validator + CI (storagecode) |
+| `t-20261014-e4e9` | open | — | 2 | — | MAINT — wire archive test suite (storagecode) |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
+| `t-20261014-0c90` | open | — | 3 | — | MAINT — dashboard truth pass v9 (storagecode + jobscode) |
 | `t-20261014-1136` | open | — | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-138a` | open | — | 3 | — | S65 — Census: darts family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-1759` | open | — | 3 | — | S73 — Data: case-twin probe corpus for S70 (manifest + hash, regenerable) |
 | `t-20261014-1bbf` | open | — | 3 | — | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
+| `t-20261014-27a7` | open | — | 3 | — | MAINT — AGENT_PROMPT.md truth pass: no claim the CLI cannot back |
 | `t-20261014-2e47` | open | — | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
+| `t-20261014-2e89` | open | — | 3 | — | MAINT — validate warnings explainer + counter |
+| `t-20261014-364d` | open | — | 3 | — | MAINT — INVENTORY.md truth pass: map main as it is today |
+| `t-20261014-3fd4` | open | — | 3 | — | MAINT — lease report: who holds what, and how long silent |
 | `t-20261014-479d` | open | — | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
 | `t-20261014-4922` | open | — | 3 | — | S67 — Census: spiderweb family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-5830` | open | — | 3 | — | S74 — Tool: quick per-family screen helper (deterministic, tested, screen-only banner) |
 | `t-20261014-803e` | open | — | 3 | — | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
+| `t-20261014-8f23` | open | — | 3 | — | Review: wire archive test suite (storagecode) (t-20261014-e4e9) |
+| `t-20261014-8fbd` | open | — | 3 | — | Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47) |
+| `t-20261014-92fa` | open | — | 3 | — | MAINT — pin the ping topic map (jobscode included) |
 | `t-20261014-937a` | open | — | 3 | — | S72 — Data: seed-5 + seed-6 held-out screen receipts (plain floor + shipping) |
+| `t-20261014-958a` | open | — | 3 | — | EMPIRE — room census tool + first census deposited |
 | `t-20261014-bae6` | open | — | 3 | — | S66 — Census: strippy family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-d1a7` | open | — | 3 | — | S59 — Audit: receipts doctor — every committed report validated against the schema |
 | `t-20261014-d802` | open | — | 3 | — | S62 — Census: collage family deep-failure map (fresh items, per-stage categories) |
+| `t-20261014-db4a` | open | — | 3 | — | MAINT — shift-note standard: template + README (storage) |
 | `t-20261014-df3c` | open | — | 3 | — | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
 | `t-20261014-e3d3` | open | — | 3 | — | S71 — PREREGISTERED probe: corridor tracing on strippy/darts (new mechanism vs S56's negative) |
+| `t-20261014-e427` | open | — | 3 | — | MAINT — deposits missing INDEX rows: auditor (storagecode) |
 | `t-20261014-e74f` | open | — | 3 | — | S75 — Test: suite runtime + flakiness census (run_all 3x, CI gate proposal) |
 | `t-20261014-f3ca` | open | — | 3 | — | S64 — Census: cross-shadow family deep-failure map (fresh items, per-stage categories) |
+| `t-20261014-fc64` | open | — | 3 | — | Review: lease report: who holds what, and how long silent (t-20261014-3fd4) |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
+| `t-20261014-7566` | open | — | 4 | — | MAINT — chronicle charter + index (storage) |
+| `t-20261014-86e9` | open | — | 4 | — | MAINT — room demo: the pipeline in one offline script |
+| `t-20261014-ba50` | open | — | 4 | — | MAINT — warehouse policy doc (storagecode) |
+| `t-20261014-e770` | open | — | 4 | — | MAINT — memory rotation tool (dry-run first, append-only) |
+| `t-20261014-f05f` | open | — | 4 | — | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
