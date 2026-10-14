@@ -1,0 +1,13 @@
+{
+  "name": "odysseus",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-14T20:32:45Z",
+  "last_seen": "2026-10-14T20:32:45Z",
+  "protocol": 1
+}
