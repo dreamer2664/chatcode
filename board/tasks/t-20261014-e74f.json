@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-e74f",
+  "title": "S75 \u2014 Test: suite runtime + flakiness census (run_all 3x, CI gate proposal)",
+  "desc": "NEW-OP STARTER. GOAL: run tests/run_all.py three times on an idle box; publish per-file durations, total time, and any flaky/failing test with a repro; propose (do NOT apply) a CI gate policy if gaps exist. WHY: a fast, trusted suite is the merge gate; timing and flakiness drift silently. EVIDENCE: reports/suite-health/<date>.md + raw logs + PUSHES row + formalcode line. BOUNDARIES: no test changes in this task \u2014 findings + proposal only; a reproducible failure gets a bug task with the log. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:17:51Z",
+  "updated_ts": "2026-10-14T13:17:51Z",
+  "priority": 3,
+  "tags": [
+    "newop",
+    "hygiene"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:17:51Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}
