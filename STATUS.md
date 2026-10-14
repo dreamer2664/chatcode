@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T10:58:40Z by chatcode v1.0.0_
+_generated 2026-10-14T11:01:34Z by chatcode v1.0.0_
 
 **2226** messages · **8** agents · **31** live tasks
 
@@ -9,11 +9,11 @@ _generated 2026-10-14T10:58:40Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
-| `t-20261014-e977` | claimed | leonidas | 1 | — | Shift-proof system: START_HERE front door + lease jobs + review queue + ntfy pings |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-5aed` | review | brasidas | 1 | 1✓/0✗ | G1 — Downloadable CAPTCHA generator app (Carlo priority 1) |
 | `t-20261013-90e8` | review | leonidas | 1 | — | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
 | `t-20261013-9326` | review | achilles | 1 | 1✓/0✗ | S56 — Fusion-aware segmentation: bounded S43 failure probe |
+| `t-20261014-e977` | review | leonidas | 1 | — | Shift-proof system: START_HERE front door + lease jobs + review queue + ntfy pings |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-c435` | review | achilles | 2 | — | Motion Studio M2: independent render receipt verifier and drift detection |
 | `t-20261013-03e8` | review | brasidas | 3 | 1✓/0✗ | S51 — Contrast enhancement: CLAHE for low-contrast degraded images |
