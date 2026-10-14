@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-df3c",
+  "title": "S69 \u2014 Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets)",
+  "desc": "GOAL: deep-dive the 5 same-length substitution misses (the whole glyph lane) + the 4 S55 \u00a76 glyph targets: per item produce reader-stage evidence (which glyph, which decision, what would have to change) and 1-3 candidate mechanisms ranked by expected lift. WHY: S55 \u00a76: '4 glyph items need reader/segmentation evidence, not text rules'; the 5 substitutions are the only pure-matching residue left. READ FIRST: reports/s43_failure_analysis.md (item list), reports/s55-postprocess-audit.md \u00a74-\u00a76, tools/matcher_variants.py. STEPS: per item: read vs label, per-position diff, piece/mask inspection, nearest confusion classes \u2192 evidence table + top candidate with a preregisterable next step. EVIDENCE: reports/glyph-residue/<date>.md + PUSHES row + formalcode line. BOUNDARIES: no reader edits \u2014 proposals only. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:20:17Z",
+  "updated_ts": "2026-10-14T13:20:17Z",
+  "priority": 3,
+  "tags": [
+    "evidence",
+    "glyph"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:20:17Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}

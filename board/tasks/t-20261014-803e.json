@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-803e",
+  "title": "S77 \u2014 Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match)",
+  "desc": "GOAL: regenerate the S53 hard corpus with the frozen recipe at seed 53 and match the recorded manifest sha256 (44b79be7ea90\u2026, full value in reports/s53-hard-corpus/); publish a one-command regeneration receipt. WHY: the corpus feeds training lanes \u2014 if it cannot be regenerated bit-identically, training receipts become unreproducible. EVIDENCE: reports/s53-corpus-regen/<date>.md (command, timing, hash match) + PUSHES row + formalcode line. BOUNDARIES: regeneration + receipt only; on hash mismatch: document the diff and STOP, escalate on groupchatcode. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:20:16Z",
+  "updated_ts": "2026-10-14T13:20:16Z",
+  "priority": 3,
+  "tags": [
+    "verify",
+    "data"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:20:16Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}

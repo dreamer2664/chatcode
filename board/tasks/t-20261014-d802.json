@@ -1,0 +1,27 @@
+{
+  "id": "t-20261014-d802",
+  "title": "S62 \u2014 Census: collage family deep-failure map (fresh items, per-stage categories)",
+  "desc": "NEW-OP STARTER. GOAL: generate fresh, non-canonical collage items (~40; seeds \u2265900 \u2014 never 1-4 or 53) with generator.py, read them, and categorize EVERY failure by stage (preclassify / segmentation / classification) with counts, examples and a committed gallery. WHY: canonical suites hold only ~8 collage items; real rates and stage attribution need fresh samples. S43 says segmentation owns 82% of the hard residue; note S14's per-card collage route was DENIED by vote \u2014 do not resurrect it without a new mechanism. READ FIRST: reports/s43_failure_analysis.md, reports/s55-postprocess-audit.md (what is already closed), reports/stage-diagnosis.json. STEPS: gen fresh set \u2192 plain floor read + reader_lex read + per-stage diagnostics (tools/stage_diagnosis.py, S25-style piece inspection) \u2192 category table + one example per category in the gallery. IF your census fingerprints a mechanism matching a CLOSED lane (adaptive threshold / CLAHE / edge enhancement / morph-close / size-window / straight-column / S56 seam): say so explicitly and propose the next DIFFERENT mechanism \u2014 do not re-run closed lanes. EVIDENCE: reports/census-collage/<date>.md + gallery/ + PUSHES row + formalcode line. BOUNDARIES: diagnostics only, no shipping edits, no canonical-seed generation. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:20:17Z",
+  "updated_ts": "2026-10-14T13:20:17Z",
+  "priority": 3,
+  "tags": [
+    "newop",
+    "census",
+    "segmentation"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:20:17Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}

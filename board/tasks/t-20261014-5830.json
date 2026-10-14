@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-5830",
+  "title": "S74 \u2014 Tool: quick per-family screen helper (deterministic, tested, screen-only banner)",
+  "desc": "NEW-OP STARTER. GOAL: deliver tools/quick_screen.py \u2014 deterministic per-family quick screen: generate N per family (default 10) at a chosen seed, read with a chosen reader, print a per-family table + write json, with a loud banner: 'SCREEN, not proof \u2014 never a headline number'. WHY: probes and probes-in-progress need a 1-2 minute feedback loop without full benches; benches remain the only source of headline numbers. STEPS: implement + tests/test_quick_screen.py (determinism, banner present, table correctness on fixtures); note it in BENCH.md; must NOT touch bench.py scoring. EVIDENCE: PR with tool+tests + PUSHES row + formalcode line. BOUNDARIES: no bench/generator changes; sample seeds \u2265900 or explicit. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:20:18Z",
+  "updated_ts": "2026-10-14T13:20:18Z",
+  "priority": 3,
+  "tags": [
+    "newop",
+    "tool"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:20:18Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}

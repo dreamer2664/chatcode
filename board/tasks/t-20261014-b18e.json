@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-b18e",
+  "title": "W2 follow-up \u2014 post-S55 bundle refresh + 19-check verifier receipt",
+  "desc": "GOAL (W2, post-S55): on merged main, rebuild the standalone bundle (app/build_bundle.py, no --release), run tools/verify_w2_package.py in an isolated venv (all 19 checks), publish a refresh receipt with the new zip sha + revision stamp. WHY: the bundle embeds the reader stack; after S55's lex band merges, custody needs a fresh verified artifact. This is a refresh receipt \u2014 custody stays with achilles. EVIDENCE: reports/w2-refresh/<date>.md + zip sha + PUSHES row + formalcode line. BOUNDARIES: no app source edits; any failed check = STOP + ping groupchatcode (release blocker, not fix-it-yourself). Depends on the S55 merge (PR #76): if not merged, wait, or do a pre-merge dry-run clearly labelled as such. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:20:18Z",
+  "updated_ts": "2026-10-14T13:20:18Z",
+  "priority": 2,
+  "tags": [
+    "product",
+    "w2"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:20:18Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}

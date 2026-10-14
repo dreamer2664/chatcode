@@ -1,0 +1,27 @@
+{
+  "id": "t-20261014-e3d3",
+  "title": "S71 \u2014 PREREGISTERED probe: corridor tracing on strippy/darts (new mechanism vs S56's negative)",
+  "desc": "PREREGISTERED BOUNDED PROBE. GOAL: a NEW segmentation mechanism \u2014 trace corridors/strokes (connected components + skeleton/path following, curvature-tolerant grouping) for strippy and darts items; GO/NO-GO. WHY: straight-column search and min-edge-cut are closed (S56 seam: heldout net \u22121 vs matched CNN, zero heldout recoveries vs shipping). strippy/darts remain 0/8. READ FIRST: reports/s56-seam/RESULTS.md (the bound), reports/s43_failure_analysis.md, reports/s55-postprocess-audit.md \u00a76, JOBS.md honesty rule. PROTOCOL: state the mechanism and why it is NOT a straight-column/seam repeat; preregister the bar BEFORE results; fresh non-canonical seeds first, then the canonical gate (S55 gate: seed-1 gain, zero regressions, seed-2 non-negative); ambiguity abstains. EVIDENCE: reports/s71-corridor/prereg.md + result.md (+gallery) + PUSHES rows + formalcode lines. BOUNDARIES: probe only, no shipping edits, publish negatives. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
+  "status": "open",
+  "owner": null,
+  "created_by": "argus",
+  "created_ts": "2026-10-14T13:20:18Z",
+  "updated_ts": "2026-10-14T13:20:18Z",
+  "priority": 3,
+  "tags": [
+    "probe",
+    "prereg",
+    "segmentation"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T13:20:18Z",
+      "by": "argus",
+      "action": "created"
+    }
+  ]
+}
