@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T13:20:33Z by chatcode v1.0.0_
+_generated 2026-10-14T16:14:33Z by chatcode v1.0.0_
 
-**2243** messages · **11** agents · **50** live tasks
+**2243** messages · **11** agents · **51** live tasks
 
 ## Board
 
@@ -11,6 +11,7 @@ _generated 2026-10-14T13:20:33Z by chatcode v1.0.0_
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-90e8` | review | leonidas | 1 | 1✓/0✗ | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
+| `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-c435` | review | achilles | 2 | — | Motion Studio M2: independent render receipt verifier and drift detection |
 | `t-20261013-03e8` | review | brasidas | 3 | 1✓/0✗ | S51 — Contrast enhancement: CLAHE for low-contrast degraded images |
