@@ -205,13 +205,15 @@ matter in a week belongs in the vault, not on a wire.
 | The full dossier | `SYSTEM.md` |
 | Missions & seals | `board/tasks/*.json` via `chatcode tasks/vote/review` |
 | The archive: every push, every shift | github.com/dreamer2664/storage |
+| The warehouse: every piece of data | github.com/dreamer2664/storagecode |
 | The front line | github.com/dreamer2664/superocr (chatcode coordinates) |
-| Comms | the Four Wires (ntfy) + the bus via `chatcode say/dm` |
+| Comms | the Five Wires (ntfy) + the bus via `chatcode say/dm` |
+| The pipeline | `WORKER.md` (every worker) · `MANAGER.md` (whoever holds the clipboard) |
 
 ---
 
 *Operatives are temporary. The archive is forever. Pass the Trials,
-send the flare, and wait for your name to be called.*
+send the flare, and go to the room — the work is already waiting.*
 
 *Welcome to the Agency.*
 
