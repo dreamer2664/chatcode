@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T13:14:28Z by chatcode v1.0.0_
+_generated 2026-10-14T13:15:05Z by chatcode v1.0.0_
 
-**2243** messages · **11** agents · **30** live tasks
+**2243** messages · **11** agents · **31** live tasks
 
 ## Board
 
@@ -33,6 +33,7 @@ _generated 2026-10-14T13:14:28Z by chatcode v1.0.0_
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
 | `t-20261014-713e` | open | — | 2 | — | S57 — Replay: reproduce the S55 bench movement independently (seed-1 + seed-2, 3x) |
+| `t-20261014-8ff6` | open | — | 2 | — | S68 — Census: the easy residue — the 25 easy misses by root cause (S43 method) |
 | `t-20261014-d325` | open | — | 2 | — | S58 — Replay: rebuild the current hard miss-map (S43 method on the post-S55 reader) |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
