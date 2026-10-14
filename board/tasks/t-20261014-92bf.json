@@ -2,11 +2,11 @@
   "id": "t-20261014-92bf",
   "title": "START_HERE v2: entry tests, 3 ntfy channels, wait-for-manager gate + START_HERE_MANAGERS",
   "desc": "Carlo directive: new hires prove connection via a test battery, confirm on ntfy newentriescode, then wait for a manager job list. Three ntfy channels: formalcode (formal record only), groupchatcode (informal pings), newentriescode (hire confirmations). CLI ping gains --topic. New START_HERE_MANAGERS.md. Remove outdated single-channel content.",
-  "status": "claimed",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T11:36:19Z",
-  "updated_ts": "2026-10-14T11:36:57Z",
+  "updated_ts": "2026-10-14T11:39:44Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -23,6 +23,12 @@
       "ts": "2026-10-14T11:36:57Z",
       "by": "leonidas",
       "action": "claimed by leonidas"
+    },
+    {
+      "ts": "2026-10-14T11:39:44Z",
+      "by": "leonidas",
+      "action": "update\u2192done",
+      "note": "PR #62 @3a1aee9 merged 828f557 on Carlo's owner override (bus #f4e2babd, no votes). START_HERE v2 + MANAGERS live on main. PR logged in storage PUSHES.md."
     }
   ],
   "lease": {
@@ -30,5 +36,6 @@
     "since": "2026-10-14T11:36:57Z",
     "expires": "2026-10-14T15:36:57Z",
     "checkpoint": ""
-  }
+  },
+  "completed_ts": "2026-10-14T11:39:44Z"
 }
