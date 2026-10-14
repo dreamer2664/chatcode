@@ -1,0 +1,106 @@
+name: record
+
+# THE RECORD. Every push to main and every PR event in this repo — and in
+# every repo that calls this workflow — lands on the ntfy wire `formalcode`:
+# the live, official record of the empire. The durable copy is pulled into
+# dreamer2664/storagecode (wire/) by its wire-archive job, so the stream
+# survives ntfy's message retention.
+#
+# Reusable — another repo records itself with a 12-line caller:
+#
+#   # .github/workflows/record.yml in that repo
+#   on:
+#     push:             { branches: [main] }
+#     pull_request:     { types: [opened, closed, reopened] }
+#     workflow_dispatch:
+#   jobs:
+#     record:
+#       uses: dreamer2664/chatcode/.github/workflows/record.yml@main
+#
+# Skips (not the record): housekeeping pushes marked [skip ci] (the digest),
+# the superocr mirror sync, the storagecode wire archive. Everything else is.
+#
+# No secrets, no token: posting to the wire is a public doorbell.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, closed, reopened]
+  workflow_dispatch:
+    inputs:
+      msg:
+        description: "optional line to post to formalcode (manual test)"
+        required: false
+        type: string
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  formalcode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: compose the record line
+        id: line
+        env:
+          EVENT: ${{ toJson(github.event) }}
+          EV: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -eu
+          cat > /tmp/rec.py <<'PY'
+          import json, os, sys, textwrap
+
+          ev = os.environ["EV"]
+          d = json.loads(os.environ["EVENT"])
+          slug = os.environ["REPO"]
+          repo = slug.split("/")[-1]
+
+          def cut(s, n=140):
+              return textwrap.shorten(" ".join((s or "").split()), width=n,
+                                      placeholder=" …")
+
+          if ev == "push":
+              c = d.get("head_commit") or {}
+              msg = c.get("message") or ""
+              first = msg.splitlines()[0] if msg else ""
+              if ("[skip ci]" in msg or first.startswith("superocr: mirror")
+                      or first.startswith("wire: archive")):
+                  sys.exit(3)                      # housekeeping, not the record
+              files = len((c.get("added") or []) + (c.get("modified") or [])
+                          + (c.get("removed") or []))
+              author = (c.get("author") or {}).get("name") or "?"
+              sha = d.get("after") or ""
+              print(f"[{repo}] {sha[:8]} · {author} · {cut(first)} · {files}f · "
+                    f"https://github.com/{slug}/commit/{sha}")
+          elif ev == "pull_request":
+              p = d.get("pull_request") or {}
+              act = d.get("action")
+              verb = {"opened": "opened", "reopened": "reopened"}.get(
+                  act, "MERGED" if p.get("merged") else "closed (unmerged)")
+              who = (p.get("user") or {}).get("login") or "?"
+              print(f"[{repo}] PR #{p.get('number')} {verb} · {who} · "
+                    f"{cut(p.get('title'))} · {p.get('html_url', '')}")
+          elif ev == "workflow_dispatch":
+              m = ((d.get("inputs") or {}).get("msg") or "").strip()
+              if not m:
+                  sys.exit(3)
+              print(m)
+          else:
+              sys.exit(3)
+          PY
+          rc=0; line=$(printf '%s' "$EVENT" | python3 /tmp/rec.py) || rc=$?
+          if [ "$rc" = "3" ]; then echo "not the record — skip"; exit 0; fi
+          [ "$rc" = "0" ] || { echo "compose failed (rc=$rc)"; exit 1; }
+          [ -n "$line" ] || { echo "empty line — skip"; exit 0; }
+          { echo "line<<REC_EOF"; echo "$line"; echo "REC_EOF"; } >> "$GITHUB_OUTPUT"
+
+      - name: post to formalcode
+        if: steps.line.outputs.line != ''
+        env:
+          LINE: ${{ steps.line.outputs.line }}
+        run: |
+          set -eu
+          curl -fsS -X POST -d "$LINE" https://ntfy.sh/formalcode > /dev/null
+          echo "recorded: $LINE"
