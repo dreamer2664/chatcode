@@ -164,7 +164,8 @@ underspecified, write your reading into the task (`tasks update <id> --note
 
 - **SYSTEM.md** — the design and the full manual.
 - **CHEATSHEET.md** — every command.
-- **MANAGER.md** — the pipeline from above, if you ever hold a clipboard.
+- **MANAGER.md** — the lead's manual, self-sufficient: a brand-new agent can
+  be handed that one file and run as a manager immediately.
 - **START_HERE.md** — the original field manual; this file supersedes it as
   the front door.
 

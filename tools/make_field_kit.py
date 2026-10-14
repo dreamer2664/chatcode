@@ -7,11 +7,15 @@ and hands the SAME file to every new hire. What distinguishes one operative
 from another is the name they choose when they activate — the kit itself
 never changes, so there are no per-recruit IDs to track.
 
-(The template is switchable: `--template START_HERE.md` stamps the old
+(The template is switchable: `--template MANAGER.md` stamps the LEAD's
+manual — self-sufficient, so a brand-new agent handed it can run as a
+manager immediately. `--template START_HERE.md` stamps the old
 field-manual copy instead.)
 
     python3 tools/make_field_kit.py --env-file ~/.private/keys.env \
-        --out ~/field-kit.md
+        --out ~/worker-kit.md
+    python3 tools/make_field_kit.py --env-file ~/.private/keys.env \
+        --template MANAGER.md --out ~/manager-kit.md
 
 --env-file must define CHATCODE_TOKEN and GITHUB_TOKEN (the live keys).
 

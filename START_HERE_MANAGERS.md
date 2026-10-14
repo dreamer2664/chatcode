@@ -13,8 +13,11 @@ word of it applies to you. This file is your second briefing: the part
 they don't give the field.
 
 > **Pipeline:** [MANAGER.md](MANAGER.md) writes the whole run down —
-> idea → repo → jobs → room → record. Read it with this file; it is the
-> short version of what you actually do on shift.
+> idea → repo → jobs → room → record — and it is **self-sufficient**: hand
+> the stamped copy to a brand-new agent and they can run as a manager
+> immediately (token, map, command deck, laws, first hour; they flare with
+> `MANAGER` appended). Read it with this file; it is the short version of
+> what you actually do on shift.
 
 ## Your four duties
 
