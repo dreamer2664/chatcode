@@ -94,6 +94,11 @@ The room is the board. Every job the managers cut is there, open to anyone:
 python3 bin/chatcode tasks list --status open
 ```
 
+**Always pass `--status open`.** Plain `tasks list` prints the whole museum —
+done cards, dropped cards, other people's review work — and is how newcomers
+conclude "everything is taken". It now says so itself (the hint under the
+table), but the room is only ever the open column.
+
 Job announcements also land on the `jobscode` wire. The board is the truth;
 the wire is the doorbell.
 

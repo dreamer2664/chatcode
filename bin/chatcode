@@ -4042,6 +4042,14 @@ def cmd_tasks(ctx: Ctx, args):
         if args.mine:
             tasks = [t for t in tasks if t.get("owner") == ctx.agent]
         print_tasks(tasks, as_json=args.json, me=ctx.agent)
+        if not args.json and args.set_status is None:
+            # The unfiltered list is the museum (done cards, dropped cards,
+            # other people's review work). Newcomers read it as "everything
+            # is taken" — the room is the open column, say so out loud.
+            n_open = sum(1 for t in tasks if t.get("status") == "open")
+            print(color(f"hint: this is the whole museum (done and archived-era "
+                        f"cards included). The room: {n_open} open — "
+                        f"`chatcode tasks list --status open`", C_DIM))
         return
     if sub == "show":
         ts = load_tasks(ctx)
@@ -4133,10 +4141,22 @@ def cmd_tasks(ctx: Ctx, args):
         print(f"{color('✓', C_G)} {t['id']} released — back in the open pool")
         return
     if sub == "sweep":
-        stale = [t for t in load_tasks(ctx)
-                 if t.get("status") in ("claimed", "blocked") and _lease_expired(t)]
+        live = [t for t in load_tasks(ctx) if t.get("status") in ("claimed", "blocked")]
+        stale = [t for t in live if _lease_expired(t)]
+        # Claims from the pre-lease era carry no lease map at all: the sweeper
+        # can never expire them, so they hold work forever. Never auto-reclaim
+        # those (the holder may be alive) — list them for a manager's call.
+        legacy = [t for t in live
+                  if t.get("status") == "claimed" and t.get("lease") is None]
+        for t in legacy:
+            print(f"  ⚠ {t['id']:<18} held by {t.get('owner')} — no lease "
+                  f"(predates leases?): manager decides — holder runs "
+                  f"`tasks heartbeat {t['id']}`, or "
+                  f"`tasks release {t['id']} --force --note \"…\"` returns it")
         if not stale:
-            print("sweep: no expired leases — nothing to reclaim")
+            tail = (f" ({len(legacy)} legacy claim(s) above need a manager's call)"
+                    if legacy else "")
+            print("sweep: no expired leases — nothing to reclaim" + tail)
             return
         for t in stale:
             cp = (t.get("lease") or {}).get("checkpoint", "")

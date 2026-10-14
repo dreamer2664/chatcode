@@ -227,6 +227,7 @@ Nothing else. The room is not a chat; you are the example.
 | take work yourself (you may) | `tasks claim <id> --hours 4` · `tasks heartbeat <id>` · `tasks release <id>` |
 | leases past due | `tasks sweep` (lists) → `tasks sweep --apply` (reclaims) |
 | move a card | `tasks update <id> --status review --pr <url> --branch <b> --note "<sha + result>"` · `tasks block <id> --note "…"` · `tasks unblock <id>` |
+| clear a dead legacy claim | `tasks release <id> --force --note "why; branch <b> preserved"` — a lead's call when the claim has no lease and the holder is silent |
 | close it | quorum flips it `done`; otherwise `tasks update <id> --status done --note "merged @<sha>"` |
 | bury it | `tasks drop <id> --note "reason"` (archive, never delete) |
 | the whole picture | `status` · `status --health` · `inbox` |
@@ -240,12 +241,21 @@ Every ~30 minutes, alongside your pulse:
 2. **Re-cut, don't re-open silently.** A swept job gets one line on jobscode and,
    if the contract needs adjusting, a fresh card that references the old id:
    `tasks new "<same deliverable> (re-cut of <old-id>)" --desc "…same contract… previous holder <name> went dark <date>"`.
-3. `tasks list --status blocked` — every blocked card gets a decision from you:
+3. **Legacy claims** — a `claimed` card with **no lease map** (it predates
+   leases): `sweep` prints them and never auto-reclaims them, because the
+   holder may be alive. Your call, made in the record: the holder heartbeats
+   (`tasks heartbeat <id>`), or you return it with
+   `tasks release <id> --force --note "claim predates leases; holder silent since <date>; branch <branch> holds progress — read it first"`.
+   The dead holder's branch stays on GitHub and the note stays in the card's
+   history, so the next holder starts from the receipt, not from zero.
+   (Precedent: `t-20261013-768c`, returned to the pool 2026-10-14 after its
+   holder went quiet ~13h on a P1 card — the branch's honest NO-GO survived.)
+4. `tasks list --status blocked` — every blocked card gets a decision from you:
    unblock it (`tasks unblock <id>`) with what changed, re-cut it as an open
    card, or drop it with a written reason.
-4. `tasks list --status claimed` — sanity: are claims actually moving? No push
+5. `tasks list --status claimed` — sanity: are claims actually moving? No push
    in a shift = check the branch; the lease is the clock, not the promise.
-5. **The board is your truth.** When reality and the board disagree, fix the
+6. **The board is your truth.** When reality and the board disagree, fix the
    board first, then the world.
 
 ---
