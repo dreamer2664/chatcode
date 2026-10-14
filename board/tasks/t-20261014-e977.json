@@ -2,17 +2,17 @@
   "id": "t-20261014-e977",
   "title": "Shift-proof system: START_HERE front door + lease jobs + review queue + ntfy pings",
   "desc": "Carlo directive (Leonidas subbing for Brasidas as coordinator). Agents die mid-job: replace long ownership with (1) START_HERE.md front door in chatcode root, CHEATSHEET.md, SYSTEM.md; (2) task leases with heartbeat/checkpoint + sweep so dead agents' jobs return to the pool; (3) review queue commands (review list/next/grab) so agents continuously review; (4) chatcode ping to ntfy.sh/chatcode as primary comms doorbell. No secrets in repo or ntfy. Branch agent/leonidas/<id>; PR for review; no self-vote.",
-  "status": "claimed",
+  "status": "review",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T10:53:25Z",
-  "updated_ts": "2026-10-14T10:53:34Z",
+  "updated_ts": "2026-10-14T11:01:23Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
   "branch": "agent/leonidas/t-20261014-e977",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/60",
   "history": [
     {
       "ts": "2026-10-14T10:53:25Z",
@@ -23,6 +23,12 @@
       "ts": "2026-10-14T10:53:34Z",
       "by": "leonidas",
       "action": "claimed by leonidas"
+    },
+    {
+      "ts": "2026-10-14T11:01:23Z",
+      "by": "leonidas",
+      "action": "update\u2192review",
+      "note": "PR #60 @dea6ebf: START_HERE/CHEATSHEET/SYSTEM + leases/review-queue/ping; tests 6/6 new, 30/30 full suite"
     }
   ]
 }
