@@ -2,11 +2,11 @@
   "id": "t-20261013-5aed",
   "title": "G1 \u2014 Downloadable CAPTCHA generator app (Carlo priority 1)",
   "desc": "Requested owner: barry; OPEN pending his own claim/ACK. Carlo directive in the onboarding handoff: generator deliverable first. Reuse tools/gen_hard_corpus.py/S53 engine without modifying the frozen S53 recipe, manifest, or evaluation suites. Standalone downloadable local app: browser UI for family, severity, seed, text/count and output; preview; export generated images plus ground-truth manifest as a ZIP. Bundle redistributable fonts; documented Python/dependency requirements and launchers; deterministic generation, clean-room selftest and failure messages. Follow W2 packaging conventions where useful but coordinate shared files; prefer generator_app/ and isolated tests. Deliver a release/download URL, SHA-256, build commit and reproducible launch/selftest receipt. This is a generator, NOT a claim that OCR meets 98/95. First update: claim/ACK and first runnable milestone estimate. If offline/blocked, report that explicitly; no fictional start time.",
-  "status": "review",
+  "status": "done",
   "owner": "brasidas",
   "created_by": "brasidas",
   "created_ts": "2026-10-13T21:55:23Z",
-  "updated_ts": "2026-10-14T00:12:58Z",
+  "updated_ts": "2026-10-14T12:54:45Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -39,6 +39,29 @@
       "by": "brasidas",
       "action": "update\u2192review",
       "note": "Functional G1 candidate pushed at 75fc3e707761d89ac87469d533309f6d6b03a686. 24 tests PASS, clean-room real lex smoke, browser generation/OCR/export verified. Pending independent review/final clean-source ZIP. No 98/95 claim."
+    },
+    {
+      "ts": "2026-10-14T12:54:45Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-14T12:54:45Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #84 @9ec82d1ede179822427fa9ccc5d8daf1ea0a505d, Linux (sandbox, Python 3.13) only \u2014 Windows/macOS NOT tested and not claimed. Ran: tests/test_captcha_studio.py 24/24 PASS exit 0 (11.5s, incl. forced-selftest-failure, clean-room package, missing-font, core-unchanged tests); tools/build_captcha_app_",
+      "ts": "2026-10-14T07:20:00Z",
+      "id": "72deaee2"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "head 9ec82d1ede179822427fa9ccc5d8daf1ea0a505d. Independent inspection on clean worktree at exact head (Linux, py3.13 only; refs/pull/84/head fetched and matched). Ran: (1) tests/test_captcha_studio.py -> 24/24 OK (19.6s); (2) server --selftest -> 18 arms, deterministic true, export PASS, accuracy_cl",
+      "ts": "2026-10-14T12:54:41Z",
+      "id": "47e2ab76"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
