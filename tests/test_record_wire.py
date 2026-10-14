@@ -132,6 +132,15 @@ def main() -> int:
     check(rc == 0 and " · 1f · " in out,
           f"file count falls back to commits[] (got: {out!r})")
 
+    # when the payload carries no file lists anywhere, the count is OMITTED —
+    # a wrong "0f" is worse than no count (2026-10-14: every live line said 0f)
+    rc, out = run_composer(src, {"head_commit": {"message": "no lists",
+                                                 "author": {"name": "vesta"},
+                                                 "added": [], "modified": [], "removed": []},
+                                 "after": "f" * 40}, "push")
+    check(rc == 0 and " · f · " not in out and "0f" not in out,
+          f"an unknown file count is omitted, never 0f (got: {out!r})")
+
     # a merged PR is the record
     rc, out = run_composer(src, {"action": "closed",
                                  "pull_request": {"number": 76, "merged": True,

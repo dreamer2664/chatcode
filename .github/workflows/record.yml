@@ -70,13 +70,15 @@ jobs:
                   sys.exit(3)                      # housekeeping, not the record
               files = len((c.get("added") or []) + (c.get("modified") or [])
                           + (c.get("removed") or []))
-              if not files and d.get("commits"):   # head_commit often carries
-                  files = sum(                     # no file lists; sum commits
+              if not files and d.get("commits"):   # real payloads often ship
+                  files = sum(                     # no file lists at all; sum
                       len(x.get("added") or []) + len(x.get("modified") or [])
                       + len(x.get("removed") or []) for x in d["commits"])
+              # never print a wrong count: the segment exists only when known
+              seg = f" · {files}f" if files else ""
               author = (c.get("author") or {}).get("name") or "?"
               sha = d.get("after") or ""
-              print(f"[{repo}] {sha[:8]} · {author} · {cut(first)} · {files}f · "
+              print(f"[{repo}] {sha[:8]} · {author} · {cut(first)}{seg} · "
                     f"https://github.com/{slug}/commit/{sha}")
           elif ev == "pull_request":
               p = d.get("pull_request") or {}
