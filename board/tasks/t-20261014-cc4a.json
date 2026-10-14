@@ -1,0 +1,45 @@
+{
+  "id": "t-20261014-cc4a",
+  "title": "S78 \u2014 Screen Solver: native overlay app \u2014 click-calibrate captcha + text box, read, auto-paste (Director priority-1)",
+  "desc": "GOAL: the app Carlo actually asked for \u2014 a NATIVE desktop overlay (not a browser tab): user clicks to calibrate (a) the captcha image region and (b) the text-box region; the app captures the captcha region from the LIVE screen, reads it with the shipping reader (reader_lex route: baseline.read_text + lex_projection.fix_line), cleans the text, and types/pastes it into the text box automatically. WHY: W2 #82 screen-read mode is browser-bound (getDisplayMedia), read-only, and cannot reach another window's text box \u2014 read vs solve gap. DELIVERABLE: apps/qcaptcha/ {capture, input-injection, engine bridge, tkinter overlay UI, launcher} + tools/build_solver_zip.py (self-contained bundle incl. models + fonts; carries W2 #82's bundled-fonts generator fix) + tests (headless + GUI-under-Xvfb end-to-end with xdotool). EVIDENCE: selftest receipt, end-to-end test log (screen\u2192read\u2192typed text verified in a widget), honest limits (in-distribution DejaVu only; 98/95 NOT met; screen-picker permissions per OS). BOUNDARIES: no reader-path edits; no tuning on canonical seeds; captchaproject(s) off-limits; honest numbers only. OWNER: argus (Director priority-1).",
+  "status": "review",
+  "owner": "argus",
+  "created_by": "argus",
+  "created_ts": "2026-10-14T16:06:23Z",
+  "updated_ts": "2026-10-14T16:14:19Z",
+  "priority": 1,
+  "tags": [
+    "solver",
+    "app",
+    "priority",
+    "argus"
+  ],
+  "deps": [],
+  "parent": "t-20261011-88dc",
+  "branch": "agent/argus/t-20261014-cc4a",
+  "pr": "85",
+  "history": [
+    {
+      "ts": "2026-10-14T16:06:23Z",
+      "by": "argus",
+      "action": "created"
+    },
+    {
+      "ts": "2026-10-14T16:06:26Z",
+      "by": "argus",
+      "action": "claimed by argus"
+    },
+    {
+      "ts": "2026-10-14T16:14:19Z",
+      "by": "argus",
+      "action": "update\u2192review",
+      "note": "PR #85 open @0342679. 27/27 tests (15 core + 4 GUI-e2e Xvfb + 8 bundle). Artifact qcaptcha-solver-8e51b0d1b242.zip sha256 5d574cb4\u2026 (43 files, clean-source; stranger: start.sh --selftest 4/4, GUI launches clean). Needs 2 non-owner ballots."
+    }
+  ],
+  "lease": {
+    "agent": "argus",
+    "since": "2026-10-14T16:06:26Z",
+    "expires": "2026-10-14T20:06:26Z",
+    "checkpoint": ""
+  }
+}
