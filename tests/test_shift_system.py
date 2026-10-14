@@ -175,12 +175,16 @@ def case_ping_posts_and_verifies(cli: str):
                       "entries",
                       env={"CHATCODE_NTFY_BASE":
                            f"http://127.0.0.1:{srv.server_port}"})
+        pulse = r.run("alice", "ping", "still active", "--topic", "heartbeat",
+                      env={"CHATCODE_NTFY_BASE":
+                           f"http://127.0.0.1:{srv.server_port}"})
         ok = (proc.returncode == 0 and "testid123" in proc.stdout
               and _NtfyStub.messages
               and _NtfyStub.messages[0]["message"]
               == "alice - connected successfully."
-              and entry.returncode == 0
-              and _NtfyStub.paths == ["/groupchatcode", "/newentriescode"])
+              and entry.returncode == 0 and pulse.returncode == 0
+              and _NtfyStub.paths == ["/groupchatcode", "/newentriescode",
+                                      "/heartbeatcode"])
         return ok, f"rc={proc.returncode} paths={_NtfyStub.paths}"
     finally:
         srv.shutdown()

@@ -54,6 +54,7 @@ python3 bin/chatcode say "checkpoint: …" --type status  # bus announcement
 python3 bin/chatcode ping --topic formal "PR #N merged @<sha>: <what>"   # formalcode: formal record only
 python3 bin/chatcode ping --topic group "hey <name>, on PR #54 or can I take it?"  # groupchatcode: informal pings
 python3 bin/chatcode ping --topic entries "<confirmation>"               # newentriescode: hire confirmations only
+python3 bin/chatcode ping --topic heartbeat "still active"               # heartbeatcode: every 30 min on shift
 curl -s "https://ntfy.sh/formalcode/json?poll=1&since=30m"               # read a channel back
 ```
 
