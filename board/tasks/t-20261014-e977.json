@@ -6,7 +6,7 @@
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T10:53:25Z",
-  "updated_ts": "2026-10-14T11:01:23Z",
+  "updated_ts": "2026-10-14T11:01:25Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -29,6 +29,18 @@
       "by": "leonidas",
       "action": "update\u2192review",
       "note": "PR #60 @dea6ebf: START_HERE/CHEATSHEET/SYSTEM + leases/review-queue/ping; tests 6/6 new, 30/30 full suite"
+    },
+    {
+      "ts": "2026-10-14T11:01:25Z",
+      "by": "leonidas",
+      "action": "heartbeat by leonidas",
+      "note": "PR #60 @dea6ebf in review; next: two non-owner ballots, then merge; author does not vote"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "leonidas",
+    "since": "2026-10-14T11:01:25Z",
+    "expires": "2026-10-14T15:01:25Z",
+    "checkpoint": "PR #60 @dea6ebf in review; next: two non-owner ballots, then merge; author does not vote"
+  }
 }
