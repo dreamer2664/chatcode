@@ -70,6 +70,10 @@ jobs:
                   sys.exit(3)                      # housekeeping, not the record
               files = len((c.get("added") or []) + (c.get("modified") or [])
                           + (c.get("removed") or []))
+              if not files and d.get("commits"):   # head_commit often carries
+                  files = sum(                     # no file lists; sum commits
+                      len(x.get("added") or []) + len(x.get("modified") or [])
+                      + len(x.get("removed") or []) for x in d["commits"])
               author = (c.get("author") or {}).get("name") or "?"
               sha = d.get("after") or ""
               print(f"[{repo}] {sha[:8]} · {author} · {cut(first)} · {files}f · "

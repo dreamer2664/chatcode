@@ -121,6 +121,17 @@ def main() -> int:
         r"https://github\.com/dreamer2664/chatcode/commit/0123456789", out),
         f"a push lands as one record line (got: {out!r})")
 
+    # file count falls back to the commits[] array (real payloads often ship
+    # head_commit with empty file lists — seen live: every line said "0f")
+    rc, out = run_composer(src, {"head_commit": {"message": "one file",
+                                                 "author": {"name": "vesta"},
+                                                 "added": [], "modified": [], "removed": []},
+                                 "commits": [{"added": ["x.py"], "modified": [],
+                                              "removed": []}],
+                                 "after": "e" * 40}, "push")
+    check(rc == 0 and " · 1f · " in out,
+          f"file count falls back to commits[] (got: {out!r})")
+
     # a merged PR is the record
     rc, out = run_composer(src, {"action": "closed",
                                  "pull_request": {"number": 76, "merged": True,
