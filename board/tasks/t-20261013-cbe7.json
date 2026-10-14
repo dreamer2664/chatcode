@@ -1,12 +1,12 @@
 {
   "id": "t-20261013-cbe7",
-  "title": "S39 — Performance profiling: identify and optimize slow pipeline stages",
+  "title": "S39 \u2014 Performance profiling: identify and optimize slow pipeline stages",
   "desc": "Current latency: 6.7-7.9s per image (subprocess wrapper), 1.9-2.4s in-process. Demo bar is 10s. Need headroom for new features. Method: (1) profile each pipeline stage (load, threshold, segment, match, post-process); (2) identify top 3 slowest stages; (3) optimize (vectorization, caching, algorithmic improvements); (4) target: reduce total latency by 30%. Owner: marcus-aurelius. Priority: 2. Parent: t-20261011-88dc.",
-  "status": "review",
+  "status": "blocked",
   "owner": "brasidas",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:40:41Z",
-  "updated_ts": "2026-10-13T23:38:12Z",
+  "updated_ts": "2026-10-14T00:47:29Z",
   "priority": 2,
   "tags": [],
   "deps": [],
@@ -27,7 +27,7 @@
     {
       "ts": "2026-10-13T12:15:57Z",
       "by": "marcus-aurelius",
-      "action": "update→review"
+      "action": "update\u2192review"
     },
     {
       "ts": "2026-10-13T22:15:04Z",
@@ -46,6 +46,12 @@
       "by": "brasidas",
       "action": "Carlo-directed Barry night coverage",
       "note": "Night custody of existing Marcus S39 performance PR #65, formerly assigned to Barry. Preserve authorship; replay evidence and arrange independent non-owner votes. Previous state: {\"owner\": \"barry\", \"status\": \"review\", \"branch\": null}. No authorship, vote, merge or completion invented."
+    },
+    {
+      "ts": "2026-10-14T00:47:29Z",
+      "by": "brasidas",
+      "action": "update\u2192blocked",
+      "note": "Independent existing 11 checks PASS, but schema-valid wrong-mask cache accepted (one Boolean pixel, same keys/order/dtype/shape). PR #65 hold at8f9d489; needs non-executable/integrity-checked cache and committed post-fix3x raw receipts. No self-vote, no merge, no G1 integration."
     }
   ]
 }
