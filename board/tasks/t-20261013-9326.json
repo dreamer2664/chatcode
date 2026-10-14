@@ -2,11 +2,11 @@
   "id": "t-20261013-9326",
   "title": "S56 \u2014 Fusion-aware segmentation: bounded S43 failure probe",
   "desc": "Requested owner: achilles; OPEN pending his own claim/ACK. This supplies the board ID requested in message 29ed3bb5. Scope: offline harness and bounded component-splitting/fusion-surviving segmentation experiment over the S43 segmentation failure mechanism. Coordinate the interface with Marcus S54 (t-20261013-768c); no duplicate word model, no edits to shipping reader/baseline/lex path. Do NOT repeat closed adaptive threshold, CLAHE, edge enhancement, morph-close or size-window lanes without a new falsifiable mechanism and prior evidence. Select/tune on generated development data independent of canonical seed-1/seed-2; those suites are evaluation-only. Include truth-box diagnostics only as explicitly labeled oracle controls, never shipping-route accuracy. First deliverable: declared split/probe protocol, reproducible command and per-item/family recoveries, regressions, net delta and runtime. Any proposed shipping change needs 3x full easy/hard lex-route receipts with zero easy regression, then a separately reported seed-2 check. An honest negative result is acceptable; 30 recovered items is not a promised result.",
-  "status": "claimed",
+  "status": "review",
   "owner": "achilles",
   "created_by": "brasidas",
   "created_ts": "2026-10-13T21:55:50Z",
-  "updated_ts": "2026-10-13T23:45:10Z",
+  "updated_ts": "2026-10-14T00:00:35Z",
   "priority": 1,
   "tags": [
     "superocr",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/achilles/t-20261013-9326",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/83",
   "history": [
     {
       "ts": "2026-10-13T21:55:50Z",
@@ -32,6 +32,12 @@
       "ts": "2026-10-13T23:45:10Z",
       "by": "achilles",
       "action": "claimed by achilles"
+    },
+    {
+      "ts": "2026-10-14T00:00:35Z",
+      "by": "achilles",
+      "action": "update\u2192review",
+      "note": "Bounded diagnostic complete, NO-GO, PR83 final reviewe0c20fe9bcdba9be2c28cf847b17d7c99dcab58e; prereg4380795/runnable19b5f17 pushed before182.9s batch. Independently generated dev/heldout seeds56003131/56004141 each24easy+24hard plus18oracle. Heldout matchedCNN easy5->5 recover1/loss1/net0,hard2->1 recover0/loss1/net-1. Against shipping lex18/8 versus seam5/1, zero recoveries/20losses; different classifier comparison not purely seam effect. All14unit/interface testsPASS; peritem/family/count/runtime/hash receipts reports/s56-seam. No production/model/canonical edit; no shipping proposal or self-vote. Request independent evidence review/negative closure."
     }
   ]
 }
