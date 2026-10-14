@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:13:40Z",
-  "updated_ts": "2026-10-14T21:22:38Z",
+  "updated_ts": "2026-10-14T21:48:10Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -39,12 +39,18 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "bench: seed-1 r1+r2 done, r3 running; canonical hashes verified; comparator tested 6/6"
+    },
+    {
+      "ts": "2026-10-14T21:48:10Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "seed-1 replay DONE: 75/25 x3, per-item diff 0 mismatches vs committed, validate_report OK x3; seed-2 in flight"
     }
   ],
   "lease": {
     "agent": "scipio",
     "since": "2026-10-14T20:34:26Z",
-    "expires": "2026-10-15T01:22:38Z",
-    "checkpoint": "bench: seed-1 r1+r2 done, r3 running; canonical hashes verified; comparator tested 6/6"
+    "expires": "2026-10-15T01:48:10Z",
+    "checkpoint": "seed-1 replay DONE: 75/25 x3, per-item diff 0 mismatches vs committed, validate_report OK x3; seed-2 in flight"
   }
 }
