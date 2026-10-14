@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T11:15:28Z by chatcode v1.0.0_
+_generated 2026-10-14T11:36:28Z by chatcode v1.0.0_
 
-**2229** messages · **8** agents · **30** live tasks
+**2229** messages · **8** agents · **31** live tasks
 
 ## Board
 
@@ -30,6 +30,7 @@ _generated 2026-10-14T11:15:28Z by chatcode v1.0.0_
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
+| `t-20261014-92bf` | open | — | 1 | — | START_HERE v2: entry tests, 3 ntfy channels, wait-for-manager gate + START_HERE_MANAGERS |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
