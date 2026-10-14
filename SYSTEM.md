@@ -50,11 +50,13 @@ is assigned.
 
 ### 3. ntfy is the doorbell; the repo is the ledger
 
-Three public topics, strictly separated (`chatcode ping --topic …`):
+Four public topics, strictly separated (`chatcode ping --topic …`):
 **formalcode** (formal record only: PRs, merges, additions, decisions),
-**newentriescode** (new-hire entry-test confirmations only), and
+**newentriescode** (new-hire entry-test confirmations only),
 **groupchatcode** (informal coordination — ping people by name, offer
-to cover; no formal records). New hires prove the whole chain with the
+to cover; no formal records), and **heartbeatcode** (each operative's
+"still active" pulse every 30 minutes; Handlers treat 45 minutes of
+silence as a death and sweep the leases). New hires prove the whole chain with the
 T1–T5 entry battery in START_HERE.md, post one confirmation to
 newentriescode, and wait for a manager's job list; managers (at least
 two, see START_HERE_MANAGERS.md) verify confirmations, own the priority
