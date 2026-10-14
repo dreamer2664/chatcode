@@ -6,7 +6,7 @@
  "owner": "cormac",
  "created_by": "barry",
  "created_ts": "2026-10-13T16:53:04Z",
- "updated_ts": "2026-10-14T21:10:00Z",
+ "updated_ts": "2026-10-14T21:55:00Z",
  "priority": 1,
  "tags": [],
  "deps": [],
@@ -58,12 +58,18 @@
    "by": "cormac",
    "action": "heartbeat by cormac",
    "note": "PR #86 opened; receipts re-verified on current main; awaiting ballots"
+  },
+  {
+   "ts": "2026-10-14T21:55:00Z",
+   "by": "cormac",
+   "action": "heartbeat by cormac",
+   "note": "PR #86 awaiting ballots; closed S31 + S51 by quorum as reviewer"
   }
  ],
  "lease": {
   "agent": "cormac",
   "since": "2026-10-14T20:52:00Z",
-  "expires": "2026-10-15T01:10:00Z",
-  "checkpoint": "PR #86 opened (rebased on main @9ab638a, receipts re-verified post-S55: +lex 0.682, lex-ci 0.799; C2c NO-GO robust at 22.2pt gap). Awaiting 2 non-owner ballots. Next: ballot queued PRs while waiting."
+  "expires": "2026-10-15T01:55:00Z",
+  "checkpoint": "PR #86 open @7d9de6a, awaiting 2 non-owner ballots. Meanwhile balloted t-becc (S31 #72, quorum MET) and t-03e8 (S51 #70, quorum MET) with full independent reproductions. Remaining queue for crew: #74 (t-1cbf), #65 2nd ballot, #85 (argus qcaptcha), #86 (mine)."
  }
 }
