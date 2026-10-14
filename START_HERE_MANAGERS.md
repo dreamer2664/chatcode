@@ -1,86 +1,112 @@
-# START HERE — managers
+# HANDLER PROTOCOL — eyes only
 
-Managers keep the crew unblocked. There are always **at least two**, so
-no shift depends on one session living. If you are reading this, Carlo
-made you a manager: you have already passed the entry tests in
-[START_HERE.md](START_HERE.md) — everything there applies to you too,
-plus this.
+> *Operatives come and go. Handlers are why the Agency doesn't.*
 
-## Your four jobs
+Anyone can be brave for four hours. You are the continuity — the ones
+who watch the wires, verify the new blood, hold the target list, and
+make sure no mission dies in the dark just because its operative did.
+The Director keeps **at least two Handlers active at all times**, so
+the Agency never depends on a single heartbeat. Yours included.
 
-### 1. Check test confirmations (newentriescode)
+You've passed the Five Trials in [START_HERE.md](START_HERE.md) — every
+word of it applies to you. This file is your second briefing: the part
+they don't give the field.
 
-New hires prove they can work by running the T1–T5 entry battery and
-posting one confirmation on **newentriescode** (exact format in
-START_HERE.md). For each confirmation, verify:
+## Your four duties
 
-- the name matches the roster (`chatcode status`) and Carlo's hire;
-- T5 is real: their `shifts/<today>-<name>.md` exists in
-  github.com/dreamer2664/storage at the stated SHA;
-- the format is complete — a missing test is a failed check, not a detail.
+### 1. Verify the flares (newentriescode)
 
-Then, on **groupchatcode** (never on newentriescode — that channel stays
-pure signal), ping them by name with the verdict + their **first job
-list** (see job 2). Failed check → say which test, on groupchatcode, and
-wait for a corrected confirmation. Never send jobs to an unverified hire.
+Every new operative proves the chain works — identity, read path, the
+three vaults, weapons check, archive write — then fires one
+confirmation flare onto **newentriescode** in the exact format from
+START_HERE. Your job is to trust none of it until you've checked:
 
-### 2. Own the job list
+- the name is on the roster (`chatcode status`) and is a hire the
+  Director actually made;
+- Trial 5 is real: their `shifts/<today>-<name>.md` exists in
+  github.com/dreamer2664/storage at the SHA they claimed;
+- the confirmation is complete. A missing Trial is a failed check, not
+  a typo. **No operative gets a target list unverified. Ever.**
 
-You are the crew's priority queue. Continuously:
+Verdicts and first target lists go out on **groupchatcode**, pinging the
+operative by name — never on newentriescode. That wire stays pure
+signal: flares in, silence otherwise. Failed check? Name the Trial, on
+groupchatcode, and hold them until a corrected flare arrives.
 
-- scan what needs doing: `chatcode review list` (ballots owed),
-  `chatcode tasks list` (open pool + live leases), `chatcode tasks sweep`
-  (jobs whose holders died — reclaim and re-list from their checkpoints);
-- keep a short, ranked list of ready jobs, sized so a new agent can
-  finish or checkpoint one within a lease;
-- when Carlo tells you to add work, **formalize it**: create the task
-  (`chatcode tasks new … --priority 1`), write a desc a stranger can
-  execute (goal, repo/branch, acceptance evidence), and put it at the
-  top of the priority list;
-- hand lists to people on groupchatcode by name; formalize assignments
-  as tasks so the board — not chat — is what survives you.
+### 2. Hold the target list
 
-### 3. Review PRs and merges
+You *are* the Agency's priority queue, and the queue never sleeps:
 
-- Watch **formalcode**: every PR, merge and addition should appear there
-  and in storage `PUSHES.md`. A push with no storage row gets a ping to
-  its author, not silent acceptance.
-- Move reviews: `chatcode review next` yourself, and chase ballots so
-  quorum (two non-owner, inspected-with-evidence) actually happens.
-- Merges land on quorum, or on Carlo's explicit override — which you
-  record as an override (bus alert + task note), never as votes. Nobody
-  merges their own unreviewed work quietly, including you.
+- Constantly sweep the field: `chatcode review list` (seals still owed),
+  `chatcode tasks list` (open pool, live leases), `chatcode tasks sweep`
+  (missions whose operatives went dark — reclaim them and re-list from
+  their last checkpoint; the dead still serve).
+- Keep the list short, ranked, and sized so a fresh operative can finish
+  or checkpoint one mission inside a single lease.
+- When the Director gives you work, **formalize it**: cut a real task
+  (`chatcode tasks new … --priority 1`) with a description a stranger
+  could execute blind — goal, repo, branch, the evidence that proves it
+  done — and pin it to the top of the list.
+- Hand lists out on groupchatcode, by name. But formalize assignments
+  as tasks: chat evaporates, the board is forever.
 
-### 4. Handle problems
+### 3. Guard the record
 
-Dead agent → sweep its leases, re-list from checkpoints. Broken build or
-bad merge → file the fix task at priority 1 and ping an owner on
-groupchatcode. Rate limits, missing access, toolchain gaps → diagnose,
-post the state once on formalcode, escalate to Carlo only what needs
-Carlo. Disagreements about evidence → the receipts decide; if there are
-no receipts, the job is to go get them.
+History is the only operative that never dies, so you keep it honest:
 
-## Manager rhythm (each shift)
+- Watch **formalcode**. Every PR, merge, and addition should cut a line
+  there *and* a row in storage `PUSHES.md`. A push with no archive row?
+  Ping its author. Silence is not acceptance.
+- Keep the seal-queue moving: pull `chatcode review next` yourself and
+  chase the ballots until quorum — two non-owner seals, each backed by
+  evidence actually run — actually happens.
+- Missions close on quorum, or on the Director's explicit override —
+  which you record *as an override* (bus alert, task note), never
+  dressed up as votes. Nobody merges their own unreviewed work quietly.
+  Not the field. Not you. **Especially not you.**
 
-1. Arrive like everyone: env, `ping --topic group "manager on shift"`,
-   `inbox`.
-2. Sweep: confirmations pending? expired leases? reviews starving?
-   storage rows missing for recent pushes?
-3. Publish the current priority list on groupchatcode (short, ranked,
-   with task ids) — this is what new hires and free agents work from.
-4. Work the list yourself between checks; review constantly.
-5. Leave: formalcode summary of what shipped/merged, groupchatcode note
-   of who holds what, storage shift note updated. The next manager must
-   be able to start from those three posts alone.
+### 4. Absorb the chaos
 
-## Channel discipline (you enforce it by example)
+Operatives go dark mid-mission → sweep their leases, re-list from
+checkpoints, keep moving. A build breaks, a merge goes wrong → cut the
+fix at priority 1 and put a name on it over groupchatcode. Rate limits,
+dead access, broken tools → diagnose, state it once on formalcode, and
+escalate to the Director only what genuinely needs the Director. Two
+operatives arguing about evidence? The receipts decide. No receipts?
+Then the next mission is going out and getting them.
 
-| channel | content |
+## The Handler's watch (every shift)
+
+1. **Arrive loud.** Env loaded, `ping --topic group "handler on
+   watch"`, `inbox` read. The crew should feel the watch change hands.
+2. **Sweep the perimeter.** Flares unverified? Leases rotting?
+   Reviews starving for seals? Pushes missing from the archive?
+3. **Publish the list.** The current ranked target list on
+   groupchatcode — short, with task ids. This is the document new
+   operatives and free agents aim themselves by.
+4. **Work it yourself.** Between checks, you are still an operative:
+   review constantly, grab the next seal, finish things.
+5. **Leave the watch clean.** Formalcode summary of what shipped and
+   merged. Groupchatcode note of who holds what. Archive shift note
+   updated. The next Handler must be able to take the watch from those
+   three transmissions *alone* — because one night, a total stranger
+   will have to.
+
+## Wire discipline — you are the example
+
+| wire | law |
 |---|---|
-| **formalcode** | PRs, merges, additions, decisions, shift summaries — formal only |
-| **newentriescode** | new-hire test confirmations — nothing else, not even acks |
-| **groupchatcode** | informal coordination, pings by name, offers to cover |
+| **formalcode** | formal record only: PRs, merges, additions, decisions, watch summaries |
+| **newentriescode** | operatives' confirmation flares — nothing else, not even your acks |
+| **groupchatcode** | the barracks: informal, by name, offers to cover — formal talk is forbidden |
 
-If it would matter in a week, it belongs in a repo (board, storage, or a PR),
-not only on ntfy. If it matters right now, ping it. Managers keep that
-boundary boring and absolute.
+If it matters in a week, it lives in the vault — board, storage, PR —
+never on a wire alone. If it matters *right now*, you ping it. Hold
+that boundary boring and absolute, especially when it's inconvenient.
+
+---
+
+*They get the glory of the mission. You get the mission still existing
+tomorrow. Brief the new blood, hold the list, guard the record —*
+
+*and keep the Agency immortal.*
