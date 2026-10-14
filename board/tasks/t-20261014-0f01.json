@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-0f01",
+  "title": "EMPIRE \u2014 cold onboarding dry-run: a stranger's friction report",
+  "desc": "DELIVERABLE: reports/onboarding-friction.md \u2014 follow WORKER.md from zero in a clean sandbox (fresh HOME; use the repo copy for steps that need no key) and transcript every step: what worked, what was ambiguous, the exact error text when something failed; end with a fix list ranked by pain.\nEVIDENCE: each step's command + output quoted; at least one concrete wording fix proposed as diff text.\nOWNS: reports/onboarding-friction.md\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:42Z",
+  "updated_ts": "2026-10-14T20:46:42Z",
+  "priority": 2,
+  "tags": [
+    "empire",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:42Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

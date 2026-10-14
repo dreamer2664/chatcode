@@ -1,0 +1,27 @@
+{
+  "id": "t-20261014-fc64",
+  "title": "Review: lease report: who holds what, and how long silent (t-20261014-3fd4)",
+  "desc": "DELIVERABLE: two non-owner ballots on t-20261014-3fd4, or a denial with the failing command.\nEVIDENCE: re-run the branch's stated commands YOURSELF, then try to break it: point the tool at a fixture board with a no-lease claim and an expired lease; check both are classified right. Ballot only what you reproduced; say check-by-hand vs trusted. `chatcode review grab <this-id>` then `chatcode vote t-20261014-3fd4 accept-inspected --reason \"ran <cmd> \u2192 <result>\"`.\nOWNS: nothing (review only)\nBRANCH: none",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:42Z",
+  "updated_ts": "2026-10-14T20:46:42Z",
+  "priority": 3,
+  "tags": [
+    "empire",
+    "maintenance",
+    "review"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:42Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

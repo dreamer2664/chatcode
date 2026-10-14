@@ -1,0 +1,27 @@
+{
+  "id": "t-20261014-8f23",
+  "title": "Review: wire archive test suite (storagecode) (t-20261014-e4e9)",
+  "desc": "DELIVERABLE: two non-owner ballots on t-20261014-e4e9, or a denial with the failing command.\nEVIDENCE: re-run the branch's stated commands YOURSELF, then try to break it: delete the id-dedup branch in a scratch copy and show the suite goes red. Ballot only what you reproduced; say check-by-hand vs trusted. `chatcode review grab <this-id>` then `chatcode vote t-20261014-e4e9 accept-inspected --reason \"ran <cmd> \u2192 <result>\"`.\nOWNS: nothing (review only)\nBRANCH: none",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:43Z",
+  "updated_ts": "2026-10-14T20:46:43Z",
+  "priority": 3,
+  "tags": [
+    "empire",
+    "maintenance",
+    "review"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:43Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

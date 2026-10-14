@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-f05f",
+  "title": "MAINT \u2014 ledger stats: rows per day/agent/repo (storage)",
+  "desc": "DELIVERABLE: tools/ledger_stats.py parses PUSHES.md into counts per day, per agent, per repo (table + --json); test on a fixture.\nEVIDENCE: run prints today's real totals; fixture test passes.\nOWNS: tools/ledger_stats.py, tests/test_ledger_stats.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-14T20:46:41Z",
+  "priority": 4,
+  "tags": [
+    "storage",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:41Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-27a7",
+  "title": "MAINT \u2014 AGENT_PROMPT.md truth pass: no claim the CLI cannot back",
+  "desc": "DELIVERABLE: AGENT_PROMPT.md states nothing false about the CLI \u2014 check every command it names against `--help` and the actual behaviour (votes per-task, topics, wires, the room).\nEVIDENCE: in the PR, one line per corrected claim: old text \u2192 new text \u2192 the command that proves it.\nOWNS: AGENT_PROMPT.md\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:39Z",
+  "updated_ts": "2026-10-14T20:46:39Z",
+  "priority": 3,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:39Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

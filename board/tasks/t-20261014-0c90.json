@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-0c90",
+  "title": "MAINT \u2014 dashboard truth pass v9 (storagecode + jobscode)",
+  "desc": "DELIVERABLE: dashboard/index.html reflects the empire as it is: storagecode in the vaults row, jobscode in the wires, WORKER.md/MANAGER.md in the docs, stale counts/wording fixed; version marker bumped.\nEVIDENCE: grep shows storagecode + jobscode; file opens from file:// offline (say so in the PR); no new external calls.\nOWNS: dashboard/index.html\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-14T20:46:40Z",
+  "priority": 3,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:40Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

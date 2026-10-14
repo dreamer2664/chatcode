@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-3fd4",
+  "title": "MAINT \u2014 lease report: who holds what, and how long silent",
+  "desc": "DELIVERABLE: tools/lease_report.py prints a table of claimed/blocked cards: id \u00b7 owner \u00b7 lease expiry (or \"NO LEASE\") \u00b7 age \u00b7 last checkpoint; oldest first; --json variant.\nEVIDENCE: run it against the live board (paste the table in the PR); unit test on a fixture board.\nOWNS: tools/lease_report.py, tests/test_lease_report.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-14T20:46:40Z",
+  "priority": 3,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:40Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

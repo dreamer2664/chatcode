@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-e427",
+  "title": "MAINT \u2014 deposits missing INDEX rows: auditor (storagecode)",
+  "desc": "DELIVERABLE: tools/audit_deposits.py lists every deposit directory without a matching data/INDEX.md line and exits 1 when any is missing.\nEVIDENCE: run on the current tree reports both existing deposits matched; a fixture with a missing row exits 1 naming it.\nOWNS: tools/audit_deposits.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-14T20:46:41Z",
+  "priority": 3,
+  "tags": [
+    "storagecode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:41Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

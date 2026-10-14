@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-ba50",
+  "title": "MAINT \u2014 warehouse policy doc (storagecode)",
+  "desc": "DELIVERABLE: docs/policy.md \u2014 retention (forever, append-only), size expectations, when to split files by year, the no-secrets law, the deposit lifecycle, and what never goes here (secrets, personal data, red-line-repo artifacts). Cross-linked from README and wire/README.\nEVIDENCE: links resolve; \u22642 pages; no other files touched beyond the two link rows.\nOWNS: docs/policy.md, README.md (link row), wire/README.md (link row)\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-14T20:46:41Z",
+  "priority": 4,
+  "tags": [
+    "storagecode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:41Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

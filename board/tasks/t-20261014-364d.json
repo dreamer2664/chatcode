@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-364d",
+  "title": "MAINT \u2014 INVENTORY.md truth pass: map main as it is today",
+  "desc": "DELIVERABLE: INVENTORY.md re-read end to end against main now (the header still says \"main @ 9bbff80\"): every file:line citation re-verified, dead paths fixed, the command map matches reality.\nEVIDENCE: python3 bin/chatcode --repo-dir . validate \u2192 0 errors; in the PR, list 5 citations you re-checked with the actual line you found.\nOWNS: INVENTORY.md\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:39Z",
+  "updated_ts": "2026-10-14T20:46:39Z",
+  "priority": 3,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:39Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

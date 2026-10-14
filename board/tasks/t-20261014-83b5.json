@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-83b5",
+  "title": "MAINT \u2014 PUSHES.md linter + ledger CI (storage)",
+  "desc": "DELIVERABLE: tools/check_pushes.py validates every PUSHES.md row: exactly 6 columns, date YYYY-MM-DD, repo named, a @sha or PR link present; .github/workflows/ledger-lint.yml runs it on push; tests for pass/fail.\nEVIDENCE: green on the current PUSHES.md; a fixture row with 4 columns fails with the row number.\nOWNS: tools/check_pushes.py, tests/test_check_pushes.py, .github/workflows/ledger-lint.yml\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-14T20:46:40Z",
+  "priority": 2,
+  "tags": [
+    "storage",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:40Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

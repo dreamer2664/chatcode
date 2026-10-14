@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-db4a",
+  "title": "MAINT \u2014 shift-note standard: template + README (storage)",
+  "desc": "DELIVERABLE: shifts/TEMPLATE.md upgraded to the manager standard \u2014 board state \u00b7 sweeps \u00b7 next steps \u00b7 Left time + wire ids \u2014 and shifts/README.md states the rule in one page (who writes one, when, what must be in it).\nEVIDENCE: template wording matches MANAGER.md \u00a79/\u00a712; no existing note is edited.\nOWNS: shifts/TEMPLATE.md, shifts/README.md\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-14T20:46:41Z",
+  "priority": 3,
+  "tags": [
+    "storage",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:41Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

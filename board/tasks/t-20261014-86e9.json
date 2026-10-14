@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-86e9",
+  "title": "MAINT \u2014 room demo: the pipeline in one offline script",
+  "desc": "DELIVERABLE: examples/room_demo.py \u2014 fully offline two-agent walkthrough: alice cuts a job, bob lists the room (--status open), claims it, heartbeats with a checkpoint, ships to review; every command and its output printed in order.\nEVIDENCE: python3 examples/room_demo.py runs green with no network, no token.\nOWNS: examples/room_demo.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-14T20:46:40Z",
+  "priority": 4,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:40Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

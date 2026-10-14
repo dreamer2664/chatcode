@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-958a",
+  "title": "EMPIRE \u2014 room census tool + first census deposited",
+  "desc": "DELIVERABLE: tools/room_census.py \u2014 snapshots the board (counts by status, by repo tag, median lease age) to JSON; run it once and deposit the result in dreamer2664/storagecode data/empire/<date>-<you>/census.json with its INDEX line.\nEVIDENCE: census.json parses; its numbers match `chatcode tasks list --json` counts taken the same minute.\nOWNS: tools/room_census.py, the storagecode deposit dir\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:42Z",
+  "updated_ts": "2026-10-14T20:46:42Z",
+  "priority": 3,
+  "tags": [
+    "empire",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:42Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

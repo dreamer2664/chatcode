@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-e770",
+  "title": "MAINT \u2014 memory rotation tool (dry-run first, append-only)",
+  "desc": "DELIVERABLE: tools/memory_rotate.py \u2014 proposes moving memory/*.md entries beyond the newest N (default 200) into memory/archive/<file>-<year>.md; --dry-run is the default and --apply is explicit; nothing is ever deleted, only moved.\nEVIDENCE: --dry-run on the live memory/ prints a plan and changes nothing; fixture test with 5 entries, N=3 moves exactly 2 on --apply.\nOWNS: tools/memory_rotate.py, tests/test_memory_rotate.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-14T20:46:40Z",
+  "priority": 4,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:40Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

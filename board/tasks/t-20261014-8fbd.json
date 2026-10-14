@@ -1,0 +1,27 @@
+{
+  "id": "t-20261014-8fbd",
+  "title": "Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47)",
+  "desc": "DELIVERABLE: two non-owner ballots on t-20261014-1d47, or a denial with the failing command.\nEVIDENCE: re-run the branch's stated commands YOURSELF, then try to break it: drop a file with conflict markers into a scratch tree and show the scanner catches it. Ballot only what you reproduced; say check-by-hand vs trusted. `chatcode review grab <this-id>` then `chatcode vote t-20261014-1d47 accept-inspected --reason \"ran <cmd> \u2192 <result>\"`.\nOWNS: nothing (review only)\nBRANCH: none",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:42Z",
+  "updated_ts": "2026-10-14T20:46:42Z",
+  "priority": 3,
+  "tags": [
+    "empire",
+    "maintenance",
+    "review"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:42Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

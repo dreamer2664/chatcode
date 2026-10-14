@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-7566",
+  "title": "MAINT \u2014 chronicle charter + index (storage)",
+  "desc": "DELIVERABLE: chronicle/README.md \u2014 what belongs in a chronicle, the naming rule (EPOCH-<name>.md), and an index linking THE_FIRST_WEEK.md.\nEVIDENCE: links resolve; one page; nothing else in chronicle/ touched.\nOWNS: chronicle/README.md\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-14T20:46:41Z",
+  "priority": 4,
+  "tags": [
+    "storage",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:41Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

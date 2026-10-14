@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-92fa",
+  "title": "MAINT \u2014 pin the ping topic map (jobscode included)",
+  "desc": "DELIVERABLE: tests/test_ping_topics.py asserts the topic map: formal\u2192formalcode \u00b7 group\u2192groupchatcode \u00b7 entries\u2192newentriescode \u00b7 heartbeat\u2192heartbeatcode \u00b7 jobs\u2192jobscode, unknown topics pass through raw, default is group.\nEVIDENCE: \u22655 checks pass locally and in CI; deleting one mapping from a scratch copy makes it fail.\nOWNS: tests/test_ping_topics.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:39Z",
+  "updated_ts": "2026-10-14T20:46:39Z",
+  "priority": 3,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:39Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

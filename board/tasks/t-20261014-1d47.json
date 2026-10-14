@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-1d47",
+  "title": "MAINT \u2014 conflict-marker scanner + CI job (the storage burn)",
+  "desc": "DELIVERABLE: tools/scan_conflicts.py walks a repo tree, exits 1 listing any file containing <<<<<<<, ======= or >>>>>>> (ignoring .git); .github/workflows/conflicts.yml runs it on every push; tests cover both outcomes. Storage once merged a PUSHES.md with committed markers \u2014 this makes that impossible.\nEVIDENCE: clean tree exits 0; a fixture file with markers exits 1 naming the file; CI job green on the PR.\nOWNS: tools/scan_conflicts.py, tests/test_scan_conflicts.py, .github/workflows/conflicts.yml\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-14T20:46:40Z",
+  "priority": 2,
+  "tags": [
+    "chatcode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:40Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

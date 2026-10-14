@@ -1,0 +1,26 @@
+{
+  "id": "t-20261014-e4e9",
+  "title": "MAINT \u2014 wire archive test suite (storagecode)",
+  "desc": "DELIVERABLE: tests/test_append_wire.py pins tools/append_wire.py: non-message events skipped \u00b7 dedup by id \u00b7 second run idempotent \u00b7 day split by UTC date \u00b7 messages sorted by time.\nEVIDENCE: \u22655 checks pass; a .github/workflows/tests.yml runs the suite on push.\nOWNS: tests/test_append_wire.py, .github/workflows/tests.yml\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-14T20:46:41Z",
+  "priority": 2,
+  "tags": [
+    "storagecode",
+    "maintenance"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T20:46:41Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
