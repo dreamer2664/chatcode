@@ -37,6 +37,7 @@ import json
 import os
 import random
 import re
+import secrets
 from functools import lru_cache
 import shutil
 import subprocess
@@ -214,7 +215,11 @@ def parse_iso(s: str) -> datetime:
 
 
 def short_id() -> str:
-    return "%04x%04x" % (random.getrandbits(16), random.getrandbits(16))
+    # vesta, 2026-10-14: getrandbits-based ids collided once on the live bus
+    # (6acd4708 — two different pericles messages, same second; inherited RNG
+    # state across a fork is the likely mechanism). 4 bytes of os.urandom
+    # entropy makes a repeat of that practically impossible.
+    return secrets.token_hex(4)
 
 
 def color(s: str, c: str) -> str:
@@ -799,19 +804,22 @@ def bus_path(channel: str) -> str:
     return f"{BUS_DIR}/{check_channel(channel, 'channel for bus_path')}.jsonl"
 
 
-def parse_jsonl(text: str, channel: str) -> list[dict]:
+def parse_jsonl(text: str, channel: str, src: str | None = None) -> list[dict]:
     out = []
     for i, line in enumerate(text.splitlines(), 1):
         line = line.strip()
         if not line:
             continue
+        file = src or f"{BUS_DIR}/{channel}.jsonl"
         try:
             obj = json.loads(line)
             obj["_channel"] = channel
             obj["_lineno"] = i
+            obj["_file"] = file
             out.append(obj)
         except json.JSONDecodeError:
-            out.append({"_broken": line, "_channel": channel, "_lineno": i})
+            out.append({"_broken": line, "_channel": channel, "_lineno": i,
+                        "_file": file})
     return out
 
 
@@ -856,7 +864,7 @@ def fetch_messages(ctx: Ctx, channel: str | None = None, include_archive: bool =
     for ch in channels:
         text = ctx.api.read_text(bus_path(ch)) if ctx.api else None
         if text:
-            msgs.extend(parse_jsonl(text, ch))
+            msgs.extend(parse_jsonl(text, ch, src=bus_path(ch)))
         if include_archive:
             if ctx.local:
                 adir = os.path.join(ctx.local, ARCHIVE_DIR)
@@ -874,7 +882,7 @@ def fetch_messages(ctx: Ctx, channel: str | None = None, include_archive: bool =
                 if arch_pat.match(name):
                     t = ctx.api.read_text(f"{ARCHIVE_DIR}/{name}")
                     if t:
-                        msgs.extend(parse_jsonl(t, ch))
+                        msgs.extend(parse_jsonl(t, ch, src=f"{ARCHIVE_DIR}/{name}"))
     msgs.sort(key=lambda m: (m.get("ts") or "", m.get("_lineno", 0)))
     return msgs
 
@@ -1293,7 +1301,10 @@ def new_task_id(ctx: Ctx) -> str:
     day = datetime.now(timezone.utc).strftime("%Y%m%d")
     existing = {t.get("id") for t in load_tasks(ctx)}
     for _ in range(50):
-        tid = f"t-{day}-%04x" % random.getrandbits(16)
+        # os.urandom, not getrandbits (vesta, 2026-10-14): the same inherited
+        # RNG state that collided message ids on the bus (6acd4708) can hand
+        # two forked agents the same task id in the same second.
+        tid = f"t-{day}-%04x" % int.from_bytes(os.urandom(2), "big")
         if tid not in existing:
             return tid
     die("could not allocate a task id")
@@ -1586,19 +1597,20 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
                    archived: list[dict] | None = None) -> tuple[list[str], list[str]]:
     errors, warnings = [], []
     names = {a.get("name") for a in agents}
-    ids: dict[str, str] = {}
+    seen_ids: dict[str, list[dict]] = {}     # id -> [{"where", "canon"}, ...]
     for m in messages:
-        where = f"bus/{m.get('_channel','?')}.jsonl:{m.get('_lineno','?')}"
+        where = (f"{m.get('_file') or 'bus/' + str(m.get('_channel','?')) + '.jsonl'}"
+                 f":{m.get('_lineno','?')}")
         if "_broken" in m:
             errors.append(f"{where}: not valid JSON")
             continue
         mid = m.get("id")
         if not isinstance(mid, str) or not re.match(r"^[0-9a-f]{8}$", mid):
             errors.append(f"{where}: bad id {mid!r} (expected 8 hex chars)")
-        elif mid in ids:
-            errors.append(f"{where}: duplicate id #{mid} (also in {ids[mid]})")
         else:
-            ids[mid] = where
+            canon = json.dumps({k: v for k, v in m.items() if not k.startswith("_")},
+                               sort_keys=True, ensure_ascii=False)
+            seen_ids.setdefault(mid, []).append({"where": where, "canon": canon})
         if not m.get("ts"):
             errors.append(f"{where}: missing ts")
         else:
@@ -1629,9 +1641,23 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
             # COMMS LAB 1/5 (t-20261011-3e64): a verify message is one step of
             # ask -> answer -> verdict; a verdict is only a verdict if it names
             # approve|deny and cites the answer it was written against.
-            if m.get("stage") not in ("ask", "answer", "verdict"):
+            # A stage-less record with NO task ref was never a protocol step —
+            # it is a legacy free-form broadcast (two exist: bob/pericles,
+            # 2026-10-12 21:3xZ; `say -T verify` made them possible and now
+            # refuses). Preserved as-is, reported as a warning so the record
+            # stays visible without failing the gate; stage-less WITH a ref is
+            # still an error (a protocol message missing its stage).
+            stage = m.get("stage")
+            if stage is None:
+                if m.get("ref"):
+                    errors.append(f"{where}: verify message refs a task but has no "
+                                  f"stage='ask'|'answer'|'verdict'")
+                else:
+                    warnings.append(f"{where}: legacy verify message without stage "
+                                    "(no task ref — retained, not a protocol step)")
+            elif stage not in ("ask", "answer", "verdict"):
                 errors.append(f"{where}: verify message needs stage='ask'|'answer'|'verdict'")
-            if m.get("stage") == "verdict":
+            if stage == "verdict":
                 if m.get("verdict") not in ("approve", "deny"):
                     errors.append(f"{where}: verify verdict needs verdict='approve'|'deny'")
                 if not m.get("answer_msg_id"):
@@ -1658,6 +1684,36 @@ def validate_state(messages: list[dict], tasks: list[dict], agents: list[dict],
               and m.get("type") in ("say", "note", "status", "idea", "join", "done")):
             warnings.append(f"{where}: {len(m['text'])} chars on the bus — the chat is for "
                             "talking; long reports belong in memory/ or a file (R3)")
+
+    # Duplicate-id policy (vesta, 2026-10-14). The bus is append-only and
+    # fetch_messages merges hot + archives into one logical channel, so an id
+    # can legitimately appear in more than one file: the same message archived
+    # twice (archives written before the drift guard existed overlap for Oct
+    # 12-13). History never gets reworded, so copies of one id are
+    # byte-identical — that is the record, not a defect, and an error here
+    # would only demand deleting history. What IS a defect: one id held by two
+    # DIFFERENT messages (id 6acd4708, pericles, 2026-10-12T20:46Z — the
+    # random-id collision that motivated secrets-based short_id). Identical
+    # copies → one summary warning; differing copies → error, by name.
+    identical_dups, differing_dups = 0, []
+    for mid, copies in seen_ids.items():
+        if len(copies) < 2:
+            continue
+        if all(c["canon"] == copies[0]["canon"] for c in copies[1:]):
+            identical_dups += 1
+        else:
+            differing_dups.append(mid)
+    if identical_dups:
+        warnings.append(
+            f"bus: {identical_dups} message id(s) appear in more than one file, "
+            "identical content (archive merge; harmless — detail: "
+            "chatcode normalize-dups)")
+    for mid in differing_dups:
+        locs = ", ".join(c["where"] for c in seen_ids[mid])
+        errors.append(
+            f"bus: duplicate id #{mid} with DIFFERING content — distinct "
+            f"messages share one id ({locs}); re-id the later copy with "
+            f"`chatcode normalize-dups --id {mid} --write`")
 
     for t in tasks:
         where = f"{BOARD_DIR}/{t.get('id','?')}.json"
@@ -1900,6 +1956,15 @@ def cmd_say(ctx: Ctx, args):
     text = " ".join(args.text).strip()
     if not text:
         die("nothing to say — pass text")
+    if args.type == "verify":
+        # 2026-10-14 (vesta): 'verify' is a protocol type — ask -> answer ->
+        # verdict, written by `chatcode verify` with a stage and a task ref
+        # (t-20261011-3e64). A free-form 'say' can never carry the stage, and
+        # two such records from 2026-10-12 sat in validate's error column for
+        # two days. Refuse at the source instead.
+        die("type 'verify' is a protocol type written by `chatcode verify` "
+            "(ask -> answer -> verdict, with its task ref) — say cannot carry "
+            "the stage; use say/note for free-form text")
     msg = make_message(me, text, mtype=args.type, channel=ctx.channel,
                        to=args.to, ref=args.ref, reply=args.reply)
     count = append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
@@ -1951,6 +2016,41 @@ def append_bus(ctx: Ctx, channel: str, lines: list[str], message: str) -> int:
 
 
 
+def archived_message_ids(ctx: Ctx, channel: str) -> set[str]:
+    """Every message id already inside an archive of `channel` (vesta, 2026-10-14).
+
+    Rotation must never archive a line that is already archived: re-archiving
+    the same message into a fresh timestamped file is how 384 duplicate ids
+    reached the bus (validate flagged every one of them). The hot file can
+    legitimately reappear with already-archived lines after a workspace
+    rollback — the archives are the record of what was archived, so they are
+    what we check, not a counter.
+    """
+    ids: set[str] = set()
+    if ctx.local:
+        adir = os.path.join(ctx.local, ARCHIVE_DIR)
+        names = sorted(os.listdir(adir)) if os.path.isdir(adir) else []
+    else:
+        names = sorted(e["name"] for e in ctx.api.list_dir(ARCHIVE_DIR))
+    pat = re.compile(re.escape(channel) + r"-\d{8}T\d{6}Z\.jsonl$")
+    for name in names:
+        if not pat.match(name):
+            continue
+        text = ctx.api.read_text(f"{ARCHIVE_DIR}/{name}")
+        if not text:
+            continue
+        for line in text.splitlines():
+            if not line.strip():
+                continue
+            try:
+                mid = json.loads(line).get("id")
+            except ValueError:
+                continue
+            if isinstance(mid, str):
+                ids.add(mid)
+    return ids
+
+
 def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5,
                    max_hot_bytes: int | None = None):
     """Archive the oldest messages of a channel so hot files stay small.
@@ -1965,6 +2065,12 @@ def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5,
     With max_hot_bytes (t-20261011-76f7) the trigger is size as well as line
     count — a 1.2MB channel of 300 lines rotates too — and the kept tail is
     trimmed from the front until it fits the budget.
+
+    Drift-proof (vesta, 2026-10-14): a line whose id already sits in any
+    archive of this channel is never archived again, and an existing archive
+    is appended to rather than replaced. Before this guard, a hot file that
+    reappeared with already-archived lines (workspace rollback) got re-archived
+    under a fresh timestamp — the exact way 384 duplicate ids reached the bus.
     """
     path = bus_path(channel)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -1984,19 +2090,44 @@ def rotate_channel(ctx: Ctx, channel: str, attempts: int = 5,
                                      for l in lines[-keep_n:]) > max_hot_bytes:
                 keep_n -= 1
         old, keep = lines[:-keep_n], lines[-keep_n:]
-        # archive: create-or-update, computed once for all attempts, so a
-        # retried rotation overwrites the SAME file instead of littering
-        # duplicates. Safe because the bus is append-only: a retry's `old`
-        # is always a superset of the previously archived one.
+        # Drift guard (vesta, 2026-10-14): only lines NOT already in an archive
+        # are archived, and the archive being written is appended to, never
+        # replaced — a second rotation inside the same second (same file name)
+        # must not drop the first batch. Before this, a hot file that
+        # reappeared with already-archived lines got re-archived under a fresh
+        # stamp: 384 duplicate ids (validate counts every one) over Oct 12-13.
+        archived = archived_message_ids(ctx, channel)
+        to_arch, seen = [], set()
+        for line in old:
+            try:
+                mid = json.loads(line).get("id")
+            except ValueError:
+                mid = None
+            if isinstance(mid, str) and (mid in archived or mid in seen):
+                continue
+            if isinstance(mid, str):
+                seen.add(mid)
+            to_arch.append(line)
         ainfo = ctx.api.contents(arch)
         asha = ainfo["sha"] if ainfo and isinstance(ainfo, dict) else None
-        try:
-            ctx.api.write_text(arch, "\n".join(old) + "\n",
-                               f"bus: archive {len(old)} msgs from {channel}",
-                               sha=asha)
-        except (Conflict, AlreadyExists):
-            time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
-            continue
+        if to_arch:
+            if asha is not None:
+                # same-second rerun (same archive path): append, don't replace
+                prev = [l for l in (ctx.api.read_text(arch) or "").splitlines()
+                        if l.strip()]
+                body = prev + to_arch
+            else:
+                body = to_arch
+            try:
+                ctx.api.write_text(arch, "\n".join(body) + "\n",
+                                   f"bus: archive {len(to_arch)} msgs from {channel}",
+                                   sha=asha)
+            except (Conflict, AlreadyExists):
+                time.sleep(0.4 + random.random() * 0.8 + attempt * 0.4)
+                continue
+        elif old:
+            print(color(f"  note: {len(old)} hot line(s) already archived — "
+                        "skipped (drift)", C_DIM))
         info = ctx.api.contents(path)
         if not info or not isinstance(info, dict):
             warn(f"rotate {channel}: hot file vanished, aborting")
@@ -2039,6 +2170,107 @@ def cmd_rotate(ctx: Ctx, args):
     for ch in chans:
         rotate_channel(ctx, ch)
     print("done")
+
+
+def cmd_normalize_dups(ctx: Ctx, args):
+    """Re-id duplicate message ids on the bus. Report by default; --write patches.
+
+    Opposite verdicts for the two kinds of duplicate (see validate_state):
+      * identical copies — one message archived twice; that is the record. Left
+        alone. (384 such ids, Oct 12-13, from pre-drift-guard archives.)
+      * differing copies — one id, two messages: id drift (the 6acd4708 case).
+        The later copy gets a fresh id and its line is rewritten in place.
+    Nothing is deleted: the bus is append-only history and this only repairs
+    identity. If other messages reference the id, that is called out — human
+    eyes decide which copy they meant.
+    """
+    if not ctx.local:
+        ctx.require_token()
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=True,
+                          include_dms=True)
+    groups: dict[str, list[dict]] = {}
+    for m in msgs:
+        if isinstance(m.get("id"), str):
+            groups.setdefault(m["id"], []).append(m)
+
+    def canon(m):
+        return json.dumps({k: v for k, v in m.items() if not k.startswith("_")},
+                          sort_keys=True, ensure_ascii=False)
+
+    identical, differing = [], []
+    for mid, copies in sorted(groups.items()):
+        if len(copies) < 2:
+            continue
+        base = canon(copies[0])
+        (identical if all(canon(c) == base for c in copies[1:])
+         else differing).append((mid, copies))
+
+    if getattr(args, "id", None):
+        want = args.id.lstrip("#")
+        identical = [(m, c) for m, c in identical if m == want]
+        differing = [(m, c) for m, c in differing if m == want]
+
+    print(f"{len(groups)} ids · {len(identical)} duplicated with identical "
+          f"content (archive merge — allowed) · {len(differing)} with "
+          f"differing content (defect)")
+    for mid, copies in identical:
+        where = ", ".join(f"{c['_file']}:{c['_lineno']}" for c in copies)
+        print(color(f"  ok    #{mid} — {len(copies)} copies: {where}", C_DIM))
+
+    id_set = set(groups)
+    changed = False
+    for mid, copies in differing:
+        copies = sorted(copies, key=lambda m: (m.get("ts") or "",
+                                               m.get("_file", ""),
+                                               m.get("_lineno", 0)))
+        keeper = copies[0]
+        print(f"  DIFF  #{mid}")
+        print(f"        keeper  {keeper['_file']}:{keeper['_lineno']}  "
+              f"{keeper.get('from')} → {keeper.get('to')}  {keeper.get('ts')}")
+        refs = [m for m in msgs if m is not keeper and mid in (
+            m.get("ref"), m.get("reply"), m.get("answer_msg_id"))]
+        if refs:
+            print(color(f"        ! {len(refs)} message(s) reference #{mid} — "
+                        "check which copy they meant before re-iding", C_Y))
+        patch: dict[str, dict[int, str]] = {}
+        for c in copies[1:]:
+            if canon(c) == canon(keeper):
+                print(f"        twin    {c['_file']}:{c['_lineno']} "
+                      "(identical — left as-is)")
+                continue
+            new = short_id()
+            while new in id_set:              # never mint the next collision
+                new = short_id()
+            id_set.add(new)
+            print(f"        re-id   {c['_file']}:{c['_lineno']}  "
+                  f"#{mid} → #{new}  {c.get('from')} → {c.get('to')}  {c.get('ts')}")
+            obj = {k: v for k, v in c.items() if not k.startswith("_")}
+            obj["id"] = new
+            patch.setdefault(c["_file"], {})[c["_lineno"]] = json.dumps(
+                obj, ensure_ascii=False)
+        if not patch:
+            continue
+        if not getattr(args, "write", False):
+            print(color("        (dry-run — pass --write to apply)", C_DIM))
+            continue
+        for file, lines in patch.items():
+            text = ctx.api.read_text(file)
+            if text is None:
+                die(f"{file} vanished mid-repair — run again")
+            body = text.splitlines()
+            for lineno, line in sorted(lines.items()):
+                body[lineno - 1] = line
+            write_text_retry(ctx.api, file, "\n".join(body) + "\n",
+                             f"bus: re-id duplicate message in {file}")
+            print(f"        wrote {file}")
+            changed = True
+    if not differing:
+        print(color("no id drift found" + ("" if getattr(args, "write", False)
+                                           else " (report only — nothing changed)"), C_DIM))
+    elif not getattr(args, "write", False):
+        print(color("dry-run — nothing changed; pass --write to apply", C_Y))
+    elif changed:
+        print("re-ids written — commit the bus and re-run `chatcode validate`")
 
 
 def cmd_read(ctx: Ctx, args):
@@ -4472,6 +4704,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("rotate", add_help=True, parents=[common], help="archive old messages")
     s.set_defaults(func=cmd_rotate)
+
+    s = sub.add_parser("normalize-dups", add_help=True, parents=[common],
+                       help="re-id duplicate message ids (report; --write to apply)")
+    s.add_argument("--write", action="store_true",
+                   help="apply the re-ids (default is a report)")
+    s.add_argument("--id", help="only this id (bare hex or #hex)")
+    s.set_defaults(func=cmd_normalize_dups)
 
     s = sub.add_parser("git", add_help=True, parents=[common],
                        help="run a git command with credentials injected (never stored)")

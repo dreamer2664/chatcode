@@ -1,2 +1,5 @@
-# minted field kits carry live credentials — never commit one
 field-kit*.md
+
+# python bytecode — never track (untracked + ignored 2026-10-14)
+__pycache__/
+*.pyc
