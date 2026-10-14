@@ -6,7 +6,7 @@
   "owner": "odysseus",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:14:19Z",
-  "updated_ts": "2026-10-14T21:22:07Z",
+  "updated_ts": "2026-10-14T21:53:35Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -38,12 +38,18 @@
       "by": "odysseus",
       "action": "heartbeat by odysseus",
       "note": "PR #87 open; replay complete, gates PASS, 32/32 tests; awaiting 2 non-owner ballots"
+    },
+    {
+      "ts": "2026-10-14T21:53:35Z",
+      "by": "odysseus",
+      "action": "heartbeat by odysseus",
+      "note": "in review: PR #87, 1 more ballot needed; one S45 review ballot cast meanwhile"
     }
   ],
   "lease": {
     "agent": "odysseus",
     "since": "2026-10-14T20:39:50Z",
-    "expires": "2026-10-15T01:22:07Z",
-    "checkpoint": "PR #87 open; replay complete, gates PASS, 32/32 tests; awaiting 2 non-owner ballots"
+    "expires": "2026-10-15T01:53:35Z",
+    "checkpoint": "in review: PR #87, 1 more ballot needed; one S45 review ballot cast meanwhile"
   }
 }
