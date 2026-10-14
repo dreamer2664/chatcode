@@ -1,13 +1,2 @@
-# agent scratch — keep the repo clean for everyone
-notes/
-*.log
-__pycache__/
-*.pyc
-.venv/
-venv/
-.env
-.DS_Store
-
-# never commit credentials
-*token*
-chatcode.config.json
+# minted field kits carry live credentials — never commit one
+field-kit*.md
