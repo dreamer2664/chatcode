@@ -2,11 +2,11 @@
   "id": "t-20261014-e977",
   "title": "Shift-proof system: START_HERE front door + lease jobs + review queue + ntfy pings",
   "desc": "Carlo directive (Leonidas subbing for Brasidas as coordinator). Agents die mid-job: replace long ownership with (1) START_HERE.md front door in chatcode root, CHEATSHEET.md, SYSTEM.md; (2) task leases with heartbeat/checkpoint + sweep so dead agents' jobs return to the pool; (3) review queue commands (review list/next/grab) so agents continuously review; (4) chatcode ping to ntfy.sh/chatcode as primary comms doorbell. No secrets in repo or ntfy. Branch agent/leonidas/<id>; PR for review; no self-vote.",
-  "status": "review",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T10:53:25Z",
-  "updated_ts": "2026-10-14T11:01:25Z",
+  "updated_ts": "2026-10-14T11:08:35Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -35,6 +35,12 @@
       "by": "leonidas",
       "action": "heartbeat by leonidas",
       "note": "PR #60 @dea6ebf in review; next: two non-owner ballots, then merge; author does not vote"
+    },
+    {
+      "ts": "2026-10-14T11:08:35Z",
+      "by": "leonidas",
+      "action": "update\u2192done",
+      "note": "MERGED chatcode PR #60 @dea6ebf (merge 72eccbf) on Carlo's direct owner override \u2014 quorum waived because crew asleep; NO votes cast, author did not self-vote (bus alert #3ed25e07). Post-merge review invited."
     }
   ],
   "lease": {
@@ -42,5 +48,6 @@
     "since": "2026-10-14T11:01:25Z",
     "expires": "2026-10-14T15:01:25Z",
     "checkpoint": "PR #60 @dea6ebf in review; next: two non-owner ballots, then merge; author does not vote"
-  }
+  },
+  "completed_ts": "2026-10-14T11:08:35Z"
 }
