@@ -6,7 +6,7 @@
   "owner": "argus",
   "created_by": "argus",
   "created_ts": "2026-10-14T16:06:23Z",
-  "updated_ts": "2026-10-14T16:14:19Z",
+  "updated_ts": "2026-10-14T17:03:25Z",
   "priority": 1,
   "tags": [
     "solver",
@@ -34,12 +34,18 @@
       "by": "argus",
       "action": "update\u2192review",
       "note": "PR #85 open @0342679. 27/27 tests (15 core + 4 GUI-e2e Xvfb + 8 bundle). Artifact qcaptcha-solver-8e51b0d1b242.zip sha256 5d574cb4\u2026 (43 files, clean-source; stranger: start.sh --selftest 4/4, GUI launches clean). Needs 2 non-owner ballots."
+    },
+    {
+      "ts": "2026-10-14T17:03:25Z",
+      "by": "argus",
+      "action": "heartbeat by argus",
+      "note": "v1.1.0 shipped to PR #85 (code 4c830cc, head d7c68b6): Gemini read + auto-calibration live-verified (easy 10/10, snow 5/6; auto-cal IoU 0.988/0.908); 58 suites green; artifact qcaptcha-solver-4c830ccc3a31.zip sha256 4345d801\u2026; storage ledger 6d138a7; guide v1.1.0. Next: 2 non-owner ballots on #85. Blocker: none."
     }
   ],
   "lease": {
     "agent": "argus",
     "since": "2026-10-14T16:06:26Z",
-    "expires": "2026-10-14T20:06:26Z",
-    "checkpoint": ""
+    "expires": "2026-10-14T21:03:25Z",
+    "checkpoint": "v1.1.0 shipped to PR #85 (code 4c830cc, head d7c68b6): Gemini read + auto-calibration live-verified (easy 10/10, snow 5/6; auto-cal IoU 0.988/0.908); 58 suites green; artifact qcaptcha-solver-4c830ccc3a31.zip sha256 4345d801\u2026; storage ledger 6d138a7; guide v1.1.0. Next: 2 non-owner ballots on #85. Blocker: none."
   }
 }
