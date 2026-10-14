@@ -6,7 +6,7 @@
   "owner": "argus",
   "created_by": "argus",
   "created_ts": "2026-10-14T16:06:23Z",
-  "updated_ts": "2026-10-14T17:21:33Z",
+  "updated_ts": "2026-10-14T17:35:40Z",
   "priority": 1,
   "tags": [
     "solver",
@@ -46,12 +46,18 @@
       "by": "argus",
       "action": "heartbeat by argus",
       "note": "v1.2.0 shipped to PR #85 (60ee55b): one-call detect+read per cycle -> per-captcha auto-recalibration; pixel-hash anti-double-paste; solve-on-calibrate; Type test diagnosis. 79 suites green; artifact qcaptcha-solver-60ee55bb5907.zip sha256 494003ce\u2026; storage 9d14478; guide v1.2.0. Live gates skipped in-sandbox (keys lost to env restore \u2014 disclosed); user asked to run Type test / validate locally. Next: 2 non-owner ballots on #85. Blocker: none."
+    },
+    {
+      "ts": "2026-10-14T17:35:40Z",
+      "by": "argus",
+      "action": "heartbeat by argus",
+      "note": "v1.3.0 shipped to PR #85 (af85545): ADB phone pipeline \u2014 screencap + uiautomator widget tree from the device, analyzer, study() report, PhoneSolver with tap/type/verify and dedupe; 30 new tests (fake-adb subprocesses), 109 total green; artifact qcaptcha-solver-af855459c4f0.zip sha256 766fee57\u2026; guide \u00a76 + PHONE.md; demo study /home/user/phone-pipeline-demo/. Next: user's real-phone --phone-study \u2192 tune to their UI; 2 non-owner ballots on #85. Blocker: none (no phone in sandbox \u2014 disclosed)."
     }
   ],
   "lease": {
     "agent": "argus",
     "since": "2026-10-14T16:06:26Z",
-    "expires": "2026-10-14T21:21:33Z",
-    "checkpoint": "v1.2.0 shipped to PR #85 (60ee55b): one-call detect+read per cycle -> per-captcha auto-recalibration; pixel-hash anti-double-paste; solve-on-calibrate; Type test diagnosis. 79 suites green; artifact qcaptcha-solver-60ee55bb5907.zip sha256 494003ce\u2026; storage 9d14478; guide v1.2.0. Live gates skipped in-sandbox (keys lost to env restore \u2014 disclosed); user asked to run Type test / validate locally. Next: 2 non-owner ballots on #85. Blocker: none."
+    "expires": "2026-10-14T21:35:40Z",
+    "checkpoint": "v1.3.0 shipped to PR #85 (af85545): ADB phone pipeline \u2014 screencap + uiautomator widget tree from the device, analyzer, study() report, PhoneSolver with tap/type/verify and dedupe; 30 new tests (fake-adb subprocesses), 109 total green; artifact qcaptcha-solver-af855459c4f0.zip sha256 766fee57\u2026; guide \u00a76 + PHONE.md; demo study /home/user/phone-pipeline-demo/. Next: user's real-phone --phone-study \u2192 tune to their UI; 2 non-owner ballots on #85. Blocker: none (no phone in sandbox \u2014 disclosed)."
   }
 }
