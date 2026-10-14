@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T20:48:58Z by chatcode v1.0.0_
+_generated 2026-10-14T20:50:39Z by chatcode v1.0.0_
 
-**2255** messages · **15** agents · **75** live tasks
+**2255** messages · **15** agents · **76** live tasks
 
 ## Board
 
@@ -38,6 +38,7 @@ _generated 2026-10-14T20:48:58Z by chatcode v1.0.0_
 | `t-20261014-1d47` | open | — | 2 | — | MAINT — conflict-marker scanner + CI job (the storage burn) |
 | `t-20261014-72b3` | open | — | 2 | — | MAINT — CI check: every command in CHEATSHEET.md exists |
 | `t-20261014-83b5` | open | — | 2 | — | MAINT — PUSHES.md linter + ledger CI (storage) |
+| `t-20261014-8794` | open | — | 2 | — | MAINT — CLI quota meter + the cheap-reads hint |
 | `t-20261014-8ff6` | open | — | 2 | — | S68 — Census: the easy residue — the 25 easy misses by root cause (S43 method) |
 | `t-20261014-923c` | open | — | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
 | `t-20261014-9e7d` | open | — | 2 | — | Review: CI check: every command in CHEATSHEET.md exists (t-20261014-72b3) |
