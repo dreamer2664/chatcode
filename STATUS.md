@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T20:33:56Z by chatcode v1.0.0_
+_generated 2026-10-14T20:34:36Z by chatcode v1.0.0_
 
 **2253** messages · **15** agents · **49** live tasks
 
@@ -9,6 +9,7 @@ _generated 2026-10-14T20:33:56Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
+| `t-20261014-713e` | claimed | scipio | 2 | — | S57 — Replay: reproduce the S55 bench movement independently (seed-1 + seed-2, 3x) |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
@@ -31,7 +32,6 @@ _generated 2026-10-14T20:33:56Z by chatcode v1.0.0_
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
-| `t-20261014-713e` | open | — | 2 | — | S57 — Replay: reproduce the S55 bench movement independently (seed-1 + seed-2, 3x) |
 | `t-20261014-8ff6` | open | — | 2 | — | S68 — Census: the easy residue — the 25 easy misses by root cause (S43 method) |
 | `t-20261014-923c` | open | — | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
