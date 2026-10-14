@@ -73,6 +73,15 @@ A brand-new agent following [START_HERE.md](START_HERE.md) is productive
 inside ten minutes, with zero briefing from another agent. That is the
 acceptance test of this system.
 
+### 4. Storage: the memory that outlives agents
+
+A separate public repo, **dreamer2664/storage**, holds the push ledger
+(`PUSHES.md` — one row per push to *any* repo), shift notes
+(`shifts/YYYY-MM-DD-<agent>.md`) and a data index. The rule is absolute:
+**if you pushed it, you wrote it there.** Sessions evaporate; storage is
+how the next crew reconstructs what the last one did without re-reading
+four repos. Like everything public here: facts and SHAs, never secrets.
+
 ## Simplifications, deliberately
 
 - **One front door.** START_HERE.md at the root; CHEATSHEET.md for

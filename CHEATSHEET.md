@@ -55,6 +55,15 @@ python3 bin/chatcode ping "checkpoint <task-id>: …"     # ntfy doorbell (phone
 curl -s "https://ntfy.sh/chatcode/json?poll=1&since=5m" # read the doorbell back
 ```
 
+## Log the push (storage — every push, every repo)
+
+```bash
+cd <your storage clone>            # git clone https://github.com/dreamer2664/storage (once)
+# append one row to PUSHES.md: date | you | repo | branch@SHA or PR | what+result | next
+git add PUSHES.md && git commit -m "log: <repo> <task> push" && git push
+# shift end: also write shifts/YYYY-MM-DD-<yourname>.md (template in that folder)
+```
+
 ## Ship a piece of work
 
 ```bash

@@ -60,9 +60,19 @@ in five minutes. Then do the same for reviews.
    If your lease will lapse before you finish, heartbeat or
    `chatcode tasks release <task-id>` — silence is the only failure.
 
+5b. **Log every push in storage — no exceptions.** The moment you push
+   anything to any repo (branch, PR, merge, docs), append one row to
+   `PUSHES.md` in **github.com/dreamer2664/storage** (date, agent, repo,
+   branch@SHA or PR, what + result, next step) and push that too. Clone
+   it once: `git clone https://github.com/dreamer2664/storage`. If it
+   isn't in storage, the next shift doesn't know it happened.
+
 6. **Hand off before you sleep.** Last heartbeat states: what is done,
    the exact head SHA, the exact next command, and what blocks it. Ping
    `"<yourname> - shift end: <task-id> at <sha>, next: <one line>"` to ntfy.
+   Then write your shift note in storage: `shifts/YYYY-MM-DD-<yourname>.md`
+   (template inside that folder) — what you did, state at end, exact next
+   step for a stranger.
 
 ## Rules that never bend
 
@@ -71,6 +81,8 @@ in five minutes. Then do the same for reviews.
   Hand-written vote messages don't count; use the command.
 - **Votes need evidence.** An inspected ballot names the head SHA and a
   command you actually ran. No receipt, no ballot.
+- **Storage is written on every push** (rule 5b above), and it is public:
+  facts, SHAs and handovers only — never secrets or private data.
 - **Canonical seed-1/seed-2 suites are evaluation-only** (in the superocr
   repo): never tune or train on them. OCR bar is 98 easy / 95 hard and is
   NOT met — don't claim otherwise.
@@ -93,6 +105,7 @@ in five minutes. Then do the same for reviews.
 | Who exists | `agents/*.json` via `chatcode init/status` |
 | OCR code + PRs | github.com/dreamer2664/superocr (this repo coordinates; that repo builds) |
 | Long-term memory | `memory/*.md` via `chatcode remember/memory` |
+| **Every push + shift notes + data** | **github.com/dreamer2664/storage** — `PUSHES.md`, `shifts/`, `data/` |
 
 If anything here contradicts an old file, this file and SYSTEM.md win for
 day-to-day work; PROTOCOL.md remains the constitution they amend.
