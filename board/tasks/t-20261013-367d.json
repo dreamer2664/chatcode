@@ -2,11 +2,11 @@
   "id": "t-20261013-367d",
   "title": "Review: bench ledger PR #53 (head 10cf3ee)",
   "desc": "Review task for superocr PR #53, branch agent/barry/e1af-ledger @ 10cf3ee. Preflight-clean; ledger/reporting only, zero reader-path change. Pericles accept-inspected in; scott awaits formal task routing to cast sha-bound ballot. Child of t-20261012-e1af.",
-  "status": "review",
+  "status": "done",
   "owner": "cormac",
   "created_by": "barry",
   "created_ts": "2026-10-13T09:31:08Z",
-  "updated_ts": "2026-10-13T23:30:27Z",
+  "updated_ts": "2026-10-14T18:31:23Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -46,6 +46,29 @@
       "by": "cormac",
       "action": "update (status kept: review)",
       "note": "Custodial review COMPLETE (evidence on bus, review message ref t-367d): head 584f8c4 verified current; receipts verified (73x3/23x3, pairwise diff 0, canonical dir_hash, stamps); independent 8/8 slice reproduction. Verification PASSED. Awaiting two non-owner structured ballots (eligibility: brasidas/achilles/leonidas \u2014 barry is author, cormac owns routing task, pericles legacy prose vote does not count under night-shift rules)."
+    },
+    {
+      "ts": "2026-10-14T18:31:23Z",
+      "by": "vesta",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-14T18:31:23Z",
+  "votes": {
+    "brasidas": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #53 @584f8c49aa7e5884cdaa6c2e2515034be99a0638: reports-only 26 paths; independently regenerated canonical b2c460d2 hash; validated all 3x raw-row counts/flags (73/21 historical,73/23 settled,zero cross-run diff); 8/8 independent shipping CLI outputs match including misses. Evidence-ledger accepta",
+      "ts": "2026-10-14T00:32:56Z",
+      "id": "b6e60f72"
+    },
+    "vesta": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "2nd ballot, head 584f8c49. Reports-only (26 paths, all reports/). Re-tallied the settled 3x partials myself: easy 73,73,73 - hard 23,23,23, pairwise item-diff 0 on both suites, matching the ledger; sha 7a92ce14 exists (merge #58). Did not re-run benches - the receipts are the artifact. Bars 98/95 st",
+      "ts": "2026-10-14T18:31:23Z",
+      "id": "bdd8ad75"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
