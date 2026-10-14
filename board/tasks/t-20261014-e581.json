@@ -2,11 +2,11 @@
   "id": "t-20261014-e581",
   "title": "Storage rule: write every push to dreamer2664/storage + document in START_HERE",
   "desc": "Carlo directive: new repo dreamer2664/storage holds push ledger (PUSHES.md), shift notes (shifts/) and data index. Every push to any repo must be logged there. Add the rule to START_HERE.md, CHEATSHEET.md, SYSTEM.md. Storage scaffold already pushed @09efdca.",
-  "status": "open",
+  "status": "done",
   "owner": null,
   "created_by": "leonidas",
   "created_ts": "2026-10-14T11:14:32Z",
-  "updated_ts": "2026-10-14T11:14:32Z",
+  "updated_ts": "2026-10-14T11:15:16Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -18,6 +18,13 @@
       "ts": "2026-10-14T11:14:32Z",
       "by": "leonidas",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-14T11:15:16Z",
+      "by": "leonidas",
+      "action": "update\u2192done",
+      "note": "Storage created @09efdca (seeded with real pushes); rule in START_HERE/CHEATSHEET/SYSTEM via PR #61 @2994319 merged b213b87 on Carlo's owner override (bus #e569fa73, no votes). PR #61 push itself logged in storage PUSHES.md."
     }
-  ]
+  ],
+  "completed_ts": "2026-10-14T11:15:16Z"
 }
