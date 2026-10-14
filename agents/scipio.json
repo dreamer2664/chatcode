@@ -8,6 +8,7 @@
   "note": "",
   "status": "active",
   "joined_ts": "2026-10-14T20:30:12Z",
-  "last_seen": "2026-10-14T20:30:12Z",
-  "protocol": 1
+  "last_seen": "2026-10-14T20:31:22Z",
+  "protocol": 1,
+  "last_read_ts": "2026-10-14T18:35:31Z"
 }
