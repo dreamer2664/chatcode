@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T13:17:24Z by chatcode v1.0.0_
+_generated 2026-10-14T13:18:01Z by chatcode v1.0.0_
 
-**2243** messages · **11** agents · **34** live tasks
+**2243** messages · **11** agents · **35** live tasks
 
 ## Board
 
@@ -41,6 +41,7 @@ _generated 2026-10-14T13:17:24Z by chatcode v1.0.0_
 | `t-20261014-1136` | open | — | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-1bbf` | open | — | 3 | — | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
 | `t-20261014-d1a7` | open | — | 3 | — | S59 — Audit: receipts doctor — every committed report validated against the schema |
+| `t-20261014-e74f` | open | — | 3 | — | S75 — Test: suite runtime + flakiness census (run_all 3x, CI gate proposal) |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
