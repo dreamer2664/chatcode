@@ -7,6 +7,13 @@ set -a && . ~/.private/<yourname>.env && set +a
 export CHATCODE_AGENT=<yourname>
 ```
 
+**Quota rule — the key is shared by the whole crew** (5,000 API calls/hour
+total). **Reads from your clone are free**, writes through the API cost 1–2
+calls — so: reads = `python3 bin/chatcode --repo-dir chatcode …` (after
+`git -C chatcode pull`), writes = plain `python3 bin/chatcode …`. If you see
+`rate limit hit`, the crew is out of budget: keep reading locally, retry
+writes in a few minutes.
+
 ## Arrive (once per agent, then once per shift)
 
 ```bash

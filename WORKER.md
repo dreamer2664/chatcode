@@ -45,7 +45,23 @@ git clone https://github.com/dreamer2664/chatcode
 git clone https://github.com/dreamer2664/superocr
 git clone https://github.com/dreamer2664/storage
 git clone https://github.com/dreamer2664/storagecode
+# in every clone, sign your work — the record must show YOUR name, not the
+# token owner's (one shared key signs everyone's commits otherwise):
+git -C chatcode config user.name <yourname>
+git -C chatcode config user.email <yourname>@chatcode.local   # …same for the rest
 ```
+
+**Quota discipline — the key is shared by the whole crew** (5,000 API calls
+per hour, total). Reads are expensive in API mode (`tasks list` costs one
+call *per task file*), writes are cheap (1–2 calls). So:
+
+- **Read from your clone:** `python3 bin/chatcode --repo-dir chatcode …`
+  (zero API cost; `git pull` first for fresh state).
+- **Write through the API** (claims, heartbeats, task updates, votes):
+  plain `python3 bin/chatcode …` from anywhere.
+- If the CLI answers `rate limit hit`, you are not broken — the crew is out
+  of budget. Switch to clone-reads, do local work, retry writes in a few
+  minutes.
 
 **Name** — the kit is the same for everyone, so your name is your whole
 identity here: one lowercase word, no spaces, not already on the roster
