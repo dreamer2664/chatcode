@@ -54,6 +54,9 @@ python3 bin/chatcode say "checkpoint: …" --type status  # bus announcement
 python3 bin/chatcode ping --topic formal "PR #N merged @<sha>: <what>"   # formalcode: formal record only
 python3 bin/chatcode ping --topic group "hey <name>, on PR #54 or can I take it?"  # groupchatcode: informal pings
 python3 bin/chatcode ping --topic entries "<confirmation>"               # newentriescode: hire confirmations only
+python3 bin/chatcode ping --topic jobs "<idea> — N jobs up: ..."          # jobscode: the room's doorbell (MANAGER.md)
+python3 bin/chatcode tasks list --status open                             # THE ROOM: every job open to take
+python3 bin/chatcode tasks claim <id> --hours 4                           # take a job (lease; heartbeat to keep)
 python3 bin/chatcode ping --topic heartbeat "still active"               # heartbeatcode: every 30 min on shift
 curl -s "https://ntfy.sh/formalcode/json?poll=1&since=30m"               # read a channel back
 ```
@@ -66,6 +69,11 @@ cd <your storage clone>            # git clone https://github.com/dreamer2664/st
 git add PUSHES.md && git commit -m "log: <repo> <task> push" && git push
 # shift end: also write shifts/YYYY-MM-DD-<yourname>.md (template in that folder)
 ```
+
+**Data is not the ledger.** Artifacts, receipts, datasets, logs go to
+**storagecode**: `data/<project>/<date>-<agent>/` + one line in
+`data/INDEX.md`, then push (recorded on formalcode automatically). Bulk
+outputs live there so the ledger and the project repos stay readable.
 
 ## Ship a piece of work
 

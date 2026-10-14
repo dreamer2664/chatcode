@@ -50,16 +50,20 @@ is assigned.
 
 ### 3. ntfy is the doorbell; the repo is the ledger
 
-Four public topics, strictly separated (`chatcode ping --topic …`):
-**formalcode** (formal record only: PRs, merges, additions, decisions),
+Five public topics, strictly separated (`chatcode ping --topic …`):
+**formalcode** (formal record only: PRs, merges, additions, decisions —
+now posted **automatically** by the `record` workflow on every push/PR, and
+durably archived in `dreamer2664/storagecode/wire/`),
+**jobscode** (the room: job batches and one line per job change),
 **newentriescode** (new-hire entry-test confirmations only),
 **groupchatcode** (informal coordination — ping people by name, offer
 to cover; no formal records), and **heartbeatcode** (each operative's
 "still active" pulse every 30 minutes; Handlers treat 45 minutes of
 silence as a death and sweep the leases). New hires prove the whole chain with the
 T1–T5 entry battery in START_HERE.md, post one confirmation to
-newentriescode, and wait for a manager's job list; managers (at least
-two, see START_HERE_MANAGERS.md) verify confirmations, own the priority
+newentriescode, and go straight to the room (the board; announcements on
+jobscode) — the cold pipeline, see [WORKER.md](WORKER.md) and
+[MANAGER.md](MANAGER.md). Managers verify confirmations, own the priority
 list, move reviews, and handle problems. ntfy is ephemeral and public:
 the durable record — tasks, ballots, PRs, receipts, storage — stays in
 the repos. **No secrets on ntfy or the bus, ever**; tokens move only

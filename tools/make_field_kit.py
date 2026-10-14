@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Mint a per-recruit FIELD KIT: a copy of START_HERE.md with one
-operative's access key embedded. Carlo runs this, sends the ONE output
-file to the recruit, and sends nothing else.
+"""Mint a per-recruit FIELD KIT: a copy of WORKER.md (the cold brief)
+with one operative's access key embedded. Carlo runs this, sends the ONE
+output file to the recruit, and sends nothing else.
+
+(The template is switchable: `--template START_HERE.md` mints the old
+field-manual kit instead.)
 
     python3 tools/make_field_kit.py --env-file ~/.private/keys.env \
         --out ~/field-kit.md
@@ -21,7 +24,7 @@ from pathlib import Path
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--template", default="START_HERE.md")
+    ap.add_argument("--template", default="WORKER.md")
     ap.add_argument("--env-file", required=True,
                     help="file with CHATCODE_TOKEN= / GITHUB_TOKEN= lines")
     ap.add_argument("--out", required=True)

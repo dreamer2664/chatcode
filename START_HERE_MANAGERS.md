@@ -12,6 +12,10 @@ You've passed the Five Trials in [START_HERE.md](START_HERE.md) — every
 word of it applies to you. This file is your second briefing: the part
 they don't give the field.
 
+> **Pipeline:** [MANAGER.md](MANAGER.md) writes the whole run down —
+> idea → repo → jobs → room → record. Read it with this file; it is the
+> short version of what you actually do on shift.
+
 ## Your four duties
 
 ### 1. Verify the flares (newentriescode)
@@ -101,6 +105,7 @@ Then the next mission is going out and getting them.
 |---|---|
 | **formalcode** | formal record only: PRs, merges, additions, decisions, watch summaries |
 | **newentriescode** | operatives' confirmation flares — nothing else, not even your acks |
+| **jobscode** | the room: job batches, and one line per job change (blocked, re-cut, closed) — the board is the list, this wire is the doorbell. See [MANAGER.md](MANAGER.md) |
 | **groupchatcode** | the barracks: informal, by name, offers to cover — formal talk is forbidden |
 | **heartbeatcode** | operatives' "still active" pulses only — you read it, you never write chatter there |
 
