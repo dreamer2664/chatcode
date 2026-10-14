@@ -2,22 +2,33 @@
   "id": "t-20261014-c2c4",
   "title": "Field kits: self-naming recruits + single-file onboarding (token embedded per-recruit copy only)",
   "desc": "Carlo directive: recruit names themself (codename), and the sent MD must be the only thing needed. Repo START_HERE stays secret-free; tools/make_field_kit.py mints a per-recruit copy with access key + unique kit ID embedded. START_HERE gains codename step + kit block; MANAGERS gains kit-ID verification. Never commit a minted kit.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-14T11:51:12Z",
-  "updated_ts": "2026-10-14T11:51:12Z",
+  "updated_ts": "2026-10-14T11:51:24Z",
   "priority": 1,
   "tags": [],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/leonidas/t-20261014-c2c4",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T11:51:12Z",
       "by": "leonidas",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-14T11:51:24Z",
+      "by": "leonidas",
+      "action": "claimed by leonidas"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "leonidas",
+    "since": "2026-10-14T11:51:24Z",
+    "expires": "2026-10-14T15:51:24Z",
+    "checkpoint": ""
+  }
 }
