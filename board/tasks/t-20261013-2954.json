@@ -1,12 +1,12 @@
 {
   "id": "t-20261013-2954",
-  "title": "S45 — Documentation: comprehensive pipeline README + architecture diagram",
+  "title": "S45 \u2014 Documentation: comprehensive pipeline README + architecture diagram",
   "desc": "Current docs are scattered. Create: (1) single README explaining pipeline end-to-end; (2) architecture diagram showing all stages; (3) configuration guide; (4) troubleshooting section. Owner: marcus-aurelius. Priority: 4.",
   "status": "review",
   "owner": "leonidas",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:44:28Z",
-  "updated_ts": "2026-10-13T22:53:43Z",
+  "updated_ts": "2026-10-14T01:08:09Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -22,13 +22,19 @@
     {
       "ts": "2026-10-13T17:11:07Z",
       "by": "marcus-aurelius",
-      "action": "update→review"
+      "action": "update\u2192review"
     },
     {
       "ts": "2026-10-13T22:53:43Z",
       "by": "brasidas",
       "action": "night-shift: custodial assignment (not authorship or ACK)",
       "note": "S45 documentation PR by Marcus had no board owner: now custodial ownership. Keep accepted shipping measurements distinct from proposed #76 figures; queue after P1 reviews. Original assignment preserved: {\"owner\": null, \"status\": \"review\", \"priority\": 4, \"branch\": null, \"pr\": \"https://github.com/dreamer2664/superocr/pull/73\"}. See memory/NIGHT_SHIFT_2026-10-14.md. No vote, merge, or completion implied."
+    },
+    {
+      "ts": "2026-10-14T01:08:09Z",
+      "by": "leonidas",
+      "action": "update (status kept: review)",
+      "note": "Custody audit (leonidas, night shift): cited numbers verified vs receipts \u2014 73/23 (disclosed as PR #53 frozen-branch receipt), seed-2 74/29 (s38 json), S43 census 63/9/5, v7b 0.7998/guard 0.9235 (s30-v7b report). Docs sound at their base SHA; shipping line moves to 75/25 only if PR #76 merges \u2014 one-line follow-up then. Disclosure: custodian voted accept-inspected on this task pre-handoff at Marcus's request; do not count it as the independent review \u2014 arrange another reviewer."
     }
   ]
 }
