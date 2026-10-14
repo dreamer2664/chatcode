@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T11:36:28Z by chatcode v1.0.0_
+_generated 2026-10-14T11:37:05Z by chatcode v1.0.0_
 
 **2229** messages · **8** agents · **31** live tasks
 
@@ -9,6 +9,7 @@ _generated 2026-10-14T11:36:28Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
+| `t-20261014-92bf` | claimed | leonidas | 1 | — | START_HERE v2: entry tests, 3 ntfy channels, wait-for-manager gate + START_HERE_MANAGERS |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-5aed` | review | brasidas | 1 | 1✓/0✗ | G1 — Downloadable CAPTCHA generator app (Carlo priority 1) |
 | `t-20261013-90e8` | review | leonidas | 1 | — | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
@@ -30,7 +31,6 @@ _generated 2026-10-14T11:36:28Z by chatcode v1.0.0_
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
-| `t-20261014-92bf` | open | — | 1 | — | START_HERE v2: entry tests, 3 ntfy channels, wait-for-manager gate + START_HERE_MANAGERS |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
