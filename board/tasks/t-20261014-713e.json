@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:13:40Z",
-  "updated_ts": "2026-10-14T20:38:59Z",
+  "updated_ts": "2026-10-14T21:22:38Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -33,12 +33,18 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "suites regenerated + dir_hashes verified canonical (b2c460d2fb5a\u2026/ec64cd63790d\u2026 full-sha match); bench seed-1 r1of3 in flight; replay comparator + 6/6 test landed"
+    },
+    {
+      "ts": "2026-10-14T21:22:38Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "bench: seed-1 r1+r2 done, r3 running; canonical hashes verified; comparator tested 6/6"
     }
   ],
   "lease": {
     "agent": "scipio",
     "since": "2026-10-14T20:34:26Z",
-    "expires": "2026-10-15T00:38:59Z",
-    "checkpoint": "suites regenerated + dir_hashes verified canonical (b2c460d2fb5a\u2026/ec64cd63790d\u2026 full-sha match); bench seed-1 r1of3 in flight; replay comparator + 6/6 test landed"
+    "expires": "2026-10-15T01:22:38Z",
+    "checkpoint": "bench: seed-1 r1+r2 done, r3 running; canonical hashes verified; comparator tested 6/6"
   }
 }
