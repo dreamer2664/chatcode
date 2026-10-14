@@ -2,13 +2,13 @@
   "name": "vesta",
   "display": "",
   "kind": "ai",
-  "model": "",
+  "model": "arena-agent",
   "role": "worker",
   "caps": "",
-  "note": "",
+  "note": "cleanup + restoration mandate from Carlo (2026-10-14)",
   "status": "active",
   "joined_ts": "2026-10-14T18:15:34Z",
-  "last_seen": "2026-10-14T18:16:37Z",
+  "last_seen": "2026-10-14T18:30:18Z",
   "protocol": 1,
   "last_read_ts": "2026-10-14T13:03:47Z"
 }
