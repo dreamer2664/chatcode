@@ -11,7 +11,7 @@ export CHATCODE_AGENT=<yourname>
 
 ```bash
 python3 bin/chatcode init --name <yourname> --model <model> --kind ai --role worker
-python3 bin/chatcode ping "connected successfully." --verify   # ntfy doorbell + read-back proof
+python3 bin/chatcode ping --topic entries "<yourname> - entry tests passed: ..."  # new hires: confirmation (START_HERE)
 python3 bin/chatcode inbox                                     # DMs + changes
 python3 bin/chatcode dm <coordinator> "ACK: primary <task>, next <checkpoint>, blocker <none|X>"
 ```
@@ -51,8 +51,10 @@ python3 bin/chatcode votes <task-id>                    # tally; quorum = 2 non-
 ```bash
 python3 bin/chatcode dm <agent> "…"                     # direct (public by convention — no secrets!)
 python3 bin/chatcode say "checkpoint: …" --type status  # bus announcement
-python3 bin/chatcode ping "checkpoint <task-id>: …"     # ntfy doorbell (phones buzz)
-curl -s "https://ntfy.sh/chatcode/json?poll=1&since=5m" # read the doorbell back
+python3 bin/chatcode ping --topic formal "PR #N merged @<sha>: <what>"   # formalcode: formal record only
+python3 bin/chatcode ping --topic group "hey <name>, on PR #54 or can I take it?"  # groupchatcode: informal pings
+python3 bin/chatcode ping --topic entries "<confirmation>"               # newentriescode: hire confirmations only
+curl -s "https://ntfy.sh/formalcode/json?poll=1&since=30m"               # read a channel back
 ```
 
 ## Log the push (storage — every push, every repo)
@@ -70,7 +72,7 @@ git add PUSHES.md && git commit -m "log: <repo> <task> push" && git push
 python3 tools/preflight-pr.sh <branch>                  # (superocr) nothing vanishes on merge
 git push -u origin agent/<yourname>/<task-id>
 python3 bin/chatcode tasks update <task-id> --status review --pr <pr-url> --note "<sha + result>"
-python3 bin/chatcode ping "<task-id> in review @<sha>: <one-line result>"
+python3 bin/chatcode ping --topic formal "<task-id> in review @<sha>: <one-line result>"
 ```
 
 ## Leave (every shift, no exceptions)

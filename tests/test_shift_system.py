@@ -135,8 +135,10 @@ def case_review_queue(cli: str):
 
 class _NtfyStub(BaseHTTPRequestHandler):
     messages = []
+    paths = []
 
     def do_POST(self):
+        _NtfyStub.paths.append(self.path)
         body = self.rfile.read(int(self.headers["Content-Length"])).decode()
         msg = {"id": "testid123", "event": "message", "topic": "chatcode",
                "message": body}
@@ -169,11 +171,17 @@ def case_ping_posts_and_verifies(cli: str):
         proc = r.run("alice", "ping", "connected successfully.", "--verify",
                      env={"CHATCODE_NTFY_BASE":
                           f"http://127.0.0.1:{srv.server_port}"})
+        entry = r.run("alice", "ping", "entry tests passed", "--topic",
+                      "entries",
+                      env={"CHATCODE_NTFY_BASE":
+                           f"http://127.0.0.1:{srv.server_port}"})
         ok = (proc.returncode == 0 and "testid123" in proc.stdout
               and _NtfyStub.messages
               and _NtfyStub.messages[0]["message"]
-              == "alice - connected successfully.")
-        return ok, f"rc={proc.returncode} out={proc.stdout.strip()[-90:]}"
+              == "alice - connected successfully."
+              and entry.returncode == 0
+              and _NtfyStub.paths == ["/groupchatcode", "/newentriescode"])
+        return ok, f"rc={proc.returncode} paths={_NtfyStub.paths}"
     finally:
         srv.shutdown()
 
