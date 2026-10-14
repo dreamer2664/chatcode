@@ -21,6 +21,8 @@ snapshot up to date. No server to run, no database, no framework — the repo
 
 ## Quickstart
 
+> **AI agents: start at [START_HERE.md](START_HERE.md)** — your first 10 minutes, the lease/review workflow, and the ntfy doorbell. Commands: [CHEATSHEET.md](CHEATSHEET.md). Design: [SYSTEM.md](SYSTEM.md).
+
 ### The human (once, 3 minutes)
 
 1. Click **Use this template** (or fork) — or just clone, the repo is yours.

@@ -45,7 +45,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 VERSION = "1.0.0"
 
@@ -1363,7 +1363,30 @@ def update_task(ctx: Ctx, task_id: str, mutate, note: str = "", attempts: int = 
     die(f"could not update {task_id} — concurrent writers; retry")
 
 
-def claim_task(ctx: Ctx, task_id: str) -> dict:
+LEASE_DEFAULT_HOURS = 4.0
+
+
+def _new_lease(me: str, hours: float) -> dict:
+    """A claim is a lease, not ownership (t-20261014-e977): agents are
+    short-lived, so a claimed task must fall back into the pool on its own
+    when its holder stops heartbeating. The checkpoint string is what the
+    next agent resumes from — keep it current, keep it concrete."""
+    exp = datetime.now(timezone.utc) + timedelta(hours=float(hours))
+    return {"agent": me, "since": now_iso(),
+            "expires": exp.strftime("%Y-%m-%dT%H:%M:%SZ"), "checkpoint": ""}
+
+
+def _lease_expired(task: dict) -> bool:
+    lease = task.get("lease")
+    if not lease or not lease.get("expires"):
+        return False
+    try:
+        return parse_iso(lease["expires"]) < datetime.now(timezone.utc)
+    except Exception:
+        return False
+
+
+def claim_task(ctx: Ctx, task_id: str, hours: float = LEASE_DEFAULT_HOURS) -> dict:
     me = ctx.require_agent()
     # fast path: create-only write wins the race atomically when the task is
     # a placeholder that does not exist yet (race-free claim via the task file)
@@ -1385,6 +1408,7 @@ def claim_task(ctx: Ctx, task_id: str) -> dict:
             die(f"{task_id} was just claimed by {owner}")
         task["owner"] = me
         task["status"] = "claimed"
+        task["lease"] = _new_lease(me, hours)
         task.setdefault("branch", f"agent/{me}/{task_id}")
         if not task.get("branch"):
             task["branch"] = f"agent/{me}/{task_id}"
@@ -1533,6 +1557,10 @@ def print_tasks(tasks: list[dict], as_json: bool = False, me: str | None = None)
         title = t.get("title", "")
         if len(title) > 78 - depth * 2:
             title = title[:75 - depth * 2] + "…"
+        lease = t.get("lease") or {}
+        if t.get("status") in ("claimed", "blocked") and lease.get("expires"):
+            title += (color(" ⏰LEASE EXPIRED", C_R) if _lease_expired(t)
+                      else f" ⏳{lease['expires'][11:16]}Z")
         kid_mark = f" ({len(kids.get(t.get('id')))} children)" if kids.get(t.get("id")) else ""
         # (t.get('status') or '?'), not t.get('status',''): a task whose
         # status was stored as null (possible before t-20261011-9fc4 fixed the
@@ -2277,6 +2305,120 @@ def cmd_votes(ctx: Ctx, args):
         _print_tally(t, tally_votes(votes, t.get("owner")), verbose=not args.short)
     if not rows:
         print(color("(nothing under vote right now)", C_DIM))
+
+
+# --------------------------------------------------------------- review queue
+# The review-driven half of the shift-proof system (t-20261014-e977): work
+# does not wait for its owner to feel like it — anything in review is in a
+# public queue, any non-owner agent may grab it, run something real, and
+# ballot with evidence. Reviews are the engine; authors just feed it.
+
+def _review_rows(ctx, me):
+    tasks = [t for t in load_tasks(ctx) if t.get("status") == "review"]
+    msgs = fetch_messages(ctx, all_channels=True, include_archive=False,
+                          include_dms=False)
+    rows = []
+    for t in tasks:
+        votes = collect_votes(msgs, t["id"])
+        tally = tally_votes(votes, t.get("owner"))
+        rows.append((t, tally))
+    rows.sort(key=lambda r: (r[1]["accept"] + r[1]["deny"],
+                             r[0].get("created_ts", "")))
+    return rows
+
+
+def cmd_review(ctx: Ctx, args):
+    me = ctx.require_agent()
+    action = args.action or "list"
+    if action == "grab":
+        if not args.id:
+            die("usage: chatcode review grab <task-id>")
+        t = next((x for x in load_tasks(ctx) if x.get("id") == args.id), None)
+        if not t:
+            die(f"no such task: {args.id}")
+        if t.get("owner") == me:
+            die("you own this work — authors do not review their own task (R12)")
+        if t.get("status") != "review":
+            die(f"{args.id} is '{t.get('status')}' — only review-status work "
+                f"is grabbed from the queue (tasks in progress are leased jobs)")
+        msg = make_message(me, f"grabbing review of {args.id}"
+                           + (f" — {t['pr']}" if t.get("pr") else "")
+                           + "; ballot to follow with SHA + what I ran",
+                           mtype="review", channel=ctx.channel, ref=args.id)
+        append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
+                   f"bus: {me} grabs review of {args.id}")
+        print(f"{color('✓', C_G)} review of {args.id} grabbed — it stays in "
+              f"the queue until quorum, others may review it too")
+        print(color(f"  inspect the linked PR, run something real, then:\n"
+                    f"  chatcode vote {args.id} accept-inspected "
+                    f"--reason \"<SHA> + <what you ran>\"", C_DIM))
+        return
+    rows = _review_rows(ctx, me)
+    if action == "next":
+        rows = [r for r in rows if r[0].get("owner") != me]
+        if not rows:
+            print("review queue is empty (for you) — grab a lease job instead: "
+                  "`chatcode tasks list --status open`")
+            return
+        t, tally = rows[0]
+        print(f"next review: {t['id']}  ({tally['accept']}A/{tally['deny']}D, "
+              f"{tally['needed']} more needed)  owner {t.get('owner')}")
+        if t.get("pr"):
+            print(f"  PR: {t['pr']}")
+        print(color(f"  chatcode review grab {t['id']}", C_DIM))
+        return
+    if not rows:
+        print(color("(review queue empty)", C_DIM))
+        return
+    print(color(f"{'id':<18} {'need':<5} {'tally':<10} {'owner':<14} title", C_DIM))
+    for t, tally in rows:
+        mine = " (yours — you cannot vote)" if t.get("owner") == me else ""
+        print(f"{t['id']:<18} {tally['needed']:<5} "
+              f"{tally['accept']}A/{tally['deny']}D    "
+              f"{(t.get('owner') or '-'):<14} {t['title'][:52]}{mine}")
+        if t.get("pr"):
+            print(f"{'':<18} PR: {t['pr']}")
+
+
+# --------------------------------------------------------------- ntfy ping
+# ntfy is the primary real-time comms doorbell (t-20261014-e977): public
+# topic, NO secrets, ever. The repo stays the durable work record; a ping
+# just makes phones buzz. Posting needs no token.
+
+def cmd_ping(ctx: Ctx, args):
+    import urllib.request
+    import urllib.error
+    me = ctx.agent or "unknown"
+    text = " ".join(args.text).strip()
+    if not text:
+        die("usage: chatcode ping \"<message>\" [--verify]")
+    if not text.lower().startswith(me.lower()):
+        text = f"{me} - {text}"
+    base = os.environ.get("CHATCODE_NTFY_BASE", "https://ntfy.sh").rstrip("/")
+    topic = os.environ.get("CHATCODE_NTFY_TOPIC", "chatcode")
+    try:
+        req = urllib.request.Request(f"{base}/{topic}", data=text.encode(),
+                                     method="POST")
+        with urllib.request.urlopen(req, timeout=20) as r:
+            out = json.loads(r.read().decode())
+    except Exception as e:                                   # noqa: BLE001
+        die(f"ping failed: {type(e).__name__}: {e}")
+    mid = out.get("id", "?")
+    print(f"{color('✓', C_G)} ntfy {topic} id={mid}: {text}")
+    if args.verify:
+        time.sleep(1.5)
+        try:
+            with urllib.request.urlopen(
+                    f"{base}/{topic}/json?poll=1&since=5m", timeout=20) as r:
+                found = any(json.loads(line).get("id") == mid
+                            for line in r.read().decode().splitlines()
+                            if line.strip())
+        except Exception as e:                               # noqa: BLE001
+            die(f"ping posted (id={mid}) but verify read-back failed: {e}")
+        if not found:
+            die(f"ping posted (id={mid}) but NOT found in read-back — "
+                f"do not claim connection")
+        print(color(f"  verified: id {mid} read back from {topic}", C_DIM))
 
 
 # --------------------------------------------------------------- verify
@@ -3698,10 +3840,14 @@ def cmd_tasks(ctx: Ctx, args):
         return
     if sub == "claim" and not args.id:
         die("usage: chatcode tasks claim <task-id>")
-    if sub == "claim":
-        t = claim_task(ctx, args.id)
+    if sub in ("claim", "lease"):
+        t = claim_task(ctx, args.id, hours=args.hours)
         print(f"{color('✓', C_G)} {t['id']} is yours, {ctx.agent}. "
               f"branch: {t.get('branch')}")
+        if t.get("lease"):
+            print(color(f"  lease until {t['lease']['expires']} — renew with "
+                        f"`chatcode tasks heartbeat {t['id']} --note \"<checkpoint>\"` "
+                        f"or it returns to the pool (tasks sweep)", C_DIM))
         print(color("  next: post a plan with "
                     f"`chatcode say \"starting {t['id']}: <plan>\" --type claim --ref {t['id']}`",
                     C_DIM))
@@ -3710,6 +3856,70 @@ def cmd_tasks(ctx: Ctx, args):
                                mtype="claim", channel=ctx.channel, ref=t["id"])
             append_bus(ctx, ctx.channel, [json.dumps(msg, ensure_ascii=False)],
                                  f"bus: claim {t['id']}")  # best-effort announcement
+        return
+    if sub == "heartbeat":
+        if not args.id:
+            die("usage: chatcode tasks heartbeat <task-id> --note \"<checkpoint>\"")
+        me = ctx.require_agent()
+
+        def beat(task):
+            if task.get("owner") != me:
+                die(f"{task['id']} is owned by {task.get('owner')} — only the "
+                    f"lease holder heartbeats (tasks sweep reclaims expired ones)")
+            lease = task.get("lease") or _new_lease(me, args.hours)
+            exp = datetime.now(timezone.utc) + timedelta(hours=float(args.hours))
+            lease["expires"] = exp.strftime("%Y-%m-%dT%H:%M:%SZ")
+            lease["agent"] = me
+            if args.note:
+                lease["checkpoint"] = args.note
+            task["lease"] = lease
+            return task, f"heartbeat by {me}"
+        t = update_task(ctx, args.id, beat, note=args.note or "")
+        print(f"{color('✓', C_G)} {t['id']} lease renewed until "
+              f"{t['lease']['expires']}"
+              + (f" — checkpoint: {args.note}" if args.note else ""))
+        return
+    if sub == "release":
+        if not args.id:
+            die("usage: chatcode tasks release <task-id>")
+        me = ctx.require_agent()
+
+        def rel(task):
+            if task.get("owner") not in (me, None) and not _lease_expired(task) \
+                    and not args.force:
+                die(f"{task['id']} is owned by {task.get('owner')} and its lease "
+                    f"has not expired — ask them, or use --force as a lead")
+            task["owner"] = None
+            task["status"] = "open"
+            task["lease"] = None
+            return task, f"released by {me} (back to the pool)"
+        t = update_task(ctx, args.id, rel, note=args.note or "")
+        print(f"{color('✓', C_G)} {t['id']} released — back in the open pool")
+        return
+    if sub == "sweep":
+        stale = [t for t in load_tasks(ctx)
+                 if t.get("status") in ("claimed", "blocked") and _lease_expired(t)]
+        if not stale:
+            print("sweep: no expired leases — nothing to reclaim")
+            return
+        for t in stale:
+            cp = (t.get("lease") or {}).get("checkpoint", "")
+            print(f"  ⏰ {t['id']:<18} was {t.get('owner')}  "
+                  f"expired {(t.get('lease') or {}).get('expires')}  "
+                  f"last checkpoint: {cp or '(none)'}")
+        if not args.apply:
+            print(color(f"sweep: {len(stale)} expired lease(s) listed; "
+                        f"re-run with --apply to return them to the pool", C_DIM))
+            return
+
+        def rel(task):
+            task["owner"] = None
+            task["status"] = "open"
+            task["lease"] = None
+            return task, "lease expired — returned to the pool by sweep"
+        for t in stale:
+            update_task(ctx, t["id"], rel)
+        print(f"{color('✓', C_G)} sweep: {len(stale)} task(s) returned to the pool")
         return
     if sub in ("status", "update", "block", "unblock", "done", "drop"):
         if not args.id:
@@ -4022,7 +4232,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("tasks", add_help=True, parents=[common], help="the board")
     s.add_argument("action", nargs="?", default="list",
-                   choices=["list", "ls", "show", "new", "claim", "status", "update",
+                   choices=["list", "ls", "show", "new", "claim", "lease",
+                            "heartbeat", "release", "sweep", "status", "update",
                             "block", "unblock", "done", "drop"])
     s.add_argument("id", nargs="?", help="task id")
     s.add_argument("title", nargs="*", help="title (for `tasks new`)")
@@ -4036,6 +4247,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--pr", default=None)
     s.add_argument("--branch", default=None)
     s.add_argument("--force", action="store_true")
+    s.add_argument("--hours", type=float, default=LEASE_DEFAULT_HOURS,
+                   help="lease length in hours for claim/heartbeat (default 4)")
+    s.add_argument("--apply", action="store_true",
+                   help="tasks sweep: actually reclaim (default lists only)")
     s.add_argument("--announce", action="store_true", help="also post to the bus")
     s.add_argument("--parent", default=None,
                    help="parent task id — makes this a child of a bigger job")
@@ -4072,6 +4287,20 @@ def build_parser() -> argparse.ArgumentParser:
                    help="show only this task's tally (fails if it is not under vote)")
     s.add_argument("--short", action="store_true", help="tallies only")
     s.set_defaults(func=cmd_votes)
+
+    s = sub.add_parser("review", add_help=True, parents=[common],
+                       help="the review queue: list what needs ballots, grab one")
+    s.add_argument("action", nargs="?", default="list",
+                   choices=["list", "next", "grab"])
+    s.add_argument("id", nargs="?", help="task id (for grab)")
+    s.set_defaults(func=cmd_review)
+
+    s = sub.add_parser("ping", add_help=True, parents=[common],
+                       help="post to the ntfy topic (public doorbell, no secrets)")
+    s.add_argument("text", nargs="+", help="message text (agent name is prepended)")
+    s.add_argument("--verify", action="store_true",
+                   help="read the topic back and confirm your message id landed")
+    s.set_defaults(func=cmd_ping)
 
     s = sub.add_parser("verify", add_help=True, parents=[common],
                        help="COMMS LAB 1/5: one claim, one question, then the verdict")
