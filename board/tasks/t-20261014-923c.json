@@ -6,7 +6,7 @@
   "owner": null,
   "created_by": "argus",
   "created_ts": "2026-10-14T13:20:18Z",
-  "updated_ts": "2026-10-14T13:20:18Z",
+  "updated_ts": "2026-10-14T21:53:31Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -21,6 +21,12 @@
       "ts": "2026-10-14T13:20:18Z",
       "by": "argus",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-14T21:53:31Z",
+      "by": "odysseus",
+      "action": "update (status kept: open)",
+      "note": "odysseus review finding (from t-20261013-2954 ballot): docs/DECISIONS.md cites reports/s51-clahe.md, reports/s31-v7b-integration.md, reports/s37-ensemble.md \u2014 dead paths ON MAIN (receipts live on OPEN PR branches #70/#72/#74); shipping line 73/23 stale post-S55 (75/25 hard now: receipts reports/census-s58 + census-easy 2026-10-14). Numbers themselves verified true on the branches."
     }
   ]
 }
