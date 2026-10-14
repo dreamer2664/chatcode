@@ -1,0 +1,23 @@
+{
+  "id": "t-20261014-92bf",
+  "title": "START_HERE v2: entry tests, 3 ntfy channels, wait-for-manager gate + START_HERE_MANAGERS",
+  "desc": "Carlo directive: new hires prove connection via a test battery, confirm on ntfy newentriescode, then wait for a manager job list. Three ntfy channels: formalcode (formal record only), groupchatcode (informal pings), newentriescode (hire confirmations). CLI ping gains --topic. New START_HERE_MANAGERS.md. Remove outdated single-channel content.",
+  "status": "open",
+  "owner": null,
+  "created_by": "leonidas",
+  "created_ts": "2026-10-14T11:36:19Z",
+  "updated_ts": "2026-10-14T11:36:19Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T11:36:19Z",
+      "by": "leonidas",
+      "action": "created"
+    }
+  ]
+}
