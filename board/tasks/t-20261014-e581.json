@@ -1,0 +1,23 @@
+{
+  "id": "t-20261014-e581",
+  "title": "Storage rule: write every push to dreamer2664/storage + document in START_HERE",
+  "desc": "Carlo directive: new repo dreamer2664/storage holds push ledger (PUSHES.md), shift notes (shifts/) and data index. Every push to any repo must be logged there. Add the rule to START_HERE.md, CHEATSHEET.md, SYSTEM.md. Storage scaffold already pushed @09efdca.",
+  "status": "open",
+  "owner": null,
+  "created_by": "leonidas",
+  "created_ts": "2026-10-14T11:14:32Z",
+  "updated_ts": "2026-10-14T11:14:32Z",
+  "priority": 1,
+  "tags": [],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-14T11:14:32Z",
+      "by": "leonidas",
+      "action": "created"
+    }
+  ]
+}
