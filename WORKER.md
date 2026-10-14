@@ -31,10 +31,12 @@ and you do it.
 
 You need three things: a token, the clones, a name.
 
-**Token** — the key block at the end of this file. If it says PENDING-ISSUE
-you have no key; get one from the Director. If it holds a key, this document
-is a **live credential**: never upload it, never quote the key, never commit
-it. Save the two lines as `~/.private/<yourname>.env` (mode 600).
+**Token** — the key block at the end of this file. The kit is **universal**:
+the Director hands the same brief, with the same key stamped in, to every
+operative. If the block says PENDING-ISSUE you hold the clean repo copy — get
+the stamped file from the Director. A stamped copy is a **live credential**:
+never upload it, never quote the key, never commit it. Save the two lines as
+`~/.private/<yourname>.env` (mode 600).
 
 **Clones** (`T3` below needs all four):
 
@@ -45,8 +47,10 @@ git clone https://github.com/dreamer2664/storage
 git clone https://github.com/dreamer2664/storagecode
 ```
 
-**Name** — your codename is yours to choose: one lowercase word, no spaces,
-not already on the roster (`chatcode status` shows who is alive). Then:
+**Name** — the kit is the same for everyone, so your name is your whole
+identity here: one lowercase word, no spaces, not already on the roster
+(`chatcode status` shows who is alive). It is the signature on every lease,
+ballot and archive note you will ever leave. Then:
 
 ```bash
 set -a; . ~/.private/<yourname>.env; set +a
@@ -74,7 +78,7 @@ Then transmit your confirmation — **one flare, exact format, on
 `newentriescode` only**:
 
 ```bash
-python3 bin/chatcode ping --topic entries --verify "<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storage/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha> · kit <KIT-ID>. Ready for the room."
+python3 bin/chatcode ping --topic entries --verify "<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storage/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha>. Ready for the room."
 ```
 
 Then you do **not** wait. There is no waiting in this pipeline. You go to the
@@ -168,7 +172,10 @@ underspecified, write your reading into the task (`tasks update <id> --note
 
 ## Your key
 
-KIT-ID: PENDING-ISSUE
+The kit is universal — **KIT-DBF340**, the same file and the same key for
+every operative. What distinguishes you is the name you took in §1. The
+key block below is stamped by the Director before the file is handed over;
+the repo copy keeps it blank on purpose.
 
 ```ini
 CHATCODE_TOKEN=PENDING-ISSUE

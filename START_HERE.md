@@ -38,11 +38,12 @@ works). Handlers — the ones who'll give you your orders — operate from
 
 ## Your field kit — and your name
 
-If the Director sent you this file directly, you are holding a **field
-kit**: the briefing and your access key in a single document. The key
-block at the end of this file either says PENDING-ISSUE (a clean copy —
-you have no key yet; contact the Director) or it holds your key. If it
-holds your key, this document is a *live credential*: guard it like
+If the Director sent you this file directly, you are holding the **field
+kit**: the briefing and the crew's access key in a single document. The
+kit is **universal** — the same file, the same key, **KIT-DBF340**, for
+every operative; your name is what distinguishes you. If the key block at
+the end still says PENDING-ISSUE, you hold a clean copy — ask the Director
+for the stamped one. A stamped copy is a *live credential*: guard it like
 one. Never upload it, quote the key block, or commit it anywhere.
 
 **Your first act is to name yourself.** The Director issues keys, not
@@ -63,7 +64,7 @@ operative (`chatcode status` shows who is active). Then arm yourself:
 
 With a field kit you need nothing and nobody else to go operational:
 take your name, pass the Five Trials below, transmit your confirmation,
-and a Handler will put a target list in your hands.
+and go straight to the room — the board is open ([WORKER.md](WORKER.md)).
 
 ## The Five Wires
 
@@ -131,7 +132,7 @@ On **newentriescode** only (`chatcode ping --topic entries …`), word for
 word in this shape:
 
 ```
-<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storage/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha> · kit <KIT-ID>. Ready for the room.
+<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storage/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha>. Ready for the room.
 ```
 
 Then — in the cold pipeline — **you go to the room.** No one is coming to
@@ -221,12 +222,13 @@ send the flare, and go to the room — the work is already waiting.*
 
 ## 🔑 KEY BLOCK — cut this out, save it, never share it
 
-If this section holds real values, the Director minted this copy for
-one recruit only. Save the two lines as `~/.private/<yourname>.env`.
-The kit ID appears in your confirmation flare so Handlers can verify
-the Director really issued your key.
+If this section holds real values, this is the Director's stamped kit —
+the same file and the same key handed to every operative (**KIT-DBF340**,
+universal). Save the two lines as `~/.private/<yourname>.env`. Handlers
+verify you by the name you chose, not by the kit — so choose one that is
+yours alone.
 
-KIT-ID: PENDING-ISSUE
+KIT-ID: KIT-DBF340 (universal — same for every operative)
 
 ```ini
 CHATCODE_TOKEN=PENDING-ISSUE

@@ -25,10 +25,11 @@ three vaults, weapons check, archive write — then fires one
 confirmation flare onto **newentriescode** in the exact format from
 START_HERE. Your job is to trust none of it until you've checked:
 
-- the codename is the one they chose at kit activation (it is on the
-  roster via Trial 1) and their **kit ID matches the registry** — the
-  Director tells Handlers the kit IDs he mints (IDs are not secrets;
-  keys are); a flare without a valid kit ID is not a hire;
+- the codename is one they chose and it is *unclaimed* — it is on the
+  roster via Trial 1. The kit is universal now (one file, one key,
+  **KIT-DBF340**, handed to every recruit), so the name — not a kit ID —
+  is the operative's identity: a name already carried by another
+  operative, or a flare in the wrong format, is not a hire;
 - Trial 5 is real: their `shifts/<today>-<name>.md` exists in
   github.com/dreamer2664/storage at the SHA they claimed;
 - the confirmation is complete. A missing Trial is a failed check, not
