@@ -1,0 +1,13 @@
+{
+  "name": "scipio",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-14T20:30:12Z",
+  "last_seen": "2026-10-14T20:30:12Z",
+  "protocol": 1
+}
