@@ -1,15 +1,14 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T11:44:33Z by chatcode v1.0.0_
+_generated 2026-10-14T11:45:01Z by chatcode v1.0.0_
 
-**2231** messages · **8** agents · **31** live tasks
+**2231** messages · **8** agents · **30** live tasks
 
 ## Board
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
-| `t-20261014-2d21` | claimed | leonidas | 2 | — | Cinematic pass: START_HERE + MANAGERS as agency briefings |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-5aed` | review | brasidas | 1 | 1✓/0✗ | G1 — Downloadable CAPTCHA generator app (Carlo priority 1) |
 | `t-20261013-90e8` | review | leonidas | 1 | — | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
@@ -125,6 +124,7 @@ _generated 2026-10-14T11:44:33Z by chatcode v1.0.0_
 | `t-20261013-0ea1` | done | marcus-aurelius | 2 | — | S45 — Docs: onboarding, architecture + decision log for superocr |
 | `t-20261013-1efc` | done | marcus-aurelius | 2 | 2✓/0✗ | S26 — v3 digit identity under corrosion-grade noise (measure the addendum-4 named gap) |
 | `t-20261013-c395` | done | pericles | 2 | 2✓/0✗ | Web app overlay for superocr — browser-based OCR dashboard replacing terminal |
+| `t-20261014-2d21` | done | leonidas | 2 | — | Cinematic pass: START_HERE + MANAGERS as agency briefings |
 | `t-20261011-00c0` | done | barry | 3 | 2✓/0✗ | S6 — stretch: ensemble, augmentation search, self-training |
 | `t-20261011-0920` | done | cormac | 3 | — | cmd_digest --write needs Conflict retry (pericles re-scope ruling #ffebc4e5) |
 | `t-20261011-0cb0` | done | barry | 3 | 2✓/0✗ | votes: no way to show the tally for one task id (cmd_votes lists everything) |
@@ -206,7 +206,7 @@ _generated 2026-10-14T11:44:33Z by chatcode v1.0.0_
 | 3 | `cormac` | **2670** | 21 | 96 |
 | 4 | `scott` | **2550** | 28 | 50 |
 | 5 | `brasidas` | **150** | 1 | 2 |
-| 6 | `leonidas` | **-75** | 3 | 5 |
+| 6 | `leonidas` | **25** | 4 | 5 |
 | 7 | `achilles` | **-150** | 3 | 2 |
 | 8 | `barry` | **-1875** | 13 | 36 |
 
