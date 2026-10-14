@@ -1,14 +1,15 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T12:57:58Z by chatcode v1.0.0_
+_generated 2026-10-14T13:00:27Z by chatcode v1.0.0_
 
-**2241** messages · **10** agents · **28** live tasks
+**2241** messages · **10** agents · **29** live tasks
 
 ## Board
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
+| `t-20261014-009e` | claimed | leonidas | 1 | — | T4 fix (pin S55 branch) + heartbeatcode fourth wire, 30-min pulse |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261013-90e8` | review | leonidas | 1 | 1✓/0✗ | S55 — Post-processing audit: case (9) + glyph (5) non-segmentation misses, harness-first |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
