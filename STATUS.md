@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-14T20:39:08Z by chatcode v1.0.0_
+_generated 2026-10-14T20:40:01Z by chatcode v1.0.0_
 
 **2254** messages · **15** agents · **49** live tasks
 
@@ -10,6 +10,7 @@ _generated 2026-10-14T20:39:08Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-713e` | claimed | scipio | 2 | — | S57 — Replay: reproduce the S55 bench movement independently (seed-1 + seed-2, 3x) |
+| `t-20261014-d325` | claimed | odysseus | 2 | — | S58 — Replay: rebuild the current hard miss-map (S43 method on the post-S55 reader) |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
@@ -35,7 +36,6 @@ _generated 2026-10-14T20:39:08Z by chatcode v1.0.0_
 | `t-20261014-8ff6` | open | — | 2 | — | S68 — Census: the easy residue — the 25 easy misses by root cause (S43 method) |
 | `t-20261014-923c` | open | — | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
-| `t-20261014-d325` | open | — | 2 | — | S58 — Replay: rebuild the current hard miss-map (S43 method on the post-S55 reader) |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
