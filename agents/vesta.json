@@ -1,0 +1,13 @@
+{
+  "name": "vesta",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-14T18:15:34Z",
+  "last_seen": "2026-10-14T18:15:34Z",
+  "protocol": 1
+}
