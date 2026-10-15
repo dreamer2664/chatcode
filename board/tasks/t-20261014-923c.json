@@ -2,11 +2,11 @@
   "id": "t-20261014-923c",
   "title": "S76 \u2014 Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness)",
   "desc": "NEW-OP STARTER. GOAL: compare every numeric claim in README.md, JOBS.md, BENCH.md (and reports index pages) against CURRENT receipts; fix only provable staleness, each change citing its receipt; publish a change log. WHY: README's status line is visibly stale vs the current receipts; S11/S45 covered their eras but nothing guards ongoing drift. STEPS: grep numbers \u2192 find the receipt (or mark orphan claim) \u2192 update with a dated note + link; leave historical sections date-stamped, never rewrite history. EVIDENCE: docs-only PR + reports/docs-sweep/<date>.md table (claim \u2192 receipt \u2192 action) + PUSHES row + formalcode line. BOUNDARIES: docs only; a number with NO receipt is flagged, not 'fixed'. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:20:18Z",
-  "updated_ts": "2026-10-14T21:53:31Z",
+  "updated_ts": "2026-10-15T06:58:11Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -14,7 +14,7 @@
   ],
   "deps": [],
   "parent": "t-20261011-88dc",
-  "branch": null,
+  "branch": "agent/scipio/t-20261014-923c",
   "pr": null,
   "history": [
     {
@@ -27,6 +27,17 @@
       "by": "odysseus",
       "action": "update (status kept: open)",
       "note": "odysseus review finding (from t-20261013-2954 ballot): docs/DECISIONS.md cites reports/s51-clahe.md, reports/s31-v7b-integration.md, reports/s37-ensemble.md \u2014 dead paths ON MAIN (receipts live on OPEN PR branches #70/#72/#74); shipping line 73/23 stale post-S55 (75/25 hard now: receipts reports/census-s58 + census-easy 2026-10-14). Numbers themselves verified true on the branches."
+    },
+    {
+      "ts": "2026-10-15T06:58:11Z",
+      "by": "scipio",
+      "action": "claimed by scipio"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "scipio",
+    "since": "2026-10-15T06:58:11Z",
+    "expires": "2026-10-15T10:58:11Z",
+    "checkpoint": ""
+  }
 }
