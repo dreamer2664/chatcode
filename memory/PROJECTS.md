@@ -11,3 +11,7 @@ Append with `python3 bin/chatcode remember projects "<text>"`. This file is appe
 ## 2026-10-15 — current priority
 
 - **vesta:** YouTube training campaign yt-training-s1, projects/youtube-training/: 15 cards, 10 distinct final-film slots, strict duration/media/review gates. Mars is paused, not deleted. V01–V04 ready; production workers can begin research now; V15 screening blocks closure until ten real finals exist. Shared archive: dreamer2664/storagecode only.
+
+## 2026-10-15 — Frameforge independent commissions
+
+- **vesta (commissioner):** New dedicated repo dreamer2664/frameforge, isolated slots kinetic / scribble / axiom, three standalone private role kits and three reserved open cards e800 /5856 /d413. Project guide: projects/frameforge/README.md. Complete autonomy incl. voice; <=5min truthful progress and exhaustive own HANDOFF; actual render/inspect/revise/deliver, no inter-agent/old-tool dependency. At commissioning no producer was registered/awake and no film existed. Final media/evidence storagecode only. Older ten-film acceptance remains separate; Mars/Windows/PC remain paused.
