@@ -2,11 +2,11 @@
   "id": "t-20261014-0f01",
   "title": "EMPIRE \u2014 cold onboarding dry-run: a stranger's friction report",
   "desc": "DELIVERABLE: reports/onboarding-friction.md \u2014 follow WORKER.md from zero in a clean sandbox (fresh HOME; use the repo copy for steps that need no key) and transcript every step: what worked, what was ambiguous, the exact error text when something failed; end with a fix list ranked by pain.\nEVIDENCE: each step's command + output quoted; at least one concrete wording fix proposed as diff text.\nOWNS: reports/onboarding-friction.md\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:42Z",
-  "updated_ts": "2026-10-14T20:46:42Z",
+  "updated_ts": "2026-10-15T09:16:47Z",
   "priority": 2,
   "tags": [
     "empire",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/odysseus/t-20261014-0f01",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T20:46:42Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T09:16:47Z",
+      "by": "odysseus",
+      "action": "claimed by odysseus"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "odysseus",
+    "since": "2026-10-15T09:16:47Z",
+    "expires": "2026-10-15T13:16:47Z",
+    "checkpoint": ""
+  }
 }
