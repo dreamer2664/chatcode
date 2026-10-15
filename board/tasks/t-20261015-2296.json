@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-2296",
-  "title": "M-BUS — structured messages: the bus grows a spine (gates that actually refuse)",
-  "desc": "DELIVERABLE: structured messages + dependency gates per CHARTER section 4 (the Advisor's section 5).\n(1) Typed messages with subject + refs (task/video/meeting), posted BOTH on the real bus (chatcode) and mirrored into world/threads/<id>.json with the bus id — one action, two records, no drift. Implemented through world.py propose/respond (M-STATE owns the skeleton; this card owns the message layer).\n(2) THE GATE: a thread declares REQUIRED responses (named agents/types); the tooling REFUSES to close the dependent task or video stage until each required response exists with a bus id. A real refusal, tested — not a guideline.\n(3) docs/COMMS.md: the 11 types, when each is owed, how to reply with context, what a good objection looks like, and what is NOT a metric (message count).\nEVIDENCE: a scripted exchange across two agent names on the real bus (paste bus ids + the mirrored thread file); a refused completion (exact error) without the required response; then the response lands and it closes.\nOWNS: tools/world.py (message layer), docs/COMMS.md, tests/test_world_bus.py.\nBRANCH: agent/<you>/<task-id>",
-  "status": "blocked",
+  "title": "M-BUS \u2014 structured messages: the bus grows a spine (gates that actually refuse)",
+  "desc": "DELIVERABLE: structured messages + dependency gates per CHARTER section 4 (the Advisor's section 5).\n(1) Typed messages with subject + refs (task/video/meeting), posted BOTH on the real bus (chatcode) and mirrored into world/threads/<id>.json with the bus id \u2014 one action, two records, no drift. Implemented through world.py propose/respond (M-STATE owns the skeleton; this card owns the message layer).\n(2) THE GATE: a thread declares REQUIRED responses (named agents/types); the tooling REFUSES to close the dependent task or video stage until each required response exists with a bus id. A real refusal, tested \u2014 not a guideline.\n(3) docs/COMMS.md: the 11 types, when each is owed, how to reply with context, what a good objection looks like, and what is NOT a metric (message count).\nEVIDENCE: a scripted exchange across two agent names on the real bus (paste bus ids + the mirrored thread file); a refused completion (exact error) without the required response; then the response lands and it closes.\nOWNS: tools/world.py (message layer), docs/COMMS.md, tests/test_world_bus.py.\nBRANCH: agent/<you>/<task-id>",
+  "status": "review",
   "owner": "cormac",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:21:04Z",
+  "updated_ts": "2026-10-15T14:29:22Z",
   "priority": 2,
   "tags": [
     "mars",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/cormac/t-20261015-2296",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/mars/pull/3",
   "history": [
     {
       "ts": "2026-10-15T12:15:36Z",
@@ -30,8 +30,14 @@
     {
       "ts": "2026-10-15T14:21:04Z",
       "by": "vesta",
-      "action": "director-pause→blocked",
+      "action": "director-pause\u2192blocked",
       "note": "Previously claimed, owner cormac; all incoming claims, PRs, ballots and evidence preserved. Resume only on a Director order. Choose video-training."
+    },
+    {
+      "ts": "2026-10-15T14:29:22Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "M-BUS delivered @3800081 (stacked on PR #1): docs/COMMS.md (11 types, good-objection law, message-count-is-not-a-metric), the bus mirror (post-first, bus id in the thread file, local-only = draft), and the required-response gate \u2014 close-thread/task-blocked/video-advance all refuse (rc=4) until each requirement is met by a bus-mirrored response. Real-bus scripted exchange pasted in PR #3 (bus #47b732a0 proposal, #2b46a2c8 scipio evidence); dummy thread reset. 61/61 tests."
     }
   ],
   "lease": null,
