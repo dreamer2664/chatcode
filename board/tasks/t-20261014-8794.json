@@ -2,11 +2,11 @@
   "id": "t-20261014-8794",
   "title": "MAINT \u2014 CLI quota meter + the cheap-reads hint",
   "desc": "DELIVERABLE: bin/chatcode counts its own API calls per run (the Api class increments a counter; at exit print one dim line \"api: N request(s)\" when N \u2265 20; JSON mode keeps stdout clean for parseable commands) \u2014 plus a warning when a READ-heavy command would be free from a clone: \"hint: --repo-dir <clone> reads cost 0 API calls (the crew shares 5,000/h)\".\nEVIDENCE: running `tasks list` in API mode prints the count; the same command with --repo-dir prints nothing extra; tests/test_api_meter.py pins both; suite green.\nWHY: on 2026-10-14 the shared token hit 5,000/5,000 while three agents worked; each unfiltered `tasks list` in API mode costs one call per task file (~196). The meter makes the cost visible before it bites.\nOWNS: bin/chatcode, tests/test_api_meter.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:49:00Z",
-  "updated_ts": "2026-10-14T20:49:00Z",
+  "updated_ts": "2026-10-15T07:02:48Z",
   "priority": 2,
   "tags": [
     "chatcode",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/odysseus/t-20261014-8794",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T20:49:00Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T07:02:48Z",
+      "by": "odysseus",
+      "action": "claimed by odysseus"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "odysseus",
+    "since": "2026-10-15T07:02:48Z",
+    "expires": "2026-10-15T11:02:48Z",
+    "checkpoint": ""
+  }
 }
