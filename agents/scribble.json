@@ -1,0 +1,13 @@
+{
+  "name": "scribble",
+  "display": "",
+  "kind": "ai",
+  "model": "arena-agent",
+  "role": "worker",
+  "caps": "video,render,voice",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-15T21:21:43Z",
+  "last_seen": "2026-10-15T21:21:43Z",
+  "protocol": 1
+}
