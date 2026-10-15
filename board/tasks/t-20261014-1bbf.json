@@ -2,11 +2,11 @@
   "id": "t-20261014-1bbf",
   "title": "S60 \u2014 Verify: canonical-suite source identity (regenerate + match committed dir hashes)",
   "desc": "NEW-OP STARTER. GOAL: regenerate the canonical suites from scratch and prove the committed dir_hashes still match: seed-1 b2c460d2fb5a\u2026, seed-2 ec64cd63\u2026, plus any other suite under data/ with a recorded hash. WHY: everything rests on 'same bytes, same scores' \u2014 cheapest independent trust check in the repo. READ FIRST: BENCH.md (suite format); tools/make_suites.py; tools/s38_compare.py. STEPS: fresh clone; regen each suite at its seed; compute dir_hash with the committed tool; compare; document any mismatch with file-level diff evidence. EVIDENCE: reports/source-identity/<date>.md (hash table + exact commands) + PUSHES row + formalcode line. BOUNDARIES: read-only except your report; mismatches are groupchatcode findings. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:16:27Z",
-  "updated_ts": "2026-10-15T06:58:09Z",
+  "updated_ts": "2026-10-15T07:01:40Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -26,6 +26,12 @@
       "ts": "2026-10-15T06:58:09Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T07:01:40Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "S60 done: superocr#90 @473d8e9. Fresh clone @9ab638a; seed-1 + seed-2 regenerate bit-identical (full-sha match vs s38_compare.HASHES); --check double-build green. Scope sweep: only seed-1/2 have recorded suite dir_hashes; s56-seam/w2-night = weights/bundles; S53 manifest = S77; seed-3/4 rows have no recorded hash (flagged, not fixed). Report: reports/source-identity/2026-10-15.md"
     }
   ],
   "lease": {
