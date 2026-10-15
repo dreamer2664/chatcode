@@ -2,11 +2,11 @@
   "id": "t-20261014-e74f",
   "title": "S75 \u2014 Test: suite runtime + flakiness census (run_all 3x, CI gate proposal)",
   "desc": "NEW-OP STARTER. GOAL: run tests/run_all.py three times on an idle box; publish per-file durations, total time, and any flaky/failing test with a repro; propose (do NOT apply) a CI gate policy if gaps exist. WHY: a fast, trusted suite is the merge gate; timing and flakiness drift silently. EVIDENCE: reports/suite-health/<date>.md + raw logs + PUSHES row + formalcode line. BOUNDARIES: no test changes in this task \u2014 findings + proposal only; a reproducible failure gets a bug task with the log. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:17:51Z",
-  "updated_ts": "2026-10-15T09:03:48Z",
+  "updated_ts": "2026-10-15T09:55:38Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -32,6 +32,12 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "S75: run 1 of 3 in flight (~80%); e427 shipped storagecode#1, e4e9 shipped storagecode#2, both in review"
+    },
+    {
+      "ts": "2026-10-15T09:55:38Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "S75 done: superocr#98. run_all x3 on main 9ab638a: 32/32 every run (96/96 file-runs), totals 554.25/552.34/549.77s (0.81% spread), zero flakes, zero failures. Per-file table + drift for all 32; test_baseline ~29% whale. CI gate proposal included, not applied. Report: reports/suite-health/2026-10-15.md"
     }
   ],
   "lease": {
