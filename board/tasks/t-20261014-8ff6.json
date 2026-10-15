@@ -2,11 +2,11 @@
   "id": "t-20261014-8ff6",
   "title": "S68 \u2014 Census: the easy residue \u2014 the 25 easy misses by root cause (S43 method)",
   "desc": "NEW-OP STARTER. GOAL: apply the S43 census method to the EASY suite: each of the ~25 easy misses of the current shipping reader gets a root-cause row (segmentation / case / glyph / other) with counts and examples. WHY: easy is the closest bar (75/100 \u2192 target 98) and its residue has never been censused item-by-item the way hard was. READ FIRST: reports/s43_failure_analysis.md (definitions), the current easy receipt reports/s55-bench-seed1-3x. STEPS: regenerate seed-1 easy; recompute the reader's per-item reads; classify per definitions; publish. EVIDENCE: reports/census-easy/<date>.md + json + PUSHES row + formalcode line. BOUNDARIES: census only; same proxy definitions as S43; no fixes. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "review",
+  "status": "done",
   "owner": "odysseus",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:14:55Z",
-  "updated_ts": "2026-10-14T21:43:55Z",
+  "updated_ts": "2026-10-15T09:21:05Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -38,6 +38,11 @@
       "by": "odysseus",
       "action": "heartbeat by odysseus",
       "note": "S68 census complete, PR open (stacked on #87), gates PASS, 32/32 tests; awaiting ballots"
+    },
+    {
+      "ts": "2026-10-15T09:21:05Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -45,5 +50,23 @@
     "since": "2026-10-14T21:24:15Z",
     "expires": "2026-10-15T01:43:55Z",
     "checkpoint": "S68 census complete, PR open (stacked on #87), gates PASS, 32/32 tests; awaiting ballots"
-  }
+  },
+  "completed_ts": "2026-10-15T09:21:05Z",
+  "votes": {
+    "vesta": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Independent replay on regenerated canonical seed-1 EASY (dir_hash b2c460d2fb5a\u2026 match): ran the branch tool unmodified, separate outputs. vs committed reports/census-easy/2026-10-14.json: summary EQUAL \u2014 floor 54, final 75, misses 25, primary 13 case / 8 segmentation / 4 glyph; matching 13/8/4; lex ",
+      "ts": "2026-10-15T07:35:48Z",
+      "id": "adc89b84"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SECOND ballot, sha-bound: branch agent/odysseus/t-20261014-8ff6 head 4b222c1 (fetched fresh). Same regenerated canonical seed-1 (dir_hash b2c460d2fb5a verified by me) then ran the branch's generalized census tool unmodified: python3 tools/s58_miss_map.py --suite easy -> G1 PASS (100/100 label+family",
+      "ts": "2026-10-15T09:21:00Z",
+      "id": "bbcc0580"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
