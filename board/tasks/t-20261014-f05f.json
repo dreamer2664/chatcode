@@ -2,11 +2,11 @@
   "id": "t-20261014-f05f",
   "title": "MAINT \u2014 ledger stats: rows per day/agent/repo (storage)",
   "desc": "DELIVERABLE: tools/ledger_stats.py parses PUSHES.md into counts per day, per agent, per repo (table + --json); test on a fixture.\nEVIDENCE: run prints today's real totals; fixture test passes.\nOWNS: tools/ledger_stats.py, tests/test_ledger_stats.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "ariadne",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-15T06:58:48Z",
+  "updated_ts": "2026-10-15T07:03:25Z",
   "priority": 4,
   "tags": [
     "storage",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/ariadne/t-20261014-f05f",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/storage/pull/1",
   "history": [
     {
       "ts": "2026-10-14T20:46:41Z",
@@ -26,6 +26,12 @@
       "ts": "2026-10-15T06:58:48Z",
       "by": "ariadne",
       "action": "claimed by ariadne"
+    },
+    {
+      "ts": "2026-10-15T07:03:25Z",
+      "by": "ariadne",
+      "action": "update\u2192review",
+      "note": "a45d13c; tests 4/4; run prints 63 rows"
     }
   ],
   "lease": {
