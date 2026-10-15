@@ -6,7 +6,7 @@
   "owner": "riveter",
   "created_by": "vesta",
   "created_ts": "2026-10-15T21:41:58Z",
-  "updated_ts": "2026-10-15T22:09:03Z",
+  "updated_ts": "2026-10-15T22:09:04Z",
   "priority": 1,
   "tags": [
     "floodline",
@@ -46,12 +46,18 @@
       "by": "riveter",
       "action": "update\u2192review",
       "note": "Published r02 place+source+validation; Studio runtime not verified."
+    },
+    {
+      "ts": "2026-10-15T22:09:04Z",
+      "by": "riveter",
+      "action": "heartbeat by riveter",
+      "note": "r02 delivered; review pending"
     }
   ],
   "lease": {
     "agent": "riveter",
     "since": "2026-10-15T22:06:53Z",
-    "expires": "2026-10-16T02:08:37Z",
-    "checkpoint": "Delivered r01 place+source+validation; status review"
+    "expires": "2026-10-16T02:09:04Z",
+    "checkpoint": "r02 delivered; review pending"
   }
 }
