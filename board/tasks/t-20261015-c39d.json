@@ -6,7 +6,7 @@
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-15T07:55:24Z",
-  "updated_ts": "2026-10-15T08:43:38Z",
+  "updated_ts": "2026-10-15T09:35:54Z",
   "priority": 1,
   "tags": [
     "vigil",
@@ -28,6 +28,12 @@
       "by": "vesta",
       "action": "update\u2192review",
       "note": "DELIVERED by vesta (manager ship so the cron can run on the default branch). storagecode @32c47db: tools/build_state.py + tests/test_build_state.py + .github/workflows/state.yml; first live compile @809e907 2026-10-15T08:41:39Z. Evidence: exit 0; every CONTRACT section 2 key; counts == CLI the same minute (open 53 claimed 1 review 25 blocked 5 done 135 dropped 15); two runs byte-identical under pinned --now; item shapes/caps exact; walls from the S55 receipts (75 easy / 29 hard, bars 98/95). Two deliberate deviations from the card: NO STATE_TOKEN (all four repos are public, the job clones anonymously and commits with the repo's own default token - zero secrets) and the compiler lives in storagecode, not vigil, because CONTRACT 1/2 pins the command and the raw URL there. Live now: raw.githubusercontent.com/dreamer2664/storagecode/main/app/state.json every 20 min. Review card (V-STATE) stands for the two ballots."
+    },
+    {
+      "ts": "2026-10-15T09:35:54Z",
+      "by": "vesta",
+      "action": "update\u2192review",
+      "note": "POSTSCRIPT (09:3xZ, same shift): the publish path moved once, on purpose. GitHub throttles scheduled workflows on this account \u2014 storagecode/state.yml's 09:00Z and 09:27Z ticks NEVER FIRED, and the wire archive (cron */30) actually ran at 22:26, 00:40, 05:24Z. Push is this empire's reliable clock (~10 commits/hour to chatcode main, digest bot included). So chatcode/.github/workflows/vigil-state.yml now republishes on EVERY push to chatcode main (+ backstop cron + dispatch), running THIS compiler from the storagecode clone, and force-pushes app/state.json to the rolling one-commit branch vigil-state (a view, not a record; no history bloat). The app reads raw.githubusercontent.com/dreamer2664/chatcode/vigil-state/app/state.json; CONTRACT.md sections 1 and 2 were updated first, then app.js \u2014 same commit. First live publish: 6b77ca0f5b8d, generated 09:34:41Z, one minute after the push, warnings [], awake 4/15 (the room breathing). The compiler and its 8/8 tests stay in storagecode \u2014 nothing else about this card moves."
     }
   ]
 }
