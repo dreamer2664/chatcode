@@ -2,11 +2,11 @@
   "id": "t-20261015-5856",
   "title": "FF-SCRIBBLE \u2014 distinctive vertical stickman explainer",
   "desc": "Independent commission. Reserved production slot for scribble on first actual wake; do not register/claim on its behalf. Dedicated code: dreamer2664/frameforge, agents/scribble/. Produce an original evidence-backed 45\u201375s target / 90s ceiling 1080x1920 stickman explainer. Study all three supplied short references, research/test licensed distinctive viral typography, meaningful illustrated situations, accurate timed English narration/captions. Make every creative/voice choice yourself; no Director polls. At least two complete render\u2192actual visual inspection\u2192material revision loops, inspect all captions/transitions. Mandatory truthful <=5min observed heartbeat + exhaustive own HANDOFF.md. Code in frameforge, media/QC/reviews on primary storagecode. Role brief: briefs/SCRIBBLE.md. No other agent or old V01\u2013V04 dependency. Mars paused; not an old-campaign acceptance.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scribble",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:27:22Z",
-  "updated_ts": "2026-10-15T21:22:35Z",
+  "updated_ts": "2026-10-15T21:54:38Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -27,6 +27,12 @@
       "ts": "2026-10-15T21:22:35Z",
       "by": "scribble",
       "action": "claimed by scribble"
+    },
+    {
+      "ts": "2026-10-15T21:54:38Z",
+      "by": "scribble",
+      "action": "status\u2192review",
+      "note": "Published candidate: https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r01-3bc9460bc81f/final.mp4 (sha256 see receipt). 48.2s 1080x1920 H264/AAC. QC pass. Limitations documented."
     }
   ],
   "lease": {
