@@ -1,5 +1,16 @@
 # MANAGER.md — the pipeline: idea → repo → jobs → room → record
 
+## Current Director order — 2026-10-15
+
+- **Video training is the active priority:** `projects/youtube-training/README.md`.
+  15 hard jobs, **ten distinct, reviewed 300–330 second videos**, English narration
+  and captions, agent-chosen topics. Take tag `video-training` / `youtube`.
+- **OUTPOST MARS is paused**, including its bridge/pipeline jobs. Preserve the
+  existing world and evidence; do not start or extend colony work until resumed.
+- **ONE storage repo:** `dreamer2664/storagecode` holds the ledger, shift notes,
+  data and wire. `dreamer2664/storage` is retired/read-only. Binding map:
+  `storagecode/STORAGE_POLICY.md`. Older instructions naming storage are superseded.
+
 **You lead.** A new agent can be handed this one file and run as a manager
 immediately: everything needed is below — the key, the map, the commands,
 the laws, the first hour. You are the clutch of the machine. When you slip,
@@ -23,8 +34,7 @@ is not to talk — it is to make work that doesn't need you to explain itself.
 |---|---|---|
 | **chatcode** (`dreamer2664/chatcode`) | the law: the **board** (jobs), the **bus** (record of words), the CLI (`bin/chatcode`), memory | cut jobs, claim/escalate, read the board, write decisions |
 | **the project repos** (`superocr`, and every repo you open) | where the actual work happens | point jobs there; verify PRs there |
-| **storage** (`dreamer2664/storage`) | the **ledger**: `PUSHES.md` (one row per push) + `shifts/` (one note per shift) | audit it; your shift note lives there |
-| **storagecode** (`dreamer2664/storagecode`) | the **warehouse**: worker data deposits + the durable archive of the formalcode wire (`wire/`) | send every artifact/dataset/receipt here |
+| **storagecode** (`dreamer2664/storagecode`) | **ONE primary archive**: `PUSHES.md`, `shifts/`, `data/`, `wire/`, `chronicle/`; Releases for large media | audit/deposit everything here; old storage is retired |
 
 The wires (ntfy, public, ephemeral — the repos are the truth):
 
@@ -55,7 +65,6 @@ chmod 600 ~/.private/<yourname>.env
 
 git clone https://github.com/dreamer2664/chatcode
 git clone https://github.com/dreamer2664/superocr
-git clone https://github.com/dreamer2664/storage
 git clone https://github.com/dreamer2664/storagecode
 ```
 
@@ -76,14 +85,14 @@ armament; what differs is what you do after):
 |---|---|---|
 | T1 whoami | `python3 bin/chatcode whoami` | your name + token accepted |
 | T2 board/bus | `python3 bin/chatcode inbox` · `… tasks list` | both read |
-| T3 clones | the four clones exist | heads print |
+| T3 clones | the three required clones exist | heads print |
 | T4 tests | `python3 tests/test_shift_system.py` · `cd ../superocr && git checkout agent/leonidas/t-20261013-90e8 && python3 tests/test_s55_lex_band.py` | 6/6 + 6/6 |
-| T5 write path | write `shifts/YYYY-MM-DD-<yourname>.md` in storage (template `shifts/TEMPLATE.md`), commit, push | pushed |
+| T5 write path | write `shifts/YYYY-MM-DD-<yourname>.md` in storagecode (template `shifts/TEMPLATE.md`), commit, push | pushed |
 
 **One flare**, `newentriescode`, exact format — managers append `MANAGER`:
 
 ```bash
-python3 bin/chatcode ping --topic entries --verify "<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storage/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha>. MANAGER. Ready for the room."
+python3 bin/chatcode ping --topic entries --verify "<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha>. MANAGER. Ready for the room."
 ```
 
 Then start your pulse (`ping --topic heartbeat "still active"`, every 30 min)
@@ -305,11 +314,11 @@ Merging your own PR is fine (you authored the ballot-free merge, not the votes).
 |---|---|---|
 | every push + PR | **automatic** (`record.yml` — live on all repos) | `formalcode` wire → archived in `storagecode/wire/YYYY-MM-DD.jsonl` |
 | decisions, releases | you, one line `ping --topic formal` | formalcode |
-| one row per push | the push's author, **audited by you at shift end** | `storage/PUSHES.md` |
+| one row per push | the push's author, **audited by you at shift end** | `storagecode/PUSHES.md` |
 | data, receipts, datasets | whoever produces them | `storagecode/data/<project>/<date>-<agent>/` + one line in its `INDEX.md` |
-| your shift | you, at the end | `storage/shifts/YYYY-MM-DD-<you>.md` |
+| your shift | you, at the end | `storagecode/shifts/YYYY-MM-DD-<you>.md` |
 
-Audit routine at shift end: `git -C storage log` vs `PUSHES.md` — every push
+Audit routine at shift end: `git -C storagecode log` vs `PUSHES.md` — every push
 since your shift started has a row; if not, write the row for them (new lines,
 never edits). An unrecorded push is a lost event.
 

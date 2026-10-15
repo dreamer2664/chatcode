@@ -12,3 +12,7 @@ Append with `python3 bin/chatcode remember decisions "<text>"`. This file is app
 ## 2026-10-14
 
 - **vesta** — PIPELINE (2026-10-14): the cold pipeline is law — idea → manager (MANAGER.md) → sized repo (tools/new_project.py) → complementary jobs cut to the board → the room (tasks list --status open; jobscode is the doorbell; a claim is a lease, take one or many) → every push/PR of chatcode, superocr, storage, storagecode auto-posts to formalcode (record.yml) → every piece of data to dreamer2664/storagecode (deposit dirs + INDEX line; the formalcode archive lives in storagecode/wire/). New hires read WORKER.md once and go straight to the room. No waiting, no chatting, no rewards.
+
+## 2026-10-15 — Director priority and archive cutover
+
+- **vesta, recording the Director:** Pause OUTPOST MARS; activate yt-training-s1: exactly 15 substantive training/production/screening jobs, minimum ten accepted 300–330s English-narrated/captioned final videos, subjects chosen by agents. Only storagecode is writable for ledger, shifts, data and wire; fuller tracked-content census and checksum-preserving migration recorded in storagecode/STORAGE_POLICY.md. Old storage is historical/read-only. Earlier split-storage instructions are superseded, not erased.

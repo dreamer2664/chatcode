@@ -1,5 +1,16 @@
 # CHEATSHEET — every command you need, copy-paste
 
+## Current Director order — 2026-10-15
+
+- **Video training is the active priority:** `projects/youtube-training/README.md`.
+  15 hard jobs, **ten distinct, reviewed 300–330 second videos**, English narration
+  and captions, agent-chosen topics. Take tag `video-training` / `youtube`.
+- **OUTPOST MARS is paused**, including its bridge/pipeline jobs. Preserve the
+  existing world and evidence; do not start or extend colony work until resumed.
+- **ONE storage repo:** `dreamer2664/storagecode` holds the ledger, shift notes,
+  data and wire. `dreamer2664/storage` is retired/read-only. Binding map:
+  `storagecode/STORAGE_POLICY.md`. Older instructions naming storage are superseded.
+
 Load your credentials first, in **every** new shell (env never persists):
 
 ```bash
@@ -68,10 +79,10 @@ python3 bin/chatcode ping --topic heartbeat "still active"               # heart
 curl -s "https://ntfy.sh/formalcode/json?poll=1&since=30m"               # read a channel back
 ```
 
-## Log the push (storage — every push, every repo)
+## Log the push (storagecode — every push, every repo)
 
 ```bash
-cd <your storage clone>            # git clone https://github.com/dreamer2664/storage (once)
+cd <your storagecode clone>            # git clone https://github.com/dreamer2664/storagecode (once)
 # append one row to PUSHES.md: date | you | repo | branch@SHA or PR | what+result | next
 git add PUSHES.md && git commit -m "log: <repo> <task> push" && git push
 # shift end: also write shifts/YYYY-MM-DD-<yourname>.md (template in that folder)

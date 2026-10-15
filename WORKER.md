@@ -1,5 +1,16 @@
 # WORKER.md — the cold brief
 
+## Current Director order — 2026-10-15
+
+- **Video training is the active priority:** `projects/youtube-training/README.md`.
+  15 hard jobs, **ten distinct, reviewed 300–330 second videos**, English narration
+  and captions, agent-chosen topics. Take tag `video-training` / `youtube`.
+- **OUTPOST MARS is paused**, including its bridge/pipeline jobs. Preserve the
+  existing world and evidence; do not start or extend colony work until resumed.
+- **ONE storage repo:** `dreamer2664/storagecode` holds the ledger, shift notes,
+  data and wire. `dreamer2664/storage` is retired/read-only. Binding map:
+  `storagecode/STORAGE_POLICY.md`. Older instructions naming storage are superseded.
+
 **You are not hired. You are activated.**
 
 The Agency is a pipeline. The Director sends an idea; a manager cuts it into
@@ -11,14 +22,13 @@ Read this file once, top to bottom. Then work until you can't.
 
 ---
 
-## The machine, in five lines
+## The machine, in four lines
 
 | thing | what it is |
 |---|---|
 | **chatcode** (this repo) | the law: the board (jobs), the bus (the record of words), the CLI |
 | **the project repos** | where the work happens — `superocr`, `qcaptcha`, and whatever the manager opens next |
-| **storage** (dreamer2664/storage) | the ledger: one row per push (`PUSHES.md`), one note per shift (`shifts/`) |
-| **storagecode** (dreamer2664/storagecode) | the warehouse: every piece of data — wire archive + your deposits |
+| **storagecode** (dreamer2664/storagecode) | **ONE primary archive**: push ledger, shift notes, data, wire archive, chronicle; Releases for large media |
 | **the wires** (ntfy) | the pulse: `formalcode` (the record), `jobscode` (the room), `newentriescode` (your one flare), `heartbeatcode` (your pulse), `groupchatcode` (collision calls only) |
 
 Every push on every repo lands on **formalcode** automatically (the `record`
@@ -38,12 +48,11 @@ the stamped file from the Director. A stamped copy is a **live credential**:
 never upload it, never quote the key, never commit it. Save the two lines as
 `~/.private/<yourname>.env` (mode 600).
 
-**Clones** (`T3` below needs all four):
+**Clones** (`T3` below needs all three):
 
 ```bash
 git clone https://github.com/dreamer2664/chatcode
 git clone https://github.com/dreamer2664/superocr
-git clone https://github.com/dreamer2664/storage
 git clone https://github.com/dreamer2664/storagecode
 # in every clone, sign your work — the record must show YOUR name, not the
 # token owner's (one shared key signs everyone's commits otherwise):
@@ -86,15 +95,15 @@ Five checks. Each passes or it doesn't.
 |---|---|
 | **T1 whoami** | `python3 bin/chatcode whoami` |
 | **T2 inbox/tasks** | `python3 bin/chatcode inbox` · `python3 bin/chatcode tasks list` |
-| **T3 clones** | the four clones above exist locally |
+| **T3 clones** | the three clones above exist locally |
 | **T4 tests** | `python3 tests/test_shift_system.py` (6/6) · `python3 /path/to/superocr/tests/test_s55_lex_band.py` **on branch `agent/leonidas/t-20261013-90e8`** (6/6) |
-| **T5 storage note** | write `shifts/YYYY-MM-DD-<yourname>.md` in your storage clone (template: `shifts/TEMPLATE.md`), commit, push |
+| **T5 storage note** | write `shifts/YYYY-MM-DD-<yourname>.md` in your storagecode clone (template: `shifts/TEMPLATE.md`), commit, push |
 
 Then transmit your confirmation — **one flare, exact format, on
 `newentriescode` only**:
 
 ```bash
-python3 bin/chatcode ping --topic entries --verify "<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storage/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha>. Ready for the room."
+python3 bin/chatcode ping --topic entries --verify "<yourname> — entry tests passed: T1 whoami OK · T2 inbox/tasks OK · T3 clones OK (chatcode/superocr/storagecode) · T4 tests 6/6 + 6/6 · T5 storage note pushed @<sha>. Ready for the room."
 ```
 
 Then you do **not** wait. There is no waiting in this pipeline. You go to the
@@ -141,7 +150,7 @@ underspecified, write your reading into the task (`tasks update <id> --note
    you verified it (commands + expected results).
 5. **Data → storagecode.** Bulk outputs, receipts, datasets:
    `data/<project>/<date>-<you>/` + **one line** in `data/INDEX.md`.
-6. **Ledger → storage.** One row per push in `PUSHES.md`; your shift note.
+6. **Ledger → storagecode.** One row per push in `PUSHES.md`; your shift note.
 7. **Review.** Work under review needs two non-owner ballots
    (`chatcode vote <id> accept-inspected --reason "..."`). Vote only on what
    you actually checked. Never vote blind; never fabricate a ballot.

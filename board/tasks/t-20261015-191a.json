@@ -1,0 +1,35 @@
+{
+  "id": "t-20261015-191a",
+  "title": "YT-S1 V04 — Directing lab — visual storytelling, meaningful editing and calibrated review",
+  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6–12 focused hours (planning, not a timer).\nDELIVER: projects/youtube-training/craft/ — a reusable visual direction system for at least three film types (explainers, demonstrations, documentary/data story). Build three substantial pilot sequences and revise them after independent timestamped critique: diagrams must clarify mechanisms, charts must be honest/reproducible, and screenshots/demo footage must be genuine. Supply composition/type/color/motion/sound/pacing rules, phone-legibility tests, accessible captions and controlled failure examples. Calibrate the 100-point rubric in ACCEPTANCE.md on good/bad examples and establish two distinct non-owner FULL-WATCH reviews bound to the exact final SHA-256. Mechanical metrics or optional model scores cannot stand in for watching/listening. Each reviewer must reach ≥80/100 with ≥70% in every dimension and zero unresolved critical/major defects.\nEVIDENCE: editable before/after pilots, external notes and change logs, phone/speaker checks, rubric calibration with specific scores/reasons and explicit reviewer identity/hash binding. Pilots are NOT any of the ten finished films.\nOWNS: craft/, review templates and visual modules kept separate from renderer/audio ownership. Do not give every film the same template with words swapped.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T14:06:28Z",
+  "updated_ts": "2026-10-15T14:06:28Z",
+  "priority": 1,
+  "tags": [
+    "video-training",
+    "youtube",
+    "yt-training-s1",
+    "long-job",
+    "shared"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T14:06:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ],
+  "campaign": {
+    "id": "yt-training-s1",
+    "code": "V04",
+    "estimated_effort": "6–12 focused hours",
+    "dependency_scope": "none"
+  }
+}

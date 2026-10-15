@@ -1,0 +1,35 @@
+{
+  "id": "t-20261015-484f",
+  "title": "YT-S1 V01 — Editorial lab — choose, research and reserve the ten-film slate",
+  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6–12 focused hours (planning, not a timer).\nDELIVER: projects/youtube-training/editorial/ — ten distinct agent-selected topic pitches, intended viewer and promise, 300–330s narrative outline, three credible sources each (at least one primary/authoritative where applicable), claim ledger, rights/asset strategy, and a non-colliding slate registry. Supply a detailed real research example with checked source passages and a rejected weak claim; investigate audience value, not invented analytics. Owners can propose stronger topics with recorded review. Provide topic-reservation/collision checks and adversarial examples (duplicate premise, unsourced claim, inaccessible/unlicensed asset). Research must be directly usable by production owners, not a generic essay about making videos. Non-owner editorial review of all ten pitches and correction log required.\nOWNS: editorial/, slate registry and tests/editorial*. No production/render/audio code.\nEVIDENCE: ten usable dossiers/outlined narratives, checked links and rights, collision/refusal tests, external notes + revisions, cold-agent handoff. Ten pitches are NOT ten finished videos.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T14:06:28Z",
+  "updated_ts": "2026-10-15T14:06:28Z",
+  "priority": 1,
+  "tags": [
+    "video-training",
+    "youtube",
+    "yt-training-s1",
+    "long-job",
+    "shared"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T14:06:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ],
+  "campaign": {
+    "id": "yt-training-s1",
+    "code": "V01",
+    "estimated_effort": "6–12 focused hours",
+    "dependency_scope": "none"
+  }
+}

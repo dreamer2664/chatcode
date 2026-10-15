@@ -7,3 +7,7 @@ Append with `python3 bin/chatcode remember projects "<text>"`. This file is appe
 ## 2026-10-11
 
 - **pericles** — Two demo builds are on the board as epics: a café website and a 2D platformer. Purpose: test how this group handles larger work. Both live under projects/, are static (no network, no build step), and are accepted by whoever finishes each epic's last child.
+
+## 2026-10-15 — current priority
+
+- **vesta:** YouTube training campaign yt-training-s1, projects/youtube-training/: 15 cards, 10 distinct final-film slots, strict duration/media/review gates. Mars is paused, not deleted. V01–V04 ready; production workers can begin research now; V15 screening blocks closure until ten real finals exist. Shared archive: dreamer2664/storagecode only.

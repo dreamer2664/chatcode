@@ -1,5 +1,16 @@
 # SYSTEM — how this crew works now, and why
 
+## Current Director order — 2026-10-15
+
+- **Video training is the active priority:** `projects/youtube-training/README.md`.
+  15 hard jobs, **ten distinct, reviewed 300–330 second videos**, English narration
+  and captions, agent-chosen topics. Take tag `video-training` / `youtube`.
+- **OUTPOST MARS is paused**, including its bridge/pipeline jobs. Preserve the
+  existing world and evidence; do not start or extend colony work until resumed.
+- **ONE storage repo:** `dreamer2664/storagecode` holds the ledger, shift notes,
+  data and wire. `dreamer2664/storage` is retired/read-only. Binding map:
+  `storagecode/STORAGE_POLICY.md`. Older instructions naming storage are superseded.
+
 *Design: t-20261014-e977 (Carlo's directive; implemented by Leonidas while
 covering coordination). Supersedes the day-to-day workflow parts of
 PROTOCOL.md; the constitution's honesty rules (no fabricated receipts, no
@@ -86,7 +97,7 @@ acceptance test of this system.
 
 ### 4. Storage: the memory that outlives agents
 
-A separate public repo, **dreamer2664/storage**, holds the push ledger
+The single primary public archive, **dreamer2664/storagecode**, holds the push ledger
 (`PUSHES.md` — one row per push to *any* repo), shift notes
 (`shifts/YYYY-MM-DD-<agent>.md`) and a data index. The rule is absolute:
 **if you pushed it, you wrote it there.** Sessions evaporate; storage is

@@ -1,0 +1,308 @@
+{
+  "schema": 1,
+  "id": "yt-training-s1",
+  "director_order_date": "2026-10-15",
+  "topics": "agent-selected; reserve non-colliding slate",
+  "language": "en",
+  "required_final_videos": 10,
+  "min_video_seconds": 300,
+  "max_video_seconds": 330,
+  "min_total_seconds": 3000,
+  "canonical_archive": "dreamer2664/storagecode",
+  "artifact_location": "GitHub Releases on storagecode; immutable revision names",
+  "acceptance_contract": "ACCEPTANCE.md",
+  "jobs": [
+    {
+      "code": "V01",
+      "task_id": "t-20261015-484f",
+      "title": "Editorial lab — choose, research and reserve the ten-film slate",
+      "role": "shared",
+      "dependencies": [],
+      "estimated_effort": "6–12 focused hours"
+    },
+    {
+      "code": "V02",
+      "task_id": "t-20261015-fec3",
+      "title": "Long-form engineering — resumable five-minute rendering, assembly and QC",
+      "role": "shared",
+      "dependencies": [],
+      "estimated_effort": "8–16 focused hours"
+    },
+    {
+      "code": "V03",
+      "task_id": "t-20261015-947e",
+      "title": "Narration lab — natural English voice, alignment, captions and sound mastering",
+      "role": "shared",
+      "dependencies": [],
+      "estimated_effort": "6–12 focused hours"
+    },
+    {
+      "code": "V04",
+      "task_id": "t-20261015-191a",
+      "title": "Directing lab — visual storytelling, meaningful editing and calibrated review",
+      "role": "shared",
+      "dependencies": [],
+      "estimated_effort": "6–12 focused hours"
+    },
+    {
+      "code": "V05",
+      "task_id": "t-20261015-34fa",
+      "title": "YT01 — Evidence-led explainer: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V06",
+      "task_id": "t-20261015-4b76",
+      "title": "YT02 — Real screen tutorial: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V07",
+      "task_id": "t-20261015-8e11",
+      "title": "YT03 — Mini-documentary: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V08",
+      "task_id": "t-20261015-5df2",
+      "title": "YT04 — Data story: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V09",
+      "task_id": "t-20261015-eee1",
+      "title": "YT05 — How a system works: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V10",
+      "task_id": "t-20261015-67df",
+      "title": "YT06 — Misconception investigation: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V11",
+      "task_id": "t-20261015-a491",
+      "title": "YT07 — Practical build walkthrough: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V12",
+      "task_id": "t-20261015-eeca",
+      "title": "YT08 — Object or innovation biography: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V13",
+      "task_id": "t-20261015-e14c",
+      "title": "YT09 — Visual thought experiment: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V14",
+      "task_id": "t-20261015-6e79",
+      "title": "YT10 — Original-format capstone film: a complete five-minute film",
+      "role": "production",
+      "dependencies": [
+        "t-20261015-484f",
+        "t-20261015-fec3",
+        "t-20261015-947e",
+        "t-20261015-191a"
+      ],
+      "estimated_effort": "8–20 focused hours"
+    },
+    {
+      "code": "V15",
+      "task_id": "t-20261015-0145",
+      "title": "Independent screening and delivery — TEN accepted films or not done",
+      "role": "screening",
+      "dependencies": [
+        "t-20261015-34fa",
+        "t-20261015-4b76",
+        "t-20261015-8e11",
+        "t-20261015-5df2",
+        "t-20261015-eee1",
+        "t-20261015-67df",
+        "t-20261015-a491",
+        "t-20261015-eeca",
+        "t-20261015-e14c",
+        "t-20261015-6e79"
+      ],
+      "estimated_effort": "6–12 focused hours"
+    }
+  ],
+  "slots": [
+    {
+      "id": "YT01",
+      "format": "Evidence-led explainer",
+      "production_task_id": "t-20261015-34fa",
+      "working_project": "videos/YT01/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT01/delivery.json"
+    },
+    {
+      "id": "YT02",
+      "format": "Real screen tutorial",
+      "production_task_id": "t-20261015-4b76",
+      "working_project": "videos/YT02/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT02/delivery.json"
+    },
+    {
+      "id": "YT03",
+      "format": "Mini-documentary",
+      "production_task_id": "t-20261015-8e11",
+      "working_project": "videos/YT03/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT03/delivery.json"
+    },
+    {
+      "id": "YT04",
+      "format": "Data story",
+      "production_task_id": "t-20261015-5df2",
+      "working_project": "videos/YT04/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT04/delivery.json"
+    },
+    {
+      "id": "YT05",
+      "format": "How a system works",
+      "production_task_id": "t-20261015-eee1",
+      "working_project": "videos/YT05/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT05/delivery.json"
+    },
+    {
+      "id": "YT06",
+      "format": "Misconception investigation",
+      "production_task_id": "t-20261015-67df",
+      "working_project": "videos/YT06/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT06/delivery.json"
+    },
+    {
+      "id": "YT07",
+      "format": "Practical build walkthrough",
+      "production_task_id": "t-20261015-a491",
+      "working_project": "videos/YT07/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT07/delivery.json"
+    },
+    {
+      "id": "YT08",
+      "format": "Object or innovation biography",
+      "production_task_id": "t-20261015-eeca",
+      "working_project": "videos/YT08/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT08/delivery.json"
+    },
+    {
+      "id": "YT09",
+      "format": "Visual thought experiment",
+      "production_task_id": "t-20261015-e14c",
+      "working_project": "videos/YT09/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT09/delivery.json"
+    },
+    {
+      "id": "YT10",
+      "format": "Original-format capstone film",
+      "production_task_id": "t-20261015-6e79",
+      "working_project": "videos/YT10/",
+      "delivery_manifest": "storagecode/data/youtube-training/yt-training-s1/YT10/delivery.json"
+    }
+  ],
+  "paused_mars_tasks": [
+    {
+      "task_id": "t-20261015-a8ee",
+      "resume_status": "review"
+    },
+    {
+      "task_id": "t-20261015-2296",
+      "resume_status": "claimed"
+    },
+    {
+      "task_id": "t-20261015-a550",
+      "resume_status": "review"
+    },
+    {
+      "task_id": "t-20261015-2c2b",
+      "resume_status": "claimed"
+    },
+    {
+      "task_id": "t-20261015-f9ac",
+      "resume_status": "claimed"
+    },
+    {
+      "task_id": "t-20261015-3941",
+      "resume_status": "claimed"
+    },
+    {
+      "task_id": "t-20261015-2197",
+      "resume_status": "claimed"
+    },
+    {
+      "task_id": "t-20261015-24a9",
+      "resume_status": "review"
+    },
+    {
+      "task_id": "t-20261015-0bc7",
+      "resume_status": "review"
+    }
+  ],
+  "completion_source": "Actual immutable delivery manifests and two independent hash-bound full-watch reviews; board statuses alone do not prove video completion."
+}

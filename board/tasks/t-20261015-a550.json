@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-a550",
-  "title": "M-MAP \u2014 the colony map: top-down, and nothing on screen that is not real",
-  "desc": "DELIVERABLE: the map in dreamer2664/mars \u2014 a top-down static page (no frameworks, no build step; the vigil pattern: plain ES modules, system fonts, resilient fetch, visible freshness) that reads ONLY app/world.json, plus tools/world_build.py (deterministic compiler world/ -> app/world.json) and a push-driven workflow republishing it (cron is unreliable on this account \u2014 push is the clock).\nLocations: command center (PC holder, purpose, since, queue, availability), one studio per colonist (current video/thread/channel), meeting room (ONLY real thread/meeting records), archive, production facility, entrance. Clicking anything opens its source record verbatim. Freshness from generated_ts; amber past 45 min.\nEVIDENCE: the phantom check \u2014 a build test that fails if any rendered entity has no source record (inject a fake avatar, watch the build fail, remove it); local serve against a fixture world; a headless smoke test booting the page (the vigil smoke.mjs pattern).\nHARD RULE: nothing on screen that is not a record (CHARTER section 3). No filler, no invented motion.\nOWNS: app/, tools/world_build.py, the page workflow.\nBRANCH: agent/<you>/<task-id>",
-  "status": "review",
+  "title": "M-MAP — the colony map: top-down, and nothing on screen that is not real",
+  "desc": "DELIVERABLE: the map in dreamer2664/mars — a top-down static page (no frameworks, no build step; the vigil pattern: plain ES modules, system fonts, resilient fetch, visible freshness) that reads ONLY app/world.json, plus tools/world_build.py (deterministic compiler world/ -> app/world.json) and a push-driven workflow republishing it (cron is unreliable on this account — push is the clock).\nLocations: command center (PC holder, purpose, since, queue, availability), one studio per colonist (current video/thread/channel), meeting room (ONLY real thread/meeting records), archive, production facility, entrance. Clicking anything opens its source record verbatim. Freshness from generated_ts; amber past 45 min.\nEVIDENCE: the phantom check — a build test that fails if any rendered entity has no source record (inject a fake avatar, watch the build fail, remove it); local serve against a fixture world; a headless smoke test booting the page (the vigil smoke.mjs pattern).\nHARD RULE: nothing on screen that is not a record (CHARTER section 3). No filler, no invented motion.\nOWNS: app/, tools/world_build.py, the page workflow.\nBRANCH: agent/<you>/<task-id>",
+  "status": "blocked",
   "owner": "vesta",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T13:14:01Z",
+  "updated_ts": "2026-10-15T14:21:04Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -29,14 +29,27 @@
     {
       "ts": "2026-10-15T13:14:01Z",
       "by": "vesta",
-      "action": "update\u2192review",
-      "note": "DELIVERED by vesta (manager ship \u2014 the Director asked 'where can I see the world?'). mars @35f68c6. LIVE: https://dreamer2664.github.io/mars/app/ (Pages; phone-friendly). tools/world_build.py: deterministic compiler world/ -> app/world.json + THE PHANTOM CHECK: every drawn entity must have its source record and the lock must match world/lock.json \u2014 inject a fake avatar and the build FAILS, by name (tested). app/: the colony board \u2014 command center with the LIVE PC box (state/holder/purpose/queue/generation + last events), one studio per colonist with its channel, meeting room, production, archive, entrance; panels for colonists/channels/videos/threads/decisions/archive; every marker opens its SOURCE RECORD verbatim; empty sections say 'quiet \u2014 nothing yet'. .github/workflows/world.yml: compile + check + tests on every push that moves world/. EVIDENCE: 28 unittest green + tests/smoke_map.mjs 11/11, both re-run from a DEPTH-1 CLONE of the public repo; live endpoints verified (app/ 200, world.json 200). HONEST LIMITS: v1 is a colony board (rooms + markers), not sprite art; the drawer shows records, not an interactive sim. The drift test earned its keep: it caught the first world_head scheme disagreeing in a shallow clone \u2014 fixed (tree id of world/), spec updated first (docs/WORLD.md \u00a76). OWNS: app/, tools/world_build.py, tests/test_world_build.py, tests/smoke_map.mjs, .github/workflows/world.yml."
+      "action": "update→review",
+      "note": "DELIVERED by vesta (manager ship — the Director asked 'where can I see the world?'). mars @35f68c6. LIVE: https://dreamer2664.github.io/mars/app/ (Pages; phone-friendly). tools/world_build.py: deterministic compiler world/ -> app/world.json + THE PHANTOM CHECK: every drawn entity must have its source record and the lock must match world/lock.json — inject a fake avatar and the build FAILS, by name (tested). app/: the colony board — command center with the LIVE PC box (state/holder/purpose/queue/generation + last events), one studio per colonist with its channel, meeting room, production, archive, entrance; panels for colonists/channels/videos/threads/decisions/archive; every marker opens its SOURCE RECORD verbatim; empty sections say 'quiet — nothing yet'. .github/workflows/world.yml: compile + check + tests on every push that moves world/. EVIDENCE: 28 unittest green + tests/smoke_map.mjs 11/11, both re-run from a DEPTH-1 CLONE of the public repo; live endpoints verified (app/ 200, world.json 200). HONEST LIMITS: v1 is a colony board (rooms + markers), not sprite art; the drawer shows records, not an interactive sim. The drift test earned its keep: it caught the first world_head scheme disagreeing in a shallow clone — fixed (tree id of world/), spec updated first (docs/WORLD.md §6). OWNS: app/, tools/world_build.py, tests/test_world_build.py, tests/smoke_map.mjs, .github/workflows/world.yml."
+    },
+    {
+      "ts": "2026-10-15T14:21:04Z",
+      "by": "vesta",
+      "action": "director-pause→blocked",
+      "note": "Previously review, owner vesta; all incoming claims, PRs, ballots and evidence preserved. Resume only on a Director order. Choose video-training."
     }
   ],
-  "lease": {
-    "agent": "vesta",
-    "since": "2026-10-15T12:59:09Z",
-    "expires": "2026-10-15T20:59:09Z",
-    "checkpoint": ""
+  "lease": null,
+  "director_pause": {
+    "effective_ts": "2026-10-15T14:21:04Z",
+    "reason": "Director: colony aside; real YouTube film production training takes priority.",
+    "resume_status": "review",
+    "prior_owner": "vesta",
+    "prior_lease": {
+      "agent": "vesta",
+      "since": "2026-10-15T12:59:09Z",
+      "expires": "2026-10-15T20:59:09Z",
+      "checkpoint": ""
+    }
   }
 }

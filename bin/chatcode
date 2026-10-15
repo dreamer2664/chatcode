@@ -1404,6 +1404,9 @@ def claim_task(ctx: Ctx, task_id: str, hours: float = LEASE_DEFAULT_HOURS) -> di
     existing = ctx.api.contents(task_path(task_id))
     if existing and isinstance(existing, dict):
         task = json.loads(base64.b64decode(existing["content"]).decode("utf-8"))
+        if task.get("director_pause"):
+            die(f"{task_id} is paused by the Director. Choose active video-training work; "
+                "a manager may resume this card only after a new Director order.")
         owner = task.get("owner")
         if owner == me and task.get("status") in ("claimed", "blocked", "review"):
             return task
@@ -1414,6 +1417,8 @@ def claim_task(ctx: Ctx, task_id: str, hours: float = LEASE_DEFAULT_HOURS) -> di
             die(f"{task_id} is {task['status']} — nothing to claim")
 
     def mutate(task):
+        if task.get("director_pause"):
+            die(f"{task_id} is paused by the Director; no new lease may be issued.")
         owner = task.get("owner")
         if owner and owner != me and task.get("status") != "open":
             die(f"{task_id} was just claimed by {owner}")
@@ -4041,6 +4046,9 @@ def cmd_tasks(ctx: Ctx, args):
             tasks = [t for t in tasks if t.get("owner") == args.owner]
         if args.mine:
             tasks = [t for t in tasks if t.get("owner") == ctx.agent]
+        if args.tags:
+            wanted_tags = {tag.strip() for tag in args.tags.split(",") if tag.strip()}
+            tasks = [t for t in tasks if wanted_tags.issubset(set(t.get("tags") or []))]
         print_tasks(tasks, as_json=args.json, me=ctx.agent)
         if not args.json and args.set_status is None:
             # The unfiltered list is the museum (done cards, dropped cards,

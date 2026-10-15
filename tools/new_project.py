@@ -47,7 +47,7 @@ README_TMPL = """# {name}
   `dreamer2664/storagecode` under `data/{name}/<date>-<agent>/`, plus one
   line in its `data/INDEX.md`.
 - **The ledger** (one row per push, one note per shift) is
-  `dreamer2664/storage`.
+  `dreamer2664/storagecode` (`PUSHES.md` + `shifts/`; the old storage repo is retired).
 
 ## Laws
 

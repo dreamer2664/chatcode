@@ -44,7 +44,7 @@ jobs:
         run: |
           set -eu
           mkdir -p src
-          for r in chatcode superocr storage storagecode vigil; do
+          for r in chatcode superocr storagecode vigil; do
             git clone --depth 1 --quiet "https://github.com/dreamer2664/$r" "src/$r" \
               && echo "cloned $r" || echo "WARN: clone $r failed — compiler degrades gracefully"
           done

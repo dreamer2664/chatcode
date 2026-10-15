@@ -1,0 +1,52 @@
+{
+  "id": "t-20261015-0145",
+  "title": "YT-S1 V15 — Independent screening and delivery — TEN accepted films or not done",
+  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6–12 focused hours (planning, not a timer).\nBLOCKED UNTIL: V05–V14 have actual final MP4s, technical QC and two exact-hash non-owner reviews. This is a slate-level independent acceptance job, not a checklist of closed cards.\nDELIVER: download and SHA-256 recheck EVERY final film; full-file decode; confirm 300–330s each, at least ten distinct films, total ≥3,000s; verify audio/captions/rights/claims/thumbnail/metadata and both reviewer bindings. WATCH/LISTEN TO ALL TEN end-to-end; test sample subtitles and phone readability, detect repetitive template/duplicate story/filler defects across the whole slate. Log actual timestamped findings, send any rejected film back to its owner, and recheck its replacement without deleting historical revisions. Never act as one of your own film's independent reviewers: bring a separate reviewer if you produced a slot.\nPublish the Director's viewing/download INDEX at storagecode/data/youtube-training/INDEX.md with ten working final-video links, subtitles, thumbnails, durations, SHA-256s, reviewer references and real QC results. Supply a campaign acceptance report and measured production/resource lessons; check each download as a user, without requiring a coding setup. Final public YouTube posting is not required to close this training campaign and does not depend on the paused Mars bridge; upload-ready packs are required. Do not invent URLs or statistics.\nSTOP CONDITION: fewer than TEN actual accepted five-minute MP4s, inaccessible files, stale/own reviews or unresolved major defects => this card stays BLOCKED. No manager waiver, no counting foundation calibration footage. Complete only after the Director can retrieve the minimum ten.\nOWNS: final primary-archive index and screening/acceptance report; no re-editing another owner's movie without a recorded handoff.",
+  "status": "blocked",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T14:06:30Z",
+  "updated_ts": "2026-10-15T14:06:30Z",
+  "priority": 1,
+  "tags": [
+    "video-training",
+    "youtube",
+    "yt-training-s1",
+    "long-job",
+    "screening"
+  ],
+  "deps": [
+    "t-20261015-34fa",
+    "t-20261015-4b76",
+    "t-20261015-8e11",
+    "t-20261015-5df2",
+    "t-20261015-eee1",
+    "t-20261015-67df",
+    "t-20261015-a491",
+    "t-20261015-eeca",
+    "t-20261015-e14c",
+    "t-20261015-6e79"
+  ],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T14:06:30Z",
+      "by": "vesta",
+      "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:06:30Z",
+      "by": "vesta",
+      "action": "update→blocked",
+      "note": "Await ten real accepted five-minute final films, not merely closed preparation cards; see ACCEPTANCE.md."
+    }
+  ],
+  "campaign": {
+    "id": "yt-training-s1",
+    "code": "V15",
+    "estimated_effort": "6–12 focused hours",
+    "dependency_scope": "campaign-screening"
+  }
+}
