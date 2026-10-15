@@ -2,11 +2,11 @@
   "id": "t-20261014-d1a7",
   "title": "S59 \u2014 Audit: receipts doctor \u2014 every committed report validated against the schema",
   "desc": "GOAL: validate every committed report under reports/ (json/jsonl) with tools/validate_report.py (and friends), and publish one findings table: file, pass/fail, reason, severity. WHY: receipts are the currency \u2014 an unverifiable receipt is a liability (S11 retired stale numbers; this is the standing hygiene pass). STEPS: walk reports/ (skip images); run the validator; for files without a validator do shape+count checks and mark 'no validator \u2014 proposed minimal checker' as a finding. EVIDENCE: reports/receipts-doctor/<date>.md table + counts + PUSHES row + formalcode line. BOUNDARIES: no repo edits beyond your report; do not re-run benches; flag, don't fix. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:15:39Z",
-  "updated_ts": "2026-10-14T13:15:39Z",
+  "updated_ts": "2026-10-15T07:58:24Z",
   "priority": 3,
   "tags": [
     "audit",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": "t-20261011-88dc",
-  "branch": null,
+  "branch": "agent/scipio/t-20261014-d1a7",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T13:15:39Z",
       "by": "argus",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T07:58:24Z",
+      "by": "scipio",
+      "action": "claimed by scipio"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "scipio",
+    "since": "2026-10-15T07:58:24Z",
+    "expires": "2026-10-15T11:58:24Z",
+    "checkpoint": ""
+  }
 }
