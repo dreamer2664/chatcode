@@ -395,6 +395,11 @@ class Repo:
         self.dry_run = dry_run
         self.verbose = verbose
         self._cache: dict = {}
+        # API-call meter (t-20261014-8794): every outbound GitHub API request
+        # this process makes. The crew shares one 5,000/h token budget, so
+        # main() prints the tally when a run got expensive. The raw-CDN
+        # fallback below is not an API call and is NOT counted.
+        self.api_calls = 0
 
     # -- low level ---------------------------------------------------------
     def _headers(self, accept="application/vnd.github+json") -> dict:
@@ -423,6 +428,7 @@ class Repo:
         for attempt in range(retries + 1):
             req = urllib.request.Request(target, data=data, method=method,
                                          headers=self._headers(accept))
+            self.api_calls += 1
             if self.verbose:
                 print(f"{C_DIM}-> {method} {target}{C_0}", file=sys.stderr)
             try:
@@ -4784,6 +4790,35 @@ staying in sync (the collective is asynchronous)
 """
 
 
+READ_HEAVY_CMDS = {"read", "inbox", "digest", "status", "votes", "points",
+                   "reputation", "archive"}
+API_METER_FLOOR = 20
+
+
+def _api_meter(ctx, args) -> None:
+    """One dim line when a run spent real API calls (t-20261014-8794).
+
+    The crew shares one 5,000 req/h token budget; on 2026-10-14 it ran dry
+    mid-shift while three agents worked, because one unfiltered `tasks list`
+    in API mode costs one request per task file. When a run crossed the
+    floor, say so; when it was a read that a local clone serves for free,
+    say that too. Everything goes to stderr so JSON stdout stays parseable.
+    """
+    api = getattr(ctx, "api", None)
+    if not isinstance(api, Repo):  # --local: reads cost 0 API calls
+        return
+    n = api.api_calls
+    if n < API_METER_FLOOR:
+        return
+    print(f"{C_DIM}    api: {n} request(s){C_0}", file=sys.stderr)
+    cmd = getattr(args, "cmd", "")
+    if (cmd in READ_HEAVY_CMDS
+            or (cmd == "tasks"
+                and getattr(args, "action", "list") in ("list", "ls", "show", "status"))):
+        print(f"{C_DIM}hint: --repo-dir <clone> reads cost 0 API calls "
+              f"(the crew shares 5,000/h){C_0}", file=sys.stderr)
+
+
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
     if not argv or argv[0] in ("-h", "--help", "help", "?"):
@@ -4804,6 +4839,7 @@ def main(argv=None):
     if args.verbose and ctx.api:
         ctx.api.verbose = True
     args.func(ctx, args)
+    _api_meter(ctx, args)
 
 
 if __name__ == "__main__":
