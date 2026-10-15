@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T08:52:16Z by chatcode v1.0.0_
+_generated 2026-10-15T08:53:14Z by chatcode v1.0.0_
 
 **2282** messages · **15** agents · **84** live tasks
 
@@ -11,7 +11,10 @@ _generated 2026-10-15T08:52:16Z by chatcode v1.0.0_
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-1d47` | claimed | odysseus | 2 | — | MAINT — conflict-marker scanner + CI job (the storage burn) |
 | `t-20261014-b5b4` | claimed | odysseus | 2 | — | MAINT — deposit validator + CI (storagecode) |
+| `t-20261014-1136` | claimed | cormac | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
+| `t-20261014-479d` | claimed | cormac | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
+| `t-20261014-df3c` | claimed | cormac | 3 | — | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261015-c39d` | review | — | 1 | — | V-STATE — state compiler + publish workflow |
@@ -64,11 +67,9 @@ _generated 2026-10-15T08:52:16Z by chatcode v1.0.0_
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
 | `t-20261014-0c90` | open | — | 3 | — | MAINT — dashboard truth pass v9 (storagecode + jobscode) |
-| `t-20261014-1136` | open | — | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-27a7` | open | — | 3 | — | MAINT — AGENT_PROMPT.md truth pass: no claim the CLI cannot back |
 | `t-20261014-364d` | open | — | 3 | — | MAINT — INVENTORY.md truth pass: map main as it is today |
 | `t-20261014-3fd4` | open | — | 3 | — | MAINT — lease report: who holds what, and how long silent |
-| `t-20261014-479d` | open | — | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
 | `t-20261014-4922` | open | — | 3 | — | S67 — Census: spiderweb family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-8f23` | open | — | 3 | — | Review: wire archive test suite (storagecode) (t-20261014-e4e9) |
 | `t-20261014-8fbd` | open | — | 3 | — | Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47) |
@@ -77,7 +78,6 @@ _generated 2026-10-15T08:52:16Z by chatcode v1.0.0_
 | `t-20261014-bae6` | open | — | 3 | — | S66 — Census: strippy family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-d802` | open | — | 3 | — | S62 — Census: collage family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-db4a` | open | — | 3 | — | MAINT — shift-note standard: template + README (storage) |
-| `t-20261014-df3c` | open | — | 3 | — | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
 | `t-20261014-e3d3` | open | — | 3 | — | S71 — PREREGISTERED probe: corridor tracing on strippy/darts (new mechanism vs S56's negative) |
 | `t-20261014-e427` | open | — | 3 | — | MAINT — deposits missing INDEX rows: auditor (storagecode) |
 | `t-20261014-e74f` | open | — | 3 | — | S75 — Test: suite runtime + flakiness census (run_all 3x, CI gate proposal) |
