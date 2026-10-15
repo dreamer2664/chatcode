@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-eee1",
-  "title": "YT-S1 V09 — YT05 — How a system works: a complete five-minute film",
-  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 8–20 focused hours (planning, not a timer).\nSLOT: YT05. FORMAT TRAINING: How a system works. Build a consistent explanatory model, reveal the mechanism step by step, and label simplifications. Keep terms and diagrams coherent across the film.\nDELIVER ONE COMPLETE VIDEO, not just preparatory files: a distinct agent-chosen subject, real 300–330s 1920×1080 H.264/AAC MP4, intelligible English narration, synchronized English SRT/VTT + transcript, final thumbnail, upload-ready truthful title/description/chapters/credits and editable/reproducible source project. Topic and audience promise must be reserved on the V01 slate without collision. At least three credible sources, a timestamped claim ledger, and documented rights for every external asset. Plan roughly 650–800 spoken words but time the actual performance; no silence/loop/credit padding. Full storyboard (aim ≥20 purposeful shots and ≥3 relevant visual treatments, or a recorded editorial exception).\nTRAINING IS REQUIRED: time and edit the script; render a complete rough cut; obtain non-owner timestamped critique; make substantive revisions; archive before/after decisions and a short reusable lesson/postmortem. Independent technical QC plus TWO distinct non-owner full-watch/listen reviews on the exact final hash: each ≥80/100, ≥70% in every category, no critical/major defect. A fresh final hash needs fresh approvals. Run ACCEPTANCE.md audio, caption, source, rights and decode checks; a green code test is not artistic approval.\nDELIVERY: working film source under projects/youtube-training/videos/YT05/; small research/QC/review/delivery.json evidence under storagecode/data/youtube-training/yt-training-s1/YT05/; actual large media on Releases of dreamer2664/storagecode with immutable revision names. Bind source commit, exact asset URLs, bytes, SHA-256, duration, recipe/tool versions and approval records. Director must be able to click and watch/download. Record your PUSHES row and shift in storagecode only. Do not mark review with a nonexistent/local-only final asset; report a blocker instead.\nDEPENDENCIES: V01–V04 gate final export/delivery. Research, topic proposal, script and storyboard may start immediately while shared tools are being made. No Mars PC/map/bridge dependency. Finish with the actual accepted MP4 or this card is NOT delivered.\nOWNS: this slot's film/project and its primary-archive evidence pack. Other films and shared tools belong to their owners; coordinate a narrow bugfix if needed.",
-  "status": "open",
-  "owner": null,
+  "title": "YT-S1 V09 \u2014 YT05 \u2014 How a system works: a complete five-minute film",
+  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 8\u201320 focused hours (planning, not a timer).\nSLOT: YT05. FORMAT TRAINING: How a system works. Build a consistent explanatory model, reveal the mechanism step by step, and label simplifications. Keep terms and diagrams coherent across the film.\nDELIVER ONE COMPLETE VIDEO, not just preparatory files: a distinct agent-chosen subject, real 300\u2013330s 1920\u00d71080 H.264/AAC MP4, intelligible English narration, synchronized English SRT/VTT + transcript, final thumbnail, upload-ready truthful title/description/chapters/credits and editable/reproducible source project. Topic and audience promise must be reserved on the V01 slate without collision. At least three credible sources, a timestamped claim ledger, and documented rights for every external asset. Plan roughly 650\u2013800 spoken words but time the actual performance; no silence/loop/credit padding. Full storyboard (aim \u226520 purposeful shots and \u22653 relevant visual treatments, or a recorded editorial exception).\nTRAINING IS REQUIRED: time and edit the script; render a complete rough cut; obtain non-owner timestamped critique; make substantive revisions; archive before/after decisions and a short reusable lesson/postmortem. Independent technical QC plus TWO distinct non-owner full-watch/listen reviews on the exact final hash: each \u226580/100, \u226570% in every category, no critical/major defect. A fresh final hash needs fresh approvals. Run ACCEPTANCE.md audio, caption, source, rights and decode checks; a green code test is not artistic approval.\nDELIVERY: working film source under projects/youtube-training/videos/YT05/; small research/QC/review/delivery.json evidence under storagecode/data/youtube-training/yt-training-s1/YT05/; actual large media on Releases of dreamer2664/storagecode with immutable revision names. Bind source commit, exact asset URLs, bytes, SHA-256, duration, recipe/tool versions and approval records. Director must be able to click and watch/download. Record your PUSHES row and shift in storagecode only. Do not mark review with a nonexistent/local-only final asset; report a blocker instead.\nDEPENDENCIES: V01\u2013V04 gate final export/delivery. Research, topic proposal, script and storyboard may start immediately while shared tools are being made. No Mars PC/map/bridge dependency. Finish with the actual accepted MP4 or this card is NOT delivered.\nOWNS: this slot's film/project and its primary-archive evidence pack. Other films and shared tools belong to their owners; coordinate a narrow bugfix if needed.",
+  "status": "claimed",
+  "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:29Z",
-  "updated_ts": "2026-10-15T14:06:29Z",
+  "updated_ts": "2026-10-15T14:53:00Z",
   "priority": 2,
   "tags": [
     "video-training",
@@ -22,19 +22,30 @@
     "t-20261015-191a"
   ],
   "parent": null,
-  "branch": null,
+  "branch": "agent/odysseus/t-20261015-eee1",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T14:06:29Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:53:00Z",
+      "by": "odysseus",
+      "action": "claimed by odysseus"
     }
   ],
   "campaign": {
     "id": "yt-training-s1",
     "code": "V09",
-    "estimated_effort": "8–20 focused hours",
+    "estimated_effort": "8\u201320 focused hours",
     "dependency_scope": "final-export-only"
+  },
+  "lease": {
+    "agent": "odysseus",
+    "since": "2026-10-15T14:53:00Z",
+    "expires": "2026-10-15T22:53:00Z",
+    "checkpoint": ""
   }
 }
