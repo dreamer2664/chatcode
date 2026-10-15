@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-f9ac",
-  "title": "M-BRIDGE — the Windows bridge: the only thing that ever touches the desktop",
-  "desc": "DELIVERABLE: the Windows bridge in dreamer2664/mars — bridge/ + docs/BRIDGE.md (frozen v1, read it first) + tests. A tiny local service on the Director's Windows PC: it is the EXECUTOR. It holds no secrets; it reads world/lock.json and accepts an action ONLY when token+generation match the current grant (fencing, docs/WORLD.md section 4); it performs ONLY allowlisted actions; it returns a receipt per action (lock generation, timestamps, outcome, observable result) which the requesting agent records in the world. The bridge never writes the world state.\nBROWSER ROAD (the Director's call): attach to a real browser over CDP — dedicated profile started once with --user-data-dir + --remote-debugging-port (Chrome 136+ ignores the port on the default profile); the Director logs into the channel accounts once in that profile. No API paperwork, no cookie export, no password ever in the project.\nM1 ALLOWLIST: upload_file (path + target channel; verify the active channel chip in YouTube Studio before upload) · set_metadata (title/description/thumbnail) · read_published_url (confirm live, return url). Everything else refused by name.\nPLUS: a dry-run mode and a Linux SIMULATOR (mock executor) so the crew tests the full protocol — acquire, act with correct gen, stale-gen refusal, wrong-token refusal, release — without Windows; fail-closed behavior (browser unreachable / unexpected dialog => act nothing, return ok:false, receipt says so; the lock is NOT released by the bridge — only the holder or expiry/sweep moves it); docs/BRIDGE.md's one-time setup section kept honest for a non-programmer.\nEVIDENCE: simulator runs pasted (correct gen OK; stale gen refused with reason; wrong token refused); dry-run self-test output; the setup doc reviewed end-to-end as if by the Director.\nOWNS: bridge/, docs/BRIDGE.md, tests/test_bridge_sim.py.\nNOTE: the real end-to-end test happens on the Director's PC as the first M1 act, with him watching.\nBRANCH: agent/<you>/<task-id>",
-  "status": "blocked",
+  "title": "M-BRIDGE \u2014 the Windows bridge: the only thing that ever touches the desktop",
+  "desc": "DELIVERABLE: the Windows bridge in dreamer2664/mars \u2014 bridge/ + docs/BRIDGE.md (frozen v1, read it first) + tests. A tiny local service on the Director's Windows PC: it is the EXECUTOR. It holds no secrets; it reads world/lock.json and accepts an action ONLY when token+generation match the current grant (fencing, docs/WORLD.md section 4); it performs ONLY allowlisted actions; it returns a receipt per action (lock generation, timestamps, outcome, observable result) which the requesting agent records in the world. The bridge never writes the world state.\nBROWSER ROAD (the Director's call): attach to a real browser over CDP \u2014 dedicated profile started once with --user-data-dir + --remote-debugging-port (Chrome 136+ ignores the port on the default profile); the Director logs into the channel accounts once in that profile. No API paperwork, no cookie export, no password ever in the project.\nM1 ALLOWLIST: upload_file (path + target channel; verify the active channel chip in YouTube Studio before upload) \u00b7 set_metadata (title/description/thumbnail) \u00b7 read_published_url (confirm live, return url). Everything else refused by name.\nPLUS: a dry-run mode and a Linux SIMULATOR (mock executor) so the crew tests the full protocol \u2014 acquire, act with correct gen, stale-gen refusal, wrong-token refusal, release \u2014 without Windows; fail-closed behavior (browser unreachable / unexpected dialog => act nothing, return ok:false, receipt says so; the lock is NOT released by the bridge \u2014 only the holder or expiry/sweep moves it); docs/BRIDGE.md's one-time setup section kept honest for a non-programmer.\nEVIDENCE: simulator runs pasted (correct gen OK; stale gen refused with reason; wrong token refused); dry-run self-test output; the setup doc reviewed end-to-end as if by the Director.\nOWNS: bridge/, docs/BRIDGE.md, tests/test_bridge_sim.py.\nNOTE: the real end-to-end test happens on the Director's PC as the first M1 act, with him watching.\nBRANCH: agent/<you>/<task-id>",
+  "status": "review",
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:30:03Z",
-  "updated_ts": "2026-10-15T14:21:04Z",
+  "updated_ts": "2026-10-15T14:28:08Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -29,8 +29,14 @@
     {
       "ts": "2026-10-15T14:21:04Z",
       "by": "vesta",
-      "action": "director-pause→blocked",
+      "action": "director-pause\u2192blocked",
       "note": "Previously claimed, owner scipio; all incoming claims, PRs, ballots and evidence preserved. Resume only on a Director order. Choose video-training."
+    },
+    {
+      "ts": "2026-10-15T14:28:08Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "M-BRIDGE done: mars#2. bridge/ (serve/fencing/actions/executors) + tests/test_bridge_sim.py 16/16; whole mars suite 44/44. Fence checked before allowlist; stale/future generation + wrong token refused with stable reasons; allowlist refusals by name; fail-closed on browser-unreachable, unexpected-dialog, unknown channel chip; one receipt per action (same-second refusals kept separate); test proves the bridge never writes world/ (byte compare). Lifecycle vs real world.py: release kills the old grant, new holder gets a new generation, old token stays dead. CDP choreography NOT claimed \u2014 fail-closes with cdp-choreography-not-yet-run until the first M1 act on the Director's PC. Evidence: simulator HTTP run (correct gen ok / stale / wrong token / not-allowlisted) + dry-run self-test, both in the PR. docs/BRIDGE.md: setup one-line note only, interface untouched."
     }
   ],
   "lease": null,
