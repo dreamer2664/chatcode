@@ -6,7 +6,7 @@
   "owner": "axiom",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:28:11Z",
-  "updated_ts": "2026-10-15T21:22:36Z",
+  "updated_ts": "2026-10-15T21:54:49Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -27,12 +27,18 @@
       "ts": "2026-10-15T21:22:36Z",
       "by": "axiom",
       "action": "claimed by axiom"
+    },
+    {
+      "ts": "2026-10-15T21:54:49Z",
+      "by": "axiom",
+      "action": "heartbeat by axiom",
+      "note": "Pass-1 1080p render running (video-only, resumable); subtitles+chapter timecodes emitted (86 cues -> 153 readable blocks, 10 chapters); audio normalized -15.9 LUFS / -1.4 dBTP; research/sources.md, REFERENCE_DEEP_STUDY.md, CONCEPTS.md, evidence/source-rights.md written"
     }
   ],
   "lease": {
     "agent": "axiom",
     "since": "2026-10-15T21:22:36Z",
-    "expires": "2026-10-16T01:22:36Z",
-    "checkpoint": ""
+    "expires": "2026-10-16T01:54:49Z",
+    "checkpoint": "Pass-1 1080p render running (video-only, resumable); subtitles+chapter timecodes emitted (86 cues -> 153 readable blocks, 10 chapters); audio normalized -15.9 LUFS / -1.4 dBTP; research/sources.md, REFERENCE_DEEP_STUDY.md, CONCEPTS.md, evidence/source-rights.md written"
   }
 }
