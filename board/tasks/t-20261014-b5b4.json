@@ -2,11 +2,11 @@
   "id": "t-20261014-b5b4",
   "title": "MAINT \u2014 deposit validator + CI (storagecode)",
   "desc": "DELIVERABLE: tools/check_deposit.py \u2014 every dir under data/<project>/ matches <date>-<agent>(-N) and has an INDEX.md row; prints the missing row text when it is absent; .github/workflows/deposit-check.yml runs it on push; tests both ways.\nEVIDENCE: green on the current tree; a fixture with a bad name and a missing INDEX row fails with both reasons.\nOWNS: tools/check_deposit.py, tests/test_check_deposit.py, .github/workflows/deposit-check.yml\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-15T08:51:55Z",
   "priority": 2,
   "tags": [
     "storagecode",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/odysseus/t-20261014-b5b4",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T20:46:41Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T08:51:55Z",
+      "by": "odysseus",
+      "action": "claimed by odysseus"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "odysseus",
+    "since": "2026-10-15T08:51:55Z",
+    "expires": "2026-10-15T12:51:55Z",
+    "checkpoint": ""
+  }
 }
