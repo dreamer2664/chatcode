@@ -1,0 +1,262 @@
+{
+  "id": "calib-300a",
+  "shots": [
+    {
+      "id": "calib-00",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 0
+      }
+    },
+    {
+      "id": "calib-01",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 1
+      }
+    },
+    {
+      "id": "calib-02",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 2
+      }
+    },
+    {
+      "id": "calib-03",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 3
+      }
+    },
+    {
+      "id": "calib-04",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 4
+      }
+    },
+    {
+      "id": "calib-05",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 5
+      }
+    },
+    {
+      "id": "calib-06",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 6
+      }
+    },
+    {
+      "id": "calib-07",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 7
+      }
+    },
+    {
+      "id": "calib-08",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 8
+      }
+    },
+    {
+      "id": "calib-09",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 9
+      }
+    },
+    {
+      "id": "calib-10",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 10
+      }
+    },
+    {
+      "id": "calib-11",
+      "scene": "scenes/demo.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "calibVariant": 11
+      }
+    }
+  ],
+  "durationWindow": [
+    300,
+    330
+  ],
+  "label": "ENGINEERING CALIBRATION FIXTURE \u2014 labeled per V02 card; does NOT count among the ten editorial films"
+}

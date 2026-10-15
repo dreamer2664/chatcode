@@ -20,7 +20,7 @@
 import { mkdir, readFile, writeFile, rm, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import { renderVideo, ffmpegPath, runProcess } from './render.mjs';
+import { renderVideo, ffmpegPath, runProcess, projectRoot } from './render.mjs';
 
 const sha = (b) => createHash('sha256').update(b).digest('hex');
 const shaFile = async (p) => sha(await readFile(p));
@@ -139,7 +139,11 @@ export function checkSegmentsAgainstExceptions(segs, exceptions = [], tolerance 
 // render one shot (or take it from cache) — the resumable unit
 // ---------------------------------------------------------------------------
 export async function renderShot({ shot, cacheDir, outRoot, signal, onProgress }) {
-  const source = await readFile(path.resolve(process.cwd(), shot.scene)).catch(() => {
+  // resolve against projectRoot exactly like renderVideo does, so the cache key
+  // hashes the same bytes the renderer will actually execute
+  const scenePath = path.resolve(projectRoot, shot.scene);
+  if (!scenePath.startsWith(projectRoot + path.sep)) throw new Error(`shot ${shot.id}: scene must be inside the project`);
+  const source = await readFile(scenePath).catch(() => {
     throw new Error(`shot ${shot.id}: scene file missing: ${shot.scene}`);
   });
   const key = shotCacheKey(source, shot.config);
@@ -153,6 +157,10 @@ export async function renderShot({ shot, cacheDir, outRoot, signal, onProgress }
   const mp4 = result.videoPath;
   try { await stat(mp4); } catch { throw new Error(`shot ${shot.id}: renderer finished but produced no video at ${mp4}`); }
   const manifest = result.manifest;
+  // scratch cleanup: PNG frames are intermediate — the encoded shot + manifest
+  // are the resumable evidence. 1080p frames are ~2 MB each; keeping them for
+  // every shot of a five-minute film would fill the disk mid-run.
+  await rm(path.join(outDir, 'frames'), { recursive: true, force: true });
   return { mp4, manifest, dir: outDir, key, cache: 'rendered', result };
 }
 
