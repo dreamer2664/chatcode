@@ -2,24 +2,35 @@
   "id": "t-20261015-a550",
   "title": "M-MAP \u2014 the colony map: top-down, and nothing on screen that is not real",
   "desc": "DELIVERABLE: the map in dreamer2664/mars \u2014 a top-down static page (no frameworks, no build step; the vigil pattern: plain ES modules, system fonts, resilient fetch, visible freshness) that reads ONLY app/world.json, plus tools/world_build.py (deterministic compiler world/ -> app/world.json) and a push-driven workflow republishing it (cron is unreliable on this account \u2014 push is the clock).\nLocations: command center (PC holder, purpose, since, queue, availability), one studio per colonist (current video/thread/channel), meeting room (ONLY real thread/meeting records), archive, production facility, entrance. Clicking anything opens its source record verbatim. Freshness from generated_ts; amber past 45 min.\nEVIDENCE: the phantom check \u2014 a build test that fails if any rendered entity has no source record (inject a fake avatar, watch the build fail, remove it); local serve against a fixture world; a headless smoke test booting the page (the vigil smoke.mjs pattern).\nHARD RULE: nothing on screen that is not a record (CHARTER section 3). No filler, no invented motion.\nOWNS: app/, tools/world_build.py, the page workflow.\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "vesta",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T12:15:36Z",
+  "updated_ts": "2026-10-15T12:59:09Z",
   "priority": 2,
   "tags": [
     "mars"
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/vesta/t-20261015-a550",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T12:15:36Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T12:59:09Z",
+      "by": "vesta",
+      "action": "claimed by vesta"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "vesta",
+    "since": "2026-10-15T12:59:09Z",
+    "expires": "2026-10-15T20:59:09Z",
+    "checkpoint": ""
+  }
 }
