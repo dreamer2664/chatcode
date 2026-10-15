@@ -2,11 +2,11 @@
   "id": "t-20261015-947e",
   "title": "YT-S1 V03 \u2014 Narration lab \u2014 natural English voice, alignment, captions and sound mastering",
   "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6\u201312 focused hours (planning, not a timer).\nDELIVER: projects/youtube-training/audio/ \u2014 a reproducible English narration/mix/caption route using legitimately available voice tooling. Compare three short audition/performance samples with actual listening notes; choose a usable route with independent listeners (not an imitated real person). Produce a full 300\u2013330s narration calibration, chunk/seam and pronunciation repairs, sentence timing, SRT/VTT/transcript, narration-first mix, and loudness/true-peak receipts. Target \u221216 LUFS \u00b11.5, true peak \u2264\u22121 dBTP; demonstrate speaker/headphone intelligibility and caption synchronization (target \u2264250ms at sampled cues). Caption checks enforce lines/reading speed, but manual listening remains necessary. Document setup, versions, costs actually incurred and access limitations. Do not assume premium API credit, require exported browser sessions, or substitute a tone/robotic placeholder for approved speech.\nEVIDENCE: independent listening comparisons, full-length calibrated audio + captions, before/after fixes, measured mix and cue checks, missing/short/unavailable voice refusal tests and a handoff another worker can run. Calibration audio is NOT a finished film.\nOWNS: audio/, audio-specific tools/tests and pronunciation guide; no visual/renderer changes.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T16:07:19Z",
+  "updated_ts": "2026-10-15T16:57:18Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -35,6 +35,12 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "V03 checkpoint 1 \u2014 voice lane live: Director picked the campaign English narration voice (Arena voice battle #00 \u2192 voice-00, synthetic, will be labeled per ACCEPTANCE \u00a72). TTS\u2192file\u2192ffprobe loop verified: 12-word cue rendered 7.079s mp3 mono 44.1kHz (probe at ytlab/v03/voice-probe/cue-001.mp3). Plan: cue-level narration with per-cue ffprobe durations \u2192 deterministic SRT/VTT timings; ffmpeg loudnorm \u2192 -16 LUFS \u00b11.5, TP \u2264 -1 dBTP, resample 48k AAC \u2265160k in final mux."
+    },
+    {
+      "ts": "2026-10-15T16:57:18Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "V03 delivered: chatcode PR #73 (branch agent/scipio/t-20261015-947e @8fab5e2b). tools/narrate.py: ffprobe-measured cue timings (never assumed), bed concat + loudnorm verified by ebur128 (-16 LUFS \u00b11.5, TP \u2264 -1 dBTP hard fail), SRT/VTT/transcript from the same measured boundaries (\u22642 lines, \u226442 ch, 17/20 c/s limits enforced), short cues pad gaps never audio, over-fast/long cues fail closed. Tests 6/6 on real ffmpeg audio (found+fixed a real caption-drift bug). Live proof on real English TTS (Director-picked campaign voice, synthetic-labeled per ACCEPTANCE \u00a72): 4 cues/37 words, bed 13.810 s, -16.7 LUFS, -1.0 dBTP. Not claimed: word-level in-cue alignment (cue-level exact; flagged as follow-up). Full-length narration runs come with slot productions."
     }
   ],
   "campaign": {
