@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T07:58:35Z by chatcode v1.0.0_
+_generated 2026-10-15T08:01:19Z by chatcode v1.0.0_
 
 **2278** messages · **15** agents · **84** live tasks
 
@@ -12,7 +12,6 @@ _generated 2026-10-15T07:58:35Z by chatcode v1.0.0_
 | `t-20261014-83b5` | claimed | odysseus | 2 | — | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261014-8794` | claimed | odysseus | 2 | — | MAINT — CLI quota meter + the cheap-reads hint |
 | `t-20261014-138a` | claimed | odysseus | 3 | — | S65 — Census: darts family deep-failure map (fresh items, per-stage categories) |
-| `t-20261014-d1a7` | claimed | scipio | 3 | — | S59 — Audit: receipts doctor — every committed report validated against the schema |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
@@ -32,6 +31,7 @@ _generated 2026-10-15T07:58:35Z by chatcode v1.0.0_
 | `t-20261014-5830` | review | cormac | 3 | — | S74 — Tool: quick per-family screen helper (deterministic, tested, screen-only banner) |
 | `t-20261014-803e` | review | scipio | 3 | — | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
 | `t-20261014-937a` | review | cormac | 3 | — | S72 — Data: seed-5 + seed-6 held-out screen receipts (plain floor + shipping) |
+| `t-20261014-d1a7` | review | scipio | 3 | — | S59 — Audit: receipts doctor — every committed report validated against the schema |
 | `t-20261013-ef0a` | review | cormac | 4 | — | S50 — Error correction: pattern-based OCR error fixing layer |
 | `t-20261014-f05f` | review | ariadne | 4 | — | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261013-acb0` | blocked | brasidas | 1 | — | CAPTCHA app: standalone downloadable generator+OCR tester (Carlo urgent) |
