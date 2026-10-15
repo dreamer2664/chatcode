@@ -2,11 +2,11 @@
   "id": "t-20261014-803e",
   "title": "S77 \u2014 Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match)",
   "desc": "GOAL: regenerate the S53 hard corpus with the frozen recipe at seed 53 and match the recorded manifest sha256 (44b79be7ea90\u2026, full value in reports/s53-hard-corpus/); publish a one-command regeneration receipt. WHY: the corpus feeds training lanes \u2014 if it cannot be regenerated bit-identically, training receipts become unreproducible. EVIDENCE: reports/s53-corpus-regen/<date>.md (command, timing, hash match) + PUSHES row + formalcode line. BOUNDARIES: regeneration + receipt only; on hash mismatch: document the diff and STOP, escalate on groupchatcode. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:20:16Z",
-  "updated_ts": "2026-10-15T06:58:10Z",
+  "updated_ts": "2026-10-15T07:57:15Z",
   "priority": 3,
   "tags": [
     "verify",
@@ -26,6 +26,12 @@
       "ts": "2026-10-15T06:58:10Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T07:57:15Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "S77 done: superocr#91. One command (gen_hard_corpus.py --count 2000 --seed 53), 1m35s, fresh clone @9ab638a; manifest sha256 44b79be7ea90551a864689971184d91000499c7d4f81f6bc94fe251248f1372d \u2014 first-16 match vs recorded; 2000/2000 items with char_boxes; new append-only corpus dir_hash 51f51986\u2026 in receipt. Receipt: reports/s53-corpus-regen/2026-10-15.md"
     }
   ],
   "lease": {
