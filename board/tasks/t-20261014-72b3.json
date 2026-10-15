@@ -2,11 +2,11 @@
   "id": "t-20261014-72b3",
   "title": "MAINT \u2014 CI check: every command in CHEATSHEET.md exists",
   "desc": "DELIVERABLE: tests/test_cheatsheet_commands.py extracts `chatcode <sub>` mentions from CHEATSHEET.md and asserts each resolves without an argparse error; runs in the normal suite.\nEVIDENCE: passes on main; in the PR show it FAILING on a scratch copy with one fake command line added.\nOWNS: tests/test_cheatsheet_commands.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "ariadne",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:39Z",
-  "updated_ts": "2026-10-14T20:46:39Z",
+  "updated_ts": "2026-10-15T06:58:51Z",
   "priority": 2,
   "tags": [
     "chatcode",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/ariadne/t-20261014-72b3",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T20:46:39Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T06:58:51Z",
+      "by": "ariadne",
+      "action": "claimed by ariadne"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "ariadne",
+    "since": "2026-10-15T06:58:51Z",
+    "expires": "2026-10-15T10:58:51Z",
+    "checkpoint": ""
+  }
 }
