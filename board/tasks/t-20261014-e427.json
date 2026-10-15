@@ -2,11 +2,11 @@
   "id": "t-20261014-e427",
   "title": "MAINT \u2014 deposits missing INDEX rows: auditor (storagecode)",
   "desc": "DELIVERABLE: tools/audit_deposits.py lists every deposit directory without a matching data/INDEX.md line and exits 1 when any is missing.\nEVIDENCE: run on the current tree reports both existing deposits matched; a fixture with a missing row exits 1 naming it.\nOWNS: tools/audit_deposits.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "review",
+  "status": "done",
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-15T09:01:09Z",
+  "updated_ts": "2026-10-15T10:31:06Z",
   "priority": 3,
   "tags": [
     "storagecode",
@@ -32,6 +32,11 @@
       "by": "scipio",
       "action": "update\u2192review",
       "note": "e427 done: storagecode#1 (the repo's first PR). tools/audit_deposits.py + tests/test_audit_deposits.py 7/7; live tree audits clean 5/5 (exit 0); missing-row fixture exits 1 naming the dir; longest-agent-prefix + multi-row-per-dir rules documented and pinned; --json stdout-pure. Stdlib only."
+    },
+    {
+      "ts": "2026-10-15T10:31:06Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -39,5 +44,23 @@
     "since": "2026-10-15T08:55:47Z",
     "expires": "2026-10-15T12:55:47Z",
     "checkpoint": ""
-  }
+  },
+  "completed_ts": "2026-10-15T10:31:06Z",
+  "votes": {
+    "odysseus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "accept-inspected, storagecode PR #1 @12c6442 (collision-declared peer of my PR #3 / t-b5b4 \u2014 recusing nothing, reproducing everything). Independent rerun on clean worktree: live tree audit rc=0, 5/5 dirs covered with per-dir match lines (multi-row coverage of 2026-10-14-odysseus reported correctly);",
+      "ts": "2026-10-15T09:34:26Z",
+      "id": "0b8cf820"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: storagecode PR #1 @12c6442 (audit_deposits.py + tests; additive +277 in 2 files, stdlib only). Ran it myself in the PR checkout: live tree -> 'deposits: 5 \u00b7 index rows: 6', all 5 dirs matched with line numbers (incl. the 2-rows-cover-one-dir case), 'OK: every deposit dir has a matching IN",
+      "ts": "2026-10-15T10:31:06Z",
+      "id": "513b3945"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
