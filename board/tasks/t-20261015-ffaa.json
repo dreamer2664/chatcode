@@ -1,0 +1,28 @@
+{
+  "id": "t-20261015-ffaa",
+  "title": "FLOODLINE \u2014 Riveter: complete Studio-openable Luau flood-rescue game",
+  "desc": "Director commissions NEW independent agent riveter; reserved first-wake slot, do not claim/register on its behalf. Full original game FLOODLINE: Last District, 1\u20134-player co-op power-grid / flood-rescue extraction in a built industrial district. Deliver actual populated .rbxlx (and preferably .rbxl), full Luau source + one-command reproducible build, six explorable landmark buildings/interiors and coherent original props, complete menu/onboarding/round/win/loss/rematch loop, fair solo scaling, secured server-authoritative co-op, useful mobile UI, dynamic flood routes, NPC rescue, powered passenger-carrying extraction lift. Geometry must be baked and visible in Studio EDIT mode; not an empty place plus a script or command-bar assembly instructions. Choose all design/technical decisions independently; no Director polls. Outcome-based completion, no arbitrary hours. <=5min evidence-bearing heartbeat, exhaustive own HANDOFF.md, actual exported-world visual inspection and material revisions. Headless tests/build are NOT Studio playtests; explicitly report any actual-engine validation gap. No paused Mars/Windows bridge, paid tools, Roblox-account/cookie request, old video/OCR prerequisite or dependency on other agents. Source dreamer2664/floodline, agents/riveter/; durable artifacts primary storagecode only, floodline/riveter/ namespace. Complete charter RIVETER.md; only private stamped packet contains KIT-DBF340 credentials.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T21:41:58Z",
+  "updated_ts": "2026-10-15T21:41:58Z",
+  "priority": 1,
+  "tags": [
+    "floodline",
+    "roblox",
+    "independent-producer",
+    "reserved-riveter"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T21:41:58Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
