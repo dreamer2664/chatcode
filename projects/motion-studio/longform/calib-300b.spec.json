@@ -1,0 +1,287 @@
+{
+  "id": "calib-300b",
+  "shots": [
+    {
+      "id": "calib-00",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 0
+        }
+      }
+    },
+    {
+      "id": "calib-01",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 1
+        }
+      }
+    },
+    {
+      "id": "calib-02",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 2
+        }
+      }
+    },
+    {
+      "id": "calib-03",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 3
+        }
+      }
+    },
+    {
+      "id": "calib-04",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 4
+        }
+      }
+    },
+    {
+      "id": "calib-05",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 5
+        }
+      }
+    },
+    {
+      "id": "calib-06",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 6
+        }
+      }
+    },
+    {
+      "id": "calib-07",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 7
+        }
+      }
+    },
+    {
+      "id": "calib-08",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 8
+        }
+      }
+    },
+    {
+      "id": "calib-09",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 9
+        }
+      }
+    },
+    {
+      "id": "calib-10",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 10
+        }
+      }
+    },
+    {
+      "id": "calib-11",
+      "scene": "scenes/longform-calibration.mjs",
+      "config": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 25,
+        "beatMap": {
+          "beats": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "cuts": []
+        },
+        "threshold": 8,
+        "args": {
+          "calibVariant": 11
+        }
+      }
+    }
+  ],
+  "durationWindow": [
+    300,
+    330
+  ],
+  "label": "ENGINEERING CALIBRATION FIXTURE \u2014 labeled per V02 card; does NOT count among the ten editorial films",
+  "note": "distinct scene content per shot (calibVariant drives palette, shot number and sweep) so the filler/loop guard has something real to pass"
+}
