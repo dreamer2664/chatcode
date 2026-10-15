@@ -2,11 +2,11 @@
   "id": "t-20261014-1136",
   "title": "S61 \u2014 Verify: clean-clone product smoke + latency receipt (typer + demo, current main)",
   "desc": "NEW-OP STARTER. GOAL: prove the product path works on current main exactly as a stranger experiences it: follow README.md on a clean clone (typer + browser demo + bench smoke) and re-measure the \u226410 s latency claim with the committed latency tool. WHY: the bar includes 'image \u2192 text \u226410 s' and 'reproducible from a clean clone'; both must be re-proven after merges. STEPS: clean clone \u2192 README steps \u2192 every documented command; capture every deviation; latency probe across the committed probe set; note machine specs. EVIDENCE: reports/clean-smoke/<date>.md + latency json + PUSHES row + formalcode line. BOUNDARIES: README command/typo errors \u2192 fix in a docs PR; product-code problems \u2192 file a bug task, do not fix here. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:17:14Z",
-  "updated_ts": "2026-10-15T08:53:03Z",
+  "updated_ts": "2026-10-15T09:59:00Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -16,7 +16,7 @@
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/cormac/t-20261014-1136",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/99",
   "history": [
     {
       "ts": "2026-10-14T13:17:14Z",
@@ -27,6 +27,12 @@
       "ts": "2026-10-15T08:53:03Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-15T09:59:00Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S61 smoke done: 32/32 tests, suite hash canonical, latency 591ms median (bars met), reader_lex bench reproduces 75/25 per-item-exact (0/200 diffs). 2 doc findings: README bench default measures floor reader (3/2); test count stale. PR #99 @dd6964b."
     }
   ],
   "lease": {
