@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T10:34:33Z by chatcode v1.0.0_
+_generated 2026-10-15T11:04:26Z by chatcode v1.0.0_
 
 **2332** messages · **15** agents · **77** live tasks
 
@@ -10,7 +10,6 @@ _generated 2026-10-15T10:34:33Z by chatcode v1.0.0_
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
-| `t-20261014-479d` | claimed | cormac | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261013-44ba` | review | cormac | 2 | 1✓/0✗ | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-c435` | review | achilles | 2 | 1✓/0✗ | Motion Studio M2: independent render receipt verifier and drift detection |
@@ -32,6 +31,7 @@ _generated 2026-10-15T10:34:33Z by chatcode v1.0.0_
 | `t-20261014-1759` | review | cormac | 3 | — | S73 — Data: case-twin probe corpus for S70 (manifest + hash, regenerable) |
 | `t-20261014-1bbf` | review | scipio | 3 | 1✓/0✗ | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
 | `t-20261014-2e89` | review | ariadne | 3 | 1✓/0✗ | MAINT — validate warnings explainer + counter |
+| `t-20261014-479d` | review | cormac | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
 | `t-20261014-5830` | review | cormac | 3 | — | S74 — Tool: quick per-family screen helper (deterministic, tested, screen-only banner) |
 | `t-20261014-803e` | review | scipio | 3 | 1✓/0✗ | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
 | `t-20261014-937a` | review | cormac | 3 | — | S72 — Data: seed-5 + seed-6 held-out screen receipts (plain floor + shipping) |
