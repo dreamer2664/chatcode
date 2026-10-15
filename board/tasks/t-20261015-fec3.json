@@ -2,11 +2,11 @@
   "id": "t-20261015-fec3",
   "title": "YT-S1 V02 \u2014 Long-form engineering \u2014 resumable five-minute rendering, assembly and QC",
   "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 8\u201316 focused hours (planning, not a timer).\nDELIVER: a long-form orchestrator reusing projects/motion-studio (currently 30s/900 frames per render). Partition into bounded shots, stitch in correct order, mux real narration and captions, use content-hash caches, recover after interruption and stop on broken assets/timing. Preserve the per-shot resource/safety caps; do not merely remove the duration limit. Implement ffprobe/full-file decode, A/V drift, loudness/peak, caption and black/freeze diagnostics with honest timecoded intentional exceptions. Delivery-manifest checking must reject missing assets, wrong hashes/durations, owner-authored reviews, stale review bindings and fewer than ten finals at campaign close. Make clean install/run instructions, pinned dependencies, sensible scratch cleanup and measured runtime/disk/memory receipts. Fail closed, no fabricated quality score.\nEVIDENCE: two independently rendered 300\u2013330s engineering calibration runs; exact scene/audio/source hashes; an interrupted run resumed without lost/duplicated shots; negative tests (missing scene, corrupt media, stale hash, bad timing, short output, filler/loop fixture, nonexistent download). Calibration fixture is labeled and does NOT count among the ten editorial films.\nOWNS: projects/motion-studio long-form orchestration files and dedicated longform tests; projects/youtube-training/tools technical/QC validator. Coordinate engine seams; do not rewrite the existing renderer or touch another worker's films.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T16:07:17Z",
+  "updated_ts": "2026-10-15T16:57:17Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -35,6 +35,12 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "V02 checkpoint 1 \u2014 full render stack VERIFIED in my sandbox: ffmpeg 7.0.2 static (bootstrap script ytlab/tools/bootstrap-ffmpeg.sh, rootless, idempotent \u2014 snapshots wipe binaries so it reruns each shift); chromium deps solved WITHOUT root (8 .debs fetched from Debian mirror + dpkg-deb -x into ~/chromium-libs, LD_LIBRARY_PATH); playwright canvas paint OK; REAL motion-studio render: renders/scipio-smoke/film.mp4 h264 960x540@24 4.000s, 96 frames, 5.1s wall (structural-pass). Next: engine/longform.mjs orchestrator \u2014 bounded shots keep the 30s/900-frame caps, content-hash cache for resume, concat, narration mux, ffprobe/QC fail-closed."
+    },
+    {
+      "ts": "2026-10-15T16:57:17Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "V02 delivered: chatcode PR #74 (branch agent/scipio/t-20261015-fec3 @f6249b9b). engine/longform.mjs (bounded shots keep caps, content-hash resume, concat-sum gate, drift gate, fail-closed QC incl. filler/loop guard found by run A itself) + projects/youtube-training/tools/validate_delivery.py (campaign technical gate incl. <10-distinct-finals) + labeled calibration rig + README. Evidence: TWO 300.000 s calibration runs independently re-measured \u2014 A sha256 ebe4cd54\u20261d5e (interrupted+resumed: 6 cache hits/6 re-rendered/0 lost), B sha256 6acb039d\u20266055 (12/12 distinct shots, aac 48k, -15.9 LUFS, TP -11.8, drift 0.000, decode exit 0); receipts in storagecode data/youtube-training/yt-training-s1/engineering/v02-calibration/. Negative tests live: longform 7/7 + validator 11/11 + full studio suite 22/22. Both calibration films are labeled fixtures, not editorial films."
     }
   ],
   "campaign": {
