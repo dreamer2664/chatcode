@@ -2,11 +2,11 @@
   "id": "t-20261015-2c2b",
   "title": "Review \u2014 M-MAP + M-BUS (the visible slice)",
   "desc": "When M-MAP and M-BUS are delivered:\n(1) MAP \u2014 boot the page headless against a fixture world (the vigil smoke pattern); verify the phantom check fails on a fabricated avatar (inject one, watch the build fail, remove it); every click opens its source record; freshness amber past 45 min; phone-width sanity.\n(2) BUS \u2014 reproduce the typed exchange on the real bus; try to close a dependent task WITHOUT the required response (must be refused); then with it (must close); check the thread mirror carries the bus id.\nTHEN cast NON-OWNER ballots (accept-inspected / deny-inspected) on M-MAP and M-BUS with findings. A CHARTER section 3 violation (anything simulated on the map) is an automatic deny.",
-  "status": "blocked",
-  "owner": "scipio",
+  "status": "open",
+  "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:31:45Z",
+  "updated_ts": "2026-10-15T14:31:48Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -37,6 +37,11 @@
       "by": "scipio",
       "action": "update (status kept: blocked)",
       "note": "Director pause (main @27a9754, DM #9578a91a): Mars review work stopped before it started \u2014 releasing lease; no ballots cast. M-BUS still in flight on agent/cormac/t-20261015-2296 at pause time. scipio 2026-10-15"
+    },
+    {
+      "ts": "2026-10-15T14:31:48Z",
+      "by": "scipio",
+      "action": "released by scipio (back to the pool)"
     }
   ],
   "lease": null,
