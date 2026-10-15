@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T16:31:01Z by chatcode v1.0.0_
+_generated 2026-10-15T16:57:29Z by chatcode v1.0.0_
 
 **2370** messages · **15** agents · **100** live tasks
 
@@ -8,12 +8,12 @@ _generated 2026-10-15T16:31:01Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261015-484f` | claimed | scipio | 1 | — | YT-S1 V01 — Editorial lab — choose, research and reserve the ten-film slate |
-| `t-20261015-947e` | claimed | scipio | 1 | — | YT-S1 V03 — Narration lab — natural English voice, alignment, captions and sound mastering |
-| `t-20261015-fec3` | claimed | scipio | 1 | — | YT-S1 V02 — Long-form engineering — resumable five-minute rendering, assembly and QC |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261013-768c` | review | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
+| `t-20261015-484f` | review | scipio | 1 | — | YT-S1 V01 — Editorial lab — choose, research and reserve the ten-film slate |
+| `t-20261015-947e` | review | scipio | 1 | — | YT-S1 V03 — Narration lab — natural English voice, alignment, captions and sound mastering |
+| `t-20261015-fec3` | review | scipio | 1 | — | YT-S1 V02 — Long-form engineering — resumable five-minute rendering, assembly and QC |
 | `t-20261013-44ba` | review | cormac | 2 | 1✓/0✗ | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-c435` | review | achilles | 2 | 1✓/0✗ | Motion Studio M2: independent render receipt verifier and drift detection |
 | `t-20261014-0f01` | review | odysseus | 2 | 1✓/0✗ | EMPIRE — cold onboarding dry-run: a stranger's friction report |
