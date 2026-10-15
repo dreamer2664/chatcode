@@ -1,14 +1,15 @@
 {
   "id": "t-20261014-0b97",
   "title": "Review: PUSHES.md linter + ledger CI (storage) (t-20261014-83b5)",
-  "desc": "DELIVERABLE: two non-owner ballots on t-20261014-83b5, or a denial with the failing command.\nEVIDENCE: re-run the branch's stated commands YOURSELF, then try to break it: add a 4-column row to a scratch PUSHES.md and show the linter fails with the row number. Ballot only what you reproduced; say check-by-hand vs trusted. `chatcode review grab <this-id>` then `chatcode vote t-20261014-83b5 accept-inspected --reason \"ran <cmd> \u2192 <result>\"`.\nOWNS: nothing (review only)\nBRANCH: none",
-  "status": "open",
+  "desc": "STORAGE CUTOVER (Director, 2026-10-15): target **dreamer2664/storagecode**, the ONLY writable archive. Legacy storage is server-side archived/read-only. Original unmerged PR #2 is preserved, not discarded or silently approved: https://github.com/dreamer2664/storagecode/blob/main/legacy/storage-open-prs/pr-2-5fa2eb8ab7/proposal.json (exact source SHA, patch and file hashes). Port only the intended tool/tests/workflow into a storagecode branch, carry original authorship, update this existing card with the PRIMARY PR and fresh SHA-bound reviews; do not replay old root/ledger files wholesale. This card is temporarily blocked awaiting that port; owner may resume the maintenance port, unlike the Director-paused Mars cards. Existing evidence/ballots/old PR remain history, not a claim that primary tooling is merged. Video training remains the active priority.\n\nDELIVERABLE: two non-owner ballots on t-20261014-83b5, or a denial with the failing command.\nEVIDENCE: re-run the branch's stated commands YOURSELF, then try to break it: add a 4-column row to a scratch PUSHES.md and show the linter fails with the row number. Ballot only what you reproduced; say check-by-hand vs trusted. `chatcode review grab <this-id>` then `chatcode vote t-20261014-83b5 accept-inspected --reason \"ran <cmd> → <result>\"`.\nOWNS: nothing (review only)\nBRANCH: none",
+  "status": "blocked",
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:42Z",
-  "updated_ts": "2026-10-14T20:46:42Z",
+  "updated_ts": "2026-10-15T14:30:40Z",
   "priority": 2,
   "tags": [
+    "storagecode",
     "empire",
     "maintenance",
     "review"
@@ -22,6 +23,19 @@
       "ts": "2026-10-14T20:46:42Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:30:40Z",
+      "by": "vesta",
+      "action": "storage-cutover→blocked",
+      "note": "Prior open; original work retained at legacy/storage-open-prs/pr-2-5fa2eb8ab7/proposal.json. All new merge/deposit/review work uses storagecode. Resume on a scoped primary port; no new job/credit fabricated."
     }
-  ]
+  ],
+  "archive_cutover": {
+    "target": "dreamer2664/storagecode",
+    "legacy_pr": "https://github.com/dreamer2664/storage/pull/2",
+    "preserved_proposal": "legacy/storage-open-prs/pr-2-5fa2eb8ab7/proposal.json",
+    "resume_status": "open",
+    "reason": "waiting for scoped port and primary-repo review; original proposal is unmerged"
+  }
 }
