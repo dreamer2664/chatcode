@@ -1,37 +1,43 @@
 {
-  "id": "t-20261014-1759",
-  "title": "S73 \u2014 Data: case-twin probe corpus for S70 (manifest + hash, regenerable)",
-  "desc": "GOAL: build a case-twin probe corpus (200 items: mixed-case words where every character is recoverable but case is ambiguous \u2014 x-height twins o/O, c/C, s/S; plus stitch-style strikethrough variants) with committed manifest + hash + plain-reader baseline rows + a small montage. WHY: S70 (case instrument) needs dev/held-out material that isolates case decisions; canonical suites carry only 9 case misses. STEPS: build with committed generator helpers; do NOT alter canonical recipes (official suite hash must not move); heavy images are generated, not committed \u2014 commit manifest + hash + regen command + montage. EVIDENCE: reports/case-corpus/<date>/ + PUSHES row + formalcode line. BOUNDARIES: fresh seeds only. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
-  "owner": "cormac",
-  "created_by": "argus",
-  "created_ts": "2026-10-14T13:20:18Z",
-  "updated_ts": "2026-10-15T07:00:18Z",
-  "priority": 3,
-  "tags": [
-    "data",
-    "case"
-  ],
-  "deps": [],
-  "parent": "t-20261011-88dc",
-  "branch": "agent/cormac/t-20261014-1759",
-  "pr": null,
-  "history": [
-    {
-      "ts": "2026-10-14T13:20:18Z",
-      "by": "argus",
-      "action": "created"
-    },
-    {
-      "ts": "2026-10-15T07:00:18Z",
-      "by": "cormac",
-      "action": "claimed by cormac"
-    }
-  ],
-  "lease": {
-    "agent": "cormac",
-    "since": "2026-10-15T07:00:18Z",
-    "expires": "2026-10-15T13:00:18Z",
-    "checkpoint": ""
+ "id": "t-20261014-1759",
+ "title": "S73 — Data: case-twin probe corpus for S70 (manifest + hash, regenerable)",
+ "desc": "GOAL: build a case-twin probe corpus (200 items: mixed-case words where every character is recoverable but case is ambiguous — x-height twins o/O, c/C, s/S; plus stitch-style strikethrough variants) with committed manifest + hash + plain-reader baseline rows + a small montage. WHY: S70 (case instrument) needs dev/held-out material that isolates case decisions; canonical suites carry only 9 case misses. STEPS: build with committed generator helpers; do NOT alter canonical recipes (official suite hash must not move); heavy images are generated, not committed — commit manifest + hash + regen command + montage. EVIDENCE: reports/case-corpus/<date>/ + PUSHES row + formalcode line. BOUNDARIES: fresh seeds only. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers — no 98/95 claims; captchaproject(s) off-limits.",
+ "status": "review",
+ "owner": "cormac",
+ "created_by": "argus",
+ "created_ts": "2026-10-14T13:20:18Z",
+ "updated_ts": "2026-10-15T08:55:00Z",
+ "priority": 3,
+ "tags": [
+  "data",
+  "case"
+ ],
+ "deps": [],
+ "parent": "t-20261011-88dc",
+ "branch": "agent/cormac/t-20261014-1759",
+ "pr": 93,
+ "history": [
+  {
+   "ts": "2026-10-14T13:20:18Z",
+   "by": "argus",
+   "action": "created"
+  },
+  {
+   "ts": "2026-10-15T07:00:18Z",
+   "by": "cormac",
+   "action": "claimed by cormac"
+  },
+  {
+   "ts": "2026-10-15T08:55:00Z",
+   "by": "cormac",
+   "action": "heartbeat by cormac",
+   "note": "DONE -> review: PR #93 @77610cc (case-twin corpus: 200 items, 1276 labeled case decisions, truth boxes, frozen manifest baec4fbd..., regen verified)"
   }
+ ],
+ "lease": {
+  "agent": "cormac",
+  "since": "2026-10-15T07:00:18Z",
+  "expires": "2026-10-15T13:00:18Z",
+  "checkpoint": "DONE -> review: PR #93 @77610cc (case-twin corpus: 200 items, 1276 labeled case decisions, truth boxes, frozen manifest baec4fbd..., regen verified)"
+ }
 }
