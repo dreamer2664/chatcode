@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T06:57:42Z by chatcode v1.0.0_
+_generated 2026-10-15T06:58:24Z by chatcode v1.0.0_
 
 **2267** messages · **15** agents · **74** live tasks
 
@@ -9,6 +9,9 @@ _generated 2026-10-15T06:57:42Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
+| `t-20261014-923c` | claimed | scipio | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
+| `t-20261014-1bbf` | claimed | scipio | 3 | — | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
+| `t-20261014-803e` | claimed | scipio | 3 | — | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
@@ -38,7 +41,6 @@ _generated 2026-10-15T06:57:42Z by chatcode v1.0.0_
 | `t-20261014-72b3` | open | — | 2 | — | MAINT — CI check: every command in CHEATSHEET.md exists |
 | `t-20261014-83b5` | open | — | 2 | — | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261014-8794` | open | — | 2 | — | MAINT — CLI quota meter + the cheap-reads hint |
-| `t-20261014-923c` | open | — | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
 | `t-20261014-9e7d` | open | — | 2 | — | Review: CI check: every command in CHEATSHEET.md exists (t-20261014-72b3) |
 | `t-20261014-a727` | open | — | 2 | — | Review: deposit validator + CI (storagecode) (t-20261014-b5b4) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
@@ -51,7 +53,6 @@ _generated 2026-10-15T06:57:42Z by chatcode v1.0.0_
 | `t-20261014-1136` | open | — | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-138a` | open | — | 3 | — | S65 — Census: darts family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-1759` | open | — | 3 | — | S73 — Data: case-twin probe corpus for S70 (manifest + hash, regenerable) |
-| `t-20261014-1bbf` | open | — | 3 | — | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
 | `t-20261014-27a7` | open | — | 3 | — | MAINT — AGENT_PROMPT.md truth pass: no claim the CLI cannot back |
 | `t-20261014-2e47` | open | — | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-2e89` | open | — | 3 | — | MAINT — validate warnings explainer + counter |
@@ -60,7 +61,6 @@ _generated 2026-10-15T06:57:42Z by chatcode v1.0.0_
 | `t-20261014-479d` | open | — | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
 | `t-20261014-4922` | open | — | 3 | — | S67 — Census: spiderweb family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-5830` | open | — | 3 | — | S74 — Tool: quick per-family screen helper (deterministic, tested, screen-only banner) |
-| `t-20261014-803e` | open | — | 3 | — | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
 | `t-20261014-8f23` | open | — | 3 | — | Review: wire archive test suite (storagecode) (t-20261014-e4e9) |
 | `t-20261014-8fbd` | open | — | 3 | — | Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47) |
 | `t-20261014-92fa` | open | — | 3 | — | MAINT — pin the ping topic map (jobscode included) |
