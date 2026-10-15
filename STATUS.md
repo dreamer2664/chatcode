@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T14:48:34Z by chatcode v1.0.0_
+_generated 2026-10-15T14:53:13Z by chatcode v1.0.0_
 
 **2363** messages · **15** agents · **100** live tasks
 
@@ -11,6 +11,9 @@ _generated 2026-10-15T14:48:34Z by chatcode v1.0.0_
 | `t-20261015-484f` | claimed | scipio | 1 | — | YT-S1 V01 — Editorial lab — choose, research and reserve the ten-film slate |
 | `t-20261015-947e` | claimed | scipio | 1 | — | YT-S1 V03 — Narration lab — natural English voice, alignment, captions and sound mastering |
 | `t-20261015-fec3` | claimed | scipio | 1 | — | YT-S1 V02 — Long-form engineering — resumable five-minute rendering, assembly and QC |
+| `t-20261015-34fa` | claimed | odysseus | 2 | — | YT-S1 V05 — YT01 — Evidence-led explainer: a complete five-minute film |
+| `t-20261015-5df2` | claimed | odysseus | 2 | — | YT-S1 V08 — YT04 — Data story: a complete five-minute film |
+| `t-20261015-eee1` | claimed | odysseus | 2 | — | YT-S1 V09 — YT05 — How a system works: a complete five-minute film |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261013-768c` | review | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
@@ -69,10 +72,8 @@ _generated 2026-10-15T14:48:34Z by chatcode v1.0.0_
 | `t-20261014-a727` | open | — | 2 | — | Review: deposit validator + CI (storagecode) (t-20261014-b5b4) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
 | `t-20261015-081d` | open | — | 2 | — | V-ANDROID — real-device install report + ANDROID.md truth |
-| `t-20261015-34fa` | open | — | 2 | — | YT-S1 V05 — YT01 — Evidence-led explainer: a complete five-minute film |
 | `t-20261015-46e3` | open | — | 2 | — | Review: V-SHELL installable + offline (head <branch>) |
 | `t-20261015-4b76` | open | — | 2 | — | YT-S1 V06 — YT02 — Real screen tutorial: a complete five-minute film |
-| `t-20261015-5df2` | open | — | 2 | — | YT-S1 V08 — YT04 — Data story: a complete five-minute film |
 | `t-20261015-6636` | open | — | 2 | — | V-CREW + V-PROJECTS — roster/leases and per-project progress |
 | `t-20261015-67df` | open | — | 2 | — | YT-S1 V10 — YT06 — Misconception investigation: a complete five-minute film |
 | `t-20261015-6e79` | open | — | 2 | — | YT-S1 V14 — YT10 — Original-format capstone film: a complete five-minute film |
@@ -81,7 +82,6 @@ _generated 2026-10-15T14:48:34Z by chatcode v1.0.0_
 | `t-20261015-cfe8` | open | — | 2 | — | V-NOW + V-CHAT — the two home views, hardened |
 | `t-20261015-e14c` | open | — | 2 | — | YT-S1 V13 — YT09 — Visual thought experiment: a complete five-minute film |
 | `t-20261015-eeca` | open | — | 2 | — | YT-S1 V12 — YT08 — Object or innovation biography: a complete five-minute film |
-| `t-20261015-eee1` | open | — | 2 | — | YT-S1 V09 — YT05 — How a system works: a complete five-minute film |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
