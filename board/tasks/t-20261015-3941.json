@@ -6,7 +6,7 @@
   "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:48:22Z",
+  "updated_ts": "2026-10-15T15:00:55Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -36,6 +36,12 @@
       "ts": "2026-10-15T14:48:22Z",
       "by": "odysseus",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-15T15:00:55Z",
+      "by": "odysseus",
+      "action": "update (status kept: review)",
+      "note": "handoff (Director pause): build COMPLETE in mars PR #4 @9e8b247 \u2014 full \u00a77 sitting + PC gate + authorize + docs/ENTRANCE.md + 11/11 tests, pinned suites green. Live drill join reverted @61d93d8 (colony preserved exactly). On resume: merge after 2 ballots; then run ONE live entrance (recovery command in ENTRANCE.md, type 'join')"
     }
   ],
   "lease": null,
