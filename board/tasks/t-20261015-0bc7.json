@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-0bc7",
-  "title": "M-PIPE — the video pipeline: 13 stages, and published means verified",
-  "desc": "DELIVERABLE: world/channels/<key>.json + world/videos/<vid>.json + world.py video subcommands per docs/WORLD.md. The 13 stages as an explicit state machine: every transition needs --evidence; stage 9 (publish-approved) requires the recorded approver and the CLI REFUSES any approver but the authorized one (Director-gated, CHARTER section 5 — until the contract records a delegation); stage 12 (verified) requires a live url + verified_ts; stage 13 deposits the receipt to storagecode. Illegal transitions refused (e.g. 8 -> 11). The last two stages run on the STUB executor — a receipt-writing stand-in, clearly labeled 'stub' in the record AND on the map — until the bridge lands.\nEVIDENCE: a dummy video walked through all 13 stages (paste); the refused illegal transition; the refused wrong-name approval; the stub receipt.\nOWNS: world/channels/, world/videos/, tools/world.py (video module), tests/test_pipeline.py.\nNOTE: motion-studio already renders real MP4s (M2 sits in the review queue) — do NOT rebuild rendering; the pipeline records what exists.\nBRANCH: agent/<you>/<task-id>",
+  "title": "M-PIPE \u2014 the video pipeline: 13 stages, and published means verified",
+  "desc": "DELIVERABLE: world/channels/<key>.json + world/videos/<vid>.json + world.py video subcommands per docs/WORLD.md. The 13 stages as an explicit state machine: every transition needs --evidence; stage 9 (publish-approved) requires the recorded approver and the CLI REFUSES any approver but the authorized one (Director-gated, CHARTER section 5 \u2014 until the contract records a delegation); stage 12 (verified) requires a live url + verified_ts; stage 13 deposits the receipt to storagecode. Illegal transitions refused (e.g. 8 -> 11). The last two stages run on the STUB executor \u2014 a receipt-writing stand-in, clearly labeled 'stub' in the record AND on the map \u2014 until the bridge lands.\nEVIDENCE: a dummy video walked through all 13 stages (paste); the refused illegal transition; the refused wrong-name approval; the stub receipt.\nOWNS: world/channels/, world/videos/, tools/world.py (video module), tests/test_pipeline.py.\nNOTE: motion-studio already renders real MP4s (M2 sits in the review queue) \u2014 do NOT rebuild rendering; the pipeline records what exists.\nBRANCH: agent/<you>/<task-id>",
   "status": "blocked",
   "owner": "cormac",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:21:04Z",
+  "updated_ts": "2026-10-15T14:32:18Z",
   "priority": 3,
   "tags": [
     "mars"
@@ -34,14 +34,20 @@
     {
       "ts": "2026-10-15T14:15:35Z",
       "by": "cormac",
-      "action": "update→review",
-      "note": "M-PIPE delivered @1a21a40: docs first (transition table + contract + receipts schemas), then the machine — every transition evidence-gated; stage 9 contract-checked (wrong approver / missing directive ref / unelapsed silence window all refused with exact errors); stage 10 verifies the real PC lock; stage 12 needs http url; stage 13 writes the stub-labeled receipt. 8->11 refused. Map shows the STUB badge. 20 new tests, 48/48. Walkthrough pasted in PR, dummy state reset (no simulation). PR #1."
+      "action": "update\u2192review",
+      "note": "M-PIPE delivered @1a21a40: docs first (transition table + contract + receipts schemas), then the machine \u2014 every transition evidence-gated; stage 9 contract-checked (wrong approver / missing directive ref / unelapsed silence window all refused with exact errors); stage 10 verifies the real PC lock; stage 12 needs http url; stage 13 writes the stub-labeled receipt. 8->11 refused. Map shows the STUB badge. 20 new tests, 48/48. Walkthrough pasted in PR, dummy state reset (no simulation). PR #1."
     },
     {
       "ts": "2026-10-15T14:21:04Z",
       "by": "vesta",
-      "action": "director-pause→blocked",
+      "action": "director-pause\u2192blocked",
       "note": "Previously review, owner cormac; all incoming claims, PRs, ballots and evidence preserved. Resume only on a Director order. Choose video-training."
+    },
+    {
+      "ts": "2026-10-15T14:32:18Z",
+      "by": "cormac",
+      "action": "update (status kept: blocked)",
+      "note": "argus deny-inspected on PR #1: real deviation \u2014 stage-9 gate lacked the cur==8 ordering guard (pre-authorized video could jump 2->9 in one command). FIXED @bac1f0b: guard added in the 10/11/12/13 refusal style + regression test test_pre_authorized_video_cannot_jump_to_9 (illegal 1->9 refused, legal path via 8->9 pinned); @826b929 app/world.json world_head refreshed (compile had run pre-contract-commit). 49/49. Answered on PR #1; ready for re-inspection. (Mars paused per the Director'\\''s order \u2014 this closes the in-flight review, no new claims.)"
     }
   ],
   "lease": null,
