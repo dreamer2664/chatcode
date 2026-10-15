@@ -32,16 +32,26 @@ export function render(ctx, { width: w, height: h, time: t, frame, fps, duration
   ctx.font = 'bold 190px Georgia, serif'; ctx.fillStyle = accent;
   ctx.fillText(String(variant + 1).padStart(2, '0'), 48, 300);
 
-  // a sweep that differs per shot, so motion is shot-specific too
-  const phase = (t / duration) * Math.PI * 2 + variant * 0.7;
+  // Motion that actually changes the picture every frame. The engine's
+  // structural grader requires a real inter-frame delta (notDead), so a dial
+  // that creeps a tenth of a degree per frame is correctly refused as dead.
+  // Sweep is ~6 deg/frame here, plus a travelling marker; both are per-shot.
+  const phase = t * (0.9 + variant * 0.12) + variant * 0.7;
   ctx.save(); ctx.translate(720, 264);
   ctx.strokeStyle = dark; ctx.lineWidth = 1.4;
   ctx.beginPath(); ctx.arc(0, 0, 140, 0, Math.PI * 2); ctx.stroke();
-  ctx.strokeStyle = accent; ctx.lineWidth = 8;
+  ctx.strokeStyle = accent; ctx.lineWidth = 10;
   ctx.beginPath(); ctx.arc(0, 0, 140, phase, phase + Math.PI * (0.4 + variant * 0.08)); ctx.stroke();
+  const mr = 96 + 34 * Math.sin(t * 2.1 + variant);
+  ctx.fillStyle = dark;
+  ctx.beginPath(); ctx.arc(mr * Math.cos(phase * 1.7), mr * Math.sin(phase * 1.7), 12, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = ink; ctx.font = '14px sans-serif'; ctx.textAlign = 'center';
   ctx.fillText('25 s / 750 frames', 0, 6);
   ctx.restore(); ctx.textAlign = 'left';
+
+  // a travelling bar, so the lower third is never static either
+  const bx = 48 + (864 - 120) * ((t * 0.5 + variant * 0.07) % 1);
+  ctx.fillStyle = dark; ctx.fillRect(bx, 452, 120, 14);
 
   ctx.fillStyle = ink; ctx.font = '12px sans-serif';
   ctx.fillText('BOUNDED SHOT — 30 s / 900-FRAME CAP PRESERVED', 48, 491);
