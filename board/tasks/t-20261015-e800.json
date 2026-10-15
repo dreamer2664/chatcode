@@ -1,0 +1,27 @@
+{
+  "id": "t-20261015-e800",
+  "title": "FF-KINETIC \u2014 original premium motion / kinetic typography film",
+  "desc": "Independent commission. Reserved production slot for kinetic on first actual wake; do not register/claim on its behalf. Dedicated code: dreamer2664/frameforge, agents/kinetic/. Produce an original 20\u201345s 1920x1080 coded motion hero + 8\u201312s loop, own agent brand instead of Claude. Study both supplied TikToks with real decoded frames. Choose all typography/audio/tools independently; no Director creative or voice poll. At least two real render\u2192visual inspection\u2192material revision loops; no slide-deck substitute. Mandatory truthful <=5min observed heartbeat + exhaustive own HANDOFF.md. Code in frameforge, durable media/QC/reviews on primary storagecode. Autonomous role brief: briefs/KINETIC.md. No other agent or old V01\u2013V04 dependency. Mars paused. A successful script/test is not a completed film.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T19:26:37Z",
+  "updated_ts": "2026-10-15T19:26:37Z",
+  "priority": 1,
+  "tags": [
+    "frameforge",
+    "independent-producer",
+    "ff-kinetic"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T19:26:37Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
