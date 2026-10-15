@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T19:49:04Z by chatcode v1.0.0_
+_generated 2026-10-15T21:20:59Z by chatcode v1.0.0_
 
 **2374** messages · **15** agents · **103** live tasks
 
@@ -8,6 +8,7 @@ _generated 2026-10-15T19:49:04Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
+| `t-20261015-e800` | claimed | kinetic | 1 | — | FF-KINETIC — original premium motion / kinetic typography film |
 | `t-20261015-e14c` | claimed | cormac | 2 | — | YT-S1 V13 — YT09 — Visual thought experiment: a complete five-minute film |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261013-768c` | review | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
@@ -67,7 +68,6 @@ _generated 2026-10-15T19:49:04Z by chatcode v1.0.0_
 | `t-20261015-191a` | open | — | 1 | — | YT-S1 V04 — Directing lab — visual storytelling, meaningful editing and calibrated review |
 | `t-20261015-5856` | open | — | 1 | — | FF-SCRIBBLE — distinctive vertical stickman explainer |
 | `t-20261015-d413` | open | — | 1 | — | FF-AXIOM — original long-form illustrated question film |
-| `t-20261015-e800` | open | — | 1 | — | FF-KINETIC — original premium motion / kinetic typography film |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
