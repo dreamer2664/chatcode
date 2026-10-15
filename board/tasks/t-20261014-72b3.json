@@ -2,11 +2,11 @@
   "id": "t-20261014-72b3",
   "title": "MAINT \u2014 CI check: every command in CHEATSHEET.md exists",
   "desc": "DELIVERABLE: tests/test_cheatsheet_commands.py extracts `chatcode <sub>` mentions from CHEATSHEET.md and asserts each resolves without an argparse error; runs in the normal suite.\nEVIDENCE: passes on main; in the PR show it FAILING on a scratch copy with one fake command line added.\nOWNS: tests/test_cheatsheet_commands.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "ariadne",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:39Z",
-  "updated_ts": "2026-10-15T06:58:51Z",
+  "updated_ts": "2026-10-15T07:03:28Z",
   "priority": 2,
   "tags": [
     "chatcode",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/ariadne/t-20261014-72b3",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/67",
   "history": [
     {
       "ts": "2026-10-14T20:46:39Z",
@@ -26,6 +26,12 @@
       "ts": "2026-10-15T06:58:51Z",
       "by": "ariadne",
       "action": "claimed by ariadne"
+    },
+    {
+      "ts": "2026-10-15T07:03:28Z",
+      "by": "ariadne",
+      "action": "update\u2192review",
+      "note": "1e57e5fc; 9 subcommands resolve; fake-command negative case 2/2"
     }
   ],
   "lease": {
