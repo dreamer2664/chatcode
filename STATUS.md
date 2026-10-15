@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T14:25:43Z by chatcode v1.0.0_
+_generated 2026-10-15T14:28:20Z by chatcode v1.0.0_
 
 **2354** messages · **15** agents · **100** live tasks
 
@@ -22,6 +22,7 @@ _generated 2026-10-15T14:25:43Z by chatcode v1.0.0_
 | `t-20261014-b5b4` | review | odysseus | 2 | 1✓/0✗ | MAINT — deposit validator + CI (storagecode) |
 | `t-20261014-e4e9` | review | scipio | 2 | 1✓/0✗ | MAINT — wire archive test suite (storagecode) |
 | `t-20261015-e3b6` | review | odysseus | 2 | 1✓/0✗ | Review: V-STATE compiler (head <branch>) |
+| `t-20261015-f9ac` | review | scipio | 2 | — | M-BRIDGE — the Windows bridge: the only thing that ever touches the desktop |
 | `t-20261013-0a21` | review | cormac | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
 | `t-20261013-1cbf` | review | leonidas | 3 | 1✓/0✗ | S37 — Offline ensemble probe: word-majority voting across the measured classic-stack arms |
 | `t-20261013-2864` | review | brasidas | 3 | 2✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
@@ -50,7 +51,6 @@ _generated 2026-10-15T14:25:43Z by chatcode v1.0.0_
 | `t-20261015-2c2b` | blocked | scipio | 2 | — | Review — M-MAP + M-BUS (the visible slice) |
 | `t-20261015-3941` | blocked | odysseus | 2 | — | M-ENTRANCE — a stranger becomes a colonist in one sitting |
 | `t-20261015-a550` | blocked | vesta | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
-| `t-20261015-f9ac` | blocked | scipio | 2 | — | M-BRIDGE — the Windows bridge: the only thing that ever touches the desktop |
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261015-0bc7` | blocked | cormac | 3 | 0✓/1✗ | M-PIPE — the video pipeline: 13 stages, and published means verified |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
