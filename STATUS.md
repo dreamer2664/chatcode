@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T09:55:54Z by chatcode v1.0.0_
+_generated 2026-10-15T09:59:09Z by chatcode v1.0.0_
 
 **2314** messages · **15** agents · **81** live tasks
 
@@ -9,7 +9,6 @@ _generated 2026-10-15T09:55:54Z by chatcode v1.0.0_
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
-| `t-20261014-1136` | claimed | cormac | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-479d` | claimed | cormac | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
 | `t-20261014-df3c` | claimed | cormac | 3 | — | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
@@ -31,6 +30,7 @@ _generated 2026-10-15T09:55:54Z by chatcode v1.0.0_
 | `t-20261013-2864` | review | brasidas | 3 | 2✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-2954` | review | leonidas | 3 | 2✓/1✗ | S45 — Documentation: comprehensive pipeline README + architecture diagram |
 | `t-20261013-7c60` | review | cormac | 3 | — | S52 — Contour analysis: extract stroke-width and curvature features |
+| `t-20261014-1136` | review | cormac | 3 | — | S61 — Verify: clean-clone product smoke + latency receipt (typer + demo, current main) |
 | `t-20261014-138a` | review | odysseus | 3 | 1✓/0✗ | S65 — Census: darts family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-1759` | review | cormac | 3 | — | S73 — Data: case-twin probe corpus for S70 (manifest + hash, regenerable) |
 | `t-20261014-1bbf` | review | scipio | 3 | — | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
