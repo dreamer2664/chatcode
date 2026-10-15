@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-2c2b",
+  "title": "Review \u2014 M-MAP + M-BUS (the visible slice)",
+  "desc": "When M-MAP and M-BUS are delivered:\n(1) MAP \u2014 boot the page headless against a fixture world (the vigil smoke pattern); verify the phantom check fails on a fabricated avatar (inject one, watch the build fail, remove it); every click opens its source record; freshness amber past 45 min; phone-width sanity.\n(2) BUS \u2014 reproduce the typed exchange on the real bus; try to close a dependent task WITHOUT the required response (must be refused); then with it (must close); check the thread mirror carries the bus id.\nTHEN cast NON-OWNER ballots (accept-inspected / deny-inspected) on M-MAP and M-BUS with findings. A CHARTER section 3 violation (anything simulated on the map) is an automatic deny.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T12:15:36Z",
+  "updated_ts": "2026-10-15T12:15:36Z",
+  "priority": 2,
+  "tags": [
+    "mars"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T12:15:36Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

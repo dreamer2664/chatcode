@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-24a9",
+  "title": "M-LOCK \u2014 the central PC: exclusive lease, FIFO queue, fencing (the part that must never lie)",
+  "desc": "DELIVERABLE: the PC lock as a module of tools/world.py + tests \u2014 docs/WORLD.md section 4 exactly. acquire (free -> granted, generation += 1, fresh opaque token; held -> FIFO queue; recovering -> refused until sweep); renew (token match; max_hold_min 180 default); release (holder only; queue head gets a NEW generation); expiry -> state recovering \u2014 NEVER auto-handover; sweep -> release + grant next; cancel; status.\nExecutor side: a fake-action harness that REFUSES any action carrying a stale token or generation (fencing proven, not promised).\nEVIDENCE: the parallel test \u2014 5 CONCURRENT acquires (separate processes), exactly one winner + 4 queued; release -> queue head gets generation n+2; a stale-token action refused with the reason printed. Paste lock.json before/after. tests/test_world_lock.py.\nOWNS: tools/world.py (lock module), tests/test_world_lock.py.\nNOTE: the git push race IS the mutex \u2014 losers re-read and queue, never overwrite. Keep lock.json small enough for the map to draw holder/purpose/since/queue directly.\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T12:15:36Z",
+  "updated_ts": "2026-10-15T12:15:36Z",
+  "priority": 1,
+  "tags": [
+    "mars"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T12:15:36Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

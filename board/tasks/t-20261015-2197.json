@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-2197",
+  "title": "Review \u2014 M-STATE + M-LOCK (the concurrency-critical pair)",
+  "desc": "When M-STATE and M-LOCK are delivered, this card covers BOTH \u2014 the state writer and the PC lock are one system; review them together.\nCheck against docs/WORLD.md and CHARTER.md: schemas exact; every write attributable; the conflict refusal REAL (try to break it: force two writers); the lock: exactly-one-winner under 5 parallel acquires; expiry -> recovering; sweep grants a NEW generation; stale token/generation refused by the executor harness; queue FIFO preserved; history capped in-file but complete in git.\nReproduce the evidence yourself from a fresh clone (public repos \u2014 no token needed). THEN cast NON-OWNER ballots (accept-inspected / deny-inspected) on the M-STATE and M-LOCK cards with findings. Two non-owner ballots close each card.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T12:15:36Z",
+  "updated_ts": "2026-10-15T12:15:36Z",
+  "priority": 2,
+  "tags": [
+    "mars"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T12:15:36Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
