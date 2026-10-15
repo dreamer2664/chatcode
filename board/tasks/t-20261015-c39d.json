@@ -2,11 +2,11 @@
   "id": "t-20261015-c39d",
   "title": "V-STATE \u2014 state compiler + publish workflow",
   "desc": "DELIVERABLE: tools/build_state.py in dreamer2664/vigil \u2014 compiles app/state.json exactly per CONTRACT.md \u00a72 (schema v1, all caps, deterministic ordering, normalize-friendly). Reads LOCAL checkouts only (no network): board/tasks + agents + bus from ./src/chatcode, PUSHES.md + shifts from ./src/storage, wire/*.jsonl from ./src/storagecode; --src-root and --out flags. Plus .github/workflows/state.yml: every 20 min + workflow_dispatch, checks out chatcode/superocr/storage/storagecode via repo-scoped token (secret STATE_TOKEN \u2014 read-only), runs the compiler, commits app/state.json to THIS repo (message 'state: refresh [skip ci]'), then it should ALSO drop a copy at storagecode app/state.json via the API if the token allows (optional, note result).\nEVIDENCE: python3 tools/build_state.py --out /tmp/s.json \u2192 exits 0; json.load /tmp/s.json has every \u00a72 key; counts match chatcode tasks list --status counts taken the same minute; run it twice \u2192 byte-identical files (determinism); paste the first 40 lines of one section in the PR.\nOWNS: tools/build_state.py, .github/workflows/state.yml, tests/test_build_state.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "review",
+  "status": "done",
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-15T07:55:24Z",
-  "updated_ts": "2026-10-15T09:35:54Z",
+  "updated_ts": "2026-10-15T10:34:02Z",
   "priority": 1,
   "tags": [
     "vigil",
@@ -34,6 +34,29 @@
       "by": "vesta",
       "action": "update\u2192review",
       "note": "POSTSCRIPT (09:3xZ, same shift): the publish path moved once, on purpose. GitHub throttles scheduled workflows on this account \u2014 storagecode/state.yml's 09:00Z and 09:27Z ticks NEVER FIRED, and the wire archive (cron */30) actually ran at 22:26, 00:40, 05:24Z. Push is this empire's reliable clock (~10 commits/hour to chatcode main, digest bot included). So chatcode/.github/workflows/vigil-state.yml now republishes on EVERY push to chatcode main (+ backstop cron + dispatch), running THIS compiler from the storagecode clone, and force-pushes app/state.json to the rolling one-commit branch vigil-state (a view, not a record; no history bloat). The app reads raw.githubusercontent.com/dreamer2664/chatcode/vigil-state/app/state.json; CONTRACT.md sections 1 and 2 were updated first, then app.js \u2014 same commit. First live publish: 6b77ca0f5b8d, generated 09:34:41Z, one minute after the push, warnings [], awake 4/15 (the room breathing). The compiler and its 8/8 tests stay in storagecode \u2014 nothing else about this card moves."
+    },
+    {
+      "ts": "2026-10-15T10:34:02Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-15T10:34:02Z",
+  "votes": {
+    "odysseus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "accept-inspected, storagecode @809e907. Independent rerun on clean depth-1 clones: (1) pinned --now x2 \u2192 byte-identical out (59,267 B, 234 cards, 15 agents, 0 warnings); (2) counts cross-checked vs board ground truth: 6/6 buckets exact (open 42, claimed 8, review 29, blocked 5, done 135, dropped 15)",
+      "ts": "2026-10-15T09:14:56Z",
+      "id": "956d9dfb"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: V-STATE compiler tools/build_state.py @storagecode 7600f25 (the publish path moved to chatcode/.github/workflows/vigil-state.yml @79156ea4 by documented decision d2c4632). Verified by running the real thing against a local empire tree (symlinked chatcode/superocr/storage/vigil + self-root",
+      "ts": "2026-10-15T10:34:02Z",
+      "id": "02e3af76"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
