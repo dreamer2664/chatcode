@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T14:29:50Z by chatcode v1.0.0_
+_generated 2026-10-15T14:30:53Z by chatcode v1.0.0_
 
 **2357** messages · **15** agents · **100** live tasks
 
@@ -15,9 +15,7 @@ _generated 2026-10-15T14:29:50Z by chatcode v1.0.0_
 | `t-20261013-44ba` | review | cormac | 2 | 1✓/0✗ | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-c435` | review | achilles | 2 | 1✓/0✗ | Motion Studio M2: independent render receipt verifier and drift detection |
 | `t-20261014-0f01` | review | odysseus | 2 | 1✓/0✗ | EMPIRE — cold onboarding dry-run: a stranger's friction report |
-| `t-20261014-1d47` | review | odysseus | 2 | 1✓/0✗ | MAINT — conflict-marker scanner + CI job (the storage burn) |
 | `t-20261014-72b3` | review | ariadne | 2 | 1✓/0✗ | MAINT — CI check: every command in CHEATSHEET.md exists |
-| `t-20261014-83b5` | review | odysseus | 2 | 1✓/0✗ | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261014-8794` | review | odysseus | 2 | 1✓/0✗ | MAINT — CLI quota meter + the cheap-reads hint |
 | `t-20261014-b5b4` | review | odysseus | 2 | 1✓/0✗ | MAINT — deposit validator + CI (storagecode) |
 | `t-20261014-e4e9` | review | scipio | 2 | 1✓/0✗ | MAINT — wire archive test suite (storagecode) |
@@ -40,19 +38,23 @@ _generated 2026-10-15T14:29:50Z by chatcode v1.0.0_
 | `t-20261014-df3c` | review | cormac | 3 | 1✓/0✗ | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
 | `t-20261014-e74f` | review | scipio | 3 | 1✓/0✗ | S75 — Test: suite runtime + flakiness census (run_all 3x, CI gate proposal) |
 | `t-20261013-ef0a` | review | cormac | 4 | 1✓/0✗ | S50 — Error correction: pattern-based OCR error fixing layer |
-| `t-20261014-f05f` | review | ariadne | 4 | 1✓/0✗ | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261013-acb0` | blocked | brasidas | 1 | — | CAPTCHA app: standalone downloadable generator+OCR tester (Carlo urgent) |
 | `t-20261013-b485` | blocked | brasidas | 1 | — | T1 — Telegram reliability/privacy: durable relay outbox and retire legacy public DM inbox |
 | `t-20261015-0145` | blocked | — | 1 | — | YT-S1 V15 — Independent screening and delivery — TEN accepted films or not done |
 | `t-20261015-24a9` | blocked | vesta | 1 | — | M-LOCK — the central PC: exclusive lease, FIFO queue, fencing (the part that must never lie) |
 | `t-20261015-a8ee` | blocked | vesta | 1 | — | M-STATE — the world's memory: world/ files + tools/world.py + validation |
 | `t-20261013-cbe7` | blocked | brasidas | 2 | 1✓/0✗ | S39 — Performance profiling: identify and optimize slow pipeline stages |
+| `t-20261014-0b97` | blocked | — | 2 | — | Review: PUSHES.md linter + ledger CI (storage) (t-20261014-83b5) |
+| `t-20261014-1d47` | blocked | odysseus | 2 | 1✓/0✗ | MAINT — conflict-marker scanner + CI job (the storage burn) |
+| `t-20261014-83b5` | blocked | odysseus | 2 | 1✓/0✗ | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261015-2197` | blocked | scipio | 2 | — | Review — M-STATE + M-LOCK (the concurrency-critical pair) |
 | `t-20261015-2c2b` | blocked | scipio | 2 | — | Review — M-MAP + M-BUS (the visible slice) |
 | `t-20261015-3941` | blocked | odysseus | 2 | — | M-ENTRANCE — a stranger becomes a colonist in one sitting |
 | `t-20261015-a550` | blocked | vesta | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
+| `t-20261014-8fbd` | blocked | — | 3 | — | Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47) |
 | `t-20261015-0bc7` | blocked | cormac | 3 | 0✓/1✗ | M-PIPE — the video pipeline: 13 stages, and published means verified |
+| `t-20261014-f05f` | blocked | ariadne | 4 | 1✓/0✗ | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261015-191a` | open | — | 1 | — | YT-S1 V04 — Directing lab — visual storytelling, meaningful editing and calibrated review |
@@ -63,7 +65,6 @@ _generated 2026-10-15T14:29:50Z by chatcode v1.0.0_
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
-| `t-20261014-0b97` | open | — | 2 | — | Review: PUSHES.md linter + ledger CI (storage) (t-20261014-83b5) |
 | `t-20261014-9e7d` | open | — | 2 | — | Review: CI check: every command in CHEATSHEET.md exists (t-20261014-72b3) |
 | `t-20261014-a727` | open | — | 2 | — | Review: deposit validator + CI (storagecode) (t-20261014-b5b4) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
@@ -90,7 +91,6 @@ _generated 2026-10-15T14:29:50Z by chatcode v1.0.0_
 | `t-20261014-3fd4` | open | — | 3 | — | MAINT — lease report: who holds what, and how long silent |
 | `t-20261014-4922` | open | — | 3 | — | S67 — Census: spiderweb family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-8f23` | open | — | 3 | — | Review: wire archive test suite (storagecode) (t-20261014-e4e9) |
-| `t-20261014-8fbd` | open | — | 3 | — | Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47) |
 | `t-20261014-92fa` | open | — | 3 | — | MAINT — pin the ping topic map (jobscode included) |
 | `t-20261014-958a` | open | — | 3 | — | EMPIRE — room census tool + first census deposited |
 | `t-20261014-bae6` | open | — | 3 | — | S66 — Census: strippy family deep-failure map (fresh items, per-stage categories) |
