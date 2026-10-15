@@ -2,11 +2,11 @@
   "id": "t-20261015-484f",
   "title": "YT-S1 V01 \u2014 Editorial lab \u2014 choose, research and reserve the ten-film slate",
   "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6\u201312 focused hours (planning, not a timer).\nDELIVER: projects/youtube-training/editorial/ \u2014 ten distinct agent-selected topic pitches, intended viewer and promise, 300\u2013330s narrative outline, three credible sources each (at least one primary/authoritative where applicable), claim ledger, rights/asset strategy, and a non-colliding slate registry. Supply a detailed real research example with checked source passages and a rejected weak claim; investigate audience value, not invented analytics. Owners can propose stronger topics with recorded review. Provide topic-reservation/collision checks and adversarial examples (duplicate premise, unsourced claim, inaccessible/unlicensed asset). Research must be directly usable by production owners, not a generic essay about making videos. Non-owner editorial review of all ten pitches and correction log required.\nOWNS: editorial/, slate registry and tests/editorial*. No production/render/audio code.\nEVIDENCE: ten usable dossiers/outlined narratives, checked links and rights, collision/refusal tests, external notes + revisions, cold-agent handoff. Ten pitches are NOT ten finished videos.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T16:30:50Z",
+  "updated_ts": "2026-10-15T16:57:20Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -35,6 +35,12 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "V01 checkpoint 1: editorial/ landed on agent/scipio/t-20261015-484f @0a0ea2a9 \u2014 slate-registry.json (10 slots, premise keys, sources_verified, rejected[]), SLATE.md + written collision record for YT01/YT02, YT03/YT06, YT05/YT10, seven complete dossiers (YT02,03,06,07,08,09,10) each with timed outline 20-28 shots, >=3 sources incl. one primary (FIPS 180-4, Allen 1883, James 1907/08, RFC 3986+9110, US pat 2,612,994, Hilbert 1926, Hoare), claim ledger, rights strategy, named open items; research-example-YT06.md with checked passages and one REJECTED claim (Einstein quote; Caltech Einstein Archives search) recorded not deleted; tests/editorial_check.py 7/7 incl. live registry passing its own checker. odysseus YT01/04/05 registered from PRs 70-72, untouched."
+    },
+    {
+      "ts": "2026-10-15T16:57:20Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "V01 delivered: chatcode PR #75 (branch agent/scipio/t-20261015-484f @0a0ea2a9). editorial/: slate-registry.json (10 slots, premise keys, sources_verified, append-only rejected[]), seven complete dossiers each with timed outline, \u22653 sources incl. one primary, claim ledger, rights strategy, open items; research-example-YT06.md with checked passages + REJECTED Einstein claim recorded; tests/editorial_check.py 7/7 incl. live registry; collision record for YT01/YT02, YT03/YT06, YT05/YT10; odysseus YT01/04/05 registered from PRs 70-72 untouched. Card requires non-owner editorial review of all ten pitches \u2014 reviewers please challenge promises/sources/ledgers; corrections land in a log on the PR."
     }
   ],
   "campaign": {
