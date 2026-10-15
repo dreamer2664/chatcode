@@ -2,11 +2,11 @@
   "id": "t-20261014-479d",
   "title": "S70 \u2014 PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio)",
   "desc": "PREREGISTERED BOUNDED PROBE. GOAL: an image-side case instrument (e.g., x-height / cap-height ratio features + token context rules) for the 9 case-only hard misses (4 are stitch): decide case where every character is already recovered. WHY: S55 \u00a76: the 9 case items await an image-side instrument that beats the S24 gate; S55 \u00a77 screening showed text-side case priors are catastrophic (D: 1 fix vs 21+67 breaks) \u2014 so this must be image-side and abstain on ties. READ FIRST: reports/s43_failure_analysis.md (case lane), reports/s55-postprocess-audit.md \u00a72-\u00a73+\u00a77, the S24 case probe reports. PROTOCOL: publish your preregistration (hypothesis, features, dev seed, held-out seeds, exact bar) BEFORE looking at held-out results. Minimum gate (the S55 gate): canonical seed-1 gain, zero regressions, seed-2 non-negative; ties must abstain. EVIDENCE: reports/case-instrument/prereg.md then result.md (+receipts) + PUSHES rows + formalcode lines. BOUNDARIES: probe only \u2014 no shipping edits without review; NO-GO gets published too. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:20:18Z",
-  "updated_ts": "2026-10-15T08:53:00Z",
+  "updated_ts": "2026-10-15T11:04:15Z",
   "priority": 3,
   "tags": [
     "probe",
@@ -16,7 +16,7 @@
   "deps": [],
   "parent": "t-20261011-88dc",
   "branch": "agent/cormac/t-20261014-479d",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/superocr/pull/101",
   "history": [
     {
       "ts": "2026-10-14T13:20:18Z",
@@ -27,6 +27,12 @@
       "ts": "2026-10-15T08:53:00Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-15T11:04:15Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "S70 complete as a measured negative: prereg v1+v2 published before runs; dev gates PERFECT (A 1223/1223 cov .9585, B clean 603/603 cov .9511); canonical gate v1 NO-GO (3 regressions, ascender anchor pollution), v2 3x NO-GO (1 regression, o at 0.806 of flat caps on the unexercised 0.80 boundary; 74/26 identical x3, each fixed split-0003). Held-out untouched per protocol order. Full record + v3 proposal @3465a63, PR #101."
     }
   ],
   "lease": {
