@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T09:59:09Z by chatcode v1.0.0_
+_generated 2026-10-15T09:59:21Z by chatcode v1.0.0_
 
 **2314** messages · **15** agents · **81** live tasks
 
@@ -11,7 +11,6 @@ _generated 2026-10-15T09:59:09Z by chatcode v1.0.0_
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-479d` | claimed | cormac | 3 | — | S70 — PREREGISTERED probe: image-side case instrument v1 (x-height / cap-ratio) |
-| `t-20261014-df3c` | claimed | cormac | 3 | — | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261015-c39d` | review | — | 1 | 1✓/0✗ | V-STATE — state compiler + publish workflow |
 | `t-20261013-44ba` | review | cormac | 2 | 1✓/0✗ | S42 — Training data: generate more realistic degradation samples |
@@ -39,6 +38,7 @@ _generated 2026-10-15T09:59:09Z by chatcode v1.0.0_
 | `t-20261014-803e` | review | scipio | 3 | 1✓/0✗ | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
 | `t-20261014-937a` | review | cormac | 3 | — | S72 — Data: seed-5 + seed-6 held-out screen receipts (plain floor + shipping) |
 | `t-20261014-d1a7` | review | scipio | 3 | — | S59 — Audit: receipts doctor — every committed report validated against the schema |
+| `t-20261014-df3c` | review | cormac | 3 | — | S69 — Evidence pack: the matching-glyph residue (5 substitutions + 4 S55 targets) |
 | `t-20261014-e427` | review | scipio | 3 | 1✓/0✗ | MAINT — deposits missing INDEX rows: auditor (storagecode) |
 | `t-20261014-e74f` | review | scipio | 3 | — | S75 — Test: suite runtime + flakiness census (run_all 3x, CI gate proposal) |
 | `t-20261013-ef0a` | review | cormac | 4 | — | S50 — Error correction: pattern-based OCR error fixing layer |
