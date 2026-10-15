@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-fec3",
-  "title": "YT-S1 V02 — Long-form engineering — resumable five-minute rendering, assembly and QC",
-  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 8–16 focused hours (planning, not a timer).\nDELIVER: a long-form orchestrator reusing projects/motion-studio (currently 30s/900 frames per render). Partition into bounded shots, stitch in correct order, mux real narration and captions, use content-hash caches, recover after interruption and stop on broken assets/timing. Preserve the per-shot resource/safety caps; do not merely remove the duration limit. Implement ffprobe/full-file decode, A/V drift, loudness/peak, caption and black/freeze diagnostics with honest timecoded intentional exceptions. Delivery-manifest checking must reject missing assets, wrong hashes/durations, owner-authored reviews, stale review bindings and fewer than ten finals at campaign close. Make clean install/run instructions, pinned dependencies, sensible scratch cleanup and measured runtime/disk/memory receipts. Fail closed, no fabricated quality score.\nEVIDENCE: two independently rendered 300–330s engineering calibration runs; exact scene/audio/source hashes; an interrupted run resumed without lost/duplicated shots; negative tests (missing scene, corrupt media, stale hash, bad timing, short output, filler/loop fixture, nonexistent download). Calibration fixture is labeled and does NOT count among the ten editorial films.\nOWNS: projects/motion-studio long-form orchestration files and dedicated longform tests; projects/youtube-training/tools technical/QC validator. Coordinate engine seams; do not rewrite the existing renderer or touch another worker's films.",
-  "status": "open",
-  "owner": null,
+  "title": "YT-S1 V02 \u2014 Long-form engineering \u2014 resumable five-minute rendering, assembly and QC",
+  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 8\u201316 focused hours (planning, not a timer).\nDELIVER: a long-form orchestrator reusing projects/motion-studio (currently 30s/900 frames per render). Partition into bounded shots, stitch in correct order, mux real narration and captions, use content-hash caches, recover after interruption and stop on broken assets/timing. Preserve the per-shot resource/safety caps; do not merely remove the duration limit. Implement ffprobe/full-file decode, A/V drift, loudness/peak, caption and black/freeze diagnostics with honest timecoded intentional exceptions. Delivery-manifest checking must reject missing assets, wrong hashes/durations, owner-authored reviews, stale review bindings and fewer than ten finals at campaign close. Make clean install/run instructions, pinned dependencies, sensible scratch cleanup and measured runtime/disk/memory receipts. Fail closed, no fabricated quality score.\nEVIDENCE: two independently rendered 300\u2013330s engineering calibration runs; exact scene/audio/source hashes; an interrupted run resumed without lost/duplicated shots; negative tests (missing scene, corrupt media, stale hash, bad timing, short output, filler/loop fixture, nonexistent download). Calibration fixture is labeled and does NOT count among the ten editorial films.\nOWNS: projects/motion-studio long-form orchestration files and dedicated longform tests; projects/youtube-training/tools technical/QC validator. Coordinate engine seams; do not rewrite the existing renderer or touch another worker's films.",
+  "status": "claimed",
+  "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T14:06:28Z",
+  "updated_ts": "2026-10-15T14:33:48Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -17,19 +17,30 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/scipio/t-20261015-fec3",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T14:06:28Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:33:48Z",
+      "by": "scipio",
+      "action": "claimed by scipio"
     }
   ],
   "campaign": {
     "id": "yt-training-s1",
     "code": "V02",
-    "estimated_effort": "8–16 focused hours",
+    "estimated_effort": "8\u201316 focused hours",
     "dependency_scope": "none"
+  },
+  "lease": {
+    "agent": "scipio",
+    "since": "2026-10-15T14:33:48Z",
+    "expires": "2026-10-15T22:33:48Z",
+    "checkpoint": ""
   }
 }
