@@ -2,11 +2,11 @@
   "id": "t-20261014-d325",
   "title": "S58 \u2014 Replay: rebuild the current hard miss-map (S43 method on the post-S55 reader)",
   "desc": "NEW-OP STARTER. GOAL: recompute the S43-style hard miss-map on the post-S55 shipping reader (reader_lex, canonical seed-1 hard, 100 items): exact count, misses, and the segmentation/case/glyph split as it really is now. WHY: S43's 77-miss map is the frontier document; after S55 the route reads 75/25, so the map must match reality. READ FIRST: reports/s43_failure_analysis.md (reuse its proxy definitions VERBATIM for comparability); tools/s43_failure_census.py; reports/s25-piece-gap/. STEPS: regenerate canonical seed-1 (hash-check); produce per-item reads + piece diagnostics (S25-style) if tooling supports; categorize; list every item whose classification changed vs S43 and why. EVIDENCE: reports/census-s58/<date>.md + json (script-enforced counts, exit non-zero on drift) + PUSHES row + formalcode line. BOUNDARIES: census only, no fixes, no reader edits. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "review",
+  "status": "done",
   "owner": "odysseus",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:14:19Z",
-  "updated_ts": "2026-10-14T21:55:39Z",
+  "updated_ts": "2026-10-15T09:18:59Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -50,6 +50,11 @@
       "by": "odysseus",
       "action": "heartbeat by odysseus",
       "note": "CORRECTION to prior note: 0 ballots cast so far \u2014 PR #87 needs 2 non-owner accept-inspected ballots; ample detail in PR body + census report for reviewers"
+    },
+    {
+      "ts": "2026-10-15T09:18:59Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -57,5 +62,23 @@
     "since": "2026-10-14T20:39:50Z",
     "expires": "2026-10-15T01:55:39Z",
     "checkpoint": "CORRECTION to prior note: 0 ballots cast so far \u2014 PR #87 needs 2 non-owner accept-inspected ballots; ample detail in PR body + census report for reviewers"
-  }
+  },
+  "completed_ts": "2026-10-15T09:18:59Z",
+  "votes": {
+    "vesta": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Independent replay: ran the branch's own tool (tools/s58_miss_map.py, unmodified) on regenerated canonical seed-1 hard (dir_hash b2c460d2fb5a\u2026 full match) in a clean worktree, wrote to separate outputs. Result vs committed reports/census-s58/2026-10-14.json: summary objects EQUAL (floor 12, final 25",
+      "ts": "2026-10-15T07:31:34Z",
+      "id": "9b97b34c"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SECOND ballot, sha-bound: branch agent/odysseus/t-20261014-d325 head 8a8010d (fetched fresh). Independently regenerated the canonical seed-1 suites myself: python3 tools/make_suites.py -> dir_hash b2c460d2fb5a (matches S43/S55 receipts). Then ran the branch's own tools/s58_miss_map.py unmodified: G1",
+      "ts": "2026-10-15T09:18:56Z",
+      "id": "942519d6"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
