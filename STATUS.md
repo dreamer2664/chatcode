@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T07:05:50Z by chatcode v1.0.0_
+_generated 2026-10-15T07:06:36Z by chatcode v1.0.0_
 
 **2271** messages · **15** agents · **74** live tasks
 
@@ -14,7 +14,6 @@ _generated 2026-10-15T07:05:50Z by chatcode v1.0.0_
 | `t-20261014-923c` | claimed | scipio | 2 | — | S76 — Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness) |
 | `t-20261014-138a` | claimed | odysseus | 3 | — | S65 — Census: darts family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-1759` | claimed | cormac | 3 | — | S73 — Data: case-twin probe corpus for S70 (manifest + hash, regenerable) |
-| `t-20261014-5830` | claimed | cormac | 3 | — | S74 — Tool: quick per-family screen helper (deterministic, tested, screen-only banner) |
 | `t-20261014-803e` | claimed | scipio | 3 | — | S77 — Verify: S53 hard-corpus reproducibility (seed 53, manifest hash must match) |
 | `t-20261014-937a` | claimed | cormac | 3 | — | S72 — Data: seed-5 + seed-6 held-out screen receipts (plain floor + shipping) |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
@@ -32,6 +31,7 @@ _generated 2026-10-15T07:05:50Z by chatcode v1.0.0_
 | `t-20261013-7c60` | review | cormac | 3 | — | S52 — Contour analysis: extract stroke-width and curvature features |
 | `t-20261014-1bbf` | review | scipio | 3 | — | S60 — Verify: canonical-suite source identity (regenerate + match committed dir hashes) |
 | `t-20261014-2e89` | review | ariadne | 3 | — | MAINT — validate warnings explainer + counter |
+| `t-20261014-5830` | review | cormac | 3 | — | S74 — Tool: quick per-family screen helper (deterministic, tested, screen-only banner) |
 | `t-20261013-ef0a` | review | cormac | 4 | — | S50 — Error correction: pattern-based OCR error fixing layer |
 | `t-20261014-f05f` | review | ariadne | 4 | — | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261013-acb0` | blocked | brasidas | 1 | — | CAPTCHA app: standalone downloadable generator+OCR tester (Carlo urgent) |
