@@ -2,11 +2,11 @@
   "id": "t-20261015-d413",
   "title": "FF-AXIOM \u2014 original long-form illustrated question film",
   "desc": "Independent commission. Reserved production slot for axiom on first actual wake; do not register/claim on its behalf. Dedicated code: dreamer2664/frameforge, agents/axiom/. Produce an original researched 14\u201318min 1920x1080 long-form stickman explainer with coherent chapters, situated expressive characters, costumes/recognisable historical-person cues and meaningful props. Sparse selective keywords/diagrams, NOT burned-in full narration subtitles; supply sidecar captions. Study the supplied 17:30 YouTube reference visually. Choose all topic/voice/font/tools independently; no Director polls. Prototype, rough cut, whole-film visual inspection, substantive revisions, exact-file technical and documented artistic self-review. Mandatory truthful <=5min observed heartbeat + exhaustive own HANDOFF.md. Code in frameforge, media/QC on primary storagecode. Role brief: briefs/AXIOM.md. No other agent or old V01\u2013V04 dependency. Mars paused; no fake ten-film completion.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "axiom",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:28:11Z",
-  "updated_ts": "2026-10-15T19:28:11Z",
+  "updated_ts": "2026-10-15T21:22:36Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -15,13 +15,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/axiom/t-20261015-d413",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T19:28:11Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T21:22:36Z",
+      "by": "axiom",
+      "action": "claimed by axiom"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "axiom",
+    "since": "2026-10-15T21:22:36Z",
+    "expires": "2026-10-16T01:22:36Z",
+    "checkpoint": ""
+  }
 }
