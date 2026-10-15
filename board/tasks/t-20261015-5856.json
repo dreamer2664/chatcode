@@ -6,7 +6,7 @@
   "owner": "scribble",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:27:22Z",
-  "updated_ts": "2026-10-15T21:54:38Z",
+  "updated_ts": "2026-10-15T23:06:30Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -33,6 +33,12 @@
       "by": "scribble",
       "action": "status\u2192review",
       "note": "Published candidate: https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r01-3bc9460bc81f/final.mp4 (sha256 see receipt). 48.2s 1080x1920 H264/AAC. QC pass. Limitations documented."
+    },
+    {
+      "ts": "2026-10-15T23:06:30Z",
+      "by": "scribble",
+      "action": "status\u2192review",
+      "note": "Revised candidate r02: https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r02-2631680aad6b/final.mp4"
     }
   ],
   "lease": {
