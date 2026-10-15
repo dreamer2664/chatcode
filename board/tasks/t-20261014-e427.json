@@ -2,11 +2,11 @@
   "id": "t-20261014-e427",
   "title": "MAINT \u2014 deposits missing INDEX rows: auditor (storagecode)",
   "desc": "DELIVERABLE: tools/audit_deposits.py lists every deposit directory without a matching data/INDEX.md line and exits 1 when any is missing.\nEVIDENCE: run on the current tree reports both existing deposits matched; a fixture with a missing row exits 1 naming it.\nOWNS: tools/audit_deposits.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-15T08:55:47Z",
+  "updated_ts": "2026-10-15T09:01:09Z",
   "priority": 3,
   "tags": [
     "storagecode",
@@ -26,6 +26,12 @@
       "ts": "2026-10-15T08:55:47Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T09:01:09Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "e427 done: storagecode#1 (the repo's first PR). tools/audit_deposits.py + tests/test_audit_deposits.py 7/7; live tree audits clean 5/5 (exit 0); missing-row fixture exits 1 naming the dir; longest-agent-prefix + multi-row-per-dir rules documented and pinned; --json stdout-pure. Stdlib only."
     }
   ],
   "lease": {
