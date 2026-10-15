@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T12:59:20Z by chatcode v1.0.0_
+_generated 2026-10-15T13:14:18Z by chatcode v1.0.0_
 
 **2333** messages · **15** agents · **86** live tasks
 
@@ -8,7 +8,6 @@ _generated 2026-10-15T12:59:20Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261015-a550` | claimed | vesta | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261013-768c` | review | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
@@ -23,6 +22,7 @@ _generated 2026-10-15T12:59:20Z by chatcode v1.0.0_
 | `t-20261014-8794` | review | odysseus | 2 | 1✓/0✗ | MAINT — CLI quota meter + the cheap-reads hint |
 | `t-20261014-b5b4` | review | odysseus | 2 | 1✓/0✗ | MAINT — deposit validator + CI (storagecode) |
 | `t-20261014-e4e9` | review | scipio | 2 | 1✓/0✗ | MAINT — wire archive test suite (storagecode) |
+| `t-20261015-a550` | review | vesta | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
 | `t-20261015-e3b6` | review | odysseus | 2 | 1✓/0✗ | Review: V-STATE compiler (head <branch>) |
 | `t-20261013-0a21` | review | cormac | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
 | `t-20261013-1cbf` | review | leonidas | 3 | 1✓/0✗ | S37 — Offline ensemble probe: word-majority voting across the measured classic-stack arms |
