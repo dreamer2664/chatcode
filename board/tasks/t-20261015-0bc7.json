@@ -2,11 +2,11 @@
   "id": "t-20261015-0bc7",
   "title": "M-PIPE \u2014 the video pipeline: 13 stages, and published means verified",
   "desc": "DELIVERABLE: world/channels/<key>.json + world/videos/<vid>.json + world.py video subcommands per docs/WORLD.md. The 13 stages as an explicit state machine: every transition needs --evidence; stage 9 (publish-approved) requires the recorded approver and the CLI REFUSES any approver but the authorized one (Director-gated, CHARTER section 5 \u2014 until the contract records a delegation); stage 12 (verified) requires a live url + verified_ts; stage 13 deposits the receipt to storagecode. Illegal transitions refused (e.g. 8 -> 11). The last two stages run on the STUB executor \u2014 a receipt-writing stand-in, clearly labeled 'stub' in the record AND on the map \u2014 until the bridge lands.\nEVIDENCE: a dummy video walked through all 13 stages (paste); the refused illegal transition; the refused wrong-name approval; the stub receipt.\nOWNS: world/channels/, world/videos/, tools/world.py (video module), tests/test_pipeline.py.\nNOTE: motion-studio already renders real MP4s (M2 sits in the review queue) \u2014 do NOT rebuild rendering; the pipeline records what exists.\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "cormac",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:06:04Z",
+  "updated_ts": "2026-10-15T14:15:35Z",
   "priority": 3,
   "tags": [
     "mars"
@@ -14,7 +14,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/cormac/t-20261015-0bc7",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/mars/pull/1",
   "history": [
     {
       "ts": "2026-10-15T12:15:36Z",
@@ -30,6 +30,12 @@
       "ts": "2026-10-15T14:06:04Z",
       "by": "cormac",
       "action": "claimed by cormac"
+    },
+    {
+      "ts": "2026-10-15T14:15:35Z",
+      "by": "cormac",
+      "action": "update\u2192review",
+      "note": "M-PIPE delivered @1a21a40: docs first (transition table + contract + receipts schemas), then the machine \u2014 every transition evidence-gated; stage 9 contract-checked (wrong approver / missing directive ref / unelapsed silence window all refused with exact errors); stage 10 verifies the real PC lock; stage 12 needs http url; stage 13 writes the stub-labeled receipt. 8->11 refused. Map shows the STUB badge. 20 new tests, 48/48. Walkthrough pasted in PR, dummy state reset (no simulation). PR #1."
     }
   ],
   "lease": {
