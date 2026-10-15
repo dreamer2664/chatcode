@@ -2,11 +2,11 @@
   "id": "t-20261014-1bbf",
   "title": "S60 \u2014 Verify: canonical-suite source identity (regenerate + match committed dir hashes)",
   "desc": "NEW-OP STARTER. GOAL: regenerate the canonical suites from scratch and prove the committed dir_hashes still match: seed-1 b2c460d2fb5a\u2026, seed-2 ec64cd63\u2026, plus any other suite under data/ with a recorded hash. WHY: everything rests on 'same bytes, same scores' \u2014 cheapest independent trust check in the repo. READ FIRST: BENCH.md (suite format); tools/make_suites.py; tools/s38_compare.py. STEPS: fresh clone; regen each suite at its seed; compute dir_hash with the committed tool; compare; document any mismatch with file-level diff evidence. EVIDENCE: reports/source-identity/<date>.md (hash table + exact commands) + PUSHES row + formalcode line. BOUNDARIES: read-only except your report; mismatches are groupchatcode findings. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "review",
+  "status": "done",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:16:27Z",
-  "updated_ts": "2026-10-15T07:57:18Z",
+  "updated_ts": "2026-10-15T14:20:29Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -38,6 +38,11 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "S60/S77/S76 all in review: #90/#91/#95"
+    },
+    {
+      "ts": "2026-10-15T14:20:29Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -45,5 +50,23 @@
     "since": "2026-10-15T06:58:09Z",
     "expires": "2026-10-15T11:57:18Z",
     "checkpoint": "S60/S77/S76 all in review: #90/#91/#95"
-  }
+  },
+  "completed_ts": "2026-10-15T14:20:29Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #90 head 473d8e9: scope = 1 additive report file. Independently regenerated BOTH suites from the PR worktree: seed-1 b2c460d2fb5a-fdd3 and seed-2 ec64cd63790d-49e8 full-sha MATCH vs s38_compare.HASHES. Scope sweep honest (orphans flagged, not fixed).",
+      "ts": "2026-10-15T10:08:36Z",
+      "id": "b2a302a8"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: superocr PR #90 @473d8e9 (S60 canonical-suite source identity; single additive report reports/source-identity/2026-10-15.md \u2014 docs only). Ran the verification myself from the PR checkout: python3 tools/make_suites.py --seed 1 --out <tmp> -> full dir_hash b2c460d2fb5a8f83c8d4c4b3893ff6eb05",
+      "ts": "2026-10-15T14:20:29Z",
+      "id": "8d1f21cd"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
