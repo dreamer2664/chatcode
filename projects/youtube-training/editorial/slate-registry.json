@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "campaign": "yt-training-s1",
+  "updated": "2026-10-15",
+  "maintainer": "scipio (V01, t-20261015-484f)",
+  "rules": {
+    "reservation": "a slot is reserved by its production owner; V01 records it here",
+    "collision": "two pitches collide when their premise_key overlaps or the audience promise is the same skill taught twice; the checker in tests/editorial_check.py decides, humans can override with a recorded note",
+    "replacement": "any worker may propose a stronger topic for an unproduced slot; it lands here with the old premise moved to 'rejected' with a reason"
+  },
+  "slots": [
+    {
+      "slot": "YT01", "task": "t-20261015-34fa", "format": "evidence-led explainer",
+      "title": "How Git Actually Remembers Everything",
+      "owner": "odysseus", "status": "reserved",
+      "premise_key": "git internals: content-addressed objects, history as a DAG",
+      "sources_verified": "2026-10-15 by odysseus (PR #70)"
+    },
+    {
+      "slot": "YT02", "task": "t-20261015-4b76", "format": "real screen tutorial",
+      "title": "Verify Anything: SHA-256 in the Real World",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "hands-on file integrity: computing and checking cryptographic hashes on real files",
+      "sources_verified": "2026-10-15 by scipio (NIST FIPS 180-4 primary)"
+    },
+    {
+      "slot": "YT03", "task": "t-20261015-8e11", "format": "mini-documentary",
+      "title": "The Day of Two Noons: How Railroads Invented Your Time Zone",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "history of standard time: 1883 General Time Convention and the noon reset",
+      "sources_verified": "2026-10-15 by scipio (William F. Allen 1883 primary)"
+    },
+    {
+      "slot": "YT04", "task": "t-20261015-5df2", "format": "data story",
+      "title": "The 5,000-Call Day",
+      "owner": "odysseus", "status": "reserved",
+      "premise_key": "one day of real agent-fleet API traffic as the dataset; rate limits told from the inside",
+      "sources_verified": "2026-10-15 by odysseus (PR #71)"
+    },
+    {
+      "slot": "YT05", "task": "t-20261015-eee1", "format": "how a system works",
+      "title": "How Video Compression Squeezes Reality",
+      "owner": "odysseus", "status": "reserved",
+      "premise_key": "video codecs: spatial/temporal redundancy, blocks, motion vectors, original ffmpeg demos",
+      "sources_verified": "2026-10-15 by odysseus (PR #72)"
+    },
+    {
+      "slot": "YT06", "task": "t-20261015-67df", "format": "misconception investigation",
+      "title": "The 10% Brain Myth: Anatomy of a Bad Idea",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "tracing one false claim: James -> Lowell Thomas -> Carnegie -> pop culture; debunked with imaging evidence",
+      "sources_verified": "2026-10-15 by scipio (James 1907 primary; Beyerstein; Einstein attribution REJECTED)"
+    },
+    {
+      "slot": "YT07", "task": "t-20261015-a491", "format": "practical build walkthrough",
+      "title": "Build a URL Shortener From Scratch (and Break It)",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "build a small working service live: id encoding, redirects, then honest failure modes",
+      "sources_verified": "2026-10-15 by scipio (RFC 3986 primary for the redirect semantics)"
+    },
+    {
+      "slot": "YT08", "task": "t-20261015-eeca", "format": "object/innovation biography",
+      "title": "Ten Lines That Swallowed Retail: The Barcode",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "biography of the UPC: 1948 Drexel overheard request -> patent 2,612,994 -> Troy Ohio 1974 -> everywhere",
+      "sources_verified": "2026-10-15 by scipio (US patent 2,612,994 primary)"
+    },
+    {
+      "slot": "YT09", "task": "t-20261015-e14c", "format": "visual thought experiment",
+      "title": "Check Into Hilbert's Hotel",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "countable infinity made visible: the fully-booked infinite hotel and its guests",
+      "sources_verified": "2026-10-15 by scipio (Hilbert 'Uber das Unendliche' primary, Gamow 1947)"
+    },
+    {
+      "slot": "YT10", "task": "t-20261015-6e79", "format": "original-format capstone",
+      "title": "The Great Sorting Race",
+      "owner": null, "status": "pitched-unclaimed",
+      "premise_key": "format experiment: eight sorting algorithms race the same shuffled deck on one screen, narrated live",
+      "sources_verified": "2026-10-15 by scipio (Hoare 1961 quicksort paper primary)"
+    }
+  ],
+  "rejected": [
+    {
+      "premise": "Einstein endorsed the 10% brain claim",
+      "slot": "YT06", "reason": "Einstein Archives (Caltech) search found no evidence he ever said it; the quote is apocryphal — kept as the film's example of a bad claim, never as a fact",
+      "rejected_by": "scipio", "date": "2026-10-15"
+    }
+  ]
+}
