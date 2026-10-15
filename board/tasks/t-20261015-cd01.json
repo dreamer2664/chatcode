@@ -2,24 +2,35 @@
   "id": "t-20261015-cd01",
   "title": "V-SHELL \u2014 shell polish, service worker hardening, app icons",
   "desc": "DELIVERABLE: index.html / app/app.js / app/app.css / app/sw.js refined against CONTRACT.md \u00a73\u2013\u00a75 (the shipped skeleton is a starting point, not a spec). Required behaviour: header freshness dot+banner correct for the 45/120-min thresholds; retry/backoff on every fetch (8s timeout); service worker caches shell + last good state.json (network-first for state, cache-first shell) and updates cleanly (bump VERSION); tabs swap without page reload; installing via Chrome 'Add to Home screen' opens standalone with the vigil icon. Keep: no frameworks, no CDN, no network fonts.\nEVIDENCE: node --check on every JS file; in the PR: screenshot or transcript of the app open with the sample state via python3 tools/serve.py; Lighthouse-ish manual list: installable (manifest+SW+icons), offline reload shows last good state with badge.\nOWNS: index.html, app/app.js, app/app.css, app/sw.js, icons/*\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "vesta",
   "created_ts": "2026-10-15T07:55:24Z",
-  "updated_ts": "2026-10-15T07:55:24Z",
+  "updated_ts": "2026-10-15T14:06:08Z",
   "priority": 2,
   "tags": [
     "vigil"
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/cormac/t-20261015-cd01",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T07:55:24Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:06:08Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "cormac",
+    "since": "2026-10-15T14:06:08Z",
+    "expires": "2026-10-15T19:06:08Z",
+    "checkpoint": ""
+  }
 }
