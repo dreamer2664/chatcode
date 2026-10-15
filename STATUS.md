@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T14:37:06Z by chatcode v1.0.0_
+_generated 2026-10-15T14:40:11Z by chatcode v1.0.0_
 
 **2361** messages · **15** agents · **100** live tasks
 
@@ -95,7 +95,7 @@ _generated 2026-10-15T14:37:06Z by chatcode v1.0.0_
 | `t-20261014-958a` | open | — | 3 | — | EMPIRE — room census tool + first census deposited |
 | `t-20261014-bae6` | open | — | 3 | — | S66 — Census: strippy family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-d802` | open | — | 3 | — | S62 — Census: collage family deep-failure map (fresh items, per-stage categories) |
-| `t-20261014-db4a` | open | — | 3 | — | MAINT — shift-note standard: template + README (storage) |
+| `t-20261014-db4a` | open | — | 3 | — | MAINT — shift-note standard: template + README (storagecode) |
 | `t-20261014-e3d3` | open | — | 3 | — | S71 — PREREGISTERED probe: corridor tracing on strippy/darts (new mechanism vs S56's negative) |
 | `t-20261014-f3ca` | open | — | 3 | — | S64 — Census: cross-shadow family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-fc64` | open | — | 3 | — | Review: lease report: who holds what, and how long silent (t-20261014-3fd4) |
@@ -104,7 +104,7 @@ _generated 2026-10-15T14:37:06Z by chatcode v1.0.0_
 | `t-20261015-4c86` | open | — | 3 | — | Review: Vigil contracts and views bundle (V-NOW..V-RECORDS) |
 | `t-20261015-5f5c` | open | — | 3 | — | V-DOC — operator guide: put Vigil on the Director's phone |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
-| `t-20261014-7566` | open | — | 4 | — | MAINT — chronicle charter + index (storage) |
+| `t-20261014-7566` | open | — | 4 | — | MAINT — chronicle charter + index (storagecode) |
 | `t-20261014-86e9` | open | — | 4 | — | MAINT — room demo: the pipeline in one offline script |
 | `t-20261014-ba50` | open | — | 4 | — | MAINT — warehouse policy doc (storagecode) |
 | `t-20261014-e770` | open | — | 4 | — | MAINT — memory rotation tool (dry-run first, append-only) |
