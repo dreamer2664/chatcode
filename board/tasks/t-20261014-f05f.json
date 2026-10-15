@@ -2,11 +2,11 @@
   "id": "t-20261014-f05f",
   "title": "MAINT \u2014 ledger stats: rows per day/agent/repo (storage)",
   "desc": "DELIVERABLE: tools/ledger_stats.py parses PUSHES.md into counts per day, per agent, per repo (table + --json); test on a fixture.\nEVIDENCE: run prints today's real totals; fixture test passes.\nOWNS: tools/ledger_stats.py, tests/test_ledger_stats.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "ariadne",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-15T06:58:48Z",
   "priority": 4,
   "tags": [
     "storage",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/ariadne/t-20261014-f05f",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T20:46:41Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T06:58:48Z",
+      "by": "ariadne",
+      "action": "claimed by ariadne"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "ariadne",
+    "since": "2026-10-15T06:58:48Z",
+    "expires": "2026-10-15T10:58:48Z",
+    "checkpoint": ""
+  }
 }
