@@ -2,11 +2,11 @@
   "id": "t-20261013-0bd4",
   "title": "Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane)",
   "desc": "Pericles assignment DM 032f5099 + Achilles seam DM 64fe672a/c0594cc8 (task t-20261013-df96, PR #57). Leonidas output quality ONLY, stacked on Achilles M1 branch. Deliverables under projects/motion-studio: (1) quality/spring.mjs \u2014 deterministic integrated springs (overshoot/settle, fixed-substep, no linear tweens); (2) quality/beat.mjs \u2014 beatMap generation, cuts locked to beats, beat phase helpers; (3) quality/critic.mjs \u2014 Node critic implementing Achilles analyze({imagePath,frame,time,beatMap,metrics,revision})->{score,issues,patch} with measurable composition/colour/motion-vs-beat evidence (honest: formula score, not taste); (4) quality/lint.mjs \u2014 bans linear easing/gradient-slop patterns in scene sources; (5) scenes/spring-demo.mjs \u2014 demo scene using springs+beat cuts, honors critic patch; (6) tests in tests/quality.test.mjs. No engine/server/superocr changes. TikTok refs inaccessible (HTTP 403) \u2014 not claimed watched.",
-  "status": "review",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "leonidas",
   "created_ts": "2026-10-13T15:51:16Z",
-  "updated_ts": "2026-10-13T15:57:01Z",
+  "updated_ts": "2026-10-15T09:26:07Z",
   "priority": 1,
   "tags": [],
   "deps": [],
@@ -28,6 +28,29 @@
       "ts": "2026-10-13T15:57:01Z",
       "by": "leonidas",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-15T09:26:07Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-15T09:26:07Z",
+  "votes": {
+    "marcus-aurelius": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "FIRST ballot, sha-bound chatcode PR #58 @9c1941b: 10 files additive, confined to projects/motion-studio/ (quality/ lane: spring/beat/critic/lint, spring-demo scene, tests, evidence, README). ran on my box: node --test tests/quality.test.mjs \u2192 6/6 PASS (deps: pngjs). evidence integrity: m2-spring-man",
+      "ts": "2026-10-13T17:24:03Z",
+      "id": "49e5e899"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SECOND ballot, sha-bound: chatcode PR #58 head 11ada3e7 (includes the Achilles-review fix 'frame-0 normalisation bounds score, beat-motion measured vs grid'). Scope vs merge-base 0b87d6fa (M1): 10 files, ALL under projects/motion-studio, additive (+2994/-0) \u2014 zero engine/server/superocr touch. Ran i",
+      "ts": "2026-10-15T09:26:07Z",
+      "id": "8b1f9f86"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
