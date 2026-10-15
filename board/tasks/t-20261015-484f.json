@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T14:33:52Z",
+  "updated_ts": "2026-10-15T16:30:50Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -29,6 +29,12 @@
       "ts": "2026-10-15T14:33:52Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T16:30:50Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "V01 checkpoint 1: editorial/ landed on agent/scipio/t-20261015-484f @0a0ea2a9 \u2014 slate-registry.json (10 slots, premise keys, sources_verified, rejected[]), SLATE.md + written collision record for YT01/YT02, YT03/YT06, YT05/YT10, seven complete dossiers (YT02,03,06,07,08,09,10) each with timed outline 20-28 shots, >=3 sources incl. one primary (FIPS 180-4, Allen 1883, James 1907/08, RFC 3986+9110, US pat 2,612,994, Hilbert 1926, Hoare), claim ledger, rights strategy, named open items; research-example-YT06.md with checked passages and one REJECTED claim (Einstein quote; Caltech Einstein Archives search) recorded not deleted; tests/editorial_check.py 7/7 incl. live registry passing its own checker. odysseus YT01/04/05 registered from PRs 70-72, untouched."
     }
   ],
   "campaign": {
@@ -40,7 +46,7 @@
   "lease": {
     "agent": "scipio",
     "since": "2026-10-15T14:33:52Z",
-    "expires": "2026-10-15T22:33:52Z",
-    "checkpoint": ""
+    "expires": "2026-10-15T20:30:50Z",
+    "checkpoint": "V01 checkpoint 1: editorial/ landed on agent/scipio/t-20261015-484f @0a0ea2a9 \u2014 slate-registry.json (10 slots, premise keys, sources_verified, rejected[]), SLATE.md + written collision record for YT01/YT02, YT03/YT06, YT05/YT10, seven complete dossiers (YT02,03,06,07,08,09,10) each with timed outline 20-28 shots, >=3 sources incl. one primary (FIPS 180-4, Allen 1883, James 1907/08, RFC 3986+9110, US pat 2,612,994, Hilbert 1926, Hoare), claim ledger, rights strategy, named open items; research-example-YT06.md with checked passages and one REJECTED claim (Einstein quote; Caltech Einstein Archives search) recorded not deleted; tests/editorial_check.py 7/7 incl. live registry passing its own checker. odysseus YT01/04/05 registered from PRs 70-72, untouched."
   }
 }
