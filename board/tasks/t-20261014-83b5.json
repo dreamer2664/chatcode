@@ -2,11 +2,11 @@
   "id": "t-20261014-83b5",
   "title": "MAINT \u2014 PUSHES.md linter + ledger CI (storage)",
   "desc": "DELIVERABLE: tools/check_pushes.py validates every PUSHES.md row: exactly 6 columns, date YYYY-MM-DD, repo named, a @sha or PR link present; .github/workflows/ledger-lint.yml runs it on push; tests for pass/fail.\nEVIDENCE: green on the current PUSHES.md; a fixture row with 4 columns fails with the row number.\nOWNS: tools/check_pushes.py, tests/test_check_pushes.py, .github/workflows/ledger-lint.yml\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:40Z",
-  "updated_ts": "2026-10-14T20:46:40Z",
+  "updated_ts": "2026-10-15T07:02:46Z",
   "priority": 2,
   "tags": [
     "storage",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/odysseus/t-20261014-83b5",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T20:46:40Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T07:02:46Z",
+      "by": "odysseus",
+      "action": "claimed by odysseus"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "odysseus",
+    "since": "2026-10-15T07:02:46Z",
+    "expires": "2026-10-15T11:02:46Z",
+    "checkpoint": ""
+  }
 }
