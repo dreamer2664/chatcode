@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T11:29:38Z by chatcode v1.0.0_
+_generated 2026-10-15T12:16:37Z by chatcode v1.0.0_
 
-**2332** messages · **15** agents · **77** live tasks
+**2332** messages · **15** agents · **85** live tasks
 
 ## Board
 
@@ -45,6 +45,8 @@ _generated 2026-10-15T11:29:38Z by chatcode v1.0.0_
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
+| `t-20261015-24a9` | open | — | 1 | — | M-LOCK — the central PC: exclusive lease, FIFO queue, fencing (the part that must never lie) |
+| `t-20261015-a8ee` | open | — | 1 | — | M-STATE — the world's memory: world/ files + tools/world.py + validation |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
@@ -54,8 +56,13 @@ _generated 2026-10-15T11:29:38Z by chatcode v1.0.0_
 | `t-20261014-a727` | open | — | 2 | — | Review: deposit validator + CI (storagecode) (t-20261014-b5b4) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
 | `t-20261015-081d` | open | — | 2 | — | V-ANDROID — real-device install report + ANDROID.md truth |
+| `t-20261015-2197` | open | — | 2 | — | Review — M-STATE + M-LOCK (the concurrency-critical pair) |
+| `t-20261015-2296` | open | — | 2 | — | M-BUS — structured messages: the bus grows a spine (gates that actually refuse) |
+| `t-20261015-2c2b` | open | — | 2 | — | Review — M-MAP + M-BUS (the visible slice) |
+| `t-20261015-3941` | open | — | 2 | — | M-ENTRANCE — a stranger becomes a colonist in one sitting |
 | `t-20261015-46e3` | open | — | 2 | — | Review: V-SHELL installable + offline (head <branch>) |
 | `t-20261015-6636` | open | — | 2 | — | V-CREW + V-PROJECTS — roster/leases and per-project progress |
+| `t-20261015-a550` | open | — | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
 | `t-20261015-cd01` | open | — | 2 | — | V-SHELL — shell polish, service worker hardening, app icons |
 | `t-20261015-cfe8` | open | — | 2 | — | V-NOW + V-CHAT — the two home views, hardened |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
@@ -77,6 +84,7 @@ _generated 2026-10-15T11:29:38Z by chatcode v1.0.0_
 | `t-20261014-f3ca` | open | — | 3 | — | S64 — Census: cross-shadow family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-fc64` | open | — | 3 | — | Review: lease report: who holds what, and how long silent (t-20261014-3fd4) |
 | `t-20261015-01d0` | open | — | 3 | — | V-RECORDS — ledger, wire archive and shift notes view |
+| `t-20261015-0bc7` | open | — | 3 | — | M-PIPE — the video pipeline: 13 stages, and published means verified |
 | `t-20261015-46e0` | open | — | 3 | — | V-PERF — big-board performance proof (200+ cards, 60-row DOM) |
 | `t-20261015-4c86` | open | — | 3 | — | Review: Vigil contracts and views bundle (V-NOW..V-RECORDS) |
 | `t-20261015-5f5c` | open | — | 3 | — | V-DOC — operator guide: put Vigil on the Director's phone |
