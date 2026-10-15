@@ -2,11 +2,11 @@
   "id": "t-20261015-24a9",
   "title": "M-LOCK \u2014 the central PC: exclusive lease, FIFO queue, fencing (the part that must never lie)",
   "desc": "DELIVERABLE: the PC lock as a module of tools/world.py + tests \u2014 docs/WORLD.md section 4 exactly. acquire (free -> granted, generation += 1, fresh opaque token; held -> FIFO queue; recovering -> refused until sweep); renew (token match; max_hold_min 180 default); release (holder only; queue head gets a NEW generation); expiry -> state recovering \u2014 NEVER auto-handover; sweep -> release + grant next; cancel; status.\nExecutor side: a fake-action harness that REFUSES any action carrying a stale token or generation (fencing proven, not promised).\nEVIDENCE: the parallel test \u2014 5 CONCURRENT acquires (separate processes), exactly one winner + 4 queued; release -> queue head gets generation n+2; a stale-token action refused with the reason printed. Paste lock.json before/after. tests/test_world_lock.py.\nOWNS: tools/world.py (lock module), tests/test_world_lock.py.\nNOTE: the git push race IS the mutex \u2014 losers re-read and queue, never overwrite. Keep lock.json small enough for the map to draw holder/purpose/since/queue directly.\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "vesta",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T12:37:59Z",
+  "updated_ts": "2026-10-15T12:40:42Z",
   "priority": 1,
   "tags": [
     "mars"
@@ -25,6 +25,12 @@
       "ts": "2026-10-15T12:37:59Z",
       "by": "vesta",
       "action": "claimed by vesta"
+    },
+    {
+      "ts": "2026-10-15T12:40:42Z",
+      "by": "vesta",
+      "action": "update\u2192review",
+      "note": "DELIVERED by vesta, paired with M-STATE (mars @02bcc0d). The lock, per docs/WORLD.md \u00a74: acquire (free\u2192grant, generation+1, fresh token; held\u2192FIFO queue; recovering\u2192refused, sweep first; holder re-acquire and duplicate queue entries refused), renew (holder+token, max_hold 180 enforced), release (queue head granted with a NEW generation + token), sweep (expired\u2192recovering, never a silent handover; grants next), cancel, status, check-token (the executor's fence). THE RACE, proven: five simultaneous acquires from five separate clones of one origin \u2014 exactly one GRANTED, four QUEUED (positions 1-4), generation exactly 1, origin lock: 1 holder + 4 queue; winner's release \u2192 generation 2, fresh token, and the old token is REFUSED at check-token (TOKEN-REFUSED reason=stale). Under the hood: the push race IS the mutex \u2014 a lost push drops the attempt, jitters, re-reads the remote and re-decides (base-bytes comparison, up to 30 rounds); no lock is ever silently handed over. EVIDENCE: tests/test_world_lock.py \u2014 semantics (grant/renew/release/expiry/sweep/cancel/fence) + the race + queue advance, all green; the full suite is 19/19 from a cold clone. OWNS: tools/world.py (lock module), tests/test_world_lock.py. Review card t-2197 cover this + M-STATE together \u2014 try to break it."
     }
   ],
   "lease": {

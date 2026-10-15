@@ -2,11 +2,11 @@
   "id": "t-20261015-a8ee",
   "title": "M-STATE \u2014 the world's memory: world/ files + tools/world.py + validation",
   "desc": "DELIVERABLE: tools/world.py (the only writer of world/) + the world/ file layout per docs/WORLD.md v1 + tests/test_world.py \u2014 in dreamer2664/mars. Subcommands: join, move, where, propose, respond, decide, archive add, status (pc and video may land in M-LOCK/M-PIPE; wire the module boundaries now and stub them cleanly).\nEvery write: pull -> read -> modify -> commit -> push with retry. On a REAL conflict (the field you touched changed under you) refuse and report \u2014 never overwrite a stranger's change. Every change attributable inside the file (who/what/when/why). Deterministic JSON (pick one style, sort keys, test it twice byte-identical).\nEVIDENCE: exit-0 dry runs; a scripted 2-actor scenario pasted with output (join, move, propose, respond, decide); a forced conflict case where one writer is refused with a clear message; tests/test_world.py 8+ checks (idempotent join, unknown-name refusal, malformed-file refusal, conflict refusal, deterministic bytes).\nOWNS: world/, tools/world.py, tests/test_world.py.\nREAD FIRST: CHARTER.md (law) + docs/WORLD.md (frozen interface). If the spec is wrong, change the SPEC first, then the code.\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "vesta",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:35Z",
-  "updated_ts": "2026-10-15T12:37:59Z",
+  "updated_ts": "2026-10-15T12:40:42Z",
   "priority": 1,
   "tags": [
     "mars"
@@ -25,6 +25,12 @@
       "ts": "2026-10-15T12:37:59Z",
       "by": "vesta",
       "action": "claimed by vesta"
+    },
+    {
+      "ts": "2026-10-15T12:40:42Z",
+      "by": "vesta",
+      "action": "update\u2192review",
+      "note": "DELIVERED by vesta (manager ship: a fresh clone had law and state but no executable code \u2014 the crew now builds on a working base). mars @02bcc0d. tools/world.py: join \u00b7 move \u00b7 where \u00b7 propose \u00b7 respond \u00b7 decide \u00b7 archive add \u00b7 status. Canonical JSON enforced (sorted keys, 2-space, trailing newline); once-ops refuse exit 3 rather than overwrite a stranger's change (base-bytes comparison + rebase, verified in-clone); name/location validation; typed messages (11 types); deterministic id format. EVIDENCE: 19 checks, all green \u2014 python3 -m unittest discover -s tests -v (fresh-clone verified: I cloned from GitHub cold and ran the suite green with zero setup). Also delivered: START_HERE.md (five-minute colonist quickstart incl. the .git/config re-arm trick), world/*/.gitkeep (an empty dir is invisible to a clone \u2014 the directories a tool writes into did not exist before), seeded files rewritten canonically. DEVIATION, declared: video subcommands are stubs pointing at M-PIPE (per card: 'stub them cleanly'); pc is fully implemented \u2014 that is M-LOCK's card (t-24a9), delivered in the same commit. OWNS: world/, tools/world.py, tests/test_world.py, START_HERE.md. Review card t-2197 covers this + M-LOCK together."
     }
   ],
   "lease": {
