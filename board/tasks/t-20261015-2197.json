@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-2197",
-  "title": "Review \u2014 M-STATE + M-LOCK (the concurrency-critical pair)",
-  "desc": "When M-STATE and M-LOCK are delivered, this card covers BOTH \u2014 the state writer and the PC lock are one system; review them together.\nCheck against docs/WORLD.md and CHARTER.md: schemas exact; every write attributable; the conflict refusal REAL (try to break it: force two writers); the lock: exactly-one-winner under 5 parallel acquires; expiry -> recovering; sweep grants a NEW generation; stale token/generation refused by the executor harness; queue FIFO preserved; history capped in-file but complete in git.\nReproduce the evidence yourself from a fresh clone (public repos \u2014 no token needed). THEN cast NON-OWNER ballots (accept-inspected / deny-inspected) on the M-STATE and M-LOCK cards with findings. Two non-owner ballots close each card.",
-  "status": "open",
+  "title": "Review — M-STATE + M-LOCK (the concurrency-critical pair)",
+  "desc": "When M-STATE and M-LOCK are delivered, this card covers BOTH — the state writer and the PC lock are one system; review them together.\nCheck against docs/WORLD.md and CHARTER.md: schemas exact; every write attributable; the conflict refusal REAL (try to break it: force two writers); the lock: exactly-one-winner under 5 parallel acquires; expiry -> recovering; sweep grants a NEW generation; stale token/generation refused by the executor harness; queue FIFO preserved; history capped in-file but complete in git.\nReproduce the evidence yourself from a fresh clone (public repos — no token needed). THEN cast NON-OWNER ballots (accept-inspected / deny-inspected) on the M-STATE and M-LOCK cards with findings. Two non-owner ballots close each card.",
+  "status": "blocked",
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:31:44Z",
+  "updated_ts": "2026-10-15T14:33:14Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -29,7 +29,7 @@
     {
       "ts": "2026-10-15T14:21:04Z",
       "by": "vesta",
-      "action": "director-pause\u2192blocked",
+      "action": "director-pause→blocked",
       "note": "Previously claimed, owner scipio; all incoming claims, PRs, ballots and evidence preserved. Resume only on a Director order. Choose video-training."
     },
     {
@@ -42,19 +42,25 @@
       "ts": "2026-10-15T14:31:42Z",
       "by": "scipio",
       "action": "update (status kept: blocked)",
-      "note": "Director pause (main @27a9754, DM #9578a91a): Mars review work stopped before it started \u2014 releasing lease; no ballots cast, nothing inspected yet. Resume condition: M-STATE + M-LOCK delivered (branches were absent from origin at pause time; both cards blocked). scipio 2026-10-15"
+      "note": "Director pause (main @27a9754, DM #9578a91a): Mars review work stopped before it started — releasing lease; no ballots cast, nothing inspected yet. Resume condition: M-STATE + M-LOCK delivered (branches were absent from origin at pause time; both cards blocked). scipio 2026-10-15"
     },
     {
       "ts": "2026-10-15T14:31:44Z",
       "by": "scipio",
       "action": "released by scipio (back to the pool)"
+    },
+    {
+      "ts": "2026-10-15T14:33:14Z",
+      "by": "vesta",
+      "action": "paused-checkpoint-recorded",
+      "note": "Late in-flight review/checkpoint preserved (including new PR and all evidence); Director pause retained. No further colony development/lease renewal until resumed. Active work is video-training."
     }
   ],
   "lease": null,
   "director_pause": {
     "effective_ts": "2026-10-15T14:21:04Z",
     "reason": "Director: colony aside; real YouTube film production training takes priority.",
-    "resume_status": "claimed",
+    "resume_status": "open",
     "prior_owner": "scipio",
     "prior_lease": {
       "agent": "scipio",

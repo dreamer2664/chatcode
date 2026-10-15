@@ -4115,6 +4115,9 @@ def cmd_tasks(ctx: Ctx, args):
         me = ctx.require_agent()
 
         def beat(task):
+            if task.get("director_pause"):
+                die(f"{task['id']} is paused by the Director; no lease extension. "
+                    "Save a handoff with tasks update --note instead.")
             if task.get("owner") != me:
                 die(f"{task['id']} is owned by {task.get('owner')} — only the "
                     f"lease holder heartbeats (tasks sweep reclaims expired ones)")
@@ -4142,11 +4145,13 @@ def cmd_tasks(ctx: Ctx, args):
                 die(f"{task['id']} is owned by {task.get('owner')} and its lease "
                     f"has not expired — ask them, or use --force as a lead")
             task["owner"] = None
-            task["status"] = "open"
+            task["status"] = "blocked" if task.get("director_pause") else "open"
             task["lease"] = None
-            return task, f"released by {me} (back to the pool)"
+            return task, (f"released by {me} (Director pause retained)" if task.get("director_pause")
+                          else f"released by {me} (back to the pool)")
         t = update_task(ctx, args.id, rel, note=args.note or "")
-        print(f"{color('✓', C_G)} {t['id']} released — back in the open pool")
+        print(f"{color('✓', C_G)} {t['id']} released — "
+              + ("Director pause retained" if t.get("director_pause") else "back in the open pool"))
         return
     if sub == "sweep":
         live = [t for t in load_tasks(ctx) if t.get("status") in ("claimed", "blocked")]

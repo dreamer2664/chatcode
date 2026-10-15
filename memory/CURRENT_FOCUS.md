@@ -12,3 +12,7 @@
   `storagecode/STORAGE_POLICY.md`. Older instructions naming storage are superseded.
 
 Read `projects/youtube-training/README.md` for the 15-job campaign and strict delivery gates.
+
+Late in-flight Mars submissions may be saved as checkpoints/PRs, but do not renew
+leases or continue colony development. `tasks update --note` saves handoffs; a
+paused card cannot be claimed or renewed, and releasing it preserves the pause.
