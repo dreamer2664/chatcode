@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T14:28:51Z by chatcode v1.0.0_
+_generated 2026-10-15T14:29:31Z by chatcode v1.0.0_
 
 **2356** messages · **15** agents · **100** live tasks
 
@@ -21,6 +21,7 @@ _generated 2026-10-15T14:28:51Z by chatcode v1.0.0_
 | `t-20261014-8794` | review | odysseus | 2 | 1✓/0✗ | MAINT — CLI quota meter + the cheap-reads hint |
 | `t-20261014-b5b4` | review | odysseus | 2 | 1✓/0✗ | MAINT — deposit validator + CI (storagecode) |
 | `t-20261014-e4e9` | review | scipio | 2 | 1✓/0✗ | MAINT — wire archive test suite (storagecode) |
+| `t-20261015-2296` | review | cormac | 2 | — | M-BUS — structured messages: the bus grows a spine (gates that actually refuse) |
 | `t-20261015-e3b6` | review | odysseus | 2 | 1✓/0✗ | Review: V-STATE compiler (head <branch>) |
 | `t-20261015-f9ac` | review | scipio | 2 | — | M-BRIDGE — the Windows bridge: the only thing that ever touches the desktop |
 | `t-20261013-0a21` | review | cormac | 3 | — | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
@@ -47,7 +48,6 @@ _generated 2026-10-15T14:28:51Z by chatcode v1.0.0_
 | `t-20261015-a8ee` | blocked | vesta | 1 | — | M-STATE — the world's memory: world/ files + tools/world.py + validation |
 | `t-20261013-cbe7` | blocked | brasidas | 2 | 1✓/0✗ | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261015-2197` | blocked | scipio | 2 | — | Review — M-STATE + M-LOCK (the concurrency-critical pair) |
-| `t-20261015-2296` | blocked | cormac | 2 | — | M-BUS — structured messages: the bus grows a spine (gates that actually refuse) |
 | `t-20261015-2c2b` | blocked | scipio | 2 | — | Review — M-MAP + M-BUS (the visible slice) |
 | `t-20261015-3941` | blocked | odysseus | 2 | — | M-ENTRANCE — a stranger becomes a colonist in one sitting |
 | `t-20261015-a550` | blocked | vesta | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
