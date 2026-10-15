@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:17:51Z",
-  "updated_ts": "2026-10-15T08:55:46Z",
+  "updated_ts": "2026-10-15T09:03:48Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -26,12 +26,18 @@
       "ts": "2026-10-15T08:55:46Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T09:03:48Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "S75: run 1 of 3 in flight (~80%); e427 shipped storagecode#1, e4e9 shipped storagecode#2, both in review"
     }
   ],
   "lease": {
     "agent": "scipio",
     "since": "2026-10-15T08:55:46Z",
-    "expires": "2026-10-15T12:55:46Z",
-    "checkpoint": ""
+    "expires": "2026-10-15T13:03:48Z",
+    "checkpoint": "S75: run 1 of 3 in flight (~80%); e427 shipped storagecode#1, e4e9 shipped storagecode#2, both in review"
   }
 }
