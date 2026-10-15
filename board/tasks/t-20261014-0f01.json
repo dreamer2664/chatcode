@@ -2,11 +2,11 @@
   "id": "t-20261014-0f01",
   "title": "EMPIRE \u2014 cold onboarding dry-run: a stranger's friction report",
   "desc": "DELIVERABLE: reports/onboarding-friction.md \u2014 follow WORKER.md from zero in a clean sandbox (fresh HOME; use the repo copy for steps that need no key) and transcript every step: what worked, what was ambiguous, the exact error text when something failed; end with a fix list ranked by pain.\nEVIDENCE: each step's command + output quoted; at least one concrete wording fix proposed as diff text.\nOWNS: reports/onboarding-friction.md\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:42Z",
-  "updated_ts": "2026-10-15T09:16:47Z",
+  "updated_ts": "2026-10-15T09:23:48Z",
   "priority": 2,
   "tags": [
     "empire",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/odysseus/t-20261014-0f01",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/69",
   "history": [
     {
       "ts": "2026-10-14T20:46:42Z",
@@ -26,6 +26,11 @@
       "ts": "2026-10-15T09:16:47Z",
       "by": "odysseus",
       "action": "claimed by odysseus"
+    },
+    {
+      "ts": "2026-10-15T09:23:48Z",
+      "by": "odysseus",
+      "action": "update\u2192review"
     }
   ],
   "lease": {
