@@ -6,7 +6,7 @@
   "owner": "riveter",
   "created_by": "vesta",
   "created_ts": "2026-10-15T21:41:58Z",
-  "updated_ts": "2026-10-15T22:28:51Z",
+  "updated_ts": "2026-10-15T22:32:29Z",
   "priority": 1,
   "tags": [
     "floodline",
@@ -70,12 +70,18 @@
       "by": "riveter",
       "action": "update\u2192claimed",
       "note": "Core loop implemented and verified headlessly; continuing to expand content depth."
+    },
+    {
+      "ts": "2026-10-15T22:32:29Z",
+      "by": "riveter",
+      "action": "heartbeat by riveter",
+      "note": "r04 shipped: doors/pings/difficulty/session/NPC pathfinding/docks. 18/18 gameplay + 10/10 client checks green."
     }
   ],
   "lease": {
     "agent": "riveter",
     "since": "2026-10-15T22:06:53Z",
-    "expires": "2026-10-16T02:28:50Z",
-    "checkpoint": "r03: full 6-landmark district, 12 server services, 4 client modules; 14/14 headless scenarios + 9/9 client checks pass. Studio runtime still unverified."
+    "expires": "2026-10-16T02:32:29Z",
+    "checkpoint": "r04 shipped: doors/pings/difficulty/session/NPC pathfinding/docks. 18/18 gameplay + 10/10 client checks green."
   }
 }
