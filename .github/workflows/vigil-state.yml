@@ -1,0 +1,79 @@
+name: vigil-state
+
+# The watchtower's publisher.
+#
+# WHY HERE AND NOT storagecode: GitHub's scheduler throttles this account hard —
+# the 09:00Z and 09:27Z ticks of storagecode/state.yml never fired, and the wire
+# archive (cron */30) really ran at 22:26, 00:40, 05:24: hours apart. PUSH is
+# this empire's reliable clock: the room takes ~10 commits an hour, digest bot
+# included. So the state is republished on every push to main here, and the
+# cron below is only a quiet-hours backstop.
+#
+# WHERE IT GOES: the rolling branch `vigil-state` — ONE commit, force-pushed in
+# place. state.json is a VIEW, not a record (the ledger keeps history); a normal
+# main-branch commit every few minutes would grow the repo ~5 MB/day for nothing.
+# The app reads exactly:
+#   https://raw.githubusercontent.com/dreamer2664/chatcode/vigil-state/app/state.json
+#
+# The compiler itself stays in storagecode (CONTRACT.md pins it there); this job
+# runs it against the anonymous clones of the empire. No secrets anywhere: the
+# repos are public and the push uses this repo's own default token.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "9,29,49 * * * *"   # backstop only; off the hour boundary on purpose
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vigil-state          # a burst of pushes collapses into the newest run
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone the empire (public repos, no token)
+        run: |
+          set -eu
+          mkdir -p src
+          for r in chatcode superocr storage storagecode vigil; do
+            git clone --depth 1 --quiet "https://github.com/dreamer2664/$r" "src/$r" \
+              && echo "cloned $r" || echo "WARN: clone $r failed — compiler degrades gracefully"
+          done
+
+      - name: Compile (compiler from storagecode, empire from src/)
+        run: |
+          set -eu
+          python3 src/storagecode/tools/build_state.py \
+            --out app/state.json --src-root src --self-root src/storagecode
+          python3 - <<'PY'
+          import json
+          s = json.load(open("app/state.json"))
+          assert s["schema"] == 1, "schema drift"
+          print("state ok:", s["generated_ts"],
+                "| cards:", sum(s["board"]["counts"].values()),
+                "| warnings:", len(s["warnings"]))
+          PY
+
+      - name: Publish to the rolling branch
+        run: |
+          set -eu
+          git config user.name  "vigil-bot"
+          git config user.email "vigil-bot@users.noreply.github.com"
+          git checkout --orphan vigil-state
+          git rm -rf --cached -q .
+          git add app/state.json
+          git commit -q -m "vigil state snapshot [skip ci]"
+          for i in 1 2 3; do
+            if git push -f --quiet origin vigil-state; then echo "published"; exit 0; fi
+            echo "push retry $i"; sleep 5
+          done
+          echo "publish failed after retries"; exit 1
