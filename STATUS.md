@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T12:16:37Z by chatcode v1.0.0_
+_generated 2026-10-15T12:30:14Z by chatcode v1.0.0_
 
-**2332** messages · **15** agents · **85** live tasks
+**2332** messages · **15** agents · **86** live tasks
 
 ## Board
 
@@ -65,6 +65,7 @@ _generated 2026-10-15T12:16:37Z by chatcode v1.0.0_
 | `t-20261015-a550` | open | — | 2 | — | M-MAP — the colony map: top-down, and nothing on screen that is not real |
 | `t-20261015-cd01` | open | — | 2 | — | V-SHELL — shell polish, service worker hardening, app icons |
 | `t-20261015-cfe8` | open | — | 2 | — | V-NOW + V-CHAT — the two home views, hardened |
+| `t-20261015-f9ac` | open | — | 2 | — | M-BRIDGE — the Windows bridge: the only thing that ever touches the desktop |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
