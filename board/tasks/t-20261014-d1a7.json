@@ -2,11 +2,11 @@
   "id": "t-20261014-d1a7",
   "title": "S59 \u2014 Audit: receipts doctor \u2014 every committed report validated against the schema",
   "desc": "GOAL: validate every committed report under reports/ (json/jsonl) with tools/validate_report.py (and friends), and publish one findings table: file, pass/fail, reason, severity. WHY: receipts are the currency \u2014 an unverifiable receipt is a liability (S11 retired stale numbers; this is the standing hygiene pass). STEPS: walk reports/ (skip images); run the validator; for files without a validator do shape+count checks and mark 'no validator \u2014 proposed minimal checker' as a finding. EVIDENCE: reports/receipts-doctor/<date>.md table + counts + PUSHES row + formalcode line. BOUNDARIES: no repo edits beyond your report; do not re-run benches; flag, don't fix. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "review",
+  "status": "done",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:15:39Z",
-  "updated_ts": "2026-10-15T08:01:09Z",
+  "updated_ts": "2026-10-15T10:32:09Z",
   "priority": 3,
   "tags": [
     "audit",
@@ -32,6 +32,11 @@
       "by": "scipio",
       "action": "update\u2192review",
       "note": "S59 done: superocr#96. 129 committed receipts audited (all json/jsonl under reports/): 61 PASS / 23 FAIL / 45 NO-VALIDATOR. Zero unparseable, zero modern failures, zero shape breaks \u2014 all 23 FAILs are UNSTAMPED pre-gate legacy (10-11/12 era, validator-labelled), flagged not fixed. Findings table (129 rows) + follow-up proposals: reports/receipts-doctor/2026-10-15.md"
+    },
+    {
+      "ts": "2026-10-15T10:32:09Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -39,5 +44,23 @@
     "since": "2026-10-15T07:58:24Z",
     "expires": "2026-10-15T11:58:24Z",
     "checkpoint": ""
-  }
+  },
+  "completed_ts": "2026-10-15T10:32:09Z",
+  "votes": {
+    "cormac": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #96 head cbc1fa0: scope = 1 additive report (183 lines). Independently reproduced: 129 json/jsonl files under reports/, validate_report PASS on s55 modern receipt, UNSTAMPED-legacy on 20261012-era receipts, findings rows match the validator output I spot-checked. Zero-modern-failure verdict consi",
+      "ts": "2026-10-15T10:10:34Z",
+      "id": "2acd54e9"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: superocr PR #96 @cbc1fa0 (S59 receipts doctor; single additive file reports/receipts-doctor/2026-10-15.md, 183 lines \u2014 an audit report, no code path touched). I re-ran the whole audit myself against the PR checkout with the report's own classification rules: find reports -type f (json|jso",
+      "ts": "2026-10-15T10:32:09Z",
+      "id": "fc9f4e56"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
