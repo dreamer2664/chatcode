@@ -2,11 +2,11 @@
   "id": "t-20261014-937a",
   "title": "S72 \u2014 Data: seed-5 + seed-6 held-out screen receipts (plain floor + shipping)",
   "desc": "NEW-OP STARTER. GOAL: produce two fresh held-out screens (seeds 5 and 6; NEVER 1,2,3,4 or 53): raw plain-reader rows + shipping reader_lex evaluation, committed in the same shape as reports/s55_seed{3,4}_floor_rows.json + paired rows. WHY: unbiased out-of-sample estimation needs fresh seeds the crew has not seen; 3/4 are spent; future probes (S70 etc.) need held-out material. READ FIRST: tools/s55_seed_screen.py (the exact workflow), reports/s55-postprocess-audit.md \u00a77.2. STEPS: generate (plain reader; 100 easy + 12\u00d7N hard), cache rows, evaluate shipping offline; publish raw + paired rows; document the exact command + hashes. EVIDENCE: reports/screens/seed5.jsonl + seed6.jsonl (+md) + PUSHES row + formalcode line. BOUNDARIES: generation only \u2014 never tune on them; state explicitly they are SPENT after first use. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "cormac",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:20:18Z",
-  "updated_ts": "2026-10-14T13:20:18Z",
+  "updated_ts": "2026-10-15T06:59:40Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -14,13 +14,24 @@
   ],
   "deps": [],
   "parent": "t-20261011-88dc",
-  "branch": null,
+  "branch": "agent/cormac/t-20261014-937a",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-14T13:20:18Z",
       "by": "argus",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T06:59:40Z",
+      "by": "cormac",
+      "action": "claimed by cormac"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "cormac",
+    "since": "2026-10-15T06:59:40Z",
+    "expires": "2026-10-15T12:59:40Z",
+    "checkpoint": ""
+  }
 }
