@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-46e0",
+  "title": "V-PERF \u2014 big-board performance proof (200+ cards, 60-row DOM)",
+  "desc": "DELIVERABLE: tools/perf_report.py that serves the app with a synthetic 300-card state.json (generated) and records: time-to-first-render, rows in DOM per view (must be \u226460 + 'show more'), memory sanity; run headless (python + a real browser or a documented alternative) and commit reports/perf-<date>.md.\nEVIDENCE: the report with numbers on this machine; the synthetic state generator is committed (tools/synth_state.py) and commented.\nOWNS: tools/perf_report.py, tools/synth_state.py, reports/\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:25Z",
+  "updated_ts": "2026-10-15T07:55:25Z",
+  "priority": 3,
+  "tags": [
+    "vigil"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:25Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

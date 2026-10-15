@@ -1,0 +1,26 @@
+{
+  "id": "t-20261015-46e3",
+  "title": "Review: V-SHELL installable + offline (head <branch>)",
+  "desc": "DELIVERABLE: two non-owner ballots on the shell card.\nEVIDENCE: fresh browser profile \u2014 install prompt appears; airplane mode reload shows the app + last good state with the offline badge; cache version bump actually updates the shell; no console errors on first load. Ballot only what you saw.\nOWNS: nothing (review only)\nBRANCH: none",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:25Z",
+  "updated_ts": "2026-10-15T07:55:25Z",
+  "priority": 2,
+  "tags": [
+    "vigil",
+    "review"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:25Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

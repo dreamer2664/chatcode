@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-081d",
+  "title": "V-ANDROID \u2014 real-device install report + ANDROID.md truth",
+  "desc": "DELIVERABLE: follow docs/ANDROID.md on a real Android device (or Blink-emulating environment) against BOTH the Pages URL and the LAN serve.py path; report what actually happened \u2014 install prompt wording, standalone launch, offline reload, icon \u2014 as reports/android-<date>.md with every claim backed by a screenshot path or an exact UI transcript. Fix ANDROID.md wording where reality differs.\nEVIDENCE: the report; at least: one screenshot of the installed icon on the home screen or an exact description of why not; the offline test result after disconnecting.\nOWNS: docs/ANDROID.md, reports/\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:25Z",
+  "updated_ts": "2026-10-15T07:55:25Z",
+  "priority": 2,
+  "tags": [
+    "vigil"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:25Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

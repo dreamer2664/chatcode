@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-6636",
+  "title": "V-CREW + V-PROJECTS \u2014 roster/leases and per-project progress",
+  "desc": "DELIVERABLE: app/views/crew.js and app/views/projects.js per CONTRACT.md \u00a73: crew shows alive/dark with silence minutes sorted, leases with expiry+checkpoint; projects shows progress bars, counts, epics (when present) and the grouping note. Same hardening as V-NOW: null-safe, 60-row cap, ctx.onCleanup.\nEVIDENCE: node --check; render with team.agents=[] and projects=[] (empty states honest, no console throw \u2014 paste transcript); leases list correct against the live board snapshot.\nOWNS: app/views/crew.js, app/views/projects.js\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:24Z",
+  "updated_ts": "2026-10-15T07:55:24Z",
+  "priority": 2,
+  "tags": [
+    "vigil"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:24Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

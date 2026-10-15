@@ -1,0 +1,26 @@
+{
+  "id": "t-20261015-e3b6",
+  "title": "Review: V-STATE compiler (head <branch>)",
+  "desc": "DELIVERABLE: two non-owner ballots on the compiler card.\nEVIDENCE: run tools/build_state.py yourself twice (byte-identical?); cross-check counts vs the live board; try to break it: empty board dir, a task JSON without title, a wire file with a bad line, a missing checkout \u2192 must exit non-zero with a readable message, never write a half file. Ballot only what you reproduced.\nOWNS: nothing (review only)\nBRANCH: none\nNOTE: references the V-STATE work task id when it exists.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:25Z",
+  "updated_ts": "2026-10-15T07:55:25Z",
+  "priority": 2,
+  "tags": [
+    "vigil",
+    "review"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:25Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

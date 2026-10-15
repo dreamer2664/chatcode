@@ -1,0 +1,27 @@
+{
+  "id": "t-20261015-c39d",
+  "title": "V-STATE \u2014 state compiler + publish workflow",
+  "desc": "DELIVERABLE: tools/build_state.py in dreamer2664/vigil \u2014 compiles app/state.json exactly per CONTRACT.md \u00a72 (schema v1, all caps, deterministic ordering, normalize-friendly). Reads LOCAL checkouts only (no network): board/tasks + agents + bus from ./src/chatcode, PUSHES.md + shifts from ./src/storage, wire/*.jsonl from ./src/storagecode; --src-root and --out flags. Plus .github/workflows/state.yml: every 20 min + workflow_dispatch, checks out chatcode/superocr/storage/storagecode via repo-scoped token (secret STATE_TOKEN \u2014 read-only), runs the compiler, commits app/state.json to THIS repo (message 'state: refresh [skip ci]'), then it should ALSO drop a copy at storagecode app/state.json via the API if the token allows (optional, note result).\nEVIDENCE: python3 tools/build_state.py --out /tmp/s.json \u2192 exits 0; json.load /tmp/s.json has every \u00a72 key; counts match chatcode tasks list --status counts taken the same minute; run it twice \u2192 byte-identical files (determinism); paste the first 40 lines of one section in the PR.\nOWNS: tools/build_state.py, .github/workflows/state.yml, tests/test_build_state.py\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:24Z",
+  "updated_ts": "2026-10-15T07:55:24Z",
+  "priority": 1,
+  "tags": [
+    "vigil",
+    "superocr",
+    "chatcode"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:24Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

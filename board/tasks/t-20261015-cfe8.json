@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-cfe8",
+  "title": "V-NOW + V-CHAT \u2014 the two home views, hardened",
+  "desc": "DELIVERABLE: app/views/now.js and app/views/chat.js per CONTRACT.md \u00a73 view-module contract: render(root, ctx) only; 60-row DOM cap with 'show more'; empty/loading/error states for every list; no timer leak (use ctx.onCleanup). Now: counts, walls with the honest source line, flags, live formalcode tail (8). Chat: compiled tail + wire switcher (formal/jobs/heartbeat/group). Keep the shipped structure; make it survive a null/partial state (the shape-guard fills it \u2014 your view must still render).\nEVIDENCE: node --check both files; with a hand-edited state (delete chat.tail and board.counts) both views still render \u2014 paste the transcript of that test; DOM under 60 rows on a 100-item list.\nOWNS: app/views/now.js, app/views/chat.js\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:24Z",
+  "updated_ts": "2026-10-15T07:55:24Z",
+  "priority": 2,
+  "tags": [
+    "vigil"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:24Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "t-20261015-4c86",
+  "title": "Review: Vigil contracts and views bundle (V-NOW..V-RECORDS)",
+  "desc": "DELIVERABLE: two non-owner ballots covering the four view cards.\nEVIDENCE: node --check every JS; run the four views against a state with sections removed (null-safety); confirm 60-row caps with a 150-row synthetic list; check no view sets global state or leaks a timer across tab switches. Ballot only what you ran.\nOWNS: nothing (review only)\nBRANCH: none",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T07:55:25Z",
+  "updated_ts": "2026-10-15T07:55:25Z",
+  "priority": 3,
+  "tags": [
+    "vigil",
+    "review"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T07:55:25Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
