@@ -2,11 +2,11 @@
   "id": "t-20261014-923c",
   "title": "S76 \u2014 Docs: stale-number sweep across README/JOBS/BENCH (fix only provable staleness)",
   "desc": "NEW-OP STARTER. GOAL: compare every numeric claim in README.md, JOBS.md, BENCH.md (and reports index pages) against CURRENT receipts; fix only provable staleness, each change citing its receipt; publish a change log. WHY: README's status line is visibly stale vs the current receipts; S11/S45 covered their eras but nothing guards ongoing drift. STEPS: grep numbers \u2192 find the receipt (or mark orphan claim) \u2192 update with a dated note + link; leave historical sections date-stamped, never rewrite history. EVIDENCE: docs-only PR + reports/docs-sweep/<date>.md table (claim \u2192 receipt \u2192 action) + PUSHES row + formalcode line. BOUNDARIES: docs only; a number with NO receipt is flagged, not 'fixed'. Boundaries: no edits to shipping paths unless the task says so; no tuning on canonical seeds 1/2/3/4/53 (evaluation only); honest numbers \u2014 no 98/95 claims; captchaproject(s) off-limits.",
-  "status": "claimed",
+  "status": "review",
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:20:18Z",
-  "updated_ts": "2026-10-15T06:58:11Z",
+  "updated_ts": "2026-10-15T07:57:17Z",
   "priority": 2,
   "tags": [
     "newop",
@@ -32,6 +32,12 @@
       "ts": "2026-10-15T06:58:11Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T07:57:17Z",
+      "by": "scipio",
+      "action": "update\u2192review",
+      "note": "S76 done: superocr#95. Docs-only. 3 provable fixes with receipts: README status line (3/100\u219275/25 cited from s55-bench-seed1-3x + replay; 'under five seconds'\u2192median 4.3-4.8s/p95 6.4-6.6s), test count 16\u219232 (run_all --list on 9ab638a), score card + dated current reader_lex paragraph (75/25, 75/29). Date-stamped history kept verbatim; JOBS.md Python 3.11 checked vs CI (not stale); BENCH.md clean; demo-latency claim flagged not fixed (needs fresh receipt, S61 covers). Change log: reports/docs-sweep/2026-10-15.md"
     }
   ],
   "lease": {
