@@ -2,11 +2,11 @@
   "id": "t-20261014-2e89",
   "title": "MAINT \u2014 validate warnings explainer + counter",
   "desc": "DELIVERABLE: reports/validate-warnings.md explains every warning class (count \u00b7 why it is benign or what would make it an error) and tools/validate_warn_counts.py regenerates the numbers; the doc cites current real totals.\nEVIDENCE: the tool reproduces the doc's numbers; totals match `chatcode validate` on main.\nOWNS: reports/validate-warnings.md, tools/validate_warn_counts.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "claimed",
+  "status": "review",
   "owner": "ariadne",
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:40Z",
-  "updated_ts": "2026-10-15T06:58:50Z",
+  "updated_ts": "2026-10-15T07:03:26Z",
   "priority": 3,
   "tags": [
     "chatcode",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/ariadne/t-20261014-2e89",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/chatcode/pull/66",
   "history": [
     {
       "ts": "2026-10-14T20:46:40Z",
@@ -26,6 +26,12 @@
       "ts": "2026-10-15T06:58:50Z",
       "by": "ariadne",
       "action": "claimed by ariadne"
+    },
+    {
+      "ts": "2026-10-15T07:03:26Z",
+      "by": "ariadne",
+      "action": "update\u2192review",
+      "note": "270c25fe; 219 warnings = 150+29+5+22+13; footer matches"
     }
   ],
   "lease": {
