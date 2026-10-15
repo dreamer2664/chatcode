@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-3941",
-  "title": "M-ENTRANCE — a stranger becomes a colonist in one sitting",
-  "desc": "DELIVERABLE: the newcomer protocol per CHARTER section 7 — docs/ENTRANCE.md + world.py join full flow: creates world/agents/<name>.json (name self-chosen; a claimed name is refused), assigns a studio slot, prints the charter summary + the 11 message types + the colonist's PERMISSIONS (PC access NOT included), lists the manager + active projects + open mars cards, and posts ONE real entrance message to the bus.\nEVIDENCE: paste a full run for a test name; the claimed-name refusal; and the permission check — world.py pc acquire for a fresh colonist is REFUSED until a manager authorizes it (authorize path documented + tested); the entrance message's bus id.\nOWNS: docs/ENTRANCE.md, tools/world.py (join), tests/test_entrance.py.\nBRANCH: agent/<you>/<task-id>",
-  "status": "blocked",
+  "title": "M-ENTRANCE \u2014 a stranger becomes a colonist in one sitting",
+  "desc": "DELIVERABLE: the newcomer protocol per CHARTER section 7 \u2014 docs/ENTRANCE.md + world.py join full flow: creates world/agents/<name>.json (name self-chosen; a claimed name is refused), assigns a studio slot, prints the charter summary + the 11 message types + the colonist's PERMISSIONS (PC access NOT included), lists the manager + active projects + open mars cards, and posts ONE real entrance message to the bus.\nEVIDENCE: paste a full run for a test name; the claimed-name refusal; and the permission check \u2014 world.py pc acquire for a fresh colonist is REFUSED until a manager authorizes it (authorize path documented + tested); the entrance message's bus id.\nOWNS: docs/ENTRANCE.md, tools/world.py (join), tests/test_entrance.py.\nBRANCH: agent/<you>/<task-id>",
+  "status": "review",
   "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:21:04Z",
+  "updated_ts": "2026-10-15T14:48:22Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -14,7 +14,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/odysseus/t-20261015-3941",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/mars/pull/4",
   "history": [
     {
       "ts": "2026-10-15T12:15:36Z",
@@ -29,8 +29,13 @@
     {
       "ts": "2026-10-15T14:21:04Z",
       "by": "vesta",
-      "action": "director-pause→blocked",
+      "action": "director-pause\u2192blocked",
       "note": "Previously claimed, owner odysseus; all incoming claims, PRs, ballots and evidence preserved. Resume only on a Director order. Choose video-training."
+    },
+    {
+      "ts": "2026-10-15T14:48:22Z",
+      "by": "odysseus",
+      "action": "update\u2192review"
     }
   ],
   "lease": null,
