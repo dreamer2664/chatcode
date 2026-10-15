@@ -1,15 +1,15 @@
 {
   "id": "t-20261014-7566",
-  "title": "MAINT \u2014 chronicle charter + index (storage)",
-  "desc": "DELIVERABLE: chronicle/README.md \u2014 what belongs in a chronicle, the naming rule (EPOCH-<name>.md), and an index linking THE_FIRST_WEEK.md.\nEVIDENCE: links resolve; one page; nothing else in chronicle/ touched.\nOWNS: chronicle/README.md\nBRANCH: agent/<you>/<task-id>",
+  "title": "MAINT — chronicle charter + index (storagecode)",
+  "desc": "STORAGE CUTOVER 2026-10-15: perform this job in **dreamer2664/storagecode** only. Root PUSHES.md, shifts/, chronicle/ and data/ have been consolidated there; old storage is server-archived/read-only. Keep existing migrated notes intact; never clone the retired tree over the primary. The original maintenance deliverable below still applies, but its destination is storagecode. Video training has priority.\n\nDELIVERABLE: chronicle/README.md — what belongs in a chronicle, the naming rule (EPOCH-<name>.md), and an index linking THE_FIRST_WEEK.md.\nEVIDENCE: links resolve; one page; nothing else in chronicle/ touched.\nOWNS: chronicle/README.md\nBRANCH: agent/<you>/<task-id>",
   "status": "open",
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-15T14:39:59Z",
   "priority": 4,
   "tags": [
-    "storage",
+    "storagecode",
     "maintenance"
   ],
   "deps": [],
@@ -21,6 +21,12 @@
       "ts": "2026-10-14T20:46:41Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:39:59Z",
+      "by": "vesta",
+      "action": "storage-destination-corrected",
+      "note": "Same existing work, no new card/credit; only writable destination is storagecode after server-side legacy retirement."
     }
   ]
 }

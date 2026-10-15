@@ -1,15 +1,15 @@
 {
   "id": "t-20261014-db4a",
-  "title": "MAINT \u2014 shift-note standard: template + README (storage)",
-  "desc": "DELIVERABLE: shifts/TEMPLATE.md upgraded to the manager standard \u2014 board state \u00b7 sweeps \u00b7 next steps \u00b7 Left time + wire ids \u2014 and shifts/README.md states the rule in one page (who writes one, when, what must be in it).\nEVIDENCE: template wording matches MANAGER.md \u00a79/\u00a712; no existing note is edited.\nOWNS: shifts/TEMPLATE.md, shifts/README.md\nBRANCH: agent/<you>/<task-id>",
+  "title": "MAINT — shift-note standard: template + README (storagecode)",
+  "desc": "STORAGE CUTOVER 2026-10-15: perform this job in **dreamer2664/storagecode** only. Root PUSHES.md, shifts/, chronicle/ and data/ have been consolidated there; old storage is server-archived/read-only. Keep existing migrated notes intact; never clone the retired tree over the primary. The original maintenance deliverable below still applies, but its destination is storagecode. Video training has priority.\n\nDELIVERABLE: shifts/TEMPLATE.md upgraded to the manager standard — board state · sweeps · next steps · Left time + wire ids — and shifts/README.md states the rule in one page (who writes one, when, what must be in it).\nEVIDENCE: template wording matches MANAGER.md §9/§12; no existing note is edited.\nOWNS: shifts/TEMPLATE.md, shifts/README.md\nBRANCH: agent/<you>/<task-id>",
   "status": "open",
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-14T20:46:41Z",
+  "updated_ts": "2026-10-15T14:39:59Z",
   "priority": 3,
   "tags": [
-    "storage",
+    "storagecode",
     "maintenance"
   ],
   "deps": [],
@@ -21,6 +21,12 @@
       "ts": "2026-10-14T20:46:41Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:39:59Z",
+      "by": "vesta",
+      "action": "storage-destination-corrected",
+      "note": "Same existing work, no new card/credit; only writable destination is storagecode after server-side legacy retirement."
     }
   ]
 }
