@@ -1,12 +1,12 @@
 {
   "id": "t-20261015-947e",
-  "title": "YT-S1 V03 — Narration lab — natural English voice, alignment, captions and sound mastering",
-  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6–12 focused hours (planning, not a timer).\nDELIVER: projects/youtube-training/audio/ — a reproducible English narration/mix/caption route using legitimately available voice tooling. Compare three short audition/performance samples with actual listening notes; choose a usable route with independent listeners (not an imitated real person). Produce a full 300–330s narration calibration, chunk/seam and pronunciation repairs, sentence timing, SRT/VTT/transcript, narration-first mix, and loudness/true-peak receipts. Target −16 LUFS ±1.5, true peak ≤−1 dBTP; demonstrate speaker/headphone intelligibility and caption synchronization (target ≤250ms at sampled cues). Caption checks enforce lines/reading speed, but manual listening remains necessary. Document setup, versions, costs actually incurred and access limitations. Do not assume premium API credit, require exported browser sessions, or substitute a tone/robotic placeholder for approved speech.\nEVIDENCE: independent listening comparisons, full-length calibrated audio + captions, before/after fixes, measured mix and cue checks, missing/short/unavailable voice refusal tests and a handoff another worker can run. Calibration audio is NOT a finished film.\nOWNS: audio/, audio-specific tools/tests and pronunciation guide; no visual/renderer changes.",
-  "status": "open",
-  "owner": null,
+  "title": "YT-S1 V03 \u2014 Narration lab \u2014 natural English voice, alignment, captions and sound mastering",
+  "desc": "DIRECTOR CONTRACT (2026-10-15): OUTPOST MARS is paused. Train agents for YouTube automation; this campaign must finish with at least TEN distinct good-quality five-minute videos. Topics are agent-chosen; narration and captions are ENGLISH. Read projects/youtube-training/README.md, ACCEPTANCE.md and TRAINING.md before starting. All shared storage is now dreamer2664/storagecode (PUSHES.md, shifts/, data/, wire/ and Releases for large media); dreamer2664/storage is retired/read-only. No paid service, Director PC or Mars component is a hidden prerequisite. Multi-shift job: claim a bounded lease, heartbeat real checkpoints, and leave an executable handoff. Branch agent/<you>/<task-id>; PR/evidence/two non-owner ballots; no blind or self ballots. Planning estimates are not artificial minimum work timers.\n\nESTIMATED EFFORT: 6\u201312 focused hours (planning, not a timer).\nDELIVER: projects/youtube-training/audio/ \u2014 a reproducible English narration/mix/caption route using legitimately available voice tooling. Compare three short audition/performance samples with actual listening notes; choose a usable route with independent listeners (not an imitated real person). Produce a full 300\u2013330s narration calibration, chunk/seam and pronunciation repairs, sentence timing, SRT/VTT/transcript, narration-first mix, and loudness/true-peak receipts. Target \u221216 LUFS \u00b11.5, true peak \u2264\u22121 dBTP; demonstrate speaker/headphone intelligibility and caption synchronization (target \u2264250ms at sampled cues). Caption checks enforce lines/reading speed, but manual listening remains necessary. Document setup, versions, costs actually incurred and access limitations. Do not assume premium API credit, require exported browser sessions, or substitute a tone/robotic placeholder for approved speech.\nEVIDENCE: independent listening comparisons, full-length calibrated audio + captions, before/after fixes, measured mix and cue checks, missing/short/unavailable voice refusal tests and a handoff another worker can run. Calibration audio is NOT a finished film.\nOWNS: audio/, audio-specific tools/tests and pronunciation guide; no visual/renderer changes.",
+  "status": "claimed",
+  "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T14:06:28Z",
+  "updated_ts": "2026-10-15T14:33:50Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -17,19 +17,30 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/scipio/t-20261015-947e",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T14:06:28Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:33:50Z",
+      "by": "scipio",
+      "action": "claimed by scipio"
     }
   ],
   "campaign": {
     "id": "yt-training-s1",
     "code": "V03",
-    "estimated_effort": "6–12 focused hours",
+    "estimated_effort": "6\u201312 focused hours",
     "dependency_scope": "none"
+  },
+  "lease": {
+    "agent": "scipio",
+    "since": "2026-10-15T14:33:50Z",
+    "expires": "2026-10-15T22:33:50Z",
+    "checkpoint": ""
   }
 }
