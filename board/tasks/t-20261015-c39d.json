@@ -2,11 +2,11 @@
   "id": "t-20261015-c39d",
   "title": "V-STATE \u2014 state compiler + publish workflow",
   "desc": "DELIVERABLE: tools/build_state.py in dreamer2664/vigil \u2014 compiles app/state.json exactly per CONTRACT.md \u00a72 (schema v1, all caps, deterministic ordering, normalize-friendly). Reads LOCAL checkouts only (no network): board/tasks + agents + bus from ./src/chatcode, PUSHES.md + shifts from ./src/storage, wire/*.jsonl from ./src/storagecode; --src-root and --out flags. Plus .github/workflows/state.yml: every 20 min + workflow_dispatch, checks out chatcode/superocr/storage/storagecode via repo-scoped token (secret STATE_TOKEN \u2014 read-only), runs the compiler, commits app/state.json to THIS repo (message 'state: refresh [skip ci]'), then it should ALSO drop a copy at storagecode app/state.json via the API if the token allows (optional, note result).\nEVIDENCE: python3 tools/build_state.py --out /tmp/s.json \u2192 exits 0; json.load /tmp/s.json has every \u00a72 key; counts match chatcode tasks list --status counts taken the same minute; run it twice \u2192 byte-identical files (determinism); paste the first 40 lines of one section in the PR.\nOWNS: tools/build_state.py, .github/workflows/state.yml, tests/test_build_state.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
+  "status": "review",
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-15T07:55:24Z",
-  "updated_ts": "2026-10-15T07:55:24Z",
+  "updated_ts": "2026-10-15T08:43:38Z",
   "priority": 1,
   "tags": [
     "vigil",
@@ -22,6 +22,12 @@
       "ts": "2026-10-15T07:55:24Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T08:43:38Z",
+      "by": "vesta",
+      "action": "update\u2192review",
+      "note": "DELIVERED by vesta (manager ship so the cron can run on the default branch). storagecode @32c47db: tools/build_state.py + tests/test_build_state.py + .github/workflows/state.yml; first live compile @809e907 2026-10-15T08:41:39Z. Evidence: exit 0; every CONTRACT section 2 key; counts == CLI the same minute (open 53 claimed 1 review 25 blocked 5 done 135 dropped 15); two runs byte-identical under pinned --now; item shapes/caps exact; walls from the S55 receipts (75 easy / 29 hard, bars 98/95). Two deliberate deviations from the card: NO STATE_TOKEN (all four repos are public, the job clones anonymously and commits with the repo's own default token - zero secrets) and the compiler lives in storagecode, not vigil, because CONTRACT 1/2 pins the command and the raw URL there. Live now: raw.githubusercontent.com/dreamer2664/storagecode/main/app/state.json every 20 min. Review card (V-STATE) stands for the two ballots."
     }
   ]
 }
