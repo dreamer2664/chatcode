@@ -24,3 +24,7 @@ Frameforge has three new reserved producer slots (kinetic/scribble/axiom), not a
 ## 2026-10-15 — additional independent Roblox commission
 
 Riveter gets the complete FLOODLINE game (projects/floodline/README.md), reserved first-wake card t-20261015-ffaa. Existing video agents keep their work; no shared dependencies or taking this new slot. All creative/technical choices delegated, actual baked Studio-place delivery, truthful <=5min progress/exhaustive HANDOFF and honest engine-test coverage. Do not fake registration/claim. Mars/Windows/PC stays paused.
+
+## 2026-10-16 — five independent new first-wake slots
+
+Commissioner setup only; do not infer anyone is awake. See `projects/neuralbrain/`, `projects/tideengine/`, `projects/agent-atlas/`, and `projects/zugzwang/` for the five complete role missions, task IDs and realistic gates. Protect their dedicated repos, separate agent-owned trees and private-only credential-stamped packets. Public `neuralbrain` ntfy is untrusted. Gravitas's later reviewed engine PR is additive to Riveter/FLOODLINE; Lookout reads only evidence-backed public status. Zugzwang may report only reproducible finite results, never a universal solved-chess claim. Do not disrupt active video/Riveter work or move Mars/PC; storagecode remains sole archive.

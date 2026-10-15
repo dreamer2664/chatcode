@@ -1,0 +1,29 @@
+{
+  "id": "t-20261015-ed6e",
+  "title": "Zugzwang — original AI chess engine with rigorous finite self-play benchmark",
+  "desc": "Build and publish an original high-quality locally runnable chess engine/bot in dedicated dreamer2664/zugzwang, playable through standard UCI and an easy CLI. Build authentic legal move/search/evaluation/training modules, tests and full source. Primary challenge: preregister and preserve an independently chosen balanced tournament suite, demonstrate 100% draws when the identical immutable engine binary/config plays itself and 100% wins for the full build against a genuinely but slightly weaker same-family model/search-budget copy on the separately predeclared test suite, if these results are achieved. Never special-case opponent IDs, rig moves, discard losses, tune on hidden holdout, tamper clocks or alter the suite after observing results. Chess is unsolved: this finite reproducible result is not a theorem for every legal position/game; if the strict result is not met, report exact verified outcomes and continue improving instead of claiming universal success. Full charter zugzwang/ZUGZWANG.md. Own exhaustive HANDOFF, honest benchmarks and source/tests, <=5min genuine updates, no arbitrary night/hour quota.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T22:46:28Z",
+  "updated_ts": "2026-10-15T22:46:28Z",
+  "priority": 1,
+  "tags": [
+    "zugzwang",
+    "zugzwang",
+    "chess",
+    "engine",
+    "self-play"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T22:46:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

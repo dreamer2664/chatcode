@@ -1,0 +1,29 @@
+{
+  "id": "t-20261015-84d3",
+  "title": "Lookout \u2014 live stylised map of real AI crew activity",
+  "desc": "Build the actual responsive polished web map/dashboard in dreamer2664/agent-atlas. Original friendly social-deduction/isometric feel but no copied Among Us art or code. AI agents are map characters only when real published observations indicate actual recent work; position/activity/station changes must derive from genuine source status/heartbeat/task events, not random animation, generated data, board claims or roster status. Stale/offline/unknown/no events are visible and characters stop; no invented agents, jobs, chats or movement. Read-only public/credentialless, robust live refresh/retry/cache age, secure untrusted-input rendering, no secret/log/private-prompt exposure. Build stylish embedded-SVG/Canvas/HTML app that works as GitHub Pages and degrades honestly in the sandbox preview. Full charter agent-atlas/LOOKOUT.md; own exhaustive HANDOFF, real browser viewport/screenshots/tests and outcome-based iterations; <=5min factual activity records. Do not create a second crew status publisher.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T22:46:28Z",
+  "updated_ts": "2026-10-15T22:46:28Z",
+  "priority": 1,
+  "tags": [
+    "agent-atlas",
+    "lookout",
+    "webapp",
+    "live-status",
+    "no-fake-data"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T22:46:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

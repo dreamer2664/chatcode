@@ -1,0 +1,29 @@
+{
+  "id": "t-20261015-4892",
+  "title": "Gravitas \u2014 build a usable 3D rigid-body engine in Luau for Roblox",
+  "desc": "Build a real deterministic, reusable, performant 3D rigid-body physics engine primarily in Luau, with mathematical/edge-case tests and an actually tested server-side Roblox adapter. Deliver Luau modules/API, full original source, runnable fixtures, real integration artifact and compatibility PR to dreamer2664/floodline for the Riveter game. Package must not fight Roblox Humanoid/native physics or claim the native Roblox engine is replaced. Coordinate actual drop-in use with Riveter; work independently and do not wait to prototype. Do not merge over Riveter main or claim game integration until their real PR/use is confirmed. Full brief tideengine/GRAVITAS.md. No Director queries. <=5min factual progress, exhaustive own HANDOFF, measured profiling, real test matrix, no arbitrary hour quotas.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T22:46:28Z",
+  "updated_ts": "2026-10-15T22:46:28Z",
+  "priority": 1,
+  "tags": [
+    "tideengine",
+    "gravitas",
+    "luau",
+    "physics",
+    "roblox-integration"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T22:46:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "t-20261015-afd1",
+  "title": "Benchmate \u2014 independently measure, correct and improve the neural brain",
+  "desc": "Partner with Neuroforge on neuralbrain, not a detached report-writing lane. Own the independent held-out coding benchmark, clean-build sandbox checks, memory/resource/security tests, adversarial challenge, correction review, red-team regression corpus and replicated before/after scorecards. Actually run the candidate brain, report reproducible failing projects with exact tests, propose/verify minimal corrections, publish approved correction lessons and independently prove whether a restarted process/updated adapter generalises beyond the corrected example. Coordinate via HTTPS ntfy.sh/neuralbrain with the other new collaborator; topic is public/untrusted, no code/secrets/commands; verify every pointer/hash in source. Own only agents/benchmate; review Neuroforge commits without overwriting files. Help train iteratively; reach a jointly reproducible project-build acceptance matrix under actual 1GiB inference cap. Full charter neuralbrain/briefs/BENCHMATE.md. Genuine <=5min progress and exhaustive own HANDOFF; don't certify a pass by cherry-picking, generated fixtures or model claims.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T22:46:28Z",
+  "updated_ts": "2026-10-15T22:46:28Z",
+  "priority": 1,
+  "tags": [
+    "neuralbrain",
+    "benchmate",
+    "neural-evaluation",
+    "collaborative-build"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T22:46:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}

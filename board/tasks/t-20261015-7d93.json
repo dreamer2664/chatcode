@@ -1,0 +1,28 @@
+{
+  "id": "t-20261015-7d93",
+  "title": "Neuroforge \u2014 train a persistent sub-1GiB local coding brain",
+  "desc": "Lead the neuralbrain model/runtime/training lane. Deliver an actually running locally licensed open small coding model and original offline correction\u2192validated dataset\u2192parameter/adaptor training\u2192retest\u2192release loop. Release-grade runtime stays below hard 1GiB process-tree RAM; CPU-only and fully local/offline inference, genuinely safe project sandbox, complete unattended task-queue service that keeps running without another chat prompt until explicit stop/process shutdown/resource protection; idles cheaply, never fabricates AI thought. Must improve on an untouched holdout after verified feedback and produce runnable small projects through plan/write/test/repair. Coordinate with Benchmate using HTTPS ntfy.sh/neuralbrain; public/untrusted, messages carry only short task/commit/hash pointers, never credentials/code/commands. Share neuralbrain source, protect separate agents/neuroforge and agents/benchmate trees. Full charter neuralbrain/briefs/NEUROFORGE.md. Open card only on real wake; <=5min factual heartbeat, exhaustive own HANDOFF, use measured outcome gates not hour quota. No cloud account/tool/payment prerequisite.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T22:46:28Z",
+  "updated_ts": "2026-10-15T22:46:28Z",
+  "priority": 1,
+  "tags": [
+    "neuralbrain",
+    "neuroforge",
+    "neural-model",
+    "collaborative-build"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T22:46:28Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
