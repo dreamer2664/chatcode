@@ -2,24 +2,35 @@
   "id": "t-20261015-3941",
   "title": "M-ENTRANCE \u2014 a stranger becomes a colonist in one sitting",
   "desc": "DELIVERABLE: the newcomer protocol per CHARTER section 7 \u2014 docs/ENTRANCE.md + world.py join full flow: creates world/agents/<name>.json (name self-chosen; a claimed name is refused), assigns a studio slot, prints the charter summary + the 11 message types + the colonist's PERMISSIONS (PC access NOT included), lists the manager + active projects + open mars cards, and posts ONE real entrance message to the bus.\nEVIDENCE: paste a full run for a test name; the claimed-name refusal; and the permission check \u2014 world.py pc acquire for a fresh colonist is REFUSED until a manager authorizes it (authorize path documented + tested); the entrance message's bus id.\nOWNS: docs/ENTRANCE.md, tools/world.py (join), tests/test_entrance.py.\nBRANCH: agent/<you>/<task-id>",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T12:15:36Z",
+  "updated_ts": "2026-10-15T14:20:40Z",
   "priority": 2,
   "tags": [
     "mars"
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/odysseus/t-20261015-3941",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-15T12:15:36Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T14:20:40Z",
+      "by": "odysseus",
+      "action": "claimed by odysseus"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "odysseus",
+    "since": "2026-10-15T14:20:40Z",
+    "expires": "2026-10-15T18:20:40Z",
+    "checkpoint": ""
+  }
 }
