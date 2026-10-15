@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T14:33:48Z",
+  "updated_ts": "2026-10-15T16:07:17Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -29,6 +29,12 @@
       "ts": "2026-10-15T14:33:48Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T16:07:17Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "V02 checkpoint 1 \u2014 full render stack VERIFIED in my sandbox: ffmpeg 7.0.2 static (bootstrap script ytlab/tools/bootstrap-ffmpeg.sh, rootless, idempotent \u2014 snapshots wipe binaries so it reruns each shift); chromium deps solved WITHOUT root (8 .debs fetched from Debian mirror + dpkg-deb -x into ~/chromium-libs, LD_LIBRARY_PATH); playwright canvas paint OK; REAL motion-studio render: renders/scipio-smoke/film.mp4 h264 960x540@24 4.000s, 96 frames, 5.1s wall (structural-pass). Next: engine/longform.mjs orchestrator \u2014 bounded shots keep the 30s/900-frame caps, content-hash cache for resume, concat, narration mux, ffprobe/QC fail-closed."
     }
   ],
   "campaign": {
@@ -40,7 +46,7 @@
   "lease": {
     "agent": "scipio",
     "since": "2026-10-15T14:33:48Z",
-    "expires": "2026-10-15T22:33:48Z",
-    "checkpoint": ""
+    "expires": "2026-10-15T20:07:17Z",
+    "checkpoint": "V02 checkpoint 1 \u2014 full render stack VERIFIED in my sandbox: ffmpeg 7.0.2 static (bootstrap script ytlab/tools/bootstrap-ffmpeg.sh, rootless, idempotent \u2014 snapshots wipe binaries so it reruns each shift); chromium deps solved WITHOUT root (8 .debs fetched from Debian mirror + dpkg-deb -x into ~/chromium-libs, LD_LIBRARY_PATH); playwright canvas paint OK; REAL motion-studio render: renders/scipio-smoke/film.mp4 h264 960x540@24 4.000s, 96 frames, 5.1s wall (structural-pass). Next: engine/longform.mjs orchestrator \u2014 bounded shots keep the 30s/900-frame caps, content-hash cache for resume, concat, narration mux, ffprobe/QC fail-closed."
   }
 }
