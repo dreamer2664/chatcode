@@ -6,7 +6,7 @@
   "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T12:15:36Z",
+  "updated_ts": "2026-10-15T12:30:03Z",
   "priority": 3,
   "tags": [
     "mars"
@@ -20,6 +20,11 @@
       "ts": "2026-10-15T12:15:36Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-15T12:30:03Z",
+      "by": "vesta",
+      "action": "update (status kept: open)"
     }
   ]
 }

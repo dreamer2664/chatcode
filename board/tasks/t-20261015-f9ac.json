@@ -1,0 +1,25 @@
+{
+  "id": "t-20261015-f9ac",
+  "title": "M-BRIDGE \u2014 the Windows bridge: the only thing that ever touches the desktop",
+  "desc": "DELIVERABLE: the Windows bridge in dreamer2664/mars \u2014 bridge/ + docs/BRIDGE.md (frozen v1, read it first) + tests. A tiny local service on the Director's Windows PC: it is the EXECUTOR. It holds no secrets; it reads world/lock.json and accepts an action ONLY when token+generation match the current grant (fencing, docs/WORLD.md section 4); it performs ONLY allowlisted actions; it returns a receipt per action (lock generation, timestamps, outcome, observable result) which the requesting agent records in the world. The bridge never writes the world state.\nBROWSER ROAD (the Director's call): attach to a real browser over CDP \u2014 dedicated profile started once with --user-data-dir + --remote-debugging-port (Chrome 136+ ignores the port on the default profile); the Director logs into the channel accounts once in that profile. No API paperwork, no cookie export, no password ever in the project.\nM1 ALLOWLIST: upload_file (path + target channel; verify the active channel chip in YouTube Studio before upload) \u00b7 set_metadata (title/description/thumbnail) \u00b7 read_published_url (confirm live, return url). Everything else refused by name.\nPLUS: a dry-run mode and a Linux SIMULATOR (mock executor) so the crew tests the full protocol \u2014 acquire, act with correct gen, stale-gen refusal, wrong-token refusal, release \u2014 without Windows; fail-closed behavior (browser unreachable / unexpected dialog => act nothing, return ok:false, receipt says so; the lock is NOT released by the bridge \u2014 only the holder or expiry/sweep moves it); docs/BRIDGE.md's one-time setup section kept honest for a non-programmer.\nEVIDENCE: simulator runs pasted (correct gen OK; stale gen refused with reason; wrong token refused); dry-run self-test output; the setup doc reviewed end-to-end as if by the Director.\nOWNS: bridge/, docs/BRIDGE.md, tests/test_bridge_sim.py.\nNOTE: the real end-to-end test happens on the Director's PC as the first M1 act, with him watching.\nBRANCH: agent/<you>/<task-id>",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-15T12:30:03Z",
+  "updated_ts": "2026-10-15T12:30:03Z",
+  "priority": 2,
+  "tags": [
+    "mars"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-15T12:30:03Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
