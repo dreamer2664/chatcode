@@ -55,6 +55,10 @@ export function validateFilmSpec(spec) {
     const [lo, hi] = spec.durationWindow;
     if (!(Number.isFinite(lo) && Number.isFinite(hi) && 0 < lo && lo <= hi)) throw new Error('spec.durationWindow: [lo,hi] with 0<lo<=hi');
   }
+  if (spec.allowRepeatedShots != null) {
+    const r = spec.allowRepeatedShots?.reason;
+    if (typeof r !== 'string' || r.trim().length < 12) throw new Error('spec.allowRepeatedShots.reason: a real reason is required to ship repeated shots');
+  }
   return spec;
 }
 
@@ -189,6 +193,19 @@ export async function buildFilm({ spec, workDir, cacheDir, signal, onProgress = 
     }
     shotFiles.push(r.mp4);
     qc.shots.push({ id: shot.id, key: r.key, cache: r.cache, file: r.mp4, sha256: await shaFile(r.mp4), duration: p.duration, expected });
+  }
+
+  // 1b) filler/loop guard — repeated identical shots are a fixture, not a film.
+  // Calibration run A (twelve byte-identical demo shots, same cache key) is
+  // exactly what this refuses; ACCEPTANCE forbids padding with repeated
+  // material, so the rig must refuse it too instead of reporting qc-pass.
+  const byHash = new Map();
+  for (const s of qc.shots) {
+    if (byHash.has(s.sha256)) {
+      const reason = spec.allowRepeatedShots?.reason;
+      if (!reason) throw new Error(`filler/loop guard: shots '${byHash.get(s.sha256)}' and '${s.id}' are byte-identical (sha256 ${s.sha256.slice(0, 16)}…). Repeated material is filler, not a film — vary the shots, or record spec.allowRepeatedShots.reason.`);
+      qc.repeatedShotsAllowed = reason;
+    } else byHash.set(s.sha256, s.id);
   }
 
   // 2) concat — demuxer, no re-encode (all shots asserted uniform above) ----

@@ -16,8 +16,11 @@ async function workspace(fn) {
 const twoShotSpec = () => ({
   id: 'calib-mini',
   shots: [
-    { id: 'a', scene: 'scenes/demo.mjs', config: cfg(2) },
-    { id: 'b', scene: 'scenes/demo.mjs', config: { ...cfg(2), seed: 7 } },
+    // the calibration scene varies visibly per shot (calibVariant), so the two
+    // shots are genuinely distinct content — demo.mjs ignores unknown keys and
+    // would render both shots identically, which the loop guard now refuses
+    { id: 'a', scene: 'scenes/longform-calibration.mjs', config: { ...cfg(2), args: { calibVariant: 0 } } },
+    { id: 'b', scene: 'scenes/longform-calibration.mjs', config: { ...cfg(2), args: { calibVariant: 1 } } },
   ],
 });
 
@@ -99,5 +102,25 @@ test('probe measures what ffprobe says — no invented numbers', async () => {
     assert.equal(p.video.codec, 'h264');
     assert.equal(p.video.pixFmt, 'yuv420p');
     assert.ok(Math.abs(p.duration - m.final.duration) < 0.01);
+  });
+});
+
+test('filler/loop guard refuses byte-identical shots unless a reason is recorded', async () => {
+  await workspace(async (dir) => {
+    const loop = { id: 'loop-fixture', shots: [
+      { id: 'a', scene: 'scenes/demo.mjs', config: cfg(2) },
+      { id: 'b', scene: 'scenes/demo.mjs', config: cfg(2) },   // same scene+config => same bytes
+    ] };
+    await assert.rejects(buildFilm({ spec: loop, workDir: path.join(dir, 'w1') }),
+      /filler\/loop guard[\s\S]*byte-identical/);
+    // a recorded reason is the only way through, and it lands in the manifest
+    const allowed = structuredClone(loop);
+    allowed.allowRepeatedShots = { reason: 'labeled engineering fixture: one known-good scene repeated to exercise the stitch path' };
+    const m = await buildFilm({ spec: allowed, workDir: path.join(dir, 'w2') });
+    assert.equal(m.shots[0].sha256, m.shots[1].sha256, 'really identical');
+    assert.match(m.repeatedShotsAllowed, /labeled engineering fixture/);
+    // a bogus reason is refused at spec time
+    const bogus = structuredClone(loop); bogus.allowRepeatedShots = { reason: 'yes' };
+    assert.throws(() => validateFilmSpec(bogus), /real reason is required/);
   });
 });
