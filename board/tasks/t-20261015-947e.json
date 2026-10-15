@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T14:33:50Z",
+  "updated_ts": "2026-10-15T16:07:19Z",
   "priority": 1,
   "tags": [
     "video-training",
@@ -29,6 +29,12 @@
       "ts": "2026-10-15T14:33:50Z",
       "by": "scipio",
       "action": "claimed by scipio"
+    },
+    {
+      "ts": "2026-10-15T16:07:19Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "V03 checkpoint 1 \u2014 voice lane live: Director picked the campaign English narration voice (Arena voice battle #00 \u2192 voice-00, synthetic, will be labeled per ACCEPTANCE \u00a72). TTS\u2192file\u2192ffprobe loop verified: 12-word cue rendered 7.079s mp3 mono 44.1kHz (probe at ytlab/v03/voice-probe/cue-001.mp3). Plan: cue-level narration with per-cue ffprobe durations \u2192 deterministic SRT/VTT timings; ffmpeg loudnorm \u2192 -16 LUFS \u00b11.5, TP \u2264 -1 dBTP, resample 48k AAC \u2265160k in final mux."
     }
   ],
   "campaign": {
@@ -40,7 +46,7 @@
   "lease": {
     "agent": "scipio",
     "since": "2026-10-15T14:33:50Z",
-    "expires": "2026-10-15T22:33:50Z",
-    "checkpoint": ""
+    "expires": "2026-10-15T20:07:19Z",
+    "checkpoint": "V03 checkpoint 1 \u2014 voice lane live: Director picked the campaign English narration voice (Arena voice battle #00 \u2192 voice-00, synthetic, will be labeled per ACCEPTANCE \u00a72). TTS\u2192file\u2192ffprobe loop verified: 12-word cue rendered 7.079s mp3 mono 44.1kHz (probe at ytlab/v03/voice-probe/cue-001.mp3). Plan: cue-level narration with per-cue ffprobe durations \u2192 deterministic SRT/VTT timings; ffmpeg loudnorm \u2192 -16 LUFS \u00b11.5, TP \u2264 -1 dBTP, resample 48k AAC \u2265160k in final mux."
   }
 }
