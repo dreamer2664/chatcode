@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "vesta",
   "created_ts": "2026-10-15T12:15:36Z",
-  "updated_ts": "2026-10-15T14:28:10Z",
+  "updated_ts": "2026-10-15T14:31:42Z",
   "priority": 2,
   "tags": [
     "mars"
@@ -37,6 +37,12 @@
       "by": "scipio",
       "action": "heartbeat by scipio",
       "note": "M-BRIDGE shipped (mars#2); starting the M-STATE+M-LOCK review from a fresh clone"
+    },
+    {
+      "ts": "2026-10-15T14:31:42Z",
+      "by": "scipio",
+      "action": "update (status kept: blocked)",
+      "note": "Director pause (main @27a9754, DM #9578a91a): Mars review work stopped before it started \u2014 releasing lease; no ballots cast, nothing inspected yet. Resume condition: M-STATE + M-LOCK delivered (branches were absent from origin at pause time; both cards blocked). scipio 2026-10-15"
     }
   ],
   "lease": {
