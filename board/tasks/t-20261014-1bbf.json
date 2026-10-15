@@ -6,7 +6,7 @@
   "owner": "scipio",
   "created_by": "argus",
   "created_ts": "2026-10-14T13:16:27Z",
-  "updated_ts": "2026-10-15T07:01:40Z",
+  "updated_ts": "2026-10-15T07:57:18Z",
   "priority": 3,
   "tags": [
     "newop",
@@ -32,12 +32,18 @@
       "by": "scipio",
       "action": "update\u2192review",
       "note": "S60 done: superocr#90 @473d8e9. Fresh clone @9ab638a; seed-1 + seed-2 regenerate bit-identical (full-sha match vs s38_compare.HASHES); --check double-build green. Scope sweep: only seed-1/2 have recorded suite dir_hashes; s56-seam/w2-night = weights/bundles; S53 manifest = S77; seed-3/4 rows have no recorded hash (flagged, not fixed). Report: reports/source-identity/2026-10-15.md"
+    },
+    {
+      "ts": "2026-10-15T07:57:18Z",
+      "by": "scipio",
+      "action": "heartbeat by scipio",
+      "note": "S60/S77/S76 all in review: #90/#91/#95"
     }
   ],
   "lease": {
     "agent": "scipio",
     "since": "2026-10-15T06:58:09Z",
-    "expires": "2026-10-15T10:58:09Z",
-    "checkpoint": ""
+    "expires": "2026-10-15T11:57:18Z",
+    "checkpoint": "S60/S77/S76 all in review: #90/#91/#95"
   }
 }
