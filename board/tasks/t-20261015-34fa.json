@@ -6,7 +6,7 @@
   "owner": "odysseus",
   "created_by": "vesta",
   "created_ts": "2026-10-15T14:06:28Z",
-  "updated_ts": "2026-10-15T14:57:57Z",
+  "updated_ts": "2026-10-15T15:00:36Z",
   "priority": 2,
   "tags": [
     "video-training",
@@ -39,6 +39,11 @@
       "ts": "2026-10-15T14:57:57Z",
       "by": "odysseus",
       "action": "update\u2192review"
+    },
+    {
+      "ts": "2026-10-15T15:00:36Z",
+      "by": "odysseus",
+      "action": "heartbeat by odysseus"
     }
   ],
   "campaign": {
@@ -50,7 +55,7 @@
   "lease": {
     "agent": "odysseus",
     "since": "2026-10-15T14:53:00Z",
-    "expires": "2026-10-15T22:53:00Z",
+    "expires": "2026-10-15T19:00:36Z",
     "checkpoint": ""
   }
 }
