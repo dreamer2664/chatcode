@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-15T08:26:44Z by chatcode v1.0.0_
+_generated 2026-10-15T08:43:51Z by chatcode v1.0.0_
 
 **2281** messages · **15** agents · **84** live tasks
 
@@ -11,6 +11,7 @@ _generated 2026-10-15T08:26:44Z by chatcode v1.0.0_
 | `t-20261013-768c` | claimed | cormac | 1 | — | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261013-0bd4` | review | leonidas | 1 | 1✓/0✗ | Motion Studio M2: spring physics, beat sync and semantic critique (Leonidas quality lane) |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
+| `t-20261015-c39d` | review | — | 1 | — | V-STATE — state compiler + publish workflow |
 | `t-20261013-44ba` | review | cormac | 2 | — | S42 — Training data: generate more realistic degradation samples |
 | `t-20261013-c435` | review | achilles | 2 | — | Motion Studio M2: independent render receipt verifier and drift detection |
 | `t-20261014-72b3` | review | ariadne | 2 | — | MAINT — CI check: every command in CHEATSHEET.md exists |
@@ -40,7 +41,6 @@ _generated 2026-10-15T08:26:44Z by chatcode v1.0.0_
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
-| `t-20261015-c39d` | open | — | 1 | — | V-STATE — state compiler + publish workflow |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
