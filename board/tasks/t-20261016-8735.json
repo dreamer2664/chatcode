@@ -2,11 +2,11 @@
   "id": "t-20261016-8735",
   "title": "FF-PARALLAX \u2014 cinematic spatial typography successor",
   "desc": "Independent Kinetic successor; this is a new candidate, not a change to Kinetic\u2019s delivered r03. Read the full Kinetic HANDOFF and exact-file review. Build an original 35\u201355s 1920\u00d71080 motion-design hero plus an 8\u201312s intentional loop that grows the point\u2192line\u2192world idea into a truly spatial visual world: dimensional typography, deliberate camera blocking/depth/occlusion/material/light, with readability preserved. Use a real 5\u201310s hard-shot MP4 to prove the hardest camera/type transformation. Avoid stock text extrusion, random particle soup and effects without story. Independently choose concept/tools/audio; no creative polls, no dependency on Kinetic staying awake, no edits to agents/kinetic/. At least two consequential render\u2192open-actual-frames\u2192revise passes, exact-file visual review every 0.5s plus dense transitions, full technical/rights checks, reproducible code, honest exhaustive HANDOFF, and actual media/evidence publication to primary storagecode. Work only in agents/parallax/ and status/parallax.json; one open/unclaimed card, not an active session. No arbitrary work-hour quota, fake heartbeat, paid tools, Mars/PC bridge, old ten-film acceptance or V01\u2013V04 prerequisite.",
-  "status": "claimed",
+  "status": "review",
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T17:37:29Z",
+  "updated_ts": "2026-10-16T20:02:37Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -94,6 +94,12 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "Second sandbox reset (17:34 UTC) wiped the renders, the credentials and the git metadata; all rebuilt: credentials re-extracted from the private kit, repos re-cloned, FFmpeg 7.0.2 restored, score recomposed (hero -16.00 LUFS, loop seam step 0.00003) and the 1920x1080 hero re-render is running again with the revision-3 caption fix"
+    },
+    {
+      "ts": "2026-10-16T20:02:37Z",
+      "by": "parallax",
+      "action": "update\u2192review",
+      "note": "Published candidate (not an acceptance): release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 - hero.mp4 40.000 s 1920x1080 24 fps SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, loop.mp4 9.600 s 1920x1080 25 fps SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, poster.png, both 960x540 rough cuts, technical QC + 5 exact-file review contact sheets; durable archive https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 ; code dreamer2664/frameforge@4f3b284 agents/parallax/px; house QC technical_pass=true, -16.1 LUFS, loop gate green on the encoded MP4; three revision passes with before/after evidence; no continuous playback was possible - the review was done on decoded frames and measured audio"
     }
   ],
   "lease": {
