@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T14:57:02Z",
+  "updated_ts": "2026-10-16T15:50:07Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -55,12 +55,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Active evidence recovery: 12/29 current originals individually opened/SHA-bound, not inferred from old runtime or renderer. Native 0f8497096094 freshly revalidated PASS, GLB da7e163b59d0 hash unchanged; three native files/GLB and each finished PNG publicly checkpointed with unauthenticated redownload/SHA. Source recovery 125bbf4 pushed; append-only storage checkpoint ledger 0c8b142. One renderer plus separate HTTPS uploader; final all-member ZIP verification and non-owner review still pending."
+    },
+    {
+      "ts": "2026-10-16T15:50:07Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "a743087 pushed; actual failure history and corrected native1b7150d6/GLB06940c12 preserved. All strengthened native/reimport gates pass; 1/29 corrected-source originals actually opened. Old0f public release marked superseded/not accepted; new1b checkpoint verified four models, immutable image recovery continuing. Final full evidence/ZIP/independent review pending."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:37:37Z",
-    "expires": "2026-10-16T18:57:02Z",
-    "checkpoint": "Active evidence recovery: 12/29 current originals individually opened/SHA-bound, not inferred from old runtime or renderer. Native 0f8497096094 freshly revalidated PASS, GLB da7e163b59d0 hash unchanged; three native files/GLB and each finished PNG publicly checkpointed with unauthenticated redownload/SHA. Source recovery 125bbf4 pushed; append-only storage checkpoint ledger 0c8b142. One renderer plus separate HTTPS uploader; final all-member ZIP verification and non-owner review still pending."
+    "expires": "2026-10-16T19:50:07Z",
+    "checkpoint": "a743087 pushed; actual failure history and corrected native1b7150d6/GLB06940c12 preserved. All strengthened native/reimport gates pass; 1/29 corrected-source originals actually opened. Old0f public release marked superseded/not accepted; new1b checkpoint verified four models, immutable image recovery continuing. Final full evidence/ZIP/independent review pending."
   }
 }
