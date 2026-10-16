@@ -6,7 +6,7 @@
   "owner": "glyphcraft",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:13:25Z",
-  "updated_ts": "2026-10-16T12:09:26Z",
+  "updated_ts": "2026-10-16T12:16:35Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -51,12 +51,18 @@
       "by": "glyphcraft",
       "action": "heartbeat by glyphcraft",
       "note": "Commencing r04 deep craft elevation: multi-stage non-linear SDF vector morphing, organic bezier filament mesh, optical glow bloom, and spatial acoustic mastering."
+    },
+    {
+      "ts": "2026-10-16T12:16:35Z",
+      "by": "glyphcraft",
+      "action": "heartbeat by glyphcraft",
+      "note": "r04 delivered and published to storagecode (tag frameforge/glyphcraft/r04-48b981b37ce0). Hero SHA 48b981b37ce0, Loop SHA cdb9276ea2fe. Card remains in review."
     }
   ],
   "lease": {
     "agent": "glyphcraft",
     "since": "2026-10-16T08:02:51Z",
-    "expires": "2026-10-16T16:09:26Z",
-    "checkpoint": "Commencing r04 deep craft elevation: multi-stage non-linear SDF vector morphing, organic bezier filament mesh, optical glow bloom, and spatial acoustic mastering."
+    "expires": "2026-10-16T16:16:35Z",
+    "checkpoint": "r04 delivered and published to storagecode (tag frameforge/glyphcraft/r04-48b981b37ce0). Hero SHA 48b981b37ce0, Loop SHA cdb9276ea2fe. Card remains in review."
   }
 }
