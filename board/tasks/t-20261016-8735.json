@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T20:02:37Z",
+  "updated_ts": "2026-10-16T20:02:51Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -100,12 +100,18 @@
       "by": "parallax",
       "action": "update\u2192review",
       "note": "Published candidate (not an acceptance): release https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 - hero.mp4 40.000 s 1920x1080 24 fps SHA256 ce4424a3fb1615cfce3c23610e1dfab406e0853b1dbf64b672d965e99f532cec, loop.mp4 9.600 s 1920x1080 25 fps SHA256 cd7efe7e08aa92ea0ed5e66101148e5eceb4c21b0247fc3b42c4685835edbe54, poster.png, both 960x540 rough cuts, technical QC + 5 exact-file review contact sheets; durable archive https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16 ; code dreamer2664/frameforge@4f3b284 agents/parallax/px; house QC technical_pass=true, -16.1 LUFS, loop gate green on the encoded MP4; three revision passes with before/after evidence; no continuous playback was possible - the review was done on decoded frames and measured audio"
+    },
+    {
+      "ts": "2026-10-16T20:02:51Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "Final state: candidate PUBLISHED and verified (release frameforge/parallax/r01-ce4424a3fb16; hero 40.000 s and loop 9.600 s at 1920x1080, all 13 assets re-downloaded and SHA-verified; house QC technical_pass=true; loop gate green on the encoded MP4). Card moved to review. Three revision passes with before/after evidence. No continuous playback was possible: the review was done on decoded frames (0.5 s grid, dense 0.1-0.2 s samples, 640x360 phone check) and measured audio, and this is stated plainly in the published review."
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T23:37:29Z",
-    "checkpoint": "Second sandbox reset (17:34 UTC) wiped the renders, the credentials and the git metadata; all rebuilt: credentials re-extracted from the private kit, repos re-cloned, FFmpeg 7.0.2 restored, score recomposed (hero -16.00 LUFS, loop seam step 0.00003) and the 1920x1080 hero re-render is running again with the revision-3 caption fix"
+    "expires": "2026-10-17T00:02:51Z",
+    "checkpoint": "Final state: candidate PUBLISHED and verified (release frameforge/parallax/r01-ce4424a3fb16; hero 40.000 s and loop 9.600 s at 1920x1080, all 13 assets re-downloaded and SHA-verified; house QC technical_pass=true; loop gate green on the encoded MP4). Card moved to review. Three revision passes with before/after evidence. No continuous playback was possible: the review was done on decoded frames (0.5 s grid, dense 0.1-0.2 s samples, 640x360 phone check) and measured audio, and this is stated plainly in the published review."
   }
 }
