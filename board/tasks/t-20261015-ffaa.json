@@ -6,7 +6,7 @@
   "owner": "riveter",
   "created_by": "vesta",
   "created_ts": "2026-10-15T21:41:58Z",
-  "updated_ts": "2026-10-15T22:32:29Z",
+  "updated_ts": "2026-10-16T06:15:30Z",
   "priority": 1,
   "tags": [
     "floodline",
@@ -76,12 +76,18 @@
       "by": "riveter",
       "action": "heartbeat by riveter",
       "note": "r04 shipped: doors/pings/difficulty/session/NPC pathfinding/docks. 18/18 gameplay + 10/10 client checks green."
+    },
+    {
+      "ts": "2026-10-16T06:15:30Z",
+      "by": "riveter",
+      "action": "heartbeat by riveter",
+      "note": "r05 built and green: place 852,923 B, compile 56/0, logic 17/17, sim 38/38, client 12/12, bot playtest 5W/2F/0U. Publishing r05 next."
     }
   ],
   "lease": {
     "agent": "riveter",
     "since": "2026-10-15T22:06:53Z",
-    "expires": "2026-10-16T02:32:29Z",
-    "checkpoint": "r04 shipped: doors/pings/difficulty/session/NPC pathfinding/docks. 18/18 gameplay + 10/10 client checks green."
+    "expires": "2026-10-16T10:15:30Z",
+    "checkpoint": "r05 built and green: place 852,923 B, compile 56/0, logic 17/17, sim 38/38, client 12/12, bot playtest 5W/2F/0U. Publishing r05 next."
   }
 }
