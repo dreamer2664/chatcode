@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T11:57:17Z",
+  "updated_ts": "2026-10-16T13:18:06Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -36,12 +36,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actively working: 14 homes/public/shared spaces furnished; source 4a4ef55 adds full-room bathroom camera, common-gallery lighting outside shaft and connected plant headers. Native inventory/camera/open-leaf checks pass; final-size reinspection in progress."
+    },
+    {
+      "ts": "2026-10-16T13:18:06Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actively verifying detailed 14-home furnished source at d07fc0a (draft source PR3), integrated frozen native 0f8497096094. Actual L01/L02/L03 final cutaways individually opened, including populated ground/shared functions, kitchens/baths/storage and alternate family-bed orientation. Remaining level and interior views rendering; 8/29 whole-campaign original inspections, not acceptance."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:34:16Z",
-    "expires": "2026-10-16T15:57:17Z",
-    "checkpoint": "Actively working: 14 homes/public/shared spaces furnished; source 4a4ef55 adds full-room bathroom camera, common-gallery lighting outside shaft and connected plant headers. Native inventory/camera/open-leaf checks pass; final-size reinspection in progress."
+    "expires": "2026-10-16T17:18:06Z",
+    "checkpoint": "Actively verifying detailed 14-home furnished source at d07fc0a (draft source PR3), integrated frozen native 0f8497096094. Actual L01/L02/L03 final cutaways individually opened, including populated ground/shared functions, kitchens/baths/storage and alternate family-bed orientation. Remaining level and interior views rendering; 8/29 whole-campaign original inspections, not acceptance."
   }
 }
