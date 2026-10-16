@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T14:57:00Z",
+  "updated_ts": "2026-10-16T15:50:05Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -48,12 +48,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Active 14-home furnishing verification at source d07fc0a: all six regenerated final 4K furnished floor cutaways individually opened, including three-home typical levels and distinct two-penthouse/winter-garden top. Cafe, reception/mail and Home2A living/kitchen originals also opened. Native/export hashes unchanged; minor isolated-interior ceiling-edge highlights disclosed, not structural/code claims. Remaining 17 images rendering; no independent acceptance claim."
+    },
+    {
+      "ts": "2026-10-16T15:50:05Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "9f0a16f pushed on own branch. Nine real backwards north wardrobes fixed and actual component/material-face positions now +.292m inward in rebuilt source/native. Opened new full-size L05 bedroom: bed and real wardrobe fronts clear, 1/29 current observations. Full campaign regenerating, not acceptance."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:34:16Z",
-    "expires": "2026-10-16T18:57:00Z",
-    "checkpoint": "Active 14-home furnishing verification at source d07fc0a: all six regenerated final 4K furnished floor cutaways individually opened, including three-home typical levels and distinct two-penthouse/winter-garden top. Cafe, reception/mail and Home2A living/kitchen originals also opened. Native/export hashes unchanged; minor isolated-interior ceiling-edge highlights disclosed, not structural/code claims. Remaining 17 images rendering; no independent acceptance claim."
+    "expires": "2026-10-16T19:50:05Z",
+    "checkpoint": "9f0a16f pushed on own branch. Nine real backwards north wardrobes fixed and actual component/material-face positions now +.292m inward in rebuilt source/native. Opened new full-size L05 bedroom: bed and real wardrobe fronts clear, 1/29 current observations. Full campaign regenerating, not acceptance."
   }
 }
