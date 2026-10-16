@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T15:50:05Z",
+  "updated_ts": "2026-10-16T17:15:39Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -54,12 +54,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "9f0a16f pushed on own branch. Nine real backwards north wardrobes fixed and actual component/material-face positions now +.292m inward in rebuilt source/native. Opened new full-size L05 bedroom: bed and real wardrobe fronts clear, 1/29 current observations. Full campaign regenerating, not acceptance."
+    },
+    {
+      "ts": "2026-10-16T17:15:39Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actually resumed; source9f0a16f and corrected source3b29/native1b intact. Nine actual wardrobe fronts +.292m inward; current bedroom and living originals actually opened. All14 homes remain built. Re-rendering/reopening remaining interiors and floor cuts, independent review pending."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:34:16Z",
-    "expires": "2026-10-16T19:50:05Z",
-    "checkpoint": "9f0a16f pushed on own branch. Nine real backwards north wardrobes fixed and actual component/material-face positions now +.292m inward in rebuilt source/native. Opened new full-size L05 bedroom: bed and real wardrobe fronts clear, 1/29 current observations. Full campaign regenerating, not acceptance."
+    "expires": "2026-10-16T21:15:39Z",
+    "checkpoint": "Actually resumed; source9f0a16f and corrected source3b29/native1b intact. Nine actual wardrobe fronts +.292m inward; current bedroom and living originals actually opened. All14 homes remain built. Re-rendering/reopening remaining interiors and floor cuts, independent review pending."
   }
 }
