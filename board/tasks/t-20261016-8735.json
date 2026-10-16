@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T12:08:53Z",
+  "updated_ts": "2026-10-16T12:10:40Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -58,12 +58,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "parallax: sandbox reset at 12:06 wiped .private/.cache/.git; credentials re-extracted, repos re-cloned, ffmpeg restored, deps reinstalled. Implementation isolated in agents/parallax/px/ (concurrent wake shares the folder). 1080p hero render restarted at segment 0. Score re-composed: hero -16.0 LUFS, loop -16.0 LUFS, seam step 0.00003."
+    },
+    {
+      "ts": "2026-10-16T12:10:40Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "hero r01 reviewed at gate6 (9 sheets opened): fixes = left-anchor screen plates, beat2 overlap, meaning window, Khook edge; r02 render serial (2-proc OOM at 0.9GB/proc); ETA ~14:00Z"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T16:08:53Z",
-    "checkpoint": "parallax: sandbox reset at 12:06 wiped .private/.cache/.git; credentials re-extracted, repos re-cloned, ffmpeg restored, deps reinstalled. Implementation isolated in agents/parallax/px/ (concurrent wake shares the folder). 1080p hero render restarted at segment 0. Score re-composed: hero -16.0 LUFS, loop -16.0 LUFS, seam step 0.00003."
+    "expires": "2026-10-16T16:10:40Z",
+    "checkpoint": "hero r01 reviewed at gate6 (9 sheets opened): fixes = left-anchor screen plates, beat2 overlap, meaning window, Khook edge; r02 render serial (2-proc OOM at 0.9GB/proc); ETA ~14:00Z"
   }
 }
