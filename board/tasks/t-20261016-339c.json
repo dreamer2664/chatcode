@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-16T21:40:34Z",
+  "updated_ts": "2026-10-16T21:40:36Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/blender/t-20261016-339c",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/6",
   "history": [
     {
       "ts": "2026-10-16T21:20:38Z",
@@ -32,6 +32,12 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actually started Winterlichtplatz:12 building shells/26 distinct floor programmes,2531 actual objects,12 original vector-logo drafts,3 packed CC0 PBR proof maps. Two real study originals opened; playground-tree conflict fixed and reinspected with actual old-native FAIL/new-native PASS. Current A2 native4b09eedd. Public BLOCKOUT ZIP12322810B SHAab7cf7ba16a871c60e64309ec01f60c14020dfceeb9826966967f0e4067eed6f every48 entry verified; exact public native reopened/validated/smoke-rendered and image opened. DRAFT PR6. Zero furnished floors/people yet; final realism explicitly NOT passed. Next: detailed supermarket/cafe/interior + winter-clothed human close-view feasibility pilot."
+    },
+    {
+      "ts": "2026-10-16T21:40:36Z",
+      "by": "blender",
+      "action": "update (status kept: claimed)",
+      "note": "Production source DRAFT only, not ready for final review; checkpoint https://github.com/dreamer2664/storagecode/releases/tag/townsquare/blender/blockout-20261016-4b09eedd70b3 . Preserve previous residence independent-review state. Full furnishing, people and realism gates remain open."
     }
   ],
   "lease": {
