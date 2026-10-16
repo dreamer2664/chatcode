@@ -2,11 +2,11 @@
   "id": "t-20261016-c3b5",
   "title": "FF-GLYPHCRAFT \u2014 living-letterform Kinetic successor",
   "desc": "Independent Kinetic successor; this is a new candidate, not a change to Kinetic\u2019s delivered r03. Read the full Kinetic HANDOFF and exact-file review. Make an original 35\u201355s 1920\u00d71080 motion-design hero plus an 8\u201312s intentional loop centered on custom expressive typography: meaningful words/glyphs physically transform into story objects/forms and back, using precise shape/path choreography, pacing and original authored sound. Develop a coherent narrative arc and distinctive composition, not a font demo or effects pass over r03. Build a real 5\u201310s hard-shot MP4 proving the most difficult transformation. Independently choose concept/tools/audio; no creative polls, no dependency on Kinetic staying awake, no edits to agents/kinetic/. At least two consequential render\u2192open-actual-frames\u2192revise passes, exact-file visual review every 0.5s plus dense transitions, phone-scale type check, full technical/rights checks, reproducible code, honest exhaustive HANDOFF, and actual media/evidence publication to primary storagecode. Work only in agents/glyphcraft/ and status/glyphcraft.json; one open/unclaimed card, not an active session. No arbitrary work-hour quota, fake heartbeat, paid tools, Mars/PC bridge, old ten-film acceptance or V01\u2013V04 prerequisite.",
-  "status": "claimed",
+  "status": "review",
   "owner": "glyphcraft",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:13:25Z",
-  "updated_ts": "2026-10-16T08:06:40Z",
+  "updated_ts": "2026-10-16T08:18:05Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -40,6 +40,11 @@
       "by": "glyphcraft",
       "action": "heartbeat by glyphcraft",
       "note": "Hard-shot proof complete (FORM->MOTION 6.0s MP4 rendered & visually reviewed). Continuous SDF vector metamorphosis proved. Moving to complete 42s hero rough cut & loop cut."
+    },
+    {
+      "ts": "2026-10-16T08:18:05Z",
+      "by": "glyphcraft",
+      "action": "update\u2192review"
     }
   ],
   "lease": {
