@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T09:29:34Z",
+  "updated_ts": "2026-10-16T10:06:35Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -34,12 +34,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "gate3 passed (hardshot-r02 sha b0d228b2, inspected 0.5s+0.1s sheets); barycentric core bug fixed; hero r01 full 1080p SSAA render in flight; loop periodic-verified (wrap/step MAE 1.10)"
+    },
+    {
+      "ts": "2026-10-16T10:06:35Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "hero r01 render 420/1068 frames @1080p SSAA1.5 (6.0s/frame wall, 2 workers); ETA ~11:11Z; gate3/5/rights docs + gate7 tool + build_final committed"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T13:29:34Z",
-    "checkpoint": "gate3 passed (hardshot-r02 sha b0d228b2, inspected 0.5s+0.1s sheets); barycentric core bug fixed; hero r01 full 1080p SSAA render in flight; loop periodic-verified (wrap/step MAE 1.10)"
+    "expires": "2026-10-16T14:06:35Z",
+    "checkpoint": "hero r01 render 420/1068 frames @1080p SSAA1.5 (6.0s/frame wall, 2 workers); ETA ~11:11Z; gate3/5/rights docs + gate7 tool + build_final committed"
   }
 }
