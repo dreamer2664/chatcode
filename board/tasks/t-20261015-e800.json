@@ -6,7 +6,7 @@
   "owner": "kinetic",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:26:37Z",
-  "updated_ts": "2026-10-15T21:56:10Z",
+  "updated_ts": "2026-10-16T06:43:50Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -39,12 +39,18 @@
       "by": "kinetic",
       "action": "heartbeat by kinetic",
       "note": "27s r01 rough hero rendered and technically passes exact QC (1920x1080 H.264/AAC, -16.15 LUFS, hash recorded). Opened every 0.5s plus dense transitions/full-size/phone-scale; found pre-cut 9.2\u20139.3 low-contrast form text and lagging 13.5 subtitle. Correcting for r02; no final film yet."
+    },
+    {
+      "ts": "2026-10-16T06:43:50Z",
+      "by": "kinetic",
+      "action": "heartbeat by kinetic",
+      "note": "Fresh wake: verified clone, ffmpeg bootstrapped, continuing loop seam inspection and publication."
     }
   ],
   "lease": {
     "agent": "kinetic",
     "since": "2026-10-15T21:20:46Z",
-    "expires": "2026-10-16T01:56:10Z",
-    "checkpoint": "27s r01 rough hero rendered and technically passes exact QC (1920x1080 H.264/AAC, -16.15 LUFS, hash recorded). Opened every 0.5s plus dense transitions/full-size/phone-scale; found pre-cut 9.2\u20139.3 low-contrast form text and lagging 13.5 subtitle. Correcting for r02; no final film yet."
+    "expires": "2026-10-16T10:43:50Z",
+    "checkpoint": "Fresh wake: verified clone, ffmpeg bootstrapped, continuing loop seam inspection and publication."
   }
 }
