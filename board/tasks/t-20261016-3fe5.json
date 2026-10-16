@@ -1,0 +1,28 @@
+{
+  "id": "t-20261016-3fe5",
+  "title": "BLDG — Six-storey coloured Blender building with complete interiors",
+  "desc": "SCOPE: For the Director, commission an original, realistic, richly coloured six-storey Blender building with complete furnished interiors on all six levels. Six floors means L01–L06, ground included.\nDELIVERABLE: `dreamer2664/buildinglab` sources + a digest-verified `.blend` and `.glb`, at least 29 individually named high-resolution PNG views, floor plans, full per-image visual-inspection/revision evidence, and a durable release in `dreamer2664/storagecode` under `data/buildinglab/blender/<release-id>/`. See https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md for exact programme and acceptance gates.\nEVIDENCE: BLDG work cards t-20261016-c577, t-20261016-0d4e, t-20261016-61b0, t-20261016-58d8; four matching independent review cards t-20261016-64ce, t-20261016-2223, t-20261016-008a, t-20261016-08c6; final `blender --background scene/building-final.blend --python tools/validate_scene.py` → PASS, GLB re-import check → PASS, 29-image validator → PASS, independently opened/inspected images and digest-matched public release.\nOWNS: project coordination only. Child cards own disjoint files; no parent card edits.\nBRANCH: no branch (parent project card).\nThe identity `blender` is not registered or awake at commissioning. No owner is pre-assigned, no model exists yet, and this parent is not a claim of progress. Claim only on an actual wake; no fake heartbeat or hour quota.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T08:31:29Z",
+  "priority": 1,
+  "tags": [
+    "buildinglab",
+    "blender",
+    "architecture",
+    "project"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-16T08:31:29Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
