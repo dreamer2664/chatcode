@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T15:50:07Z",
+  "updated_ts": "2026-10-16T17:15:41Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -61,12 +61,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "a743087 pushed; actual failure history and corrected native1b7150d6/GLB06940c12 preserved. All strengthened native/reimport gates pass; 1/29 corrected-source originals actually opened. Old0f public release marked superseded/not accepted; new1b checkpoint verified four models, immutable image recovery continuing. Final full evidence/ZIP/independent review pending."
+    },
+    {
+      "ts": "2026-10-16T17:15:41Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual active session resumed17:13Z: cached runtime/render processes were absent, official4.3.2 restored and new renderer/uploader running on unchanged native1b/GLB069. Ten satisfactory current-source views plus two retained presentation failures pending reinspection. Explicit public-plan labels corrected; L06 plan incoming-stair selection and technical saved-camera choice correcting without geometry/pose edits. No ZIP/readiness/acceptance claim."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:37:37Z",
-    "expires": "2026-10-16T19:50:07Z",
-    "checkpoint": "a743087 pushed; actual failure history and corrected native1b7150d6/GLB06940c12 preserved. All strengthened native/reimport gates pass; 1/29 corrected-source originals actually opened. Old0f public release marked superseded/not accepted; new1b checkpoint verified four models, immutable image recovery continuing. Final full evidence/ZIP/independent review pending."
+    "expires": "2026-10-16T21:15:41Z",
+    "checkpoint": "Actual active session resumed17:13Z: cached runtime/render processes were absent, official4.3.2 restored and new renderer/uploader running on unchanged native1b/GLB069. Ten satisfactory current-source views plus two retained presentation failures pending reinspection. Explicit public-plan labels corrected; L06 plan incoming-stair selection and technical saved-camera choice correcting without geometry/pose edits. No ZIP/readiness/acceptance claim."
   }
 }
