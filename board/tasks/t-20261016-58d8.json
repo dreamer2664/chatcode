@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T14:11:15Z",
+  "updated_ts": "2026-10-16T14:57:02Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -49,12 +49,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actively recovering evidence after runtime snapshot lost renderer/final PNGs; frozen native 0f8497096094 and GLB da7e163b59d0 survived with exact hashes. Three native files and GLB now uploaded as explicit WIP checkpoints, each publicly re-downloaded/SHA verified; append-only storage ledger commit 0c8b1428b13f5c6fd3565f56cb4edd257515ac27. Recovery source pushed at 125bbf4. Regenerated exterior-day actually reopened/recorded, currently 1/29 current inspections; prior 10 retained as history only. Single render pipeline plus separate HTTPS checkpoint client running; no final package/independent acceptance claim."
+    },
+    {
+      "ts": "2026-10-16T14:57:02Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Active evidence recovery: 12/29 current originals individually opened/SHA-bound, not inferred from old runtime or renderer. Native 0f8497096094 freshly revalidated PASS, GLB da7e163b59d0 hash unchanged; three native files/GLB and each finished PNG publicly checkpointed with unauthenticated redownload/SHA. Source recovery 125bbf4 pushed; append-only storage checkpoint ledger 0c8b142. One renderer plus separate HTTPS uploader; final all-member ZIP verification and non-owner review still pending."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:37:37Z",
-    "expires": "2026-10-16T18:11:15Z",
-    "checkpoint": "Actively recovering evidence after runtime snapshot lost renderer/final PNGs; frozen native 0f8497096094 and GLB da7e163b59d0 survived with exact hashes. Three native files and GLB now uploaded as explicit WIP checkpoints, each publicly re-downloaded/SHA verified; append-only storage ledger commit 0c8b1428b13f5c6fd3565f56cb4edd257515ac27. Recovery source pushed at 125bbf4. Regenerated exterior-day actually reopened/recorded, currently 1/29 current inspections; prior 10 retained as history only. Single render pipeline plus separate HTTPS checkpoint client running; no final package/independent acceptance claim."
+    "expires": "2026-10-16T18:57:02Z",
+    "checkpoint": "Active evidence recovery: 12/29 current originals individually opened/SHA-bound, not inferred from old runtime or renderer. Native 0f8497096094 freshly revalidated PASS, GLB da7e163b59d0 hash unchanged; three native files/GLB and each finished PNG publicly checkpointed with unauthenticated redownload/SHA. Source recovery 125bbf4 pushed; append-only storage checkpoint ledger 0c8b142. One renderer plus separate HTTPS uploader; final all-member ZIP verification and non-owner review still pending."
   }
 }
