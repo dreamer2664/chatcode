@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T10:31:51Z",
+  "updated_ts": "2026-10-16T10:58:09Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -46,12 +46,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "hero r01 render 587/1068 @10:31Z (corridor beat heaviest ~9s/frame); ETA ~11:30Z; next: mux+QC+gate6 sheets"
+    },
+    {
+      "ts": "2026-10-16T10:58:09Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "mp.Pool deadlock found+worked around (handler thread death): hero resume as 2 plain procs over 481 missing frames; 587/1068 done; ETA ~11:30Z"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T14:31:51Z",
-    "checkpoint": "hero r01 render 587/1068 @10:31Z (corridor beat heaviest ~9s/frame); ETA ~11:30Z; next: mux+QC+gate6 sheets"
+    "expires": "2026-10-16T14:58:09Z",
+    "checkpoint": "mp.Pool deadlock found+worked around (handler thread death): hero resume as 2 plain procs over 481 missing frames; 587/1068 done; ETA ~11:30Z"
   }
 }
