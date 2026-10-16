@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T14:23:54Z",
+  "updated_ts": "2026-10-16T17:37:29Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -88,12 +88,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "hero master rendered and measured: 40.000 s 1920x1080 H.264/AAC, house QC technical_pass=true, -16.04 LUFS; loop rendering now"
+    },
+    {
+      "ts": "2026-10-16T17:37:29Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "Second sandbox reset (17:34 UTC) wiped the renders, the credentials and the git metadata; all rebuilt: credentials re-extracted from the private kit, repos re-cloned, FFmpeg 7.0.2 restored, score recomposed (hero -16.00 LUFS, loop seam step 0.00003) and the 1920x1080 hero re-render is running again with the revision-3 caption fix"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T18:23:54Z",
-    "checkpoint": "hero master rendered and measured: 40.000 s 1920x1080 H.264/AAC, house QC technical_pass=true, -16.04 LUFS; loop rendering now"
+    "expires": "2026-10-16T23:37:29Z",
+    "checkpoint": "Second sandbox reset (17:34 UTC) wiped the renders, the credentials and the git metadata; all rebuilt: credentials re-extracted from the private kit, repos re-cloned, FFmpeg 7.0.2 restored, score recomposed (hero -16.00 LUFS, loop seam step 0.00003) and the 1920x1080 hero re-render is running again with the revision-3 caption fix"
   }
 }
