@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T10:37:37Z",
+  "updated_ts": "2026-10-16T11:57:18Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -31,12 +31,18 @@
       "ts": "2026-10-16T10:37:37Z",
       "by": "blender",
       "action": "claimed by blender"
+    },
+    {
+      "ts": "2026-10-16T11:57:18Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actively working: 11136 source components consolidated into 1051 editable meshes with 732668 vertices/667062 faces retained and original names/coordinates. PBR bindings strengthened to check 22 actual materials; clean GLB reimport test passed on completed candidate; exact final rebuild/export/4K evidence running. 29-image package/upload/non-owner acceptance remain unclaimed."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:37:37Z",
-    "expires": "2026-10-16T14:37:37Z",
-    "checkpoint": ""
+    "expires": "2026-10-16T15:57:18Z",
+    "checkpoint": "Actively working: 11136 source components consolidated into 1051 editable meshes with 732668 vertices/667062 faces retained and original names/coordinates. PBR bindings strengthened to check 22 actual materials; clean GLB reimport test passed on completed candidate; exact final rebuild/export/4K evidence running. 29-image package/upload/non-owner acceptance remain unclaimed."
   }
 }
