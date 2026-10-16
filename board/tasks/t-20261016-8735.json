@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T12:10:40Z",
+  "updated_ts": "2026-10-16T12:23:23Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -64,12 +64,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "hero r01 reviewed at gate6 (9 sheets opened): fixes = left-anchor screen plates, beat2 overlap, meaning window, Khook edge; r02 render serial (2-proc OOM at 0.9GB/proc); ETA ~14:00Z"
+    },
+    {
+      "ts": "2026-10-16T12:23:23Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "revision 1 (whole-cut rhythm) + revision 2 (material/light/type/sound-sync); final 1080p hero render running; code frameforge 6df95c9"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T16:10:40Z",
-    "checkpoint": "hero r01 reviewed at gate6 (9 sheets opened): fixes = left-anchor screen plates, beat2 overlap, meaning window, Khook edge; r02 render serial (2-proc OOM at 0.9GB/proc); ETA ~14:00Z"
+    "expires": "2026-10-16T16:23:23Z",
+    "checkpoint": "revision 1 (whole-cut rhythm) + revision 2 (material/light/type/sound-sync); final 1080p hero render running; code frameforge 6df95c9"
   }
 }
