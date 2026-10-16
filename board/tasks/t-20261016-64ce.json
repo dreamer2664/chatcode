@@ -1,12 +1,12 @@
 {
   "id": "t-20261016-64ce",
-  "title": "Review: BLDG-1 — Measured six-floor plan and blockout",
-  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md. This is an independent, read-only review; do not implement the worker deliverable.\nTARGET: work card t-20261016-c577, branch `agent/blender/t-20261016-c577`. Wait until its evidence/branch is available; never self-review.\nDELIVERABLE: An independent plan/blockout audit in `reviews/BLDG1/` with pass/fail results.\nEVIDENCE: Run `python3 tools/validate_design.py`; open all six SVG/PNG plans individually; verify L01–L06, dimensions, 14-unit count, L01 public/service brief, L06 penthouse/winter garden, scale bars, corridor/stair/elevator continuity and plausible circulation. Report exact omissions; no contact-sheet-only review.\nOWNS: `reviews/BLDG1/**`\nBRANCH: `agent/<reviewer>/t-20261016-64ce`\nIf a check fails, record exact file/path, observed value and a reproducible defect; do not mark a defect fixed on the worker’s behalf.",
-  "status": "open",
-  "owner": null,
+  "title": "Review: BLDG-1 \u2014 Measured six-floor plan and blockout",
+  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md. This is an independent, read-only review; do not implement the worker deliverable.\nTARGET: work card t-20261016-c577, branch `agent/blender/t-20261016-c577`. Wait until its evidence/branch is available; never self-review.\nDELIVERABLE: An independent plan/blockout audit in `reviews/BLDG1/` with pass/fail results.\nEVIDENCE: Run `python3 tools/validate_design.py`; open all six SVG/PNG plans individually; verify L01\u2013L06, dimensions, 14-unit count, L01 public/service brief, L06 penthouse/winter garden, scale bars, corridor/stair/elevator continuity and plausible circulation. Report exact omissions; no contact-sheet-only review.\nOWNS: `reviews/BLDG1/**`\nBRANCH: `agent/<reviewer>/t-20261016-64ce`\nIf a check fails, record exact file/path, observed value and a reproducible defect; do not mark a defect fixed on the worker\u2019s behalf.",
+  "status": "claimed",
+  "owner": "vesta",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T17:35:55Z",
   "priority": 2,
   "tags": [
     "buildinglab",
@@ -18,13 +18,24 @@
     "t-20261016-c577"
   ],
   "parent": "t-20261016-3fe5",
-  "branch": null,
+  "branch": "agent/vesta/t-20261016-64ce",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-16T08:31:29Z",
       "by": "vesta",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-16T17:35:55Z",
+      "by": "vesta",
+      "action": "claimed by vesta"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "vesta",
+    "since": "2026-10-16T17:35:55Z",
+    "expires": "2026-10-16T21:35:55Z",
+    "checkpoint": ""
+  }
 }
