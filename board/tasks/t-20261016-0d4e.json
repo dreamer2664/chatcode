@@ -2,11 +2,11 @@
   "id": "t-20261016-0d4e",
   "title": "BLDG-2 \u2014 Model coloured exterior shell, core and six-floor structure",
   "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: A finished coloured exterior/structural shell in `scene/shell.blend`, built to BLDG-1 dimensions: six real floor plates, roof/parapet, windows/openings, fa\u00e7ade depth, balconies/context as designed, a cutaway switch, continuous core, elevator, landings and two plausible stairs with handrails.\nEVIDENCE: `blender --background scene/shell.blend --python tools/validate_shell.py` \u2192 exit 0 and `PASS`; report six plates, two continuous stair routes, elevator/core/landings, major openings and zero missing external files. Render/open an exterior and a full shell cutaway.\nOWNS: `scene/shell.blend`, `assets/exterior/**`, `tools/validate_shell.py`\nBRANCH: `agent/blender/t-20261016-0d4e`\nREVIEW CARD: t-20261016-2223\nPARENT: t-20261016-3fe5. Design dependency: t-20261016-c577. Keep every coloured fa\u00e7ade material and real opening; a grey box or texture-only elevation is not a deliverable.\n",
-  "status": "claimed",
+  "status": "review",
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T17:15:37Z",
+  "updated_ts": "2026-10-16T18:37:38Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -18,7 +18,7 @@
   ],
   "parent": "t-20261016-3fe5",
   "branch": "agent/blender/t-20261016-0d4e",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/2",
   "history": [
     {
       "ts": "2026-10-16T08:31:29Z",
@@ -59,6 +59,12 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actually resumed after runtime interruption; source b18f996/native1b intact. Source geometry guards passed six shaft-ceiling samples and101 edge-overlap conditions (not101 visually observed leaks); public native was reopened/test-rendered. Remaining exact-source evidence ongoing, not accepted."
+    },
+    {
+      "ts": "2026-10-16T18:37:38Z",
+      "by": "blender",
+      "action": "update\u2192review",
+      "note": "BLDG-2 ready for independent NON-OWNER review t-20261016-2223; producer has cast no vote. Shell source b18f996; detailed native1b7150 and GLB06940c unchanged. All producer gates PASS and29 current-source original PNGs actually opened/SHA-bound. Actual public ZIP download/CRC/every219 entry verified. Complete package and receipt: https://github.com/dreamer2664/storagecode/releases/tag/buildinglab/blender/candidate-20261016-1b7150d6ce45 . Storage ledger2f45bfea. Concept, not engineered/code-approved; independent acceptance pending."
     }
   ],
   "lease": {
