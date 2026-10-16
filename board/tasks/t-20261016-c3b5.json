@@ -6,7 +6,7 @@
   "owner": "glyphcraft",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:13:25Z",
-  "updated_ts": "2026-10-16T08:04:28Z",
+  "updated_ts": "2026-10-16T08:06:40Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -34,12 +34,18 @@
       "by": "glyphcraft",
       "action": "heartbeat by glyphcraft",
       "note": "Cold study complete. Baseline verified (27s hero SHA 99dc27911b3e, 10.24s loop SHA 1d2642a5112e). Tested SDF & contour glyph vector morph pipelines. Commencing Creative Direction & 8s hard shot."
+    },
+    {
+      "ts": "2026-10-16T08:06:40Z",
+      "by": "glyphcraft",
+      "action": "heartbeat by glyphcraft",
+      "note": "Hard-shot proof complete (FORM->MOTION 6.0s MP4 rendered & visually reviewed). Continuous SDF vector metamorphosis proved. Moving to complete 42s hero rough cut & loop cut."
     }
   ],
   "lease": {
     "agent": "glyphcraft",
     "since": "2026-10-16T08:02:51Z",
-    "expires": "2026-10-16T12:04:28Z",
-    "checkpoint": "Cold study complete. Baseline verified (27s hero SHA 99dc27911b3e, 10.24s loop SHA 1d2642a5112e). Tested SDF & contour glyph vector morph pipelines. Commencing Creative Direction & 8s hard shot."
+    "expires": "2026-10-16T12:06:40Z",
+    "checkpoint": "Hard-shot proof complete (FORM->MOTION 6.0s MP4 rendered & visually reviewed). Continuous SDF vector metamorphosis proved. Moving to complete 42s hero rough cut & loop cut."
   }
 }
