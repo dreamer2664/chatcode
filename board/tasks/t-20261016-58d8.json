@@ -1,0 +1,31 @@
+{
+  "id": "t-20261016-58d8",
+  "title": "BLDG-4 — Assemble, visualise, inspect, revise and release the model",
+  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: The final assembled `scene/building-final.blend`, clean-reimport-checked `exports/building-final.glb`, six floor plans, at least 29 named PNG renders at the charter sizes, model/render/hash manifests, asset rights, two recorded visual-review/fix cycles, exhaustive handoff, and a digest-verified storagecode release/archive.\nEVIDENCE: `blender --background scene/building-final.blend --python tools/validate_scene.py` → `PASS`; `blender --background scene/building-final.blend --python tools/test_export.py` → `PASS`; `python3 tools/validate_visual_package.py` → `PASS`. Open every final image individually at full size; log view, issue, fix and reinspection in `evidence/visual-review.json`. Upload, re-download and hash-check `.blend`, `.glb` and all release images.\nOWNS: `scene/building-final.blend`, `exports/**`, `renders/**`, `evidence/producer/**`, `tools/validate_scene.py`, `tools/test_export.py`, `tools/validate_visual_package.py`, final `HANDOFF.md`\nBRANCH: `agent/blender/t-20261016-58d8`\nREVIEW CARD: t-20261016-08c6\nPARENT: t-20261016-3fe5. Assembly dependencies: t-20261016-0d4e, t-20261016-61b0. 29 minimum images: 2 exterior 4K; 1 full-building cutaway 4K; 6 floor cutaways 4K; 12 interior views ≥2560×1440; 6 labelled plans ≥2560×1440; 2 technical views ≥2560×1440. Two real inspect→fix→inspect cycles; no unresolved critical/major defect.\n",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T08:31:29Z",
+  "priority": 1,
+  "tags": [
+    "buildinglab",
+    "blender",
+    "visual-review",
+    "release"
+  ],
+  "deps": [
+    "t-20261016-0d4e",
+    "t-20261016-61b0"
+  ],
+  "parent": "t-20261016-3fe5",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-16T08:31:29Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
