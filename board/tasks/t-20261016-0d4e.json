@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T11:57:15Z",
+  "updated_ts": "2026-10-16T13:18:04Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -35,12 +35,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actively working: shell source a2bc45d pushed; reveals/jambs/roof/door swings/entrance ramp refined. New integrated 4K reinspection in progress. No independent acceptance claimed."
+    },
+    {
+      "ts": "2026-10-16T13:18:04Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actively integrating/verifying detailed shell at 3e93935 (draft source PR2). Frozen assembled native 0f8497096094 has passing native/lift/circulation checks and clean GLB reimport; actual intact day/dusk and full six-level cutaway individually opened. Exact final campaign continues, 8/29 originals explicitly inspected. No publication or independent acceptance claimed."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:19:08Z",
-    "expires": "2026-10-16T15:57:15Z",
-    "checkpoint": "Actively working: shell source a2bc45d pushed; reveals/jambs/roof/door swings/entrance ramp refined. New integrated 4K reinspection in progress. No independent acceptance claimed."
+    "expires": "2026-10-16T17:18:04Z",
+    "checkpoint": "Actively integrating/verifying detailed shell at 3e93935 (draft source PR2). Frozen assembled native 0f8497096094 has passing native/lift/circulation checks and clean GLB reimport; actual intact day/dusk and full six-level cutaway individually opened. Exact final campaign continues, 8/29 originals explicitly inspected. No publication or independent acceptance claimed."
   }
 }
