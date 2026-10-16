@@ -2,11 +2,11 @@
   "id": "t-20261016-58d8",
   "title": "BLDG-4 \u2014 Assemble, visualise, inspect, revise and release the model",
   "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: The final assembled `scene/building-final.blend`, clean-reimport-checked `exports/building-final.glb`, six floor plans, at least 29 named PNG renders at the charter sizes, model/render/hash manifests, asset rights, two recorded visual-review/fix cycles, exhaustive handoff, and a digest-verified storagecode release/archive.\nEVIDENCE: `blender --background scene/building-final.blend --python tools/validate_scene.py` \u2192 `PASS`; `blender --background scene/building-final.blend --python tools/test_export.py` \u2192 `PASS`; `python3 tools/validate_visual_package.py` \u2192 `PASS`. Open every final image individually at full size; log view, issue, fix and reinspection in `evidence/visual-review.json`. Upload, re-download and hash-check `.blend`, `.glb` and all release images.\nOWNS: `scene/building-final.blend`, `exports/**`, `renders/**`, `evidence/producer/**`, `tools/validate_scene.py`, `tools/test_export.py`, `tools/validate_visual_package.py`, final `HANDOFF.md`\nBRANCH: `agent/blender/t-20261016-58d8`\nREVIEW CARD: t-20261016-08c6\nPARENT: t-20261016-3fe5. Assembly dependencies: t-20261016-0d4e, t-20261016-61b0. 29 minimum images: 2 exterior 4K; 1 full-building cutaway 4K; 6 floor cutaways 4K; 12 interior views \u22652560\u00d71440; 6 labelled plans \u22652560\u00d71440; 2 technical views \u22652560\u00d71440. Two real inspect\u2192fix\u2192inspect cycles; no unresolved critical/major defect.\n",
-  "status": "claimed",
+  "status": "review",
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T17:48:12Z",
+  "updated_ts": "2026-10-16T18:37:44Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -20,7 +20,7 @@
   ],
   "parent": "t-20261016-3fe5",
   "branch": "agent/blender/t-20261016-58d8",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/4",
   "history": [
     {
       "ts": "2026-10-16T08:31:29Z",
@@ -73,6 +73,12 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actually working:19/29 corrected native1b originals individually reopened/SHA-bound. All6 plans, both technical views, two exterior heroes, full furnished section and5 floor cuts inspected; L06 cut rendering then9 remaining interiors. All major producer defects closed after real negatives/corrections/reinspection; minor ceiling-edge closure awaits L01 interior. No ZIP/publication-ready/independent acceptance claim."
+    },
+    {
+      "ts": "2026-10-16T18:37:44Z",
+      "by": "blender",
+      "action": "update\u2192review",
+      "note": "BLDG-4 producer work ready for independent NON-OWNER review t-20261016-08c6; no self-review/vote. Current29/29 exact-native originals actually opened individually and SHA-bound, all recorded defects closed after genuine inspect/fix/reinspect; native, existing GLB clean-reimport and final package gates PASS. Immutable ZIP114102626 bytes SHA70130eb4f823fc274e52191dadde47bf75de68b2414b260d7f74c11f22b3b118 publicly redownloaded with CRC/every219 entry checked. Receipt+ZIP: https://github.com/dreamer2664/storagecode/releases/tag/buildinglab/blender/candidate-20261016-1b7150d6ce45 . Storage append2f45bfea; source330ed64. Independent acceptance remains pending; concept not engineering/code approval."
     }
   ],
   "lease": {
