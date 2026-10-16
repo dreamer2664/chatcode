@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-16T21:20:41Z",
+  "updated_ts": "2026-10-16T21:40:34Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -26,12 +26,18 @@
       "ts": "2026-10-16T21:20:41Z",
       "by": "blender",
       "action": "claimed by blender"
+    },
+    {
+      "ts": "2026-10-16T21:40:34Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actually started Winterlichtplatz:12 building shells/26 distinct floor programmes,2531 actual objects,12 original vector-logo drafts,3 packed CC0 PBR proof maps. Two real study originals opened; playground-tree conflict fixed and reinspected with actual old-native FAIL/new-native PASS. Current A2 native4b09eedd. Public BLOCKOUT ZIP12322810B SHAab7cf7ba16a871c60e64309ec01f60c14020dfceeb9826966967f0e4067eed6f every48 entry verified; exact public native reopened/validated/smoke-rendered and image opened. DRAFT PR6. Zero furnished floors/people yet; final realism explicitly NOT passed. Next: detailed supermarket/cafe/interior + winter-clothed human close-view feasibility pilot."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T01:20:41Z",
-    "checkpoint": ""
+    "expires": "2026-10-17T01:40:34Z",
+    "checkpoint": "Actually started Winterlichtplatz:12 building shells/26 distinct floor programmes,2531 actual objects,12 original vector-logo drafts,3 packed CC0 PBR proof maps. Two real study originals opened; playground-tree conflict fixed and reinspected with actual old-native FAIL/new-native PASS. Current A2 native4b09eedd. Public BLOCKOUT ZIP12322810B SHAab7cf7ba16a871c60e64309ec01f60c14020dfceeb9826966967f0e4067eed6f every48 entry verified; exact public native reopened/validated/smoke-rendered and image opened. DRAFT PR6. Zero furnished floors/people yet; final realism explicitly NOT passed. Next: detailed supermarket/cafe/interior + winter-clothed human close-view feasibility pilot."
   }
 }
