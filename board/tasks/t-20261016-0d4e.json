@@ -1,0 +1,29 @@
+{
+  "id": "t-20261016-0d4e",
+  "title": "BLDG-2 — Model coloured exterior shell, core and six-floor structure",
+  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: A finished coloured exterior/structural shell in `scene/shell.blend`, built to BLDG-1 dimensions: six real floor plates, roof/parapet, windows/openings, façade depth, balconies/context as designed, a cutaway switch, continuous core, elevator, landings and two plausible stairs with handrails.\nEVIDENCE: `blender --background scene/shell.blend --python tools/validate_shell.py` → exit 0 and `PASS`; report six plates, two continuous stair routes, elevator/core/landings, major openings and zero missing external files. Render/open an exterior and a full shell cutaway.\nOWNS: `scene/shell.blend`, `assets/exterior/**`, `tools/validate_shell.py`\nBRANCH: `agent/blender/t-20261016-0d4e`\nREVIEW CARD: t-20261016-2223\nPARENT: t-20261016-3fe5. Design dependency: t-20261016-c577. Keep every coloured façade material and real opening; a grey box or texture-only elevation is not a deliverable.\n",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T08:31:29Z",
+  "priority": 1,
+  "tags": [
+    "buildinglab",
+    "blender",
+    "architecture"
+  ],
+  "deps": [
+    "t-20261016-c577"
+  ],
+  "parent": "t-20261016-3fe5",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-16T08:31:29Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
