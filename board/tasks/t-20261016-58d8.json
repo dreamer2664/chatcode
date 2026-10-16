@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T17:15:41Z",
+  "updated_ts": "2026-10-16T17:48:12Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -67,12 +67,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual active session resumed17:13Z: cached runtime/render processes were absent, official4.3.2 restored and new renderer/uploader running on unchanged native1b/GLB069. Ten satisfactory current-source views plus two retained presentation failures pending reinspection. Explicit public-plan labels corrected; L06 plan incoming-stair selection and technical saved-camera choice correcting without geometry/pose edits. No ZIP/readiness/acceptance claim."
+    },
+    {
+      "ts": "2026-10-16T17:48:12Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actually working:19/29 corrected native1b originals individually reopened/SHA-bound. All6 plans, both technical views, two exterior heroes, full furnished section and5 floor cuts inspected; L06 cut rendering then9 remaining interiors. All major producer defects closed after real negatives/corrections/reinspection; minor ceiling-edge closure awaits L01 interior. No ZIP/publication-ready/independent acceptance claim."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:37:37Z",
-    "expires": "2026-10-16T21:15:41Z",
-    "checkpoint": "Actual active session resumed17:13Z: cached runtime/render processes were absent, official4.3.2 restored and new renderer/uploader running on unchanged native1b/GLB069. Ten satisfactory current-source views plus two retained presentation failures pending reinspection. Explicit public-plan labels corrected; L06 plan incoming-stair selection and technical saved-camera choice correcting without geometry/pose edits. No ZIP/readiness/acceptance claim."
+    "expires": "2026-10-16T21:48:12Z",
+    "checkpoint": "Actually working:19/29 corrected native1b originals individually reopened/SHA-bound. All6 plans, both technical views, two exterior heroes, full furnished section and5 floor cuts inspected; L06 cut rendering then9 remaining interiors. All major producer defects closed after real negatives/corrections/reinspection; minor ceiling-edge closure awaits L01 interior. No ZIP/publication-ready/independent acceptance claim."
   }
 }
