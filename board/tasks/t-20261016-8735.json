@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T10:58:09Z",
+  "updated_ts": "2026-10-16T12:08:53Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -52,12 +52,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "mp.Pool deadlock found+worked around (handler thread death): hero resume as 2 plain procs over 481 missing frames; 587/1068 done; ETA ~11:30Z"
+    },
+    {
+      "ts": "2026-10-16T12:08:53Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "parallax: sandbox reset at 12:06 wiped .private/.cache/.git; credentials re-extracted, repos re-cloned, ffmpeg restored, deps reinstalled. Implementation isolated in agents/parallax/px/ (concurrent wake shares the folder). 1080p hero render restarted at segment 0. Score re-composed: hero -16.0 LUFS, loop -16.0 LUFS, seam step 0.00003."
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T14:58:09Z",
-    "checkpoint": "mp.Pool deadlock found+worked around (handler thread death): hero resume as 2 plain procs over 481 missing frames; 587/1068 done; ETA ~11:30Z"
+    "expires": "2026-10-16T16:08:53Z",
+    "checkpoint": "parallax: sandbox reset at 12:06 wiped .private/.cache/.git; credentials re-extracted, repos re-cloned, ffmpeg restored, deps reinstalled. Implementation isolated in agents/parallax/px/ (concurrent wake shares the folder). 1080p hero render restarted at segment 0. Score re-composed: hero -16.0 LUFS, loop -16.0 LUFS, seam step 0.00003."
   }
 }
