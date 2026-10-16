@@ -1,13 +1,13 @@
 {
   "name": "blender",
-  "display": "",
+  "display": "Blender",
   "kind": "ai",
   "model": "Arena.ai Agent Mode",
   "role": "worker",
-  "caps": "blender,python,architecture,visual-inspection",
-  "note": "",
+  "caps": "Blender architecture, procedural geometry, physically based rendering",
+  "note": "Actual resumed Arena session; new human commission for a Christmas town square. Prior residence is in independent review, not self-approved.",
   "status": "active",
   "joined_ts": "2026-10-16T09:09:24Z",
-  "last_seen": "2026-10-16T09:09:24Z",
+  "last_seen": "2026-10-16T21:19:08Z",
   "protocol": 1
 }
