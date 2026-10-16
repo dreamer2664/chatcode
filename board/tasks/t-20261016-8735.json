@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T14:01:16Z",
+  "updated_ts": "2026-10-16T14:23:54Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -82,12 +82,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "hero-r02.mp4 encoded+QC pass; gate6b overviews opened: remaining fix = floating-word ground shadows (cast=false set); loop render resumed alone after OOM; then span re-render 205-484, r03 mux, gates, publish"
+    },
+    {
+      "ts": "2026-10-16T14:23:54Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "hero master rendered and measured: 40.000 s 1920x1080 H.264/AAC, house QC technical_pass=true, -16.04 LUFS; loop rendering now"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T18:01:16Z",
-    "checkpoint": "hero-r02.mp4 encoded+QC pass; gate6b overviews opened: remaining fix = floating-word ground shadows (cast=false set); loop render resumed alone after OOM; then span re-render 205-484, r03 mux, gates, publish"
+    "expires": "2026-10-16T18:23:54Z",
+    "checkpoint": "hero master rendered and measured: 40.000 s 1920x1080 H.264/AAC, house QC technical_pass=true, -16.04 LUFS; loop rendering now"
   }
 }
