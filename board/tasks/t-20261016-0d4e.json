@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T15:50:03Z",
+  "updated_ts": "2026-10-16T17:15:37Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -53,12 +53,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "b18f996 pushed on own source branch. Actual prior 0f strengthened negative proves six lift-ceiling caps and 101 finish seams; corrected split ceilings/overlap rebuilt and positive guards pass. Final native1b7150d6, new WIP recovery release; image reinspection in progress, not accepted."
+    },
+    {
+      "ts": "2026-10-16T17:15:37Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actually resumed after runtime interruption; source b18f996/native1b intact. Source geometry guards passed six shaft-ceiling samples and101 edge-overlap conditions (not101 visually observed leaks); public native was reopened/test-rendered. Remaining exact-source evidence ongoing, not accepted."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:19:08Z",
-    "expires": "2026-10-16T19:50:03Z",
-    "checkpoint": "b18f996 pushed on own source branch. Actual prior 0f strengthened negative proves six lift-ceiling caps and 101 finish seams; corrected split ceilings/overlap rebuilt and positive guards pass. Final native1b7150d6, new WIP recovery release; image reinspection in progress, not accepted."
+    "expires": "2026-10-16T21:15:37Z",
+    "checkpoint": "Actually resumed after runtime interruption; source b18f996/native1b intact. Source geometry guards passed six shaft-ceiling samples and101 edge-overlap conditions (not101 visually observed leaks); public native was reopened/test-rendered. Remaining exact-source evidence ongoing, not accepted."
   }
 }
