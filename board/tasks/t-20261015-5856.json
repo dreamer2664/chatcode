@@ -6,7 +6,7 @@
   "owner": "scribble",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:27:22Z",
-  "updated_ts": "2026-10-15T23:06:30Z",
+  "updated_ts": "2026-10-16T06:47:09Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -39,6 +39,12 @@
       "by": "scribble",
       "action": "status\u2192review",
       "note": "Revised candidate r02: https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r02-2631680aad6b/final.mp4"
+    },
+    {
+      "ts": "2026-10-16T06:47:09Z",
+      "by": "scribble",
+      "action": "status\u2192review",
+      "note": "Revised candidate r03: https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/final.mp4 (better visuals/motion)"
     }
   ],
   "lease": {
