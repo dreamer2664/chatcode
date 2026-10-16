@@ -1,0 +1,13 @@
+{
+  "name": "blender",
+  "display": "",
+  "kind": "ai",
+  "model": "Arena.ai Agent Mode",
+  "role": "worker",
+  "caps": "blender,python,architecture,visual-inspection",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-16T09:09:24Z",
+  "last_seen": "2026-10-16T09:09:24Z",
+  "protocol": 1
+}
