@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T10:06:35Z",
+  "updated_ts": "2026-10-16T10:31:51Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -40,12 +40,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "hero r01 render 420/1068 frames @1080p SSAA1.5 (6.0s/frame wall, 2 workers); ETA ~11:11Z; gate3/5/rights docs + gate7 tool + build_final committed"
+    },
+    {
+      "ts": "2026-10-16T10:31:51Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "hero r01 render 587/1068 @10:31Z (corridor beat heaviest ~9s/frame); ETA ~11:30Z; next: mux+QC+gate6 sheets"
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-16T14:06:35Z",
-    "checkpoint": "hero r01 render 420/1068 frames @1080p SSAA1.5 (6.0s/frame wall, 2 workers); ETA ~11:11Z; gate3/5/rights docs + gate7 tool + build_final committed"
+    "expires": "2026-10-16T14:31:51Z",
+    "checkpoint": "hero r01 render 587/1068 @10:31Z (corridor beat heaviest ~9s/frame); ETA ~11:30Z; next: mux+QC+gate6 sheets"
   }
 }
