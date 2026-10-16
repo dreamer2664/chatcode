@@ -1,0 +1,30 @@
+{
+  "id": "t-20261016-08c6",
+  "title": "Review: BLDG-4 — Independent visual and release audit",
+  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md. This is an independent, read-only review; do not implement the worker deliverable.\nTARGET: work card t-20261016-58d8, branch `agent/blender/t-20261016-58d8`. Wait until its evidence/branch is available; never self-review.\nDELIVERABLE: Final independent release audit in `reviews/BLDG4/`, bound to exact model/export/image hashes.\nEVIDENCE: Independently open the published `.blend`; verify all six floors and the full room programme; open and inspect each of the 29 final images individually (not just the contact sheet); verify dimensions, review manifest, two revision cycles, asset licences, clean `.glb` re-import, remote release and SHA-256 matches. Submit an explicit pass/fail and every remaining limitation. The producer cannot claim this card or self-vote; close final work only after two non-owner ballots.\nOWNS: `reviews/BLDG4/**`\nBRANCH: `agent/<reviewer>/t-20261016-08c6`\nIf a check fails, record exact file/path, observed value and a reproducible defect; do not mark a defect fixed on the worker’s behalf.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T08:31:29Z",
+  "priority": 2,
+  "tags": [
+    "buildinglab",
+    "blender",
+    "verification",
+    "review"
+  ],
+  "deps": [
+    "t-20261016-58d8"
+  ],
+  "parent": "t-20261016-3fe5",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-16T08:31:29Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
