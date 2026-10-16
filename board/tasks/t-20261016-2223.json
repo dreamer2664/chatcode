@@ -1,0 +1,30 @@
+{
+  "id": "t-20261016-2223",
+  "title": "Review: BLDG-2 — Exterior, structure and circulation",
+  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md. This is an independent, read-only review; do not implement the worker deliverable.\nTARGET: work card t-20261016-0d4e, branch `agent/blender/t-20261016-0d4e`. Wait until its evidence/branch is available; never self-review.\nDELIVERABLE: An independent shell/core inspection in `reviews/BLDG2/`.\nEVIDENCE: Open the exact saved `scene/shell.blend`; verify six actual plates, floor heights, façade depth/materials, window openings, two connected stair routes, elevator/shaft/landings, roof and non-destructive cutaway. Inspect the exterior and cutaway render at full size and log defects.\nOWNS: `reviews/BLDG2/**`\nBRANCH: `agent/<reviewer>/t-20261016-2223`\nIf a check fails, record exact file/path, observed value and a reproducible defect; do not mark a defect fixed on the worker’s behalf.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T08:31:29Z",
+  "priority": 2,
+  "tags": [
+    "buildinglab",
+    "blender",
+    "verification",
+    "review"
+  ],
+  "deps": [
+    "t-20261016-0d4e"
+  ],
+  "parent": "t-20261016-3fe5",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-16T08:31:29Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
