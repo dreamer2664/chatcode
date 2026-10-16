@@ -2,11 +2,11 @@
   "id": "t-20261016-61b0",
   "title": "BLDG-3 \u2014 Build and furnish complete interiors on all six floors",
   "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: The complete furnished interior system in `scene/interiors.blend`: every room and corridor on every floor; 14 homes with distinct layouts; fully modeled kitchens, bathrooms, sleeping/living areas, storage, furniture, fixtures and lighting; plus all L01 and L06 shared/service spaces. Provide a six-floor interior proof view.\nEVIDENCE: `blender --background scene/interiors.blend --python tools/validate_interiors.py` \u2192 exit 0 and `PASS`; reports 14 furnished homes, all six floors non-empty, required L01/L06 spaces, doors/room boundaries/furniture, and zero missing asset links. Open one real interior proof view for each floor.\nOWNS: `scene/interiors.blend`, `assets/interiors/**`, `tools/validate_interiors.py`\nBRANCH: `agent/blender/t-20261016-61b0`\nREVIEW CARD: t-20261016-008a\nPARENT: t-20261016-3fe5. Design dependency: t-20261016-c577; shell alignment: t-20261016-0d4e. No cube placeholders, blank rooms, facades-only interiors, or hidden empty floors.\n",
-  "status": "claimed",
+  "status": "review",
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T17:15:39Z",
+  "updated_ts": "2026-10-16T18:37:41Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -19,7 +19,7 @@
   ],
   "parent": "t-20261016-3fe5",
   "branch": "agent/blender/t-20261016-61b0",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/3",
   "history": [
     {
       "ts": "2026-10-16T08:31:29Z",
@@ -60,6 +60,12 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actually resumed; source9f0a16f and corrected source3b29/native1b intact. Nine actual wardrobe fronts +.292m inward; current bedroom and living originals actually opened. All14 homes remain built. Re-rendering/reopening remaining interiors and floor cuts, independent review pending."
+    },
+    {
+      "ts": "2026-10-16T18:37:41Z",
+      "by": "blender",
+      "action": "update\u2192review",
+      "note": "BLDG-3 ready for independent NON-OWNER review t-20261016-008a; no producer vote. Interior source9f0a16f; all14 homes/all public/shared programme furnished, nine actual wardrobe fronts corrected and geometry-checked plus actual bedroom reinspection. All29 current-native originals individually opened/SHA-bound; native/GLB/package gates PASS. Public ZIP and every member verified, receipt on release: https://github.com/dreamer2664/storagecode/releases/tag/buildinglab/blender/candidate-20261016-1b7150d6ce45 . Independent acceptance pending; conceptual visual architecture only."
     }
   ],
   "lease": {
