@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T13:18:06Z",
+  "updated_ts": "2026-10-16T14:57:00Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -42,12 +42,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actively verifying detailed 14-home furnished source at d07fc0a (draft source PR3), integrated frozen native 0f8497096094. Actual L01/L02/L03 final cutaways individually opened, including populated ground/shared functions, kitchens/baths/storage and alternate family-bed orientation. Remaining level and interior views rendering; 8/29 whole-campaign original inspections, not acceptance."
+    },
+    {
+      "ts": "2026-10-16T14:57:00Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Active 14-home furnishing verification at source d07fc0a: all six regenerated final 4K furnished floor cutaways individually opened, including three-home typical levels and distinct two-penthouse/winter-garden top. Cafe, reception/mail and Home2A living/kitchen originals also opened. Native/export hashes unchanged; minor isolated-interior ceiling-edge highlights disclosed, not structural/code claims. Remaining 17 images rendering; no independent acceptance claim."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:34:16Z",
-    "expires": "2026-10-16T17:18:06Z",
-    "checkpoint": "Actively verifying detailed 14-home furnished source at d07fc0a (draft source PR3), integrated frozen native 0f8497096094. Actual L01/L02/L03 final cutaways individually opened, including populated ground/shared functions, kitchens/baths/storage and alternate family-bed orientation. Remaining level and interior views rendering; 8/29 whole-campaign original inspections, not acceptance."
+    "expires": "2026-10-16T18:57:00Z",
+    "checkpoint": "Active 14-home furnishing verification at source d07fc0a: all six regenerated final 4K furnished floor cutaways individually opened, including three-home typical levels and distinct two-penthouse/winter-garden top. Cafe, reception/mail and Home2A living/kitchen originals also opened. Native/export hashes unchanged; minor isolated-interior ceiling-edge highlights disclosed, not structural/code claims. Remaining 17 images rendering; no independent acceptance claim."
   }
 }
