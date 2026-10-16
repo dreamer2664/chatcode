@@ -1,0 +1,30 @@
+{
+  "id": "t-20261016-008a",
+  "title": "Review: BLDG-3 — Floor-by-floor interior completeness",
+  "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md. This is an independent, read-only review; do not implement the worker deliverable.\nTARGET: work card t-20261016-61b0, branch `agent/blender/t-20261016-61b0`. Wait until its evidence/branch is available; never self-review.\nDELIVERABLE: An independent floor-by-floor interior completeness audit in `reviews/BLDG3/`.\nEVIDENCE: Open the exact interior scene; verify all six floors individually, all 14 homes, room boundaries, kitchens, bathrooms, furnishings, fixtures, lights, door/stair clearances and unobstructed routes. Open the real per-floor proof images individually; list every empty/missing/implausible room.\nOWNS: `reviews/BLDG3/**`\nBRANCH: `agent/<reviewer>/t-20261016-008a`\nIf a check fails, record exact file/path, observed value and a reproducible defect; do not mark a defect fixed on the worker’s behalf.",
+  "status": "open",
+  "owner": null,
+  "created_by": "vesta",
+  "created_ts": "2026-10-16T08:31:29Z",
+  "updated_ts": "2026-10-16T08:31:29Z",
+  "priority": 2,
+  "tags": [
+    "buildinglab",
+    "blender",
+    "verification",
+    "review"
+  ],
+  "deps": [
+    "t-20261016-61b0"
+  ],
+  "parent": "t-20261016-3fe5",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-16T08:31:29Z",
+      "by": "vesta",
+      "action": "created"
+    }
+  ]
+}
