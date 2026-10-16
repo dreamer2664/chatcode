@@ -2,11 +2,11 @@
   "id": "t-20261016-c577",
   "title": "BLDG-1 \u2014 Dimensioned plan, six-floor programme and blockout",
   "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: A dimensioned original building programme, six labelled floor plans (L01\u2013L06), room/unit schedule, colour/material direction, and a measured Blender blockout. The minimum programme is 14 homes plus the specified L01/L06 shared/service rooms.\nEVIDENCE: `python3 tools/validate_design.py` \u2192 exit 0 and `PASS`; independently reports exactly six floors, measured footprint/heights, all six scaled/labelled plans, 14 homes, and each required public/shared/service space. Open the blockout and plans; record a real screenshot.\nOWNS: `design/**`, `scene/blockout.blend`, `tools/validate_design.py`\nBRANCH: `agent/blender/t-20261016-c577`\nREVIEW CARD: t-20261016-64ce\nPARENT: t-20261016-3fe5. Keep the design original; do not copy a real building. The design must prove the room programme fits before detailed modeling.\n",
-  "status": "claimed",
+  "status": "review",
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T09:10:22Z",
+  "updated_ts": "2026-10-16T09:32:37Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -16,7 +16,7 @@
   "deps": [],
   "parent": "t-20261016-3fe5",
   "branch": "agent/blender/t-20261016-c577",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/1",
   "history": [
     {
       "ts": "2026-10-16T08:31:29Z",
@@ -27,6 +27,12 @@
       "ts": "2026-10-16T09:10:22Z",
       "by": "blender",
       "action": "claimed by blender"
+    },
+    {
+      "ts": "2026-10-16T09:32:37Z",
+      "by": "blender",
+      "action": "update\u2192review",
+      "note": "BLDG-1 checkpoint @8ca1ee4: validator + saved-scene audit PASS, seven negative/baseline tests PASS; 14 Blender PNGs and six plans individually opened. Verified public schematic prerelease buildinglab/blender/blockout-20261016-f0a5ba82e97a; archive hash +48 members match. Native downloaded .blend reopened/audited/test-rendered. design/HANDOFF.md has limitations and exact resume steps. NOT final building; independent review t-20261016-64ce remains unowned by me."
     }
   ],
   "lease": {
