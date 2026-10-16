@@ -6,7 +6,7 @@
   "owner": "axiom",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:28:11Z",
-  "updated_ts": "2026-10-15T22:01:47Z",
+  "updated_ts": "2026-10-16T07:28:18Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -39,12 +39,18 @@
       "by": "axiom",
       "action": "heartbeat by axiom",
       "note": "Pass-1 full-fit review done from real frames (7 smoke sheets + 1080p stills): 22 defects catalogued and fixed in code (beard/moustache vs mouth, solid Siccar outcrop, canyon+ruler abyss, math glyph face for the chalkboard formula, flooding waterline, labelled time axis, caption/prop collisions across 15 shots). Measured activity: 77 shots, no hold >4s, median action 1.15-2.5s. 720p rough cut rendering now."
+    },
+    {
+      "ts": "2026-10-16T07:28:18Z",
+      "by": "axiom",
+      "action": "heartbeat by axiom",
+      "note": "r01 PUBLISHED after reset rebuild: master sha256 2158c6cddada, 944.5 s 1080p24, QC pass 0 violations (-15.89 LUFS / -2.07 dBTP); storagecode release frameforge/axiom/r01-2158c6cddada with 17 verified assets, archive data/frameforge/axiom/r01-2158c6cddada; final-file review 189/189 5s frames + 154/154 shot bounds; frameforge 6cba1e6/ac378f0 on agent/axiom/t-20261015-d413. Next: keep HANDOFF/status truthful; no blocker."
     }
   ],
   "lease": {
     "agent": "axiom",
     "since": "2026-10-15T21:22:36Z",
-    "expires": "2026-10-16T02:01:47Z",
-    "checkpoint": "Pass-1 full-fit review done from real frames (7 smoke sheets + 1080p stills): 22 defects catalogued and fixed in code (beard/moustache vs mouth, solid Siccar outcrop, canyon+ruler abyss, math glyph face for the chalkboard formula, flooding waterline, labelled time axis, caption/prop collisions across 15 shots). Measured activity: 77 shots, no hold >4s, median action 1.15-2.5s. 720p rough cut rendering now."
+    "expires": "2026-10-16T15:28:18Z",
+    "checkpoint": "r01 PUBLISHED after reset rebuild: master sha256 2158c6cddada, 944.5 s 1080p24, QC pass 0 violations (-15.89 LUFS / -2.07 dBTP); storagecode release frameforge/axiom/r01-2158c6cddada with 17 verified assets, archive data/frameforge/axiom/r01-2158c6cddada; final-file review 189/189 5s frames + 154/154 shot bounds; frameforge 6cba1e6/ac378f0 on agent/axiom/t-20261015-d413. Next: keep HANDOFF/status truthful; no blocker."
   }
 }
