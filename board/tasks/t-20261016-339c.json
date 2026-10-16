@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-16T21:40:36Z",
+  "updated_ts": "2026-10-16T22:39:46Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -38,12 +38,18 @@
       "by": "blender",
       "action": "update (status kept: claimed)",
       "note": "Production source DRAFT only, not ready for final review; checkpoint https://github.com/dreamer2664/storagecode/releases/tag/townsquare/blender/blockout-20261016-4b09eedd70b3 . Preserve previous residence independent-review state. Full furnishing, people and realism gates remain open."
+    },
+    {
+      "ts": "2026-10-16T22:39:46Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual production now has twelve detailed building natives, twenty-six furnished floor components, 164 rooms, twelve editable anatomical winter-clothed variants, and an assembled 36-person town native. Material-ID batching defect corrected before final evidence. Final rendering, individual inspection/corrections, GLB/public verification and independent acceptance remain pending; PR6 stays draft."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T01:40:34Z",
-    "checkpoint": "Actually started Winterlichtplatz:12 building shells/26 distinct floor programmes,2531 actual objects,12 original vector-logo drafts,3 packed CC0 PBR proof maps. Two real study originals opened; playground-tree conflict fixed and reinspected with actual old-native FAIL/new-native PASS. Current A2 native4b09eedd. Public BLOCKOUT ZIP12322810B SHAab7cf7ba16a871c60e64309ec01f60c14020dfceeb9826966967f0e4067eed6f every48 entry verified; exact public native reopened/validated/smoke-rendered and image opened. DRAFT PR6. Zero furnished floors/people yet; final realism explicitly NOT passed. Next: detailed supermarket/cafe/interior + winter-clothed human close-view feasibility pilot."
+    "expires": "2026-10-17T04:39:46Z",
+    "checkpoint": "Actual production now has twelve detailed building natives, twenty-six furnished floor components, 164 rooms, twelve editable anatomical winter-clothed variants, and an assembled 36-person town native. Material-ID batching defect corrected before final evidence. Final rendering, individual inspection/corrections, GLB/public verification and independent acceptance remain pending; PR6 stays draft."
   }
 }
