@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T13:18:04Z",
+  "updated_ts": "2026-10-16T14:56:58Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -41,12 +41,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actively integrating/verifying detailed shell at 3e93935 (draft source PR2). Frozen assembled native 0f8497096094 has passing native/lift/circulation checks and clean GLB reimport; actual intact day/dusk and full six-level cutaway individually opened. Exact final campaign continues, 8/29 originals explicitly inspected. No publication or independent acceptance claimed."
+    },
+    {
+      "ts": "2026-10-16T14:56:58Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Active verification: shell source 3e93935; immutable native checkpoint now public with unauthenticated redownload/SHA verification. Frozen integrated native 0f8497096094 freshly revalidated PASS after runtime restore. All 9 final 4K architectural views (day/dusk/full section/six floor cuts) regenerated and actually reopened individually. Current whole campaign 12/29 inspections; final archive and independent acceptance pending."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T10:19:08Z",
-    "expires": "2026-10-16T17:18:04Z",
-    "checkpoint": "Actively integrating/verifying detailed shell at 3e93935 (draft source PR2). Frozen assembled native 0f8497096094 has passing native/lift/circulation checks and clean GLB reimport; actual intact day/dusk and full six-level cutaway individually opened. Exact final campaign continues, 8/29 originals explicitly inspected. No publication or independent acceptance claimed."
+    "expires": "2026-10-16T18:56:58Z",
+    "checkpoint": "Active verification: shell source 3e93935; immutable native checkpoint now public with unauthenticated redownload/SHA verification. Frozen integrated native 0f8497096094 freshly revalidated PASS after runtime restore. All 9 final 4K architectural views (day/dusk/full section/six floor cuts) regenerated and actually reopened individually. Current whole campaign 12/29 inspections; final archive and independent acceptance pending."
   }
 }
