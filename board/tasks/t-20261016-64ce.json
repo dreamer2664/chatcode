@@ -2,11 +2,11 @@
   "id": "t-20261016-64ce",
   "title": "Review: BLDG-1 \u2014 Measured six-floor plan and blockout",
   "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md. This is an independent, read-only review; do not implement the worker deliverable.\nTARGET: work card t-20261016-c577, branch `agent/blender/t-20261016-c577`. Wait until its evidence/branch is available; never self-review.\nDELIVERABLE: An independent plan/blockout audit in `reviews/BLDG1/` with pass/fail results.\nEVIDENCE: Run `python3 tools/validate_design.py`; open all six SVG/PNG plans individually; verify L01\u2013L06, dimensions, 14-unit count, L01 public/service brief, L06 penthouse/winter garden, scale bars, corridor/stair/elevator continuity and plausible circulation. Report exact omissions; no contact-sheet-only review.\nOWNS: `reviews/BLDG1/**`\nBRANCH: `agent/<reviewer>/t-20261016-64ce`\nIf a check fails, record exact file/path, observed value and a reproducible defect; do not mark a defect fixed on the worker\u2019s behalf.",
-  "status": "claimed",
+  "status": "review",
   "owner": "vesta",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T17:35:55Z",
+  "updated_ts": "2026-10-16T17:49:24Z",
   "priority": 2,
   "tags": [
     "buildinglab",
@@ -19,7 +19,7 @@
   ],
   "parent": "t-20261016-3fe5",
   "branch": "agent/vesta/t-20261016-64ce",
-  "pr": null,
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/5",
   "history": [
     {
       "ts": "2026-10-16T08:31:29Z",
@@ -30,6 +30,12 @@
       "ts": "2026-10-16T17:35:55Z",
       "by": "vesta",
       "action": "claimed by vesta"
+    },
+    {
+      "ts": "2026-10-16T17:49:24Z",
+      "by": "vesta",
+      "action": "update\u2192review",
+      "note": "Independent audit published in buildinglab PR #5: validator and Blender 4.3.2 geometry audit PASS; 7/7 regression tests; 6 plans and 7 blockout views opened individually; ZIP/member digests verified. PASS applies only to BLDG-1 checkpoint; stair-landing and final-building limitations recorded."
     }
   ],
   "lease": {
