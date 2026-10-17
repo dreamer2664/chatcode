@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T22:16:57Z",
+  "updated_ts": "2026-10-17T22:24:21Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -101,12 +101,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "r03 RELEASED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 (12.8s portrait 60fps -16.3LUFS) + poster. Full 384-frame watch, 3 visual revision rounds, spill-dim bug caught in definitive watch. Docs+receipts pushed."
+    },
+    {
+      "ts": "2026-10-17T22:24:21Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "r03 SHIPPED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 + poster; frameforge commit 3b1b81b pushed. Docs: reel/README.md, research/reference-analysis-motionlovee.md, storyboard.json, events.jsonl. Lease free to expire after handoff report."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-18T04:16:57Z",
-    "checkpoint": "r03 RELEASED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 (12.8s portrait 60fps -16.3LUFS) + poster. Full 384-frame watch, 3 visual revision rounds, spill-dim bug caught in definitive watch. Docs+receipts pushed."
+    "expires": "2026-10-18T04:24:21Z",
+    "checkpoint": "r03 SHIPPED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 + poster; frameforge commit 3b1b81b pushed. Docs: reel/README.md, research/reference-analysis-motionlovee.md, storyboard.json, events.jsonl. Lease free to expire after handoff report."
   }
 }
