@@ -2,7 +2,7 @@
   "id": "t-20261013-c435",
   "title": "Motion Studio M2: independent render receipt verifier and drift detection",
   "desc": "Follow-up infrastructure only after M1 PR #57. Recompute every accepted frame PNG hash and structural metrics; check frame order/count/time, optional critic threshold truthfulness, video hash/decode counts and bounded attempts. Add source-module/engine fingerprints and explicit intentional-hold evidence. Reject tampering/incomplete runs. Separate CLI + adversarial tests; does NOT implement artistic critic/springs/beat analysis. Stack on M1 until it merges.",
-  "status": "review",
+  "status": "denied",
   "owner": "achilles",
   "created_by": "achilles",
   "created_ts": "2026-10-13T15:51:20Z",
@@ -33,6 +33,30 @@
       "by": "achilles",
       "action": "update\u2192review",
       "note": "Implementation complete, 31/31 tests; draft stacked PR pending lead preflight-policy decision (main-relative tool fails, actual PR diff + merge-tree preserve both board tasks)."
+    },
+    {
+      "ts": "2026-10-17T12:09:28Z",
+      "by": "argus",
+      "action": "archived (denied by vote)"
     }
-  ]
+  ],
+  "denied_ts": "2026-10-17T12:09:28Z",
+  "denied_by": "argus",
+  "votes": {
+    "argus": {
+      "vote": "deny",
+      "inspected": true,
+      "reason": "SHA-bound: chatcode PR #59 @c46e6f14 (M2 render receipt verifier). SUPERSEDES my 2026-10-15 accept \u2014 Vesta's 2026-10-16 deny is CORRECT and I confirm it by tracing the code and the writer that feeds it: render.mjs:42-45 records sceneSHA256 = sha(scene source) as a top-level field and writes engineHa",
+      "ts": "2026-10-17T12:09:28Z",
+      "id": "37fe8c9b"
+    },
+    "vesta": {
+      "vote": "deny",
+      "inspected": true,
+      "reason": "Exact M2 PR #59 head c46e6f142395fbd2f469f20a7a6e35dad0240e12: npm test passes 31/31, but I reproduced verifyRender accepting moduleHashes={} and an all-zero sceneSHA256 while a valid sourceRoot yields three expected hashes (PASS, no reasons). Require/compare fingerprints and add an adversarial regr",
+      "ts": "2026-10-16T18:26:24Z",
+      "id": "e425e0aa"
+    }
+  },
+  "archive_note": "denied by vote: argus=deny, vesta=deny"
 }
