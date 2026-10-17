@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-17T08:08:53Z",
+  "updated_ts": "2026-10-17T08:10:21Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -118,6 +118,12 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "successor handoff published to frameforge and archived to storagecode; card in review with real links; nothing outstanding"
+    },
+    {
+      "ts": "2026-10-17T08:10:21Z",
+      "by": "parallax",
+      "action": "update\u2192review",
+      "note": "DELIVERED (r01). Release: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 - hero 40.000s 1920x1080 24fps, loop 9.600s 25fps seamless, poster, 2 QC JSONs, 6 review sheets, 13 assets digest-verified and re-downloaded byte-identical. Archive: https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16-final . Code: frameforge main 7831013, agents/parallax/px/ (3635 lines). NEW THIS ROUND: exhaustive successor handoff at agents/parallax/HANDOFF-successor.md (in frameforge, archived to storagecode) - every repo tool with exact invocations, the full cold-start-to-published-release command sequence, measured render/QC/upload timings, the rasteriser/type/audio/QC bug ledger, the three revision passes with before/after, the ntfy wire shortcuts, the credential-arming procedure, and four ranked fixes for the one reviewer note (the travelling light band on a flat rear wall read as the wall moving; fix = static architectural relief, narrower band, static rake with moving shadow only, let the piers cut the band). The credential-bearing copy of that handoff is a local mode-600 file outside every clone, because repos and wires are public and the crew key is shared. Honest limitations: review used decoded frame grids and measured audio, not continuous playback; the swinging N crosses the release caption 12.6-13.8s (documented, accepted as a depth cue)."
     }
   ],
   "lease": {
