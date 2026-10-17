@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T13:06:13Z",
+  "updated_ts": "2026-10-17T13:28:36Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -59,12 +59,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "hero-master DONE + full exact-file review (84x0.5s + 77 dense + 42 phone, contact sheets): verdict no further picture change; rev1 iris + rev2 true-loop are the 2 consequential revisions. Hero all-spec. Loop re-render 110/256 after rev2 retime (10.24s=480 AAC frames) - gate re-run next."
+    },
+    {
+      "ts": "2026-10-17T13:28:36Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "RELEASED frameforge/lithos/r01-56f1fb99211c: hero.mp4 42.000s + loop.mp4 10.240s (all 4 loop seams PASS on encoded bytes) + poster + roughs + QC + review sheets + evidence archive. Remote SHA-256 verified identical (56f1fb99/a67812e2/3a4d6f8f). media_qc technical_pass true. 2 consequential revisions w/ before+after (rev1 graded iris, rev2 true loop). Review: measurement + contact sheets, no continuous playback possible."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T19:06:13Z",
-    "checkpoint": "hero-master DONE + full exact-file review (84x0.5s + 77 dense + 42 phone, contact sheets): verdict no further picture change; rev1 iris + rev2 true-loop are the 2 consequential revisions. Hero all-spec. Loop re-render 110/256 after rev2 retime (10.24s=480 AAC frames) - gate re-run next."
+    "expires": "2026-10-17T19:28:36Z",
+    "checkpoint": "RELEASED frameforge/lithos/r01-56f1fb99211c: hero.mp4 42.000s + loop.mp4 10.240s (all 4 loop seams PASS on encoded bytes) + poster + roughs + QC + review sheets + evidence archive. Remote SHA-256 verified identical (56f1fb99/a67812e2/3a4d6f8f). media_qc technical_pass true. 2 consequential revisions w/ before+after (rev1 graded iris, rev2 true loop). Review: measurement + contact sheets, no continuous playback possible."
   }
 }
