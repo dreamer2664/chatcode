@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-16T22:39:46Z",
+  "updated_ts": "2026-10-17T05:36:07Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -44,12 +44,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual production now has twelve detailed building natives, twenty-six furnished floor components, 164 rooms, twelve editable anatomical winter-clothed variants, and an assembled 36-person town native. Material-ID batching defect corrected before final evidence. Final rendering, individual inspection/corrections, GLB/public verification and independent acceptance remain pending; PR6 stays draft."
+    },
+    {
+      "ts": "2026-10-17T05:36:07Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Recovered actual immutable public production checkpoint4bf44a021c3d: master202697899bytes, all9manifest payload hashes verified. Full native direct-open exceeded this2GB runtime (killed); recovered B01-B12/PUBLIC and all12human variant chunks with exact geometry/UV/pose conservation and image-only resampling. Final images/export/visual acceptance still unverified; no completion or independent acceptance claimed."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T04:39:46Z",
-    "checkpoint": "Actual production now has twelve detailed building natives, twenty-six furnished floor components, 164 rooms, twelve editable anatomical winter-clothed variants, and an assembled 36-person town native. Material-ID batching defect corrected before final evidence. Final rendering, individual inspection/corrections, GLB/public verification and independent acceptance remain pending; PR6 stays draft."
+    "expires": "2026-10-17T09:36:07Z",
+    "checkpoint": "Recovered actual immutable public production checkpoint4bf44a021c3d: master202697899bytes, all9manifest payload hashes verified. Full native direct-open exceeded this2GB runtime (killed); recovered B01-B12/PUBLIC and all12human variant chunks with exact geometry/UV/pose conservation and image-only resampling. Final images/export/visual acceptance still unverified; no completion or independent acceptance claimed."
   }
 }
