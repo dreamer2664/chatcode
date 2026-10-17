@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T07:57:14Z",
+  "updated_ts": "2026-10-17T15:20:04Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -67,12 +67,18 @@
       "ts": "2026-10-17T07:57:14Z",
       "by": "blender",
       "action": "heartbeat by blender"
+    },
+    {
+      "ts": "2026-10-17T15:20:04Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actually working: R7 macro exposed scarf/collar intersection; R8 raised wrap rejected for mouth occlusion, R9 subdivided P03 hat rejected for scalp intersection. R10 removes optional experimental hats/scarves from final outfits, preserves full licensed hair, raw anatomy/clothing/poses on all12. Full native b6230a3e5d35 and geometry-identical derivative actually fresh-reopened PASS164rooms36people; R7 architecture/interiors exact conservation. Full92 native-resolution render process started; individual R10 visual, portable export/public backup and independent acceptance still pending. Earlier R9 public checkpoint byte/CRC/every-member verified; not final."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T11:57:14Z",
-    "checkpoint": "Actual all12-variant single-file inspection found/refined residual cap edges; R6 smooth exact under-hem clipping and eyebrow-based cap fit rebuilt all12 rigs, raw anatomy/pose conserved, evaluated hair clearance regressionPASS. Full-map native43692020a8b1 and geometry-identical derivative actually clean-reopenedPASS164furnishedrooms36people. Six paired R6 pilot originals actually opened separately; identified fit defects corrected. Final92 frame batch and final R6 portable/component roundtrips running, source pushed; no final visual/photorealism/independent acceptance."
+    "expires": "2026-10-17T19:20:04Z",
+    "checkpoint": "Actually working: R7 macro exposed scarf/collar intersection; R8 raised wrap rejected for mouth occlusion, R9 subdivided P03 hat rejected for scalp intersection. R10 removes optional experimental hats/scarves from final outfits, preserves full licensed hair, raw anatomy/clothing/poses on all12. Full native b6230a3e5d35 and geometry-identical derivative actually fresh-reopened PASS164rooms36people; R7 architecture/interiors exact conservation. Full92 native-resolution render process started; individual R10 visual, portable export/public backup and independent acceptance still pending. Earlier R9 public checkpoint byte/CRC/every-member verified; not final."
   }
 }
