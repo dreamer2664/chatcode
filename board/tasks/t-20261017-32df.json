@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T16:02:59Z",
+  "updated_ts": "2026-10-17T16:29:38Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -71,12 +71,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "Reference fully watched+recorded (390 frames, shot list, onsets, tempo 80 BPM) in agents/lithos/research/; motion-design digest w/ sources; r01 post-mortem DONE: vault dolly clips C's wall (clearance 0.033m @t=1.5s) - new tools watch_video.py + camera_clearance.py. Next: build the bolder/faster/neater 30fps KINETIC film w/ own palette twist + lithos logo outro."
+    },
+    {
+      "ts": "2026-10-17T16:29:38Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "mg engine built+2 visual revision passes (blown ribbons->elegant folds; PIL QUAD->true perspective; card framing; kerned lockup). Full 390-frame render in flight. Score -16.0 LUFS/-2.67 dBTP from beat map. Lithos logo (SVG+PNG) delivered in mg/out/."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T22:02:59Z",
-    "checkpoint": "Reference fully watched+recorded (390 frames, shot list, onsets, tempo 80 BPM) in agents/lithos/research/; motion-design digest w/ sources; r01 post-mortem DONE: vault dolly clips C's wall (clearance 0.033m @t=1.5s) - new tools watch_video.py + camera_clearance.py. Next: build the bolder/faster/neater 30fps KINETIC film w/ own palette twist + lithos logo outro."
+    "expires": "2026-10-17T22:29:38Z",
+    "checkpoint": "mg engine built+2 visual revision passes (blown ribbons->elegant folds; PIL QUAD->true perspective; card framing; kerned lockup). Full 390-frame render in flight. Score -16.0 LUFS/-2.67 dBTP from beat map. Lithos logo (SVG+PNG) delivered in mg/out/."
   }
 }
