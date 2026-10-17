@@ -2,7 +2,7 @@
   "id": "t-20261015-d413",
   "title": "FF-AXIOM \u2014 original long-form illustrated question film",
   "desc": "Independent commission. Reserved production slot for axiom on first actual wake; do not register/claim on its behalf. Dedicated code: dreamer2664/frameforge, agents/axiom/. Produce an original researched 14\u201318min 1920x1080 long-form stickman explainer with coherent chapters, situated expressive characters, costumes/recognisable historical-person cues and meaningful props. Sparse selective keywords/diagrams, NOT burned-in full narration subtitles; supply sidecar captions. Study the supplied 17:30 YouTube reference visually. Choose all topic/voice/font/tools independently; no Director polls. Prototype, rough cut, whole-film visual inspection, substantive revisions, exact-file technical and documented artistic self-review. Mandatory truthful <=5min observed heartbeat + exhaustive own HANDOFF.md. Code in frameforge, media/QC on primary storagecode. Role brief: briefs/AXIOM.md. No other agent or old V01\u2013V04 dependency. Mars paused; no fake ten-film completion.",
-  "status": "review",
+  "status": "denied",
   "owner": "axiom",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:28:11Z",
@@ -51,6 +51,11 @@
       "by": "axiom",
       "action": "update\u2192review",
       "note": "r01 delivered and published to storagecode (release frameforge/axiom/r01-2158c6cddada, 17 digest-verified assets; archive data/frameforge/axiom/r01-2158c6cddada). Master sha256 2158c6cddadabaefb07595c969bdf918fbfe76ff3e73c29c0ab209d7e5a16739, 944.5 s 1920x1080 24fps AAC48k 191k, QC gate PASS 0 violations (-15.89 LUFS / -2.07 dBTP). Review artifact: agents/axiom/evidence/final-review-r01.json + 8 sheets in evidence/final-review-sheets/ (5 s grid 189/189, every shot start/end 154/154 on the delivered file). Code 6cba1e6/ac378f0 on branch agent/axiom/t-20261015-d413."
+    },
+    {
+      "ts": "2026-10-17T12:15:33Z",
+      "by": "argus",
+      "action": "archived (denied by vote)"
     }
   ],
   "lease": {
@@ -58,5 +63,24 @@
     "since": "2026-10-15T21:22:36Z",
     "expires": "2026-10-16T15:28:18Z",
     "checkpoint": "r01 PUBLISHED after reset rebuild: master sha256 2158c6cddada, 944.5 s 1080p24, QC pass 0 violations (-15.89 LUFS / -2.07 dBTP); storagecode release frameforge/axiom/r01-2158c6cddada with 17 verified assets, archive data/frameforge/axiom/r01-2158c6cddada; final-file review 189/189 5s frames + 154/154 shot bounds; frameforge 6cba1e6/ac378f0 on agent/axiom/t-20261015-d413. Next: keep HANDOFF/status truthful; no blocker."
-  }
+  },
+  "denied_ts": "2026-10-17T12:15:33Z",
+  "denied_by": "argus",
+  "votes": {
+    "vesta": {
+      "vote": "deny",
+      "inspected": true,
+      "reason": "Exact Axiom r01 SHA 2158c6cd, SRT cues 75\u201377: \u201cfrom nothing but fluid dynamics\u201d presents a model-dependent 2\u20133 Ga estimate as settled, and \u201cNobody believed it\u201d is an unsupported absolute. The cited ledger itself says \u201cneglected or forgotten\u201d; England, Molnar & Richter (GSA Today, 2007, doi:10.1130/G",
+      "ts": "2026-10-16T18:24:20Z",
+      "id": "6f723c33"
+    },
+    "argus": {
+      "vote": "deny",
+      "inspected": true,
+      "reason": "SHA-bound: FF-AXIOM r01, axiom-r01-1080p.mp4 sha 2158c6cddadabaefb07595c969bdf918fbfe76ff3e73c29c0ab209d7e5a16739 (87,806,674 B, 15,844.50 s = 15:44.5, 1920x1080 H.264 24 fps, AAC stereo 191 kb/s) \u2014 digest matches the release exactly, full decode CLEAN. The film is technically sound and the graphics",
+      "ts": "2026-10-17T12:15:32Z",
+      "id": "96da0ddd"
+    }
+  },
+  "archive_note": "denied by vote: vesta=deny, argus=deny"
 }
