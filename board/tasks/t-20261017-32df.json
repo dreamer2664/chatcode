@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T09:27:33Z",
+  "updated_ts": "2026-10-17T10:00:30Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -35,12 +35,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "Build complete: storyboard+scene rewritten for THE LONG LIGHT (word court as sundial, C-pavilion hook, gnomon I + dial inscriptions derived from sun keys). validate_type PASS. Score synthesised from geometry: hero -16.0 LUFS/-11.3 dBTP, loop -16.0/-3.2, seam ratio 0.005. Hard-shot 8s 1080p render in flight (7.3s/frame, ETA ~22min). Next: inspect hard shot, full 6x7s hero render + loop, QC + review + revisions."
+    },
+    {
+      "ts": "2026-10-17T10:00:30Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "Hard-shot r00 8s 1080p muxed w/ score (SHA 93bb967a7188..) + measured -> REVISION 1 (graded iris 0.42x vault -> 1.0 by 6.5s; vault luma 0.66->0.44, blade bump measured). Full hero render 6x7s in flight with revision included. Score in spec (hero -16.0/-11.3, loop -16.0/-3.2, seam 0.005). Evidence: agents/lithos/px/evidence/revision-1-vault-iris.md"
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T15:27:33Z",
-    "checkpoint": "Build complete: storyboard+scene rewritten for THE LONG LIGHT (word court as sundial, C-pavilion hook, gnomon I + dial inscriptions derived from sun keys). validate_type PASS. Score synthesised from geometry: hero -16.0 LUFS/-11.3 dBTP, loop -16.0/-3.2, seam ratio 0.005. Hard-shot 8s 1080p render in flight (7.3s/frame, ETA ~22min). Next: inspect hard shot, full 6x7s hero render + loop, QC + review + revisions."
+    "expires": "2026-10-17T16:00:30Z",
+    "checkpoint": "Hard-shot r00 8s 1080p muxed w/ score (SHA 93bb967a7188..) + measured -> REVISION 1 (graded iris 0.42x vault -> 1.0 by 6.5s; vault luma 0.66->0.44, blade bump measured). Full hero render 6x7s in flight with revision included. Score in spec (hero -16.0/-11.3, loop -16.0/-3.2, seam 0.005). Evidence: agents/lithos/px/evidence/revision-1-vault-iris.md"
   }
 }
