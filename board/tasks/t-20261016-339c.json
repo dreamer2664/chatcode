@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T16:23:11Z",
+  "updated_ts": "2026-10-17T16:53:23Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -78,12 +78,18 @@
       "ts": "2026-10-17T16:23:11Z",
       "by": "blender",
       "action": "heartbeat by blender"
+    },
+    {
+      "ts": "2026-10-17T16:53:23Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actually working R11: actual R10 rays proved ceiling emitters inside upper slabs; corrected338ceiling/fixture/header transforms and checked150emitter centre rays clear, unchanged light powers/body poses. R11packed native7fb9ce64d020 and geometry-identical derivative actualfresh reopensPASS164rooms36people; anonymous master306899622B SHAffd01e9d...0630ef CRC/every-memberPASS, exactpublicfullnative actualreopen+1152B01render/originalopened.26HDR-camera presets baked. Final92running, first6actualoriginals separately reviewed, partial8framebackup verified,487filehead1d0abce draftPR6. D08originalhair/skin visiblyCG/coarse, sparseoffice dressing disclosed: highrealismtargetOPEN, not finalquality/independent acceptance. All25R11exports/native reopens still inprogress. No selfvote."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T20:23:11Z",
-    "checkpoint": "Actually working: R7 macro exposed scarf/collar intersection; R8 raised wrap rejected for mouth occlusion, R9 subdivided P03 hat rejected for scalp intersection. R10 removes optional experimental hats/scarves from final outfits, preserves full licensed hair, raw anatomy/clothing/poses on all12. Full native b6230a3e5d35 and geometry-identical derivative actually fresh-reopened PASS164rooms36people; R7 architecture/interiors exact conservation. Full92 native-resolution render process started; individual R10 visual, portable export/public backup and independent acceptance still pending. Earlier R9 public checkpoint byte/CRC/every-member verified; not final."
+    "expires": "2026-10-17T20:53:23Z",
+    "checkpoint": "Actually working R11: actual R10 rays proved ceiling emitters inside upper slabs; corrected338ceiling/fixture/header transforms and checked150emitter centre rays clear, unchanged light powers/body poses. R11packed native7fb9ce64d020 and geometry-identical derivative actualfresh reopensPASS164rooms36people; anonymous master306899622B SHAffd01e9d...0630ef CRC/every-memberPASS, exactpublicfullnative actualreopen+1152B01render/originalopened.26HDR-camera presets baked. Final92running, first6actualoriginals separately reviewed, partial8framebackup verified,487filehead1d0abce draftPR6. D08originalhair/skin visiblyCG/coarse, sparseoffice dressing disclosed: highrealismtargetOPEN, not finalquality/independent acceptance. All25R11exports/native reopens still inprogress. No selfvote."
   }
 }
