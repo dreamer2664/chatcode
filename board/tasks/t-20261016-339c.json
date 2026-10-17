@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T19:17:17Z",
+  "updated_ts": "2026-10-17T21:36:32Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -101,12 +101,18 @@
       "by": "blender",
       "action": "update (status kept: claimed)",
       "note": "Actual R11 final production deliberately stopped at16 inspected originals after duplicated home found (two FIX_REQUIRED). New seven-home editable draft saved032fffdd4659; all26 separate1024plan originals actually opened. Draft rejected: whole-room rotations/new cases obstruct entries, hotelL02/L03 visibly duplicate despite numeric hashes. Correcting actual furniture, not cropping. Six paired human studies cover12visible variants but first module styled10; actual Afro correction macro and both pair originals now opened for missedP03/P09. Physical hair still unadopted; nape contour investigation continues. No R12 promotion/final92/realism/independent acceptance. R11backup016 actual anonymous CRC/everymemberPASS eac71b055f0b. Working source checkpoint follows corrections."
+    },
+    {
+      "ts": "2026-10-17T21:36:32Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual active Blender session: public immutable R11 restored after cache reset. New rebuiltc29 native and26real plan originals opened; rejected when actual coordinate diagnostic proved newly rotated props atZ0/distantXY despite correct room labels. Fixed lazy dependency-graph transform; new full packed editable47beeab4432b/229422176B saved,1382actual room/floor object-bound checks pass;7targeted real plans opened. Exact new unpromoted native publicly preserved249020119B/SHA9909d59a8486454e8c19f04f7731ae49372b4d1a99d172e4f070da76e0d30c9a; anonymousZIPCRC/everymemberPASS, ledger969c18fa10e0ca24ebce01a59388218ae2f9c264. Two eye-level originals actually opened: real bicycle/studio now present but black wall seams remain; measured actual10mmcoplanar low/high-wall overlap, test correction rendering. Third sequential eye job137, future per-image fresh processes. Initial portableB01 gate failed raw-versus-evaluated modifier triangle counts; expected evaluated geometry code corrected, not a claimed pass. Fibres-only control actually opened/rejected as sparse, no hair/rig adoption. FinalR11stopped16, no final92/promotion/highrealism/independent acceptance."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T23:16:57Z",
-    "checkpoint": "Actual new-session recovery after disposable cache loss: re-downloaded and SHA/CRC/every-member verified R11 master/derivative,12unchanged editable rigs,all4component/portable archives and8final original/noisy/report records. Rehashed all25native/GLB components PASS. Earlier22render records preserved as history,14missing frames queued for actual rerender;13genuine prior original inspections remain historical until current-file hash binding. Corrected browser two unique originals actually opened: title/viewport fixed, semantic cutaway no longer slices furniture; exact public GLB3neutral originals also actually opened. Native/GLB fidelity is not high-realism acceptance; coarse hair/sparse dressing remain declared. Final92/full recovery smoke/gallery/final audit/independent review NOT complete. Still running actual blender session, PR6 draft."
+    "expires": "2026-10-18T01:36:32Z",
+    "checkpoint": "Actual active Blender session: public immutable R11 restored after cache reset. New rebuiltc29 native and26real plan originals opened; rejected when actual coordinate diagnostic proved newly rotated props atZ0/distantXY despite correct room labels. Fixed lazy dependency-graph transform; new full packed editable47beeab4432b/229422176B saved,1382actual room/floor object-bound checks pass;7targeted real plans opened. Exact new unpromoted native publicly preserved249020119B/SHA9909d59a8486454e8c19f04f7731ae49372b4d1a99d172e4f070da76e0d30c9a; anonymousZIPCRC/everymemberPASS, ledger969c18fa10e0ca24ebce01a59388218ae2f9c264. Two eye-level originals actually opened: real bicycle/studio now present but black wall seams remain; measured actual10mmcoplanar low/high-wall overlap, test correction rendering. Third sequential eye job137, future per-image fresh processes. Initial portableB01 gate failed raw-versus-evaluated modifier triangle counts; expected evaluated geometry code corrected, not a claimed pass. Fibres-only control actually opened/rejected as sparse, no hair/rig adoption. FinalR11stopped16, no final92/promotion/highrealism/independent acceptance."
   }
 }
