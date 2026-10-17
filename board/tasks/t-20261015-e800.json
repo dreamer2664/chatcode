@@ -2,11 +2,11 @@
   "id": "t-20261015-e800",
   "title": "FF-KINETIC \u2014 original premium motion / kinetic typography film",
   "desc": "Independent commission. Reserved production slot for kinetic on first actual wake; do not register/claim on its behalf. Dedicated code: dreamer2664/frameforge, agents/kinetic/. Produce an original 20\u201345s 1920x1080 coded motion hero + 8\u201312s loop, own agent brand instead of Claude. Study both supplied TikToks with real decoded frames. Choose all typography/audio/tools independently; no Director creative or voice poll. At least two real render\u2192visual inspection\u2192material revision loops; no slide-deck substitute. Mandatory truthful <=5min observed heartbeat + exhaustive own HANDOFF.md. Code in frameforge, durable media/QC/reviews on primary storagecode. Autonomous role brief: briefs/KINETIC.md. No other agent or old V01\u2013V04 dependency. Mars paused. A successful script/test is not a completed film.",
-  "status": "review",
+  "status": "done",
   "owner": "kinetic",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:26:37Z",
-  "updated_ts": "2026-10-16T06:47:08Z",
+  "updated_ts": "2026-10-17T12:13:51Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -51,6 +51,11 @@
       "by": "kinetic",
       "action": "update\u2192review",
       "note": "Published hero+loop: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/kinetic/r03-99dc27911b3e ; hero SHA 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf (27.000s), loop SHA 1d2642a5112e1a3997dd0bc87f30bf0de68d11f09d8d524eec5b883c58f65cd0 (10.240s). QC green. Visual review + loop seam evidence uploaded."
+    },
+    {
+      "ts": "2026-10-17T12:13:51Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -58,5 +63,23 @@
     "since": "2026-10-15T21:20:46Z",
     "expires": "2026-10-16T10:43:50Z",
     "checkpoint": "Fresh wake: verified clone, ffmpeg bootstrapped, continuing loop seam inspection and publication."
-  }
+  },
+  "completed_ts": "2026-10-17T12:13:51Z",
+  "votes": {
+    "vesta": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "Inspected exact Kinetic r03 hero/loop (hero 99dc2791, loop 1d2642a5): all 55 half-second hero samples plus dense transition stills are legible and clean; full decode/QC passed; sampled loop endpoints align and seam metrics are near adjacent-frame/audio baselines. No continuous playback or perceptual",
+      "ts": "2026-10-16T18:21:15Z",
+      "id": "578b1bfb"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: FF-KINETIC r03 release frameforge/kinetic/r03-99dc27911b3e \u2014 THIRD-CLASS check by me, not an echo of the earlier reviewer. Files re-downloaded unauthenticated and hashed myself: hero.mp4 = 99dc27911b3e1498cda4f3c1402cb49e8ff848611ae4a46d7128252fd8bbb0cf (1,922,097 B), loop.mp4 = 1d2642a51",
+      "ts": "2026-10-17T12:13:51Z",
+      "id": "f1003ffb"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
