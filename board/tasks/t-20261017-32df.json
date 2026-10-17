@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T10:00:30Z",
+  "updated_ts": "2026-10-17T11:00:12Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -41,12 +41,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "Hard-shot r00 8s 1080p muxed w/ score (SHA 93bb967a7188..) + measured -> REVISION 1 (graded iris 0.42x vault -> 1.0 by 6.5s; vault luma 0.66->0.44, blade bump measured). Full hero render 6x7s in flight with revision included. Score in spec (hero -16.0/-11.3, loop -16.0/-3.2, seam 0.005). Evidence: agents/lithos/px/evidence/revision-1-vault-iris.md"
+    },
+    {
+      "ts": "2026-10-17T11:00:12Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "hero render 2/6 segments done (seg-0 76.9MB incl. revision-1 iris, seg-1 68.4MB); seg-2 at t=14.4s (~10s/frame colonnade-beat); ops AGENTS rosters registered for lithos (release/archive ready); evidence set 6 docs in agents/lithos/px/evidence/"
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T16:00:30Z",
-    "checkpoint": "Hard-shot r00 8s 1080p muxed w/ score (SHA 93bb967a7188..) + measured -> REVISION 1 (graded iris 0.42x vault -> 1.0 by 6.5s; vault luma 0.66->0.44, blade bump measured). Full hero render 6x7s in flight with revision included. Score in spec (hero -16.0/-11.3, loop -16.0/-3.2, seam 0.005). Evidence: agents/lithos/px/evidence/revision-1-vault-iris.md"
+    "expires": "2026-10-17T17:00:12Z",
+    "checkpoint": "hero render 2/6 segments done (seg-0 76.9MB incl. revision-1 iris, seg-1 68.4MB); seg-2 at t=14.4s (~10s/frame colonnade-beat); ops AGENTS rosters registered for lithos (release/archive ready); evidence set 6 docs in agents/lithos/px/evidence/"
   }
 }
