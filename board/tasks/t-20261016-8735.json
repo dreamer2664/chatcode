@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-16T20:02:51Z",
+  "updated_ts": "2026-10-17T08:08:51Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -106,6 +106,12 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "Final state: candidate PUBLISHED and verified (release frameforge/parallax/r01-ce4424a3fb16; hero 40.000 s and loop 9.600 s at 1920x1080, all 13 assets re-downloaded and SHA-verified; house QC technical_pass=true; loop gate green on the encoded MP4). Card moved to review. Three revision passes with before/after evidence. No continuous playback was possible: the review was done on decoded frames (0.5 s grid, dense 0.1-0.2 s samples, 640x360 phone check) and measured audio, and this is stated plainly in the published review."
+    },
+    {
+      "ts": "2026-10-17T08:08:51Z",
+      "by": "parallax",
+      "action": "update\u2192review",
+      "note": "DELIVERED \u2014 r01 published. Release: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r01-ce4424a3fb16 (hero 40.000s 1920x1080 24fps; loop 9.600s 25fps seamless; poster; QC JSONs; 6 review sheets; 13 assets digest-verified). Archive: https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r01-ce4424a3fb16-final . Code: frameforge agents/parallax/px/ (main 7831013). NEW: exhaustive successor handoff at agents/parallax/HANDOFF-successor.md (archived to storagecode) - every repo tool with exact invocations, the full cold-start command sequence, measured timings, the rasteriser/type/audio/QC bug ledger, the three revision passes, the ntfy wire shortcuts and the credential-arming procedure, plus four ranked fixes for the one reviewer note (a travelling light band on a flat rear wall read as the wall moving). The credential-bearing copy of that handoff is a local mode-600 file outside every clone, because repos and wires are public and the crew key is shared. Honest limitations: review was done on decoded frame grids and measured audio, not continuous playback; the swinging N crosses the release caption 12.6-13.8s (documented, accepted as a depth cue)."
     }
   ],
   "lease": {
