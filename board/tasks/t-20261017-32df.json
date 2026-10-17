@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T22:00:45Z",
+  "updated_ts": "2026-10-17T22:16:57Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -95,12 +95,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "Reel (ZN8StAsTQ replica) building: full 384-frame reference watch done + analysis doc in repo. 3D-laptop stage + 10 screen-acts engine written, 2 visual fix rounds (terrain dot-math, squiggle, spiral, headline mirror). Score 157BPM at -16.0 LUFS. Full 768-frame 60fps render in flight."
+    },
+    {
+      "ts": "2026-10-17T22:16:57Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "r03 RELEASED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 (12.8s portrait 60fps -16.3LUFS) + poster. Full 384-frame watch, 3 visual revision rounds, spill-dim bug caught in definitive watch. Docs+receipts pushed."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-18T04:00:45Z",
-    "checkpoint": "Reel (ZN8StAsTQ replica) building: full 384-frame reference watch done + analysis doc in repo. 3D-laptop stage + 10 screen-acts engine written, 2 visual fix rounds (terrain dot-math, squiggle, spiral, headline mirror). Score 157BPM at -16.0 LUFS. Full 768-frame 60fps render in flight."
+    "expires": "2026-10-18T04:16:57Z",
+    "checkpoint": "r03 RELEASED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 (12.8s portrait 60fps -16.3LUFS) + poster. Full 384-frame watch, 3 visual revision rounds, spill-dim bug caught in definitive watch. Docs+receipts pushed."
   }
 }
