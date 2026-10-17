@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T16:53:23Z",
+  "updated_ts": "2026-10-17T17:49:29Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -84,12 +84,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actually working R11: actual R10 rays proved ceiling emitters inside upper slabs; corrected338ceiling/fixture/header transforms and checked150emitter centre rays clear, unchanged light powers/body poses. R11packed native7fb9ce64d020 and geometry-identical derivative actualfresh reopensPASS164rooms36people; anonymous master306899622B SHAffd01e9d...0630ef CRC/every-memberPASS, exactpublicfullnative actualreopen+1152B01render/originalopened.26HDR-camera presets baked. Final92running, first6actualoriginals separately reviewed, partial8framebackup verified,487filehead1d0abce draftPR6. D08originalhair/skin visiblyCG/coarse, sparseoffice dressing disclosed: highrealismtargetOPEN, not finalquality/independent acceptance. All25R11exports/native reopens still inprogress. No selfvote."
+    },
+    {
+      "ts": "2026-10-17T17:49:29Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual new-session recovery after disposable cache loss: re-downloaded and SHA/CRC/every-member verified R11 master/derivative,12unchanged editable rigs,all4component/portable archives and8final original/noisy/report records. Rehashed all25native/GLB components PASS. Earlier22render records preserved as history,14missing frames queued for actual rerender;13genuine prior original inspections remain historical until current-file hash binding. Corrected browser two unique originals actually opened: title/viewport fixed, semantic cutaway no longer slices furniture; exact public GLB3neutral originals also actually opened. Native/GLB fidelity is not high-realism acceptance; coarse hair/sparse dressing remain declared. Final92/full recovery smoke/gallery/final audit/independent review NOT complete. Still running actual blender session, PR6 draft."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T20:53:23Z",
-    "checkpoint": "Actually working R11: actual R10 rays proved ceiling emitters inside upper slabs; corrected338ceiling/fixture/header transforms and checked150emitter centre rays clear, unchanged light powers/body poses. R11packed native7fb9ce64d020 and geometry-identical derivative actualfresh reopensPASS164rooms36people; anonymous master306899622B SHAffd01e9d...0630ef CRC/every-memberPASS, exactpublicfullnative actualreopen+1152B01render/originalopened.26HDR-camera presets baked. Final92running, first6actualoriginals separately reviewed, partial8framebackup verified,487filehead1d0abce draftPR6. D08originalhair/skin visiblyCG/coarse, sparseoffice dressing disclosed: highrealismtargetOPEN, not finalquality/independent acceptance. All25R11exports/native reopens still inprogress. No selfvote."
+    "expires": "2026-10-17T21:49:29Z",
+    "checkpoint": "Actual new-session recovery after disposable cache loss: re-downloaded and SHA/CRC/every-member verified R11 master/derivative,12unchanged editable rigs,all4component/portable archives and8final original/noisy/report records. Rehashed all25native/GLB components PASS. Earlier22render records preserved as history,14missing frames queued for actual rerender;13genuine prior original inspections remain historical until current-file hash binding. Corrected browser two unique originals actually opened: title/viewport fixed, semantic cutaway no longer slices furniture; exact public GLB3neutral originals also actually opened. Native/GLB fidelity is not high-realism acceptance; coarse hair/sparse dressing remain declared. Final92/full recovery smoke/gallery/final audit/independent review NOT complete. Still running actual blender session, PR6 draft."
   }
 }
