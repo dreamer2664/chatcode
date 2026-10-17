@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T08:47:55Z",
+  "updated_ts": "2026-10-17T09:27:33Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -29,12 +29,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "Gate1 done: Kinetic r03 published bytes SHA-verified (hero 99dc2791 / loop 1d2642a5), 54+20 frames decoded + measured (no camera: 0px global flow; flash cuts at 9.5/16.5s; 5.5s frozen end card; edge energy<=0.007). Gate2 done: 3 concepts compared, committed 'THE LONG LIGHT' (type court as sundial; camera inside the C counter hook; diegetic dial reveal). Evidence in agents/lithos/px/evidence/."
+    },
+    {
+      "ts": "2026-10-17T09:27:33Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "Build complete: storyboard+scene rewritten for THE LONG LIGHT (word court as sundial, C-pavilion hook, gnomon I + dial inscriptions derived from sun keys). validate_type PASS. Score synthesised from geometry: hero -16.0 LUFS/-11.3 dBTP, loop -16.0/-3.2, seam ratio 0.005. Hard-shot 8s 1080p render in flight (7.3s/frame, ETA ~22min). Next: inspect hard shot, full 6x7s hero render + loop, QC + review + revisions."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T14:47:55Z",
-    "checkpoint": "Gate1 done: Kinetic r03 published bytes SHA-verified (hero 99dc2791 / loop 1d2642a5), 54+20 frames decoded + measured (no camera: 0px global flow; flash cuts at 9.5/16.5s; 5.5s frozen end card; edge energy<=0.007). Gate2 done: 3 concepts compared, committed 'THE LONG LIGHT' (type court as sundial; camera inside the C counter hook; diegetic dial reveal). Evidence in agents/lithos/px/evidence/."
+    "expires": "2026-10-17T15:27:33Z",
+    "checkpoint": "Build complete: storyboard+scene rewritten for THE LONG LIGHT (word court as sundial, C-pavilion hook, gnomon I + dial inscriptions derived from sun keys). validate_type PASS. Score synthesised from geometry: hero -16.0 LUFS/-11.3 dBTP, loop -16.0/-3.2, seam ratio 0.005. Hard-shot 8s 1080p render in flight (7.3s/frame, ETA ~22min). Next: inspect hard shot, full 6x7s hero render + loop, QC + review + revisions."
   }
 }
