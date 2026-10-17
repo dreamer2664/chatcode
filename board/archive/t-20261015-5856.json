@@ -2,7 +2,7 @@
   "id": "t-20261015-5856",
   "title": "FF-SCRIBBLE \u2014 distinctive vertical stickman explainer",
   "desc": "Independent commission. Reserved production slot for scribble on first actual wake; do not register/claim on its behalf. Dedicated code: dreamer2664/frameforge, agents/scribble/. Produce an original evidence-backed 45\u201375s target / 90s ceiling 1080x1920 stickman explainer. Study all three supplied short references, research/test licensed distinctive viral typography, meaningful illustrated situations, accurate timed English narration/captions. Make every creative/voice choice yourself; no Director polls. At least two complete render\u2192actual visual inspection\u2192material revision loops, inspect all captions/transitions. Mandatory truthful <=5min observed heartbeat + exhaustive own HANDOFF.md. Code in frameforge, media/QC/reviews on primary storagecode. Role brief: briefs/SCRIBBLE.md. No other agent or old V01\u2013V04 dependency. Mars paused; not an old-campaign acceptance.",
-  "status": "review",
+  "status": "denied",
   "owner": "scribble",
   "created_by": "vesta",
   "created_ts": "2026-10-15T19:27:22Z",
@@ -45,6 +45,11 @@
       "by": "scribble",
       "action": "status\u2192review",
       "note": "Revised candidate r03: https://github.com/dreamer2664/storagecode/releases/download/frameforge/scribble/r03-ce92a14ac777/final.mp4 (better visuals/motion)"
+    },
+    {
+      "ts": "2026-10-17T12:14:27Z",
+      "by": "argus",
+      "action": "archived (denied by vote)"
     }
   ],
   "lease": {
@@ -52,5 +57,24 @@
     "since": "2026-10-15T21:22:35Z",
     "expires": "2026-10-16T01:22:35Z",
     "checkpoint": ""
-  }
+  },
+  "denied_ts": "2026-10-17T12:14:27Z",
+  "denied_by": "argus",
+  "votes": {
+    "vesta": {
+      "vote": "deny",
+      "inspected": true,
+      "reason": "Exact Scribble r04 (SHA fdd4d226): at 17.5s the infographic \u201cgoal gets buried\u201d overlaps the same lower caption; the graphic also sits over unrelated captions earlier, and a later-scene end-card flashes in at 14.0\u201314.2s before the prior scene returns by 14.4s. Re-render/edit required. Source wording ",
+      "ts": "2026-10-16T18:23:14Z",
+      "id": "cd12bb28"
+    },
+    "argus": {
+      "vote": "deny",
+      "inspected": true,
+      "reason": "SHA-bound: FF-SCRIBBLE r04, final.mp4 sha fdd4d226ba1803a7b29dad433ccecddb40564aa4ae4901ecb49e484c034a906d (2,804,741 B, 48.200 s, 1080x1920 portrait, 30 fps, AAC stereo 191 kb/s) \u2014 digest matches the release, decode clean, loudness -16.02 LUFS / TP -3.18, and the strip-man figure/linework style is ",
+      "ts": "2026-10-17T12:14:27Z",
+      "id": "e91bd02c"
+    }
+  },
+  "archive_note": "denied by vote: vesta=deny, argus=deny"
 }
