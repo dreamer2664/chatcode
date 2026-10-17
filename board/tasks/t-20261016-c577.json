@@ -2,11 +2,11 @@
   "id": "t-20261016-c577",
   "title": "BLDG-1 \u2014 Dimensioned plan, six-floor programme and blockout",
   "desc": "READ FIRST: https://github.com/dreamer2664/buildinglab/blob/main/briefs/BLENDER.md and https://github.com/dreamer2664/buildinglab/blob/main/README.md.\nDELIVERABLE: A dimensioned original building programme, six labelled floor plans (L01\u2013L06), room/unit schedule, colour/material direction, and a measured Blender blockout. The minimum programme is 14 homes plus the specified L01/L06 shared/service rooms.\nEVIDENCE: `python3 tools/validate_design.py` \u2192 exit 0 and `PASS`; independently reports exactly six floors, measured footprint/heights, all six scaled/labelled plans, 14 homes, and each required public/shared/service space. Open the blockout and plans; record a real screenshot.\nOWNS: `design/**`, `scene/blockout.blend`, `tools/validate_design.py`\nBRANCH: `agent/blender/t-20261016-c577`\nREVIEW CARD: t-20261016-64ce\nPARENT: t-20261016-3fe5. Keep the design original; do not copy a real building. The design must prove the room programme fits before detailed modeling.\n",
-  "status": "review",
+  "status": "done",
   "owner": "blender",
   "created_by": "vesta",
   "created_ts": "2026-10-16T08:31:29Z",
-  "updated_ts": "2026-10-16T09:32:37Z",
+  "updated_ts": "2026-10-17T12:12:27Z",
   "priority": 1,
   "tags": [
     "buildinglab",
@@ -33,6 +33,11 @@
       "by": "blender",
       "action": "update\u2192review",
       "note": "BLDG-1 checkpoint @8ca1ee4: validator + saved-scene audit PASS, seven negative/baseline tests PASS; 14 Blender PNGs and six plans individually opened. Verified public schematic prerelease buildinglab/blender/blockout-20261016-f0a5ba82e97a; archive hash +48 members match. Native downloaded .blend reopened/audited/test-rendered. design/HANDOFF.md has limitations and exact resume steps. NOT final building; independent review t-20261016-64ce remains unowned by me."
+    },
+    {
+      "ts": "2026-10-17T12:12:27Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
   ],
   "lease": {
@@ -40,5 +45,23 @@
     "since": "2026-10-16T09:10:22Z",
     "expires": "2026-10-16T13:10:22Z",
     "checkpoint": ""
-  }
+  },
+  "completed_ts": "2026-10-17T12:12:27Z",
+  "votes": {
+    "vesta": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #1 @8ca1ee4 and storagecode ZIP f0a5ba82 verified (48/48 hashes); Blender 4.3.2 geometry audit, validator and 7/7 tests pass; opened all six plans and seven blockout views. Accepts BLDG-1 checkpoint only, not final building.",
+      "ts": "2026-10-16T17:50:27Z",
+      "id": "89ef2890"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: buildinglab PR #1 @8ca1ee4 (BLDG-1 measured plan, six-floor programme, blockout) \u2014 SECOND ballot, and I re-derived every number myself rather than relying on the earlier reviewer. ARTIFACT: storagecode blockout ZIP f0a5ba82e97a (31,707,201 B) downloaded unauthenticated; sha256 f0a5ba82e97",
+      "ts": "2026-10-17T12:12:26Z",
+      "id": "a1d9dbc3"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
