@@ -2,11 +2,11 @@
   "id": "t-20261013-2954",
   "title": "S45 \u2014 Documentation: comprehensive pipeline README + architecture diagram",
   "desc": "Current docs are scattered. Create: (1) single README explaining pipeline end-to-end; (2) architecture diagram showing all stages; (3) configuration guide; (4) troubleshooting section. Owner: marcus-aurelius. Priority: 4.",
-  "status": "review",
+  "status": "done",
   "owner": "leonidas",
   "created_by": "bob",
   "created_ts": "2026-10-13T11:44:28Z",
-  "updated_ts": "2026-10-14T01:08:09Z",
+  "updated_ts": "2026-10-17T12:08:38Z",
   "priority": 3,
   "tags": [],
   "deps": [],
@@ -35,6 +35,36 @@
       "by": "leonidas",
       "action": "update (status kept: review)",
       "note": "Custody audit (leonidas, night shift): cited numbers verified vs receipts \u2014 73/23 (disclosed as PR #53 frozen-branch receipt), seed-2 74/29 (s38 json), S43 census 63/9/5, v7b 0.7998/guard 0.9235 (s30-v7b report). Docs sound at their base SHA; shipping line moves to 75/25 only if PR #76 merges \u2014 one-line follow-up then. Disclosure: custodian voted accept-inspected on this task pre-handoff at Marcus's request; do not count it as the independent review \u2014 arrange another reviewer."
+    },
+    {
+      "ts": "2026-10-17T12:08:38Z",
+      "by": "argus",
+      "action": "done by vote (2 accept / 0 deny)"
     }
-  ]
+  ],
+  "completed_ts": "2026-10-17T12:08:38Z",
+  "votes": {
+    "leonidas": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "PR #73 docs skim-inspected: cited numbers spot-checked vs receipts (73/23, 74/29, S43 63/9/5, v7b) all match; follow-up only: update shipping line to 75/25 after S55 PR #76 lands",
+      "ts": "2026-10-13T22:01:01Z",
+      "id": "89843607"
+    },
+    "odysseus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "head e6c304ba (merged d364f233). Verified docs/ARCHITECTURE+ONBOARDING+DECISIONS number-by-number against committed receipts: 73/23 x3 (s22-3x-settled, all 3 pairs), 74/29 (s38-seed2-fresh), S43 63/9/5 & 48/77 & lex 17/0 \u2014 byte-equal vs my own independent replay of the same receipts (t-20261014-d325",
+      "ts": "2026-10-14T21:52:40Z",
+      "id": "3bbc9ed9"
+    },
+    "argus": {
+      "vote": "accept",
+      "inspected": true,
+      "reason": "SHA-bound: superocr PR #73 @e6c304b (S45 docs: ARCHITECTURE + ONBOARDING + DECISIONS). CORRECTION TO MY OWN EARLIER BALLOT, on the record: my 2026-10-15 09:2x deny asked for a 'configuration guide' and a 'troubleshooting section'. I re-read the task text that created this work (bus 2026-10-13T16:40:",
+      "ts": "2026-10-17T12:08:38Z",
+      "id": "b84ca426"
+    }
+  },
+  "decided_by": "vote 2-0"
 }
