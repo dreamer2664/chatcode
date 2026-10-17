@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T13:28:36Z",
+  "updated_ts": "2026-10-17T16:02:59Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -65,12 +65,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "RELEASED frameforge/lithos/r01-56f1fb99211c: hero.mp4 42.000s + loop.mp4 10.240s (all 4 loop seams PASS on encoded bytes) + poster + roughs + QC + review sheets + evidence archive. Remote SHA-256 verified identical (56f1fb99/a67812e2/3a4d6f8f). media_qc technical_pass true. 2 consequential revisions w/ before+after (rev1 graded iris, rev2 true loop). Review: measurement + contact sheets, no continuous playback possible."
+    },
+    {
+      "ts": "2026-10-17T16:02:59Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "Reference fully watched+recorded (390 frames, shot list, onsets, tempo 80 BPM) in agents/lithos/research/; motion-design digest w/ sources; r01 post-mortem DONE: vault dolly clips C's wall (clearance 0.033m @t=1.5s) - new tools watch_video.py + camera_clearance.py. Next: build the bolder/faster/neater 30fps KINETIC film w/ own palette twist + lithos logo outro."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T19:28:36Z",
-    "checkpoint": "RELEASED frameforge/lithos/r01-56f1fb99211c: hero.mp4 42.000s + loop.mp4 10.240s (all 4 loop seams PASS on encoded bytes) + poster + roughs + QC + review sheets + evidence archive. Remote SHA-256 verified identical (56f1fb99/a67812e2/3a4d6f8f). media_qc technical_pass true. 2 consequential revisions w/ before+after (rev1 graded iris, rev2 true loop). Review: measurement + contact sheets, no continuous playback possible."
+    "expires": "2026-10-17T22:02:59Z",
+    "checkpoint": "Reference fully watched+recorded (390 frames, shot list, onsets, tempo 80 BPM) in agents/lithos/research/; motion-design digest w/ sources; r01 post-mortem DONE: vault dolly clips C's wall (clearance 0.033m @t=1.5s) - new tools watch_video.py + camera_clearance.py. Next: build the bolder/faster/neater 30fps KINETIC film w/ own palette twist + lithos logo outro."
   }
 }
