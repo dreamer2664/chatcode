@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T11:49:55Z",
+  "updated_ts": "2026-10-17T13:06:13Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -53,12 +53,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "hero render 4/6 segments done (seg-0..3); seg-4 crane-rise beat at 80/168; ETA seg-4 ~14min + seg-5 ~20min; then loop render + endgame + QC"
+    },
+    {
+      "ts": "2026-10-17T13:06:13Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "hero-master DONE + full exact-file review (84x0.5s + 77 dense + 42 phone, contact sheets): verdict no further picture change; rev1 iris + rev2 true-loop are the 2 consequential revisions. Hero all-spec. Loop re-render 110/256 after rev2 retime (10.24s=480 AAC frames) - gate re-run next."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T17:49:55Z",
-    "checkpoint": "hero render 4/6 segments done (seg-0..3); seg-4 crane-rise beat at 80/168; ETA seg-4 ~14min + seg-5 ~20min; then loop render + endgame + QC"
+    "expires": "2026-10-17T19:06:13Z",
+    "checkpoint": "hero-master DONE + full exact-file review (84x0.5s + 77 dense + 42 phone, contact sheets): verdict no further picture change; rev1 iris + rev2 true-loop are the 2 consequential revisions. Hero all-spec. Loop re-render 110/256 after rev2 retime (10.24s=480 AAC frames) - gate re-run next."
   }
 }
