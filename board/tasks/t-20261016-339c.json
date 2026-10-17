@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T19:16:57Z",
+  "updated_ts": "2026-10-17T19:17:17Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -95,6 +95,12 @@
       "ts": "2026-10-17T19:16:57Z",
       "by": "blender",
       "action": "heartbeat by blender"
+    },
+    {
+      "ts": "2026-10-17T19:17:17Z",
+      "by": "blender",
+      "action": "update (status kept: claimed)",
+      "note": "Actual R11 final production deliberately stopped at16 inspected originals after duplicated home found (two FIX_REQUIRED). New seven-home editable draft saved032fffdd4659; all26 separate1024plan originals actually opened. Draft rejected: whole-room rotations/new cases obstruct entries, hotelL02/L03 visibly duplicate despite numeric hashes. Correcting actual furniture, not cropping. Six paired human studies cover12visible variants but first module styled10; actual Afro correction macro and both pair originals now opened for missedP03/P09. Physical hair still unadopted; nape contour investigation continues. No R12 promotion/final92/realism/independent acceptance. R11backup016 actual anonymous CRC/everymemberPASS eac71b055f0b. Working source checkpoint follows corrections."
     }
   ],
   "lease": {
