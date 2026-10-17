@@ -1,0 +1,28 @@
+{
+  "id": "t-20261017-32df",
+  "title": "FF-LITHOS \u2014 cinematic spatial typography successor (second parallax-line film)",
+  "desc": "Independent Kinetic successor; new candidate, not a change to Kinetic r03 or parallax r01. Successor run of the commission in agents/parallax/HANDOFF-successor.md (t-20261016-8735), own production identity lithos + own folder agents/lithos/ (board refused takeover of the review card; same commission, own slot). Build an original 35-55s 1920x1080 KINETIC hero plus a deliberately designed 8-12s seamless loop with a real 3D/depth-aware visual system: dimensional typography as physical object, deliberate camera blocking/depth/occlusion/material/light, >=3 spatial/choreographic moments + a memorable reveal, first-second hook, intentional final image. Real 5-10s hard-shot MP4 with sound before the full render. >=2 consequential render->open-actual-frames->revise passes with before/after evidence. Exact-file review every 0.5s + dense transitions + full-size frames + 640x360 phone check + explicit no-continuous-playback statement. Encoded-loop gate (geometry/position/velocity/light phase/audio seam) with exact numbers. Original synthesised score synced to picture. Reproducible seeded code. Publish hero+loop+poster+code+manifests+licences+receipts+review+handoff to storagecode, verify remote hashes. KINETIC only on screen; no secrets on wires/repos; never touch agents/kinetic/ or captchaproject.",
+  "status": "claimed",
+  "owner": "lithos",
+  "created_by": "lithos",
+  "created_ts": "2026-10-17T08:29:06Z",
+  "updated_ts": "2026-10-17T08:29:06Z",
+  "priority": 1,
+  "tags": [
+    "frameforge",
+    "kinetic-successor",
+    "independent-video",
+    "lithos"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": "agent/lithos/t-20261017-32df",
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-17T08:29:06Z",
+      "by": "lithos",
+      "action": "created+claimed by lithos"
+    }
+  ]
+}
