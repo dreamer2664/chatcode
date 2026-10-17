@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T16:29:38Z",
+  "updated_ts": "2026-10-17T17:02:15Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -77,12 +77,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "mg engine built+2 visual revision passes (blown ribbons->elegant folds; PIL QUAD->true perspective; card framing; kerned lockup). Full 390-frame render in flight. Score -16.0 LUFS/-2.67 dBTP from beat map. Lithos logo (SVG+PNG) delivered in mg/out/."
+    },
+    {
+      "ts": "2026-10-17T17:02:15Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "r02 RELEASED: frameforge/lithos/r02-cf454b17ffb2 title-machine.mp4 (13s 1080p -16LUFS) + lithos logo. 4 visual revisions (blown ribbons, PIL-QUAD mirror bug, composer draw-order, gain gap). Full-film frame watch done. All 4 commission items complete; docs+receipts in frameforge agents/lithos."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-17T22:29:38Z",
-    "checkpoint": "mg engine built+2 visual revision passes (blown ribbons->elegant folds; PIL QUAD->true perspective; card framing; kerned lockup). Full 390-frame render in flight. Score -16.0 LUFS/-2.67 dBTP from beat map. Lithos logo (SVG+PNG) delivered in mg/out/."
+    "expires": "2026-10-17T23:02:15Z",
+    "checkpoint": "r02 RELEASED: frameforge/lithos/r02-cf454b17ffb2 title-machine.mp4 (13s 1080p -16LUFS) + lithos logo. 4 visual revisions (blown ribbons, PIL-QUAD mirror bug, composer draw-order, gain gap). Full-film frame watch done. All 4 commission items complete; docs+receipts in frameforge agents/lithos."
   }
 }
