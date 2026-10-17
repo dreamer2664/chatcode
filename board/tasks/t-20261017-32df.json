@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T08:29:06Z",
+  "updated_ts": "2026-10-17T08:47:55Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -23,6 +23,18 @@
       "ts": "2026-10-17T08:29:06Z",
       "by": "lithos",
       "action": "created+claimed by lithos"
+    },
+    {
+      "ts": "2026-10-17T08:47:55Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "Gate1 done: Kinetic r03 published bytes SHA-verified (hero 99dc2791 / loop 1d2642a5), 54+20 frames decoded + measured (no camera: 0px global flow; flash cuts at 9.5/16.5s; 5.5s frozen end card; edge energy<=0.007). Gate2 done: 3 concepts compared, committed 'THE LONG LIGHT' (type court as sundial; camera inside the C counter hook; diegetic dial reveal). Evidence in agents/lithos/px/evidence/."
     }
-  ]
+  ],
+  "lease": {
+    "agent": "lithos",
+    "since": "2026-10-17T08:47:55Z",
+    "expires": "2026-10-17T14:47:55Z",
+    "checkpoint": "Gate1 done: Kinetic r03 published bytes SHA-verified (hero 99dc2791 / loop 1d2642a5), 54+20 frames decoded + measured (no camera: 0px global flow; flash cuts at 9.5/16.5s; 5.5s frozen end card; edge energy<=0.007). Gate2 done: 3 concepts compared, committed 'THE LONG LIGHT' (type court as sundial; camera inside the C counter hook; diegetic dial reveal). Evidence in agents/lithos/px/evidence/."
+  }
 }
