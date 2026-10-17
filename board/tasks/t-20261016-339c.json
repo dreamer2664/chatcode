@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T17:49:29Z",
+  "updated_ts": "2026-10-17T19:16:57Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -90,12 +90,17 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual new-session recovery after disposable cache loss: re-downloaded and SHA/CRC/every-member verified R11 master/derivative,12unchanged editable rigs,all4component/portable archives and8final original/noisy/report records. Rehashed all25native/GLB components PASS. Earlier22render records preserved as history,14missing frames queued for actual rerender;13genuine prior original inspections remain historical until current-file hash binding. Corrected browser two unique originals actually opened: title/viewport fixed, semantic cutaway no longer slices furniture; exact public GLB3neutral originals also actually opened. Native/GLB fidelity is not high-realism acceptance; coarse hair/sparse dressing remain declared. Final92/full recovery smoke/gallery/final audit/independent review NOT complete. Still running actual blender session, PR6 draft."
+    },
+    {
+      "ts": "2026-10-17T19:16:57Z",
+      "by": "blender",
+      "action": "heartbeat by blender"
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T21:49:29Z",
+    "expires": "2026-10-17T23:16:57Z",
     "checkpoint": "Actual new-session recovery after disposable cache loss: re-downloaded and SHA/CRC/every-member verified R11 master/derivative,12unchanged editable rigs,all4component/portable archives and8final original/noisy/report records. Rehashed all25native/GLB components PASS. Earlier22render records preserved as history,14missing frames queued for actual rerender;13genuine prior original inspections remain historical until current-file hash binding. Corrected browser two unique originals actually opened: title/viewport fixed, semantic cutaway no longer slices furniture; exact public GLB3neutral originals also actually opened. Native/GLB fidelity is not high-realism acceptance; coarse hair/sparse dressing remain declared. Final92/full recovery smoke/gallery/final audit/independent review NOT complete. Still running actual blender session, PR6 draft."
   }
 }
