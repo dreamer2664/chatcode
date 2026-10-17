@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T05:36:07Z",
+  "updated_ts": "2026-10-17T06:43:36Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -50,12 +50,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Recovered actual immutable public production checkpoint4bf44a021c3d: master202697899bytes, all9manifest payload hashes verified. Full native direct-open exceeded this2GB runtime (killed); recovered B01-B12/PUBLIC and all12human variant chunks with exact geometry/UV/pose conservation and image-only resampling. Final images/export/visual acceptance still unverified; no completion or independent acceptance claimed."
+    },
+    {
+      "ts": "2026-10-17T06:43:36Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual R3 full-map native8c43a77eb790 clean-reopenedPASS:26 furnished floors/164 rooms,36people12variants at solez0.006m,24bench/24lamp geometry checks,8stalls12trees12packedmarks92presets. Original production public packages recovered and CRC/member-verified. Scarf/cap hair defects corrected and prefreeze studies actually opened; frozen-source pilot and final-master GLB/component export/reimport running. Final92-image evidence and independent acceptance NOT granted."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T09:36:07Z",
-    "checkpoint": "Recovered actual immutable public production checkpoint4bf44a021c3d: master202697899bytes, all9manifest payload hashes verified. Full native direct-open exceeded this2GB runtime (killed); recovered B01-B12/PUBLIC and all12human variant chunks with exact geometry/UV/pose conservation and image-only resampling. Final images/export/visual acceptance still unverified; no completion or independent acceptance claimed."
+    "expires": "2026-10-17T10:43:36Z",
+    "checkpoint": "Actual R3 full-map native8c43a77eb790 clean-reopenedPASS:26 furnished floors/164 rooms,36people12variants at solez0.006m,24bench/24lamp geometry checks,8stalls12trees12packedmarks92presets. Original production public packages recovered and CRC/member-verified. Scarf/cap hair defects corrected and prefreeze studies actually opened; frozen-source pilot and final-master GLB/component export/reimport running. Final92-image evidence and independent acceptance NOT granted."
   }
 }
