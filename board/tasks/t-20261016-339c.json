@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T06:43:36Z",
+  "updated_ts": "2026-10-17T07:28:18Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -56,12 +56,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual R3 full-map native8c43a77eb790 clean-reopenedPASS:26 furnished floors/164 rooms,36people12variants at solez0.006m,24bench/24lamp geometry checks,8stalls12trees12packedmarks92presets. Original production public packages recovered and CRC/member-verified. Scarf/cap hair defects corrected and prefreeze studies actually opened; frozen-source pilot and final-master GLB/component export/reimport running. Final92-image evidence and independent acceptance NOT granted."
+    },
+    {
+      "ts": "2026-10-17T07:28:18Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual all12-variant single-file inspection found/refined residual cap edges; R6 smooth exact under-hem clipping and eyebrow-based cap fit rebuilt all12 rigs, raw anatomy/pose conserved, evaluated hair clearance regressionPASS. Full-map native43692020a8b1 and geometry-identical derivative actually clean-reopenedPASS164furnishedrooms36people. Six paired R6 pilot originals actually opened separately; identified fit defects corrected. Final92 frame batch and final R6 portable/component roundtrips running, source pushed; no final visual/photorealism/independent acceptance."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-17T10:43:36Z",
-    "checkpoint": "Actual R3 full-map native8c43a77eb790 clean-reopenedPASS:26 furnished floors/164 rooms,36people12variants at solez0.006m,24bench/24lamp geometry checks,8stalls12trees12packedmarks92presets. Original production public packages recovered and CRC/member-verified. Scarf/cap hair defects corrected and prefreeze studies actually opened; frozen-source pilot and final-master GLB/component export/reimport running. Final92-image evidence and independent acceptance NOT granted."
+    "expires": "2026-10-17T11:28:18Z",
+    "checkpoint": "Actual all12-variant single-file inspection found/refined residual cap edges; R6 smooth exact under-hem clipping and eyebrow-based cap fit rebuilt all12 rigs, raw anatomy/pose conserved, evaluated hair clearance regressionPASS. Full-map native43692020a8b1 and geometry-identical derivative actually clean-reopenedPASS164furnishedrooms36people. Six paired R6 pilot originals actually opened separately; identified fit defects corrected. Final92 frame batch and final R6 portable/component roundtrips running, source pushed; no final visual/photorealism/independent acceptance."
   }
 }
