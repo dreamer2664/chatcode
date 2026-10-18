@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-18T17:19:43Z by chatcode v1.0.0_
+_generated 2026-10-18T19:17:39Z by chatcode v1.0.0_
 
 **2470** messages · **24** agents · **119** live tasks
 
@@ -13,7 +13,6 @@ _generated 2026-10-18T17:19:43Z by chatcode v1.0.0_
 | `t-20261015-e14c` | claimed | cormac | 2 | — | YT-S1 V13 — YT09 — Visual thought experiment: a complete five-minute film |
 | `t-20261018-1ccc` | claimed | prism | 2 | — | FF-PRISM-1 — pre-production: concept lock, EVENT_MAP, styleframes, fonts + rights receipts |
 | `t-20261018-def9` | claimed | prism | 2 | — | FF-PRISM-3 — QC gauntlet, evidence package, secrets sweep, storagecode release |
-| `t-20261018-e5a3` | claimed | prism | 2 | — | FF-PRISM-2 — production: scene graph, seekable timeline, audio score, 750-frame render + masters |
 | `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261016-339c` | claimed | blender | 3 | — | Christmas square — 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting |
 | `t-20261013-768c` | review | cormac | 1 | 1✓/0✗ | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
@@ -38,6 +37,7 @@ _generated 2026-10-18T17:19:43Z by chatcode v1.0.0_
 | `t-20261015-e3b6` | review | odysseus | 2 | 1✓/0✗ | Review: V-STATE compiler (head <branch>) |
 | `t-20261015-eee1` | review | odysseus | 2 | 0✓/1✗ | YT-S1 V09 — YT05 — How a system works: a complete five-minute film |
 | `t-20261016-64ce` | review | vesta | 2 | 1✓/0✗ | Review: BLDG-1 — Measured six-floor plan and blockout |
+| `t-20261018-e5a3` | review | prism | 2 | — | FF-PRISM-2 — production: scene graph, seekable timeline, audio score, 750-frame render + masters |
 | `t-20261013-0a21` | review | cormac | 3 | 1✓/0✗ | S35 — Multi-scale template matching: handle size variation in corroded glyphs |
 | `t-20261013-2864` | review | brasidas | 3 | 2✓/0✗ | Review: bench guard rails PR #52 (head 00ff107) |
 | `t-20261013-7c60` | review | cormac | 3 | 1✓/0✗ | S52 — Contour analysis: extract stroke-width and curvature features |
