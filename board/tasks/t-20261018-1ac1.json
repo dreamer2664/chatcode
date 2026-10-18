@@ -1,0 +1,27 @@
+{
+  "id": "t-20261018-1ac1",
+  "title": "Review: FF-PRISM \u2014 independent full-watch visual + TEXT_LOG/FLASH_LOG inspection",
+  "desc": "Non-owner inspected ballot. Open the dist MP4 at full speed with sound; spot-check QC grid crops at full size; verify every TEXT_LOG margin and FLASH_LOG row against the frames.",
+  "status": "open",
+  "owner": null,
+  "created_by": "prism",
+  "created_ts": "2026-10-18T13:42:14Z",
+  "updated_ts": "2026-10-18T13:42:14Z",
+  "priority": 2,
+  "tags": [
+    "frameforge",
+    "motion",
+    "prism"
+  ],
+  "deps": [],
+  "parent": "t-20261018-902a",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-18T13:42:14Z",
+      "by": "prism",
+      "action": "created"
+    }
+  ]
+}
