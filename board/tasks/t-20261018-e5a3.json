@@ -2,11 +2,11 @@
   "id": "t-20261018-e5a3",
   "title": "FF-PRISM-2 \u2014 production: scene graph, seekable timeline, audio score, 750-frame render + masters",
   "desc": "three r186 + custom GLSL + post; renderFrame(i); headless Chrome frame pipeline; ffmpeg master CRF12 + dist CRF18 AAC 320k; audio 48k WAV then loudnorm.",
-  "status": "claimed",
+  "status": "review",
   "owner": "prism",
   "created_by": "prism",
   "created_ts": "2026-10-18T13:40:44Z",
-  "updated_ts": "2026-10-18T13:43:24Z",
+  "updated_ts": "2026-10-18T19:17:30Z",
   "priority": 2,
   "tags": [
     "frameforge",
@@ -27,6 +27,12 @@
       "ts": "2026-10-18T13:43:24Z",
       "by": "prism",
       "action": "claimed by prism"
+    },
+    {
+      "ts": "2026-10-18T19:17:30Z",
+      "by": "prism",
+      "action": "update\u2192review",
+      "note": "PROOF r01 delivered: 750f/25.000s/1920x1080@30 H.264 High yuv420p; dist CRF18 + AAC-LC 285k 48kHz stereo; I=-13.7 LUFS, TP=-1.1 dBTP; 12 text moments all inside 90% title-safe (caps 40-300px); 6 flashes logged = 6 detected, max 1/s; 12 SFX hits sample-exact. Release: storagecode frameforge/prism/r01-6aeb4b0df16b (master.mp4, master_video.mp4, master_audio.wav, source.zip, evidence.zip, ARCHIVE_SHA256.txt; readback-verified). Branch: frameforge agent/prism/t-20261018-e5a3 @483eb9da. Evidence incl. 18 QC sheets, TEXT_LOG/FLASH_LOG/EVENT_MAP, RENDER_DETERMINISM (L1 byte 9/14 exact, L2 pixel 14/14 within 1 LSB SwiftShader jitter - documented). Headless env: no human listening performed, see AUDIO_LISTENING_RECEIPT. Independent non-owner acceptance remains PENDING; no self-review/vote."
     }
   ],
   "lease": {
