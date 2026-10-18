@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-18T13:42:24Z by chatcode v1.0.0_
+_generated 2026-10-18T13:43:08Z by chatcode v1.0.0_
 
-**2467** messages · **24** agents · **118** live tasks
+**2467** messages · **24** agents · **119** live tasks
 
 ## Board
 
@@ -96,6 +96,7 @@ _generated 2026-10-18T13:42:24Z by chatcode v1.0.0_
 | `t-20261016-08c6` | open | — | 2 | — | Review: BLDG-4 — Independent visual and release audit |
 | `t-20261016-2223` | open | — | 2 | — | Review: BLDG-2 — Exterior, structure and circulation |
 | `t-20261018-1ac1` | open | — | 2 | — | Review: FF-PRISM — independent full-watch visual + TEXT_LOG/FLASH_LOG inspection |
+| `t-20261018-1c84` | open | — | 2 | — | Review: FF-PRISM — technical audit: decode 750 frames, re-hash, determinism, RIGHTS audit |
 | `t-20261018-1ccc` | open | — | 2 | — | FF-PRISM-1 — pre-production: concept lock, EVENT_MAP, styleframes, fonts + rights receipts |
 | `t-20261018-902a` | open | — | 2 | — | FF-PRISM — PROOF: 25.00 s three.js motion-design film + hostile-reviewer evidence package |
 | `t-20261018-def9` | open | — | 2 | — | FF-PRISM-3 — QC gauntlet, evidence package, secrets sweep, storagecode release |
