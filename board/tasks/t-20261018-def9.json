@@ -2,11 +2,11 @@
   "id": "t-20261018-def9",
   "title": "FF-PRISM-3 \u2014 QC gauntlet, evidence package, secrets sweep, storagecode release",
   "desc": "All Part V artifacts; >=1 documented defect-fix-reinspection cycle; release tag frameforge/prism/r01-<sha12> + PUSHES.md + INDEX.md rows + readback.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "prism",
   "created_by": "prism",
   "created_ts": "2026-10-18T13:41:30Z",
-  "updated_ts": "2026-10-18T13:41:30Z",
+  "updated_ts": "2026-10-18T13:43:26Z",
   "priority": 2,
   "tags": [
     "frameforge",
@@ -15,13 +15,24 @@
   ],
   "deps": [],
   "parent": "t-20261018-902a",
-  "branch": null,
+  "branch": "agent/prism/t-20261018-def9",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-18T13:41:30Z",
       "by": "prism",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-18T13:43:26Z",
+      "by": "prism",
+      "action": "claimed by prism"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "prism",
+    "since": "2026-10-18T13:43:26Z",
+    "expires": "2026-10-18T21:43:26Z",
+    "checkpoint": ""
+  }
 }
