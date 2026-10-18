@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-18T11:17:20Z",
+  "updated_ts": "2026-10-18T16:42:10Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -142,12 +142,18 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "r02 'cadence' published and archived; release frameforge/parallax/r02-3236d224cff6; card in review with live links; evidence docs archived to storagecode data/frameforge/parallax/r02-3236d224cff6-evidence"
+    },
+    {
+      "ts": "2026-10-18T16:42:10Z",
+      "by": "parallax",
+      "action": "heartbeat by parallax",
+      "note": "r03 in production: LAST SHIFT - WARD 7 (portrait 1080x1920, 30 fps, 2100 frames = 70.000 s), technique replica of the studied TikTok with an entirely original story (night porter, 3 posted rules, 41 doors / 40 beds). Film (one self-contained HTML, agents/parallax/ward/night.src.html) and own 70 s score are built; the 2100-frame render is running now; QC + publication to storagecode follow."
     }
   ],
   "lease": {
     "agent": "parallax",
     "since": "2026-10-16T08:07:20Z",
-    "expires": "2026-10-18T15:17:20Z",
-    "checkpoint": "r02 'cadence' published and archived; release frameforge/parallax/r02-3236d224cff6; card in review with live links; evidence docs archived to storagecode data/frameforge/parallax/r02-3236d224cff6-evidence"
+    "expires": "2026-10-18T20:42:10Z",
+    "checkpoint": "r03 in production: LAST SHIFT - WARD 7 (portrait 1080x1920, 30 fps, 2100 frames = 70.000 s), technique replica of the studied TikTok with an entirely original story (night porter, 3 posted rules, 41 doors / 40 beds). Film (one self-contained HTML, agents/parallax/ward/night.src.html) and own 70 s score are built; the 2100-frame render is running now; QC + publication to storagecode follow."
   }
 }
