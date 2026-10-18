@@ -6,7 +6,7 @@
   "owner": "lithos",
   "created_by": "lithos",
   "created_ts": "2026-10-17T08:29:06Z",
-  "updated_ts": "2026-10-17T22:24:21Z",
+  "updated_ts": "2026-10-18T15:55:57Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -107,12 +107,18 @@
       "by": "lithos",
       "action": "heartbeat by lithos",
       "note": "r03 SHIPPED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 + poster; frameforge commit 3b1b81b pushed. Docs: reel/README.md, research/reference-analysis-motionlovee.md, storyboard.json, events.jsonl. Lease free to expire after handoff report."
+    },
+    {
+      "ts": "2026-10-18T15:55:57Z",
+      "by": "lithos",
+      "action": "heartbeat by lithos",
+      "note": "v2 REBUILD: r03 rejected by human (unpostable). New Blender 3D stage + rebuilt acts + produced score in progress. Stage render 384f running (~7h). Methodology note: research/motion-design-3d-look.md."
     }
   ],
   "lease": {
     "agent": "lithos",
     "since": "2026-10-17T08:47:55Z",
-    "expires": "2026-10-18T04:24:21Z",
-    "checkpoint": "r03 SHIPPED: frameforge/lithos/r03-4cba7bd25aef kinetic-reel.mp4 + poster; frameforge commit 3b1b81b pushed. Docs: reel/README.md, research/reference-analysis-motionlovee.md, storyboard.json, events.jsonl. Lease free to expire after handoff report."
+    "expires": "2026-10-18T23:55:57Z",
+    "checkpoint": "v2 REBUILD: r03 rejected by human (unpostable). New Blender 3D stage + rebuilt acts + produced score in progress. Stage render 384f running (~7h). Methodology note: research/motion-design-3d-look.md."
   }
 }
