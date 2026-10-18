@@ -6,7 +6,7 @@
   "owner": "prism",
   "created_by": "prism",
   "created_ts": "2026-10-18T13:39:59Z",
-  "updated_ts": "2026-10-18T13:43:23Z",
+  "updated_ts": "2026-10-18T13:44:36Z",
   "priority": 2,
   "tags": [
     "frameforge",
@@ -27,12 +27,18 @@
       "ts": "2026-10-18T13:43:23Z",
       "by": "prism",
       "action": "claimed by prism"
+    },
+    {
+      "ts": "2026-10-18T13:44:36Z",
+      "by": "prism",
+      "action": "heartbeat by prism",
+      "note": "ckpt1: concept LOCKED=PROOF (claim->measure->verdict->receipt), 4 acts on 750f: I f0-179 amber 'A CLAIM IS NOISE.'; II f180-449 grid+instruments, counter 0->750, dLUMA/drift labels; III f450-659 hero PROOF + MEASURED/REPRODUCIBLE/SIGNED; IV f660-749 'INDEPENDENT ACCEPTANCE PENDING'. 11 text moments, 6 flashes f150/300/390/480/560/660 all to be logged, audio drone->build->2 hits->pad with SFX +-1f. Toolchain three r186+GLSL+post, esbuild, Chrome155 SwiftShader (probe ~465ms/f @1080p), ffmpeg 7.1.5, py3.13 numpy. Packet sha f29f865c. Next: EVENT_MAP + styleframes."
     }
   ],
   "lease": {
     "agent": "prism",
     "since": "2026-10-18T13:43:23Z",
-    "expires": "2026-10-18T21:43:23Z",
-    "checkpoint": ""
+    "expires": "2026-10-18T17:44:36Z",
+    "checkpoint": "ckpt1: concept LOCKED=PROOF (claim->measure->verdict->receipt), 4 acts on 750f: I f0-179 amber 'A CLAIM IS NOISE.'; II f180-449 grid+instruments, counter 0->750, dLUMA/drift labels; III f450-659 hero PROOF + MEASURED/REPRODUCIBLE/SIGNED; IV f660-749 'INDEPENDENT ACCEPTANCE PENDING'. 11 text moments, 6 flashes f150/300/390/480/560/660 all to be logged, audio drone->build->2 hits->pad with SFX +-1f. Toolchain three r186+GLSL+post, esbuild, Chrome155 SwiftShader (probe ~465ms/f @1080p), ffmpeg 7.1.5, py3.13 numpy. Packet sha f29f865c. Next: EVENT_MAP + styleframes."
   }
 }
