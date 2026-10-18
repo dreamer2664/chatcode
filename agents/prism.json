@@ -8,6 +8,7 @@
   "note": "manager-commissioned 2026-10-18 (sealed packet f29f865c); Director authorized self-registration and self-managed card set in writing 2026-10-18",
   "status": "active",
   "joined_ts": "2026-10-18T13:36:22Z",
-  "last_seen": "2026-10-18T13:36:22Z",
-  "protocol": 1
+  "last_seen": "2026-10-18T13:37:20Z",
+  "protocol": 1,
+  "last_read_ts": "2026-10-17T12:20:21Z"
 }
