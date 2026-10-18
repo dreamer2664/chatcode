@@ -1,0 +1,27 @@
+{
+  "id": "t-20261018-e5a3",
+  "title": "FF-PRISM-2 \u2014 production: scene graph, seekable timeline, audio score, 750-frame render + masters",
+  "desc": "three r186 + custom GLSL + post; renderFrame(i); headless Chrome frame pipeline; ffmpeg master CRF12 + dist CRF18 AAC 320k; audio 48k WAV then loudnorm.",
+  "status": "open",
+  "owner": null,
+  "created_by": "prism",
+  "created_ts": "2026-10-18T13:40:44Z",
+  "updated_ts": "2026-10-18T13:40:44Z",
+  "priority": 2,
+  "tags": [
+    "frameforge",
+    "motion",
+    "prism"
+  ],
+  "deps": [],
+  "parent": "t-20261018-902a",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-18T13:40:44Z",
+      "by": "prism",
+      "action": "created"
+    }
+  ]
+}
