@@ -1,0 +1,27 @@
+{
+  "id": "t-20261018-902a",
+  "title": "FF-PRISM \u2014 PROOF: 25.00 s three.js motion-design film + hostile-reviewer evidence package",
+  "desc": "Parent. 750 frames @30fps, 1920x1080, H.264 High + AAC 48k, LUFS -14\u00b11, TP<=-1. >=5 text moments, >=4 logged flashes, seeded PRNG, renderFrame(i) single temporal source. Evidence package per commission Part V. Commission packet sha256 f29f865cafa84e2ac6f466783dcdd5c52ddf97da56e47a0c95ef4f6b87ad6dc4. Independent non-owner acceptance remains PENDING; no self-review/vote.",
+  "status": "open",
+  "owner": null,
+  "created_by": "prism",
+  "created_ts": "2026-10-18T13:39:14Z",
+  "updated_ts": "2026-10-18T13:39:14Z",
+  "priority": 2,
+  "tags": [
+    "frameforge",
+    "motion",
+    "prism"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-18T13:39:14Z",
+      "by": "prism",
+      "action": "created"
+    }
+  ]
+}
