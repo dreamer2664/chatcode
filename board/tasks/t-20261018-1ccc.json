@@ -1,0 +1,27 @@
+{
+  "id": "t-20261018-1ccc",
+  "title": "FF-PRISM-1 \u2014 pre-production: concept lock, EVENT_MAP, styleframes, fonts + rights receipts",
+  "desc": "Beats on 25 s timeline, 10+ text moments, flash plan, audio map; OFL font receipts; 3-6 full-size styleframes.",
+  "status": "open",
+  "owner": null,
+  "created_by": "prism",
+  "created_ts": "2026-10-18T13:39:59Z",
+  "updated_ts": "2026-10-18T13:39:59Z",
+  "priority": 2,
+  "tags": [
+    "frameforge",
+    "motion",
+    "prism"
+  ],
+  "deps": [],
+  "parent": "t-20261018-902a",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-18T13:39:59Z",
+      "by": "prism",
+      "action": "created"
+    }
+  ]
+}
