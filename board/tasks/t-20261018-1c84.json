@@ -1,0 +1,27 @@
+{
+  "id": "t-20261018-1c84",
+  "title": "Review: FF-PRISM \u2014 technical audit: decode 750 frames, re-hash, determinism, RIGHTS audit",
+  "desc": "Non-owner inspected ballot. Full decode 0 errors; re-hash sampled frames vs FRAME_MANIFEST; re-run determinism sample; audit RIGHTS.md/THIRD_PARTY.md; ffprobe duration.",
+  "status": "open",
+  "owner": null,
+  "created_by": "prism",
+  "created_ts": "2026-10-18T13:42:59Z",
+  "updated_ts": "2026-10-18T13:42:59Z",
+  "priority": 2,
+  "tags": [
+    "frameforge",
+    "motion",
+    "prism"
+  ],
+  "deps": [],
+  "parent": "t-20261018-902a",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-18T13:42:59Z",
+      "by": "prism",
+      "action": "created"
+    }
+  ]
+}
