@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-18T16:53:15Z",
+  "updated_ts": "2026-10-18T16:53:24Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -154,6 +154,12 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "r03 PUBLISHED: LAST SHIFT - WARD 7, 70.000 s / 2100 frames / 1080x1920 @30 fps, own story (night porter, 41 doors / 40 beds), own type, own 70 s music bed (no voice). Release frameforge/parallax/r03-61547ce385a4 (master sha256 61547ce385a4..., poster, key_frames, grid_2fps, technical.json); archive data/frameforge/parallax/r03-61547ce385a4 + -evidence. Source: frameforge@ba1ab02."
+    },
+    {
+      "ts": "2026-10-18T16:53:24Z",
+      "by": "parallax",
+      "action": "update\u2192review",
+      "note": "r03 PUBLISHED - LAST SHIFT - WARD 7 (portrait 1080x1920, 30 fps, 70.000 s / 2100 frames): a technique replica of the studied TikTok reel with an entirely original story (night porter, 3 posted rules, 40 beds / 41 doors), own Archivo+Plex type, own 70 s synthesised music bed, no voice. Release: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r03-61547ce385a4 (film-master.mp4 6,618,265 B sha256 61547ce385a4e5a8b0076b3ed0ce71f6eb0ce92380c8270ad63d3424cfa3f77b, poster.png, key_frames.png, grid_2fps.png, technical.json). Archive: https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r03-61547ce385a4 and .../r03-61547ce385a4-evidence. Measured: 70.000 s, H.264 High yuv420p +faststart, AAC 48 kHz stereo, -18.2 LUFS / -1.5 dBTP, A/V tails 0.000 s, 2100 frames decoded. Source: dreamer2664/frameforge@ba1ab02 (agents/parallax/ward/)."
     }
   ],
   "lease": {
