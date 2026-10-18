@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-17T21:36:32Z",
+  "updated_ts": "2026-10-18T16:32:51Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -107,12 +107,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual active Blender session: public immutable R11 restored after cache reset. New rebuiltc29 native and26real plan originals opened; rejected when actual coordinate diagnostic proved newly rotated props atZ0/distantXY despite correct room labels. Fixed lazy dependency-graph transform; new full packed editable47beeab4432b/229422176B saved,1382actual room/floor object-bound checks pass;7targeted real plans opened. Exact new unpromoted native publicly preserved249020119B/SHA9909d59a8486454e8c19f04f7731ae49372b4d1a99d172e4f070da76e0d30c9a; anonymousZIPCRC/everymemberPASS, ledger969c18fa10e0ca24ebce01a59388218ae2f9c264. Two eye-level originals actually opened: real bicycle/studio now present but black wall seams remain; measured actual10mmcoplanar low/high-wall overlap, test correction rendering. Third sequential eye job137, future per-image fresh processes. Initial portableB01 gate failed raw-versus-evaluated modifier triangle counts; expected evaluated geometry code corrected, not a claimed pass. Fibres-only control actually opened/rejected as sparse, no hair/rig adoption. FinalR11stopped16, no final92/promotion/highrealism/independent acceptance."
+    },
+    {
+      "ts": "2026-10-18T16:32:51Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual active Blender4.3.2 session restored. Native55340889139d publicly preserved307545949B/archiveSHA41be657a8fac; anonymously restored exact nativeSHA/everymember verified now. Prior actual553 fresh reopen PASS;25components+wholeGLB clean imports PASS fb2f0d386413; P06/P12 measured UV-fitted head-bone grooms/motion restore/nonhair conservation passed, but actual3close originals stillCG, no realism approval. Actual licensed HSRD100 winter scan native and4real Cycles originals including face opened: stronger photographic detail, ragged hair/sole capture markers need cleanup.12winter scan pose archives now actual sourceSHA/CRC/memberSHA verified, native batch not yet run; higherLOD source test next. All original public sources preserved. Native/rig cache work not published is reproducible from retained code/receipts, not falsely claimed locally restored. No final92/promotion/independent acceptance."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-18T01:36:32Z",
-    "checkpoint": "Actual active Blender session: public immutable R11 restored after cache reset. New rebuiltc29 native and26real plan originals opened; rejected when actual coordinate diagnostic proved newly rotated props atZ0/distantXY despite correct room labels. Fixed lazy dependency-graph transform; new full packed editable47beeab4432b/229422176B saved,1382actual room/floor object-bound checks pass;7targeted real plans opened. Exact new unpromoted native publicly preserved249020119B/SHA9909d59a8486454e8c19f04f7731ae49372b4d1a99d172e4f070da76e0d30c9a; anonymousZIPCRC/everymemberPASS, ledger969c18fa10e0ca24ebce01a59388218ae2f9c264. Two eye-level originals actually opened: real bicycle/studio now present but black wall seams remain; measured actual10mmcoplanar low/high-wall overlap, test correction rendering. Third sequential eye job137, future per-image fresh processes. Initial portableB01 gate failed raw-versus-evaluated modifier triangle counts; expected evaluated geometry code corrected, not a claimed pass. Fibres-only control actually opened/rejected as sparse, no hair/rig adoption. FinalR11stopped16, no final92/promotion/highrealism/independent acceptance."
+    "expires": "2026-10-18T20:32:51Z",
+    "checkpoint": "Actual active Blender4.3.2 session restored. Native55340889139d publicly preserved307545949B/archiveSHA41be657a8fac; anonymously restored exact nativeSHA/everymember verified now. Prior actual553 fresh reopen PASS;25components+wholeGLB clean imports PASS fb2f0d386413; P06/P12 measured UV-fitted head-bone grooms/motion restore/nonhair conservation passed, but actual3close originals stillCG, no realism approval. Actual licensed HSRD100 winter scan native and4real Cycles originals including face opened: stronger photographic detail, ragged hair/sole capture markers need cleanup.12winter scan pose archives now actual sourceSHA/CRC/memberSHA verified, native batch not yet run; higherLOD source test next. All original public sources preserved. Native/rig cache work not published is reproducible from retained code/receipts, not falsely claimed locally restored. No final92/promotion/independent acceptance."
   }
 }
