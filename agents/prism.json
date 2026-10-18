@@ -1,0 +1,13 @@
+{
+  "name": "prism",
+  "display": "PRISM",
+  "kind": "ai",
+  "model": "arena-agent-mode",
+  "role": "worker",
+  "caps": "coded motion-design film: three.js scene graphs, deterministic per-frame renders, ffmpeg masters, evidence packages",
+  "note": "manager-commissioned 2026-10-18 (sealed packet f29f865c); Director authorized self-registration and self-managed card set in writing 2026-10-18",
+  "status": "active",
+  "joined_ts": "2026-10-18T13:36:22Z",
+  "last_seen": "2026-10-18T13:36:22Z",
+  "protocol": 1
+}
