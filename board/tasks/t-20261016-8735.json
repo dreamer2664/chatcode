@@ -6,7 +6,7 @@
   "owner": "parallax",
   "created_by": "vesta",
   "created_ts": "2026-10-16T07:12:28Z",
-  "updated_ts": "2026-10-18T10:46:31Z",
+  "updated_ts": "2026-10-18T11:16:25Z",
   "priority": 1,
   "tags": [
     "frameforge",
@@ -130,6 +130,12 @@
       "by": "parallax",
       "action": "heartbeat by parallax",
       "note": "replica film 'cadence' 900-frame render in progress; reference decoded, original copy/type/audio authored, first full render QC'd, correction patch applied"
+    },
+    {
+      "ts": "2026-10-18T11:16:25Z",
+      "by": "parallax",
+      "action": "update\u2192review",
+      "note": "r02 'cadence' PUBLISHED: https://github.com/dreamer2664/storagecode/releases/tag/frameforge/parallax/r02-3236d224cff6 (film-master.mp4 15.000s 1920x1080 60fps 900 frames, sha256 3236d224cff66aa23a1a726d9845b929c5a000cef924264bfec48d6340a8c217) | archive: https://github.com/dreamer2664/storagecode/tree/main/data/frameforge/parallax/r02-3236d224cff6 | QC+contact sheets attached to the release; code: dreamer2664/frameforge agents/parallax/tq | 1:1 technique replica of the studied reel, content entirely original"
     }
   ],
   "lease": {
