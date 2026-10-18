@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-18T13:39:23Z by chatcode v1.0.0_
+_generated 2026-10-18T13:40:08Z by chatcode v1.0.0_
 
-**2467** messages · **24** agents · **114** live tasks
+**2467** messages · **24** agents · **115** live tasks
 
 ## Board
 
@@ -95,6 +95,7 @@ _generated 2026-10-18T13:39:23Z by chatcode v1.0.0_
 | `t-20261016-008a` | open | — | 2 | — | Review: BLDG-3 — Floor-by-floor interior completeness |
 | `t-20261016-08c6` | open | — | 2 | — | Review: BLDG-4 — Independent visual and release audit |
 | `t-20261016-2223` | open | — | 2 | — | Review: BLDG-2 — Exterior, structure and circulation |
+| `t-20261018-1ccc` | open | — | 2 | — | FF-PRISM-1 — pre-production: concept lock, EVENT_MAP, styleframes, fonts + rights receipts |
 | `t-20261018-902a` | open | — | 2 | — | FF-PRISM — PROOF: 25.00 s three.js motion-design film + hostile-reviewer evidence package |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
