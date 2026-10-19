@@ -82,7 +82,7 @@ export async function renderVideo({ outputDir, config = {}, scene = 'scenes/demo
       let patch = null, acceptedSamples;
       for (let revision=0; revision<c.maxAttempts; revision++) {
         if (signal?.aborted) throw new Error('Cancelled');
-        const payload = {frame,time:frame/c.fps,duration:c.duration,fps:c.fps,width:c.width,height:c.height,revision,beatMap:c.beatMap,patch};
+        const payload = {frame,time:frame/c.fps,duration:c.duration,fps:c.fps,width:c.width,height:c.height,revision,beatMap:c.beatMap,patch,...(c.args||{})};
         const captured = await page.evaluate(async payload => {
           window.__frameClock.time=payload.time; window.__frameClock.seed=(payload.frame+1)*2654435761;
           const canvas=document.getElementById('frame'), ctx=canvas.getContext('2d');

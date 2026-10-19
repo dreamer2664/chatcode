@@ -1,0 +1,9 @@
+[
+  {
+    "kind": "repeated-shot",
+    "shots": [
+      "*"
+    ],
+    "reason": "calib-300a uses the original single demo reel for all 12 shots on purpose: it measures stitch/resume/QC on one known-good scene. It is a labeled fixture, never an editorial film."
+  }
+]

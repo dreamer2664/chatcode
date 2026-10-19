@@ -14,5 +14,10 @@ export function validateConfig(input = {}) {
     if (!Array.isArray(list) || list.length > 900 || list.some((v,i) => !Number.isFinite(v) || v < 0 || v > c.duration || (i > 0 && v <= list[i-1]))) throw new Error('Beat/cut times must be finite, ascending, within duration');
   }
   c.beatMap = { beats, cuts };
+  // Optional extra render arguments for the scene. Deliberately NOT part of the
+  // resource caps and never able to widen them: scenes receive them read-only
+  // as extra payload keys. The long-form orchestrator includes this in the shot
+  // cache key, so two shots that only differ in args render (and cache) apart.
+  c.args = (input.args && typeof input.args === 'object') ? { ...input.args } : {};
   return c;
 }
