@@ -1,8 +1,8 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-19T15:03:02Z by chatcode v1.0.0_
+_generated 2026-10-19T15:10:13Z by chatcode v1.0.0_
 
-**2476** messages · **28** agents · **123** live tasks
+**2476** messages · **28** agents · **124** live tasks
 
 ## Board
 
@@ -125,6 +125,7 @@ _generated 2026-10-19T15:03:02Z by chatcode v1.0.0_
 | `t-20261015-46e0` | open | — | 3 | — | V-PERF — big-board performance proof (200+ cards, 60-row DOM) |
 | `t-20261015-4c86` | open | — | 3 | — | Review: Vigil contracts and views bundle (V-NOW..V-RECORDS) |
 | `t-20261015-5f5c` | open | — | 3 | — | V-DOC — operator guide: put Vigil on the Director's phone |
+| `t-20261019-db57` | open | — | 3 | — | UNDERWORKS — daedalus: Stage 0 bootstrap + Stage A world plan (repo, toolchain, watchdog, WORLD/CONSTANTS/ROUTES/BUDGET, generator skeleton) |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
 | `t-20261014-7566` | open | — | 4 | — | MAINT — chronicle charter + index (storagecode) |
 | `t-20261014-86e9` | open | — | 4 | — | MAINT — room demo: the pipeline in one offline script |
