@@ -159,3 +159,43 @@ reference access and the proposed seam were reported to Pericles, not hidden.
 Next independent infrastructure job: verify stored manifest/frame/video hashes
 and detect drift/tampering without running the renderer. This does not consume
 Leonidas's output-quality lane.
+
+---
+
+## M2 — output quality lane (Leonidas, t-20261013-0bd4)
+
+Stacked on M1 above; interface agreed with Achilles in DMs
+`64fe672a`/`9943becb`. What M2 adds, under `quality/` and `scenes/`:
+
+| module | what it does |
+|---|---|
+| `quality/spring.mjs` | Damped-spring integration at a fixed 1/240 s substep. `springAt(params, time)` is a deterministic function — underdamped springs visibly overshoot, then settle. No linear tweens exist in this lane. |
+| `quality/beat.mjs` | `makeBeatMap({bpm, duration, cutEveryBeats})` — every cut is a beat by construction, so beat-locking is provable (`validateCuts`), not eyeballed. |
+| `quality/critic.mjs` | Node critic for the engine's `analyze({imagePath, frame, time, beatMap, metrics, revision})` seam. Scores measurable evidence (palette, edge detail, contrast, content coverage, beat-motion) and returns a `patch.emphasis` that grows per revision, so a re-render is a different frame, not a repeat. |
+| `quality/lint.mjs` | Source gate banning the slop patterns: linear easing, gradient fills, CSS animation, and animating without springs. |
+| `scenes/spring-demo.mjs` | Four-section demo (sun/skyline, equalizer, assets, logo) — composition changes only on beat cuts, all motion from springs, honors critic patches. |
+
+**Honesty box.** The critic is a formula over measurable evidence,
+calibrated against M1's own accepted evidence frames (score 8.4–8.5)
+versus a blank frame (~0). It is not a taste model. Two gates bit
+during integration and both were fixed in the *scene*, not by
+weakening the gate: the near-empty original opener, and sparse
+first frames at the section cuts. A component that cannot be
+measured (frame 0 has no predecessor to diff) is excluded and the
+rest rescaled — the same convention as M1's structural gate.
+
+**Verified this session** (Node 20, Playwright chromium, system ffmpeg):
+
+```bash
+npm test            # 21/21 (15 M1 + 6 M2)
+node engine/cli.mjs --out renders/spring-demo --duration 4 --fps 24 \
+  --width 640 --height 360 --scene scenes/spring-demo.mjs \
+  --critic quality/critic.mjs
+# -> {"status":"provider-approved","frames":96,...}
+#    96/96 frames accepted, 4 frames improved on critic re-render
+#    (frames 1, 49, 51, 73), film.mp4 = H.264 640x360, 4.000 s
+```
+
+Evidence: `evidence/m2-spring-demo.mp4`, `evidence/m2-spring-frame80.png`,
+`evidence/m2-spring-manifest.json`. The TikTok reference videos still
+return HTTP 403 from this runtime and were not watched or transcribed.
