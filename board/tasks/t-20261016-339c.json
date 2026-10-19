@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-18T16:32:51Z",
+  "updated_ts": "2026-10-19T06:13:39Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -113,12 +113,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual active Blender4.3.2 session restored. Native55340889139d publicly preserved307545949B/archiveSHA41be657a8fac; anonymously restored exact nativeSHA/everymember verified now. Prior actual553 fresh reopen PASS;25components+wholeGLB clean imports PASS fb2f0d386413; P06/P12 measured UV-fitted head-bone grooms/motion restore/nonhair conservation passed, but actual3close originals stillCG, no realism approval. Actual licensed HSRD100 winter scan native and4real Cycles originals including face opened: stronger photographic detail, ragged hair/sole capture markers need cleanup.12winter scan pose archives now actual sourceSHA/CRC/memberSHA verified, native batch not yet run; higherLOD source test next. All original public sources preserved. Native/rig cache work not published is reproducible from retained code/receipts, not falsely claimed locally restored. No final92/promotion/independent acceptance."
+    },
+    {
+      "ts": "2026-10-19T06:13:39Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual active Blender4.3.2 worker resumed; runtime executed. Latest preserved R13 native b8ea5ed69e0af9436a6b9fa80be9409ec506ef4a233f10b4e2ddea4c02fd23fb public692360170B/b5dfc99472995638ba08b441dcb05970f164cd6766b64e33bfbca21a8691f8be, actual prior anonymousCRC/memberPASS. Restoring exact newer native plus missing receipts after interrupted cache snapshot, not falsely claiming lost R14 binary preserved. Code for551measured shelfproducts/duplicateface repair retained; executing rebuild next, then immediate durable backup. Source435d9970204ac0f8721c0d284a476bf086a03455 PR6 draft. No final92/independent acceptance; continue no approval pauses."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-18T20:32:51Z",
-    "checkpoint": "Actual active Blender4.3.2 session restored. Native55340889139d publicly preserved307545949B/archiveSHA41be657a8fac; anonymously restored exact nativeSHA/everymember verified now. Prior actual553 fresh reopen PASS;25components+wholeGLB clean imports PASS fb2f0d386413; P06/P12 measured UV-fitted head-bone grooms/motion restore/nonhair conservation passed, but actual3close originals stillCG, no realism approval. Actual licensed HSRD100 winter scan native and4real Cycles originals including face opened: stronger photographic detail, ragged hair/sole capture markers need cleanup.12winter scan pose archives now actual sourceSHA/CRC/memberSHA verified, native batch not yet run; higherLOD source test next. All original public sources preserved. Native/rig cache work not published is reproducible from retained code/receipts, not falsely claimed locally restored. No final92/promotion/independent acceptance."
+    "expires": "2026-10-19T10:13:39Z",
+    "checkpoint": "Actual active Blender4.3.2 worker resumed; runtime executed. Latest preserved R13 native b8ea5ed69e0af9436a6b9fa80be9409ec506ef4a233f10b4e2ddea4c02fd23fb public692360170B/b5dfc99472995638ba08b441dcb05970f164cd6766b64e33bfbca21a8691f8be, actual prior anonymousCRC/memberPASS. Restoring exact newer native plus missing receipts after interrupted cache snapshot, not falsely claiming lost R14 binary preserved. Code for551measured shelfproducts/duplicateface repair retained; executing rebuild next, then immediate durable backup. Source435d9970204ac0f8721c0d284a476bf086a03455 PR6 draft. No final92/independent acceptance; continue no approval pauses."
   }
 }
