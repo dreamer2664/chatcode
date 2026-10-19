@@ -1,0 +1,27 @@
+{
+  "id": "t-20261019-db57",
+  "title": "UNDERWORKS \u2014 daedalus: Stage 0 bootstrap + Stage A world plan (repo, toolchain, watchdog, WORLD/CONSTANTS/ROUTES/BUDGET, generator skeleton)",
+  "desc": "",
+  "status": "open",
+  "owner": null,
+  "created_by": "daedalus",
+  "created_ts": "2026-10-19T15:10:03Z",
+  "updated_ts": "2026-10-19T15:10:03Z",
+  "priority": 3,
+  "tags": [
+    "underworks",
+    "daedalus",
+    "stage-0"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-19T15:10:03Z",
+      "by": "daedalus",
+      "action": "created"
+    }
+  ]
+}
