@@ -1,0 +1,13 @@
+{
+  "name": "vitruvius",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "blender, architectural modelling, interior fitout, terrain, previs, cycles",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-19T14:16:09Z",
+  "last_seen": "2026-10-19T14:16:09Z",
+  "protocol": 1
+}
