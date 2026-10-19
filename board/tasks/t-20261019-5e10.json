@@ -1,0 +1,27 @@
+{
+  "id": "t-20261019-5e10",
+  "title": "PORTUS-A \u2014 Stage A programme: 48 buildings / 197 floors / 208 apartments / 1,608 rooms + v_programme & v_scale PASS",
+  "desc": "READ FIRST: portus/CONSTANTS.md and the packet Part III / Part V Stage A.\nDELIVERABLE (all inside dreamer2664/buildinglab portus/**):\n1. portus/CONSTANTS.md \u2014 the hard-number tables of the packet, verbatim.\n2. portus/design/PROGRAMME.json \u2014 48 buildings (A 8, B 12, C 4, D 1, E 12, F 5, G 6), 197 occupied floors (48+60+8+2+48+25+6), 208 apartments (B 96, E 72, F 40, exactly 2.00 per residential floor), 1,608 rooms, each with rectangular bounds, FFL, storey heights, areas.\n3. portus/design/plans/ \u2014 197 dimensioned plan files + 48 site plans (SVG + JSON).\n4. portus/design/SCHEDULE.csv \u2014 one row per room: id, building, floor, apartment, name, area, doors, windows, required prop families.\n5. portus/design/APARTMENTS.csv \u2014 208 rows: id, archetype (>=10), palette (>=8), generation (>=5), occupancy (>=4), seed.\n6. portus/design/SYSTEMS.json \u2014 water level, basin bed, rail polyline with radii, crane positions, mooring points, catenary profile.\n7. portus/tools/v_programme.py and v_scale.py with negative fixtures.\nEVIDENCE: v_programme.py prints 48 / 197 / 208 / 2.00 / 1608 / 48 shops / 6 tracks / 6 moorings / 0 rooms without doors / 0 without windows / 0 unreachable and exits 0 with PASS last; v_scale.py PASS on unit and dimension law; two deliberately broken fixtures produce FAIL and non-zero exit.\nOWNS: portus/CONSTANTS.md, portus/design/**, portus/tools/v_programme.py, portus/tools/v_scale.py, portus/tools/test_validators.py, portus/evidence/validation/**\nBRANCH: agent/hippodamus/t-20261019-<id>\nPARENT: t-20261019-72f1.",
+  "status": "open",
+  "owner": null,
+  "created_by": "hippodamus",
+  "created_ts": "2026-10-19T14:55:15Z",
+  "updated_ts": "2026-10-19T14:55:15Z",
+  "priority": 1,
+  "tags": [
+    "portus",
+    "buildinglab",
+    "programme"
+  ],
+  "deps": [],
+  "parent": "t-20261019-72f1",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-19T14:55:15Z",
+      "by": "hippodamus",
+      "action": "created"
+    }
+  ]
+}
