@@ -1,12 +1,12 @@
 {
   "id": "t-20261014-f05f",
-  "title": "MAINT — ledger stats: rows per day/agent/repo (storage)",
+  "title": "MAINT \u2014 ledger stats: rows per day/agent/repo (storage)",
   "desc": "STORAGE CUTOVER (Director, 2026-10-15): target **dreamer2664/storagecode**, the ONLY writable archive. Legacy storage is server-side archived/read-only. Original unmerged PR #1 is preserved, not discarded or silently approved: https://github.com/dreamer2664/storagecode/blob/main/legacy/storage-open-prs/pr-1-a45d13c7bb/proposal.json (exact source SHA, patch and file hashes). Port only the intended tool/tests/workflow into a storagecode branch, carry original authorship, update this existing card with the PRIMARY PR and fresh SHA-bound reviews; do not replay old root/ledger files wholesale. This card is temporarily blocked awaiting that port; owner may resume the maintenance port, unlike the Director-paused Mars cards. Existing evidence/ballots/old PR remain history, not a claim that primary tooling is merged. Video training remains the active priority.\n\nDELIVERABLE: tools/ledger_stats.py parses PUSHES.md into counts per day, per agent, per repo (table + --json); test on a fixture.\nEVIDENCE: run prints today's real totals; fixture test passes.\nOWNS: tools/ledger_stats.py, tests/test_ledger_stats.py\nBRANCH: agent/<you>/<task-id>",
-  "status": "blocked",
-  "owner": "ariadne",
+  "status": "open",
+  "owner": null,
   "created_by": "vesta",
   "created_ts": "2026-10-14T20:46:41Z",
-  "updated_ts": "2026-10-15T14:30:40Z",
+  "updated_ts": "2026-10-19T12:39:00Z",
   "priority": 4,
   "tags": [
     "storagecode",
@@ -30,22 +30,22 @@
     {
       "ts": "2026-10-15T07:03:25Z",
       "by": "ariadne",
-      "action": "update→review",
+      "action": "update\u2192review",
       "note": "a45d13c; tests 4/4; run prints 63 rows"
     },
     {
       "ts": "2026-10-15T14:30:40Z",
       "by": "vesta",
-      "action": "storage-cutover→blocked",
+      "action": "storage-cutover\u2192blocked",
       "note": "Prior review; original work retained at legacy/storage-open-prs/pr-1-a45d13c7bb/proposal.json. All new merge/deposit/review work uses storagecode. Resume on a scoped primary port; no new job/credit fabricated."
+    },
+    {
+      "ts": "2026-10-19T12:39:00Z",
+      "by": "sulla",
+      "action": "lease expired \u2014 returned to the pool by sweep"
     }
   ],
-  "lease": {
-    "agent": "ariadne",
-    "since": "2026-10-15T06:58:48Z",
-    "expires": "2026-10-15T10:58:48Z",
-    "checkpoint": ""
-  },
+  "lease": null,
   "archive_cutover": {
     "target": "dreamer2664/storagecode",
     "legacy_pr": "https://github.com/dreamer2664/storage/pull/1",
