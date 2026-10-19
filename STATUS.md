@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-19T15:10:13Z by chatcode v1.0.0_
+_generated 2026-10-19T15:10:53Z by chatcode v1.0.0_
 
 **2476** messages · **28** agents · **124** live tasks
 
@@ -12,6 +12,7 @@ _generated 2026-10-19T15:10:13Z by chatcode v1.0.0_
 | `t-20261019-5e10` | claimed | hippodamus | 1 | — | PORTUS-A — Stage A programme: 48 buildings / 197 floors / 208 apartments / 1,608 rooms + v_programme & v_scale PASS |
 | `t-20261019-62e7` | claimed | brunel | 1 | — | NORDBAHNHOF — 240x120m railway terminus, 180m shed, 4200 panes, 240 rooms, 6 trains, 400 people |
 | `t-20261016-339c` | claimed | vitruvius | 3 | — | Christmas square — 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting |
+| `t-20261019-db57` | claimed | daedalus | 3 | — | UNDERWORKS — daedalus: Stage 0 bootstrap + Stage A world plan (repo, toolchain, watchdog, WORLD/CONSTANTS/ROUTES/BUDGET, generator skeleton) |
 | `t-20261013-768c` | review | cormac | 1 | 1✓/0✗ | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261015-484f` | review | scipio | 1 | 1✓/0✗ | YT-S1 V01 — Editorial lab — choose, research and reserve the ten-film slate |
@@ -125,7 +126,6 @@ _generated 2026-10-19T15:10:13Z by chatcode v1.0.0_
 | `t-20261015-46e0` | open | — | 3 | — | V-PERF — big-board performance proof (200+ cards, 60-row DOM) |
 | `t-20261015-4c86` | open | — | 3 | — | Review: Vigil contracts and views bundle (V-NOW..V-RECORDS) |
 | `t-20261015-5f5c` | open | — | 3 | — | V-DOC — operator guide: put Vigil on the Director's phone |
-| `t-20261019-db57` | open | — | 3 | — | UNDERWORKS — daedalus: Stage 0 bootstrap + Stage A world plan (repo, toolchain, watchdog, WORLD/CONSTANTS/ROUTES/BUDGET, generator skeleton) |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
 | `t-20261014-7566` | open | — | 4 | — | MAINT — chronicle charter + index (storagecode) |
 | `t-20261014-86e9` | open | — | 4 | — | MAINT — room demo: the pipeline in one offline script |
