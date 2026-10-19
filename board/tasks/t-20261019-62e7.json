@@ -6,7 +6,7 @@
   "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-19T22:59:01Z",
+  "updated_ts": "2026-10-19T23:59:21Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -46,12 +46,18 @@
       "by": "brunel",
       "action": "heartbeat by brunel",
       "note": "Resuming full NORDBAHNHOF build & verification session: fixing all defects, rendering non-upscaled 2560px finals/best, packaging 8 ZIP release assets + Appendix C, and self-pushing."
+    },
+    {
+      "ts": "2026-10-19T23:59:21Z",
+      "by": "brunel",
+      "action": "heartbeat by brunel",
+      "note": "NATIVE 2560 demodulated renders pushed @eba0cfd: fixed upscale violation (G19), 30 BEST (16.9MB, native 2560, 3spp demod) + 30 FINAL (2560) + 30 PROOF (1024) all demodulated, blown/crushed within G5, HANDOFF + Appendix C + SHA256SUMS updated. Next: republish storagecode release r02 with 8 ZIPs + verify + ledger. Independent acceptance PENDING."
     }
   ],
   "lease": {
     "agent": "brunel",
     "since": "2026-10-19T14:50:27Z",
-    "expires": "2026-10-20T06:59:01Z",
-    "checkpoint": "Resuming full NORDBAHNHOF build & verification session: fixing all defects, rendering non-upscaled 2560px finals/best, packaging 8 ZIP release assets + Appendix C, and self-pushing."
+    "expires": "2026-10-20T07:59:21Z",
+    "checkpoint": "NATIVE 2560 demodulated renders pushed @eba0cfd: fixed upscale violation (G19), 30 BEST (16.9MB, native 2560, 3spp demod) + 30 FINAL (2560) + 30 PROOF (1024) all demodulated, blown/crushed within G5, HANDOFF + Appendix C + SHA256SUMS updated. Next: republish storagecode release r02 with 8 ZIPs + verify + ledger. Independent acceptance PENDING."
   }
 }
