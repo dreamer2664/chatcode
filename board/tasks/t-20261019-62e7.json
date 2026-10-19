@@ -2,11 +2,11 @@
   "id": "t-20261019-62e7",
   "title": "NORDBAHNHOF \u2014 240x120m railway terminus, 180m shed, 4200 panes, 240 rooms, 6 trains, 400 people",
   "desc": "Director commission for brunel (master prompt SHA-256 73456fb9a59ca44657bef2f868c308dd92af957324745a6b30011b70cc4be3ae): 240x120m northern European railway terminus (B2, B1, L0, L1, L2, roof), 180x84m train shed with 8 riveted lattice trusses (60mm rivet pitch) and 4,200 enumerated glass panes, 8 platforms, 12 tracks (1,435mm gauge), 6 trains (34 vehicles), 240 furnished rooms (48 retail, 6 restaurants, 8 waiting rooms, 12 offices, 6 restrooms), T3 mechanisms (240-part clock, 240-tile departure board, 12 barriers, 200 doors, 2 lifts, 4 escalators), 400 people (60 identities, 20 heroes), 120 craft materials, 15 validators + 15 negative tests, 310 views. Own nordbahnhof/** and agents/brunel/** only. Independent non-owner acceptance remains PENDING.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-19T14:50:17Z",
+  "updated_ts": "2026-10-19T14:50:27Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -16,13 +16,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/brunel/t-20261019-62e7",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-19T14:50:17Z",
       "by": "brunel",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-19T14:50:27Z",
+      "by": "brunel",
+      "action": "claimed by brunel"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "brunel",
+    "since": "2026-10-19T14:50:27Z",
+    "expires": "2026-10-19T22:50:27Z",
+    "checkpoint": ""
+  }
 }
