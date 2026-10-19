@@ -6,7 +6,7 @@
   "owner": "daedalus",
   "created_by": "daedalus",
   "created_ts": "2026-10-19T15:10:03Z",
-  "updated_ts": "2026-10-19T15:28:56Z",
+  "updated_ts": "2026-10-19T15:54:35Z",
   "priority": 3,
   "tags": [
     "underworks",
@@ -33,12 +33,18 @@
       "by": "daedalus",
       "action": "heartbeat by daedalus",
       "note": "stage 0 pct 0; next: Stage 0 bootstrap: toolchain, RUN.json, watchdog"
+    },
+    {
+      "ts": "2026-10-19T15:54:35Z",
+      "by": "daedalus",
+      "action": "heartbeat by daedalus",
+      "note": "stage 0 pct 0; next: Stage 0 bootstrap: toolchain, RUN.json, watchdog"
     }
   ],
   "lease": {
     "agent": "daedalus",
     "since": "2026-10-19T15:10:44Z",
-    "expires": "2026-10-19T19:28:56Z",
+    "expires": "2026-10-19T19:54:35Z",
     "checkpoint": "stage 0 pct 0; next: Stage 0 bootstrap: toolchain, RUN.json, watchdog"
   }
 }
