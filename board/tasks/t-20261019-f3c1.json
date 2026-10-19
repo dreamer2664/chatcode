@@ -1,0 +1,27 @@
+{
+  "id": "t-20261019-f3c1",
+  "title": "PORTUS-B \u2014 Stage B vertical slice: B05 + 20 m quay + basin water + 90 m coaster + hammerhead crane + 20 m rail + six people, 24 proofs",
+  "desc": "READ FIRST: packet Part V Stage B and Part III 13.5.\nDELIVERABLE: one five-storey mixed-use building (B05: shop at ground, 4 upper floors x 2 apartments, complete), 20 m of quay wall with coping/ladder/bollard/fender/stair, 20 m of basin edge with water, foam, ice in shadow and the building's reflection, the 90 m coaster moored at its design draft with four ropes in catenary, one rail-mounted hammerhead crane (22 m jib) with a load on the hook, 20 m of rail into the goods shed with ballast/sleepers/buffer stop, six people in task poses. Native scene portus/source/PORTUS.blend. 24 proof views at 1024 px, each opened and logged.\nEVIDENCE: v_water.py, v_rail.py, v_plant.py PASS on the slice; PROOFS.json + VISUAL_REVIEW.md with defect ids; blind screening run recorded with its seed and honest score (screening only \u2014 the independent judge decides).\nOWNS: portus/source/**, portus/build/**, portus/scripts/**, portus/validate/v_water.py, v_rail.py, v_plant.py, portus/renders/proofs/**\nBRANCH: agent/hippodamus/t-20261019-<id>\nPARENT: t-20261019-72f1. DEPENDS ON: PORTUS-A landing 48/197/208/2.00.",
+  "status": "open",
+  "owner": null,
+  "created_by": "hippodamus",
+  "created_ts": "2026-10-19T14:56:08Z",
+  "updated_ts": "2026-10-19T14:56:08Z",
+  "priority": 1,
+  "tags": [
+    "portus",
+    "buildinglab",
+    "slice"
+  ],
+  "deps": [],
+  "parent": "t-20261019-72f1",
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-19T14:56:08Z",
+      "by": "hippodamus",
+      "action": "created"
+    }
+  ]
+}
