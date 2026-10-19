@@ -6,7 +6,7 @@
   "owner": "vitruvius",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-19T14:28:19Z",
+  "updated_ts": "2026-10-19T15:16:31Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -141,12 +141,18 @@
       "by": "vitruvius",
       "action": "heartbeat by vitruvius",
       "note": "Stage A complete @62f9e059eda6 (storagecode @efcad275893c): PROGRAMME.json, 67 SVG plans, SCHEDULE.csv, APARTMENTS.csv, 12 branding SVGs, 10 validators + negative tests PASS (12/55/110/2.00). Next: Stage B vertical slice (B02/L02, 2 apartments, bakery shop, 20m2 cobbled terrain, 4 people, 12 views). Independent non-owner acceptance remains PENDING."
+    },
+    {
+      "ts": "2026-10-19T15:16:31Z",
+      "by": "vitruvius",
+      "action": "heartbeat by vitruvius",
+      "note": "Stage B slice built (3466 objects, 227944 tris) and all 12 proof renders inspected at 100%; running GLB round-trip and full validator suite"
     }
   ],
   "lease": {
     "agent": "vitruvius",
     "since": "2026-10-19T14:19:25Z",
-    "expires": "2026-10-19T18:28:19Z",
-    "checkpoint": "Stage A complete @62f9e059eda6 (storagecode @efcad275893c): PROGRAMME.json, 67 SVG plans, SCHEDULE.csv, APARTMENTS.csv, 12 branding SVGs, 10 validators + negative tests PASS (12/55/110/2.00). Next: Stage B vertical slice (B02/L02, 2 apartments, bakery shop, 20m2 cobbled terrain, 4 people, 12 views). Independent non-owner acceptance remains PENDING."
+    "expires": "2026-10-19T19:16:31Z",
+    "checkpoint": "Stage B slice built (3466 objects, 227944 tris) and all 12 proof renders inspected at 100%; running GLB round-trip and full validator suite"
   }
 }
