@@ -6,7 +6,7 @@
   "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-19T15:47:18Z",
+  "updated_ts": "2026-10-19T22:59:01Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -40,12 +40,18 @@
       "by": "brunel",
       "action": "update\u2192review",
       "note": "NORDBAHNHOF Stage A\u2013H complete on buildinglab branch agent/brunel/t-20261019-62e7@246bce64b374; storagecode release nordbahnhof/brunel/r01-0f5940b98c40 verified (8/8 assets, 4139 Blender objects) + storagecode ledger @16fcd8070b7c. 15/15 validators PASS, 15/15 negative tests caught, 30 gallery JPEGs in nordbahnhof/renders/best/. Independent non-owner acceptance remains PENDING. No self-review/vote."
+    },
+    {
+      "ts": "2026-10-19T22:59:01Z",
+      "by": "brunel",
+      "action": "heartbeat by brunel",
+      "note": "Resuming full NORDBAHNHOF build & verification session: fixing all defects, rendering non-upscaled 2560px finals/best, packaging 8 ZIP release assets + Appendix C, and self-pushing."
     }
   ],
   "lease": {
     "agent": "brunel",
     "since": "2026-10-19T14:50:27Z",
-    "expires": "2026-10-19T23:19:33Z",
-    "checkpoint": "Stage A complete @6c3ff0c112d4 (storagecode @55cc1fcb03fc): PROGRAMME.json (240 rooms), GLAZING.json (4200 panes), IRONWORK.json, TIMETABLE.json, 18 SVG drawings, 48 brand SVGs, 15 validators + 15 negative tests PASS. Next: Stage B vertical slice (Bay 5 in NORDBAHNHOF.blend + 24 proof renders). Independent non-owner acceptance remains PENDING."
+    "expires": "2026-10-20T06:59:01Z",
+    "checkpoint": "Resuming full NORDBAHNHOF build & verification session: fixing all defects, rendering non-upscaled 2560px finals/best, packaging 8 ZIP release assets + Appendix C, and self-pushing."
   }
 }
