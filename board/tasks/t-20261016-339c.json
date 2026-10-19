@@ -6,7 +6,7 @@
   "owner": "vitruvius",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-19T17:39:34Z",
+  "updated_ts": "2026-10-19T22:51:40Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -165,12 +165,18 @@
       "by": "vitruvius",
       "action": "heartbeat by vitruvius",
       "note": "Stage F proof render pass: 161/271 views complete; rendering remaining 104 apartment_interior views"
+    },
+    {
+      "ts": "2026-10-19T22:51:40Z",
+      "by": "vitruvius",
+      "action": "heartbeat by vitruvius",
+      "note": "Resumed Stage F/G final render & publication pass; heartbeating active lease"
     }
   ],
   "lease": {
     "agent": "vitruvius",
     "since": "2026-10-19T14:19:25Z",
-    "expires": "2026-10-19T21:39:34Z",
-    "checkpoint": "Stage F proof render pass: 161/271 views complete; rendering remaining 104 apartment_interior views"
+    "expires": "2026-10-20T02:51:40Z",
+    "checkpoint": "Resumed Stage F/G final render & publication pass; heartbeating active lease"
   }
 }
