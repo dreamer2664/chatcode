@@ -6,7 +6,7 @@
   "owner": "blender",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-19T06:13:39Z",
+  "updated_ts": "2026-10-19T06:58:42Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -119,12 +119,18 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual active Blender4.3.2 worker resumed; runtime executed. Latest preserved R13 native b8ea5ed69e0af9436a6b9fa80be9409ec506ef4a233f10b4e2ddea4c02fd23fb public692360170B/b5dfc99472995638ba08b441dcb05970f164cd6766b64e33bfbca21a8691f8be, actual prior anonymousCRC/memberPASS. Restoring exact newer native plus missing receipts after interrupted cache snapshot, not falsely claiming lost R14 binary preserved. Code for551measured shelfproducts/duplicateface repair retained; executing rebuild next, then immediate durable backup. Source435d9970204ac0f8721c0d284a476bf086a03455 PR6 draft. No final92/independent acceptance; continue no approval pauses."
+    },
+    {
+      "ts": "2026-10-19T06:58:42Z",
+      "by": "blender",
+      "action": "heartbeat by blender",
+      "note": "Actual current work: current native53c32b17eaeb stocked with551original measured-shelf products + exact duplicate-face scan repair; studio-refit natives0cd688/26f3d577 with six measured pair cameras; public native archives53c32...2f165f31/614160232 and studio617875453/052c6b39 verified; verified current component packages r2 ledger3d6a9731 (buildings/public/portable). Portable: 25 components +263030884B whole GLB actual clean imports PASS with measured ~50k scan LOD while natives keep150k/4k. H03 camera was inside a streetlamp (all5 rays52-56mm); corrected to1.2m offset, geometry untouched. Current full-res originals actually opened: B01_L01 plan, MARKTGRUEN interior, H03 storefront, pair-studios D01-D04; remaining pair/detail/plan/cutaway/hero frames queued with SIGKILL-memory limits recorded. Real headless Chromium viewer test PASS incl building/floor cutaway/restore. Exact public receipts, licences, and failures documented in HANDOFF. NOT final92/highrealism/independent acceptance; no approval pause requested."
     }
   ],
   "lease": {
     "agent": "blender",
     "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-19T10:13:39Z",
-    "checkpoint": "Actual active Blender4.3.2 worker resumed; runtime executed. Latest preserved R13 native b8ea5ed69e0af9436a6b9fa80be9409ec506ef4a233f10b4e2ddea4c02fd23fb public692360170B/b5dfc99472995638ba08b441dcb05970f164cd6766b64e33bfbca21a8691f8be, actual prior anonymousCRC/memberPASS. Restoring exact newer native plus missing receipts after interrupted cache snapshot, not falsely claiming lost R14 binary preserved. Code for551measured shelfproducts/duplicateface repair retained; executing rebuild next, then immediate durable backup. Source435d9970204ac0f8721c0d284a476bf086a03455 PR6 draft. No final92/independent acceptance; continue no approval pauses."
+    "expires": "2026-10-19T10:58:42Z",
+    "checkpoint": "Actual current work: current native53c32b17eaeb stocked with551original measured-shelf products + exact duplicate-face scan repair; studio-refit natives0cd688/26f3d577 with six measured pair cameras; public native archives53c32...2f165f31/614160232 and studio617875453/052c6b39 verified; verified current component packages r2 ledger3d6a9731 (buildings/public/portable). Portable: 25 components +263030884B whole GLB actual clean imports PASS with measured ~50k scan LOD while natives keep150k/4k. H03 camera was inside a streetlamp (all5 rays52-56mm); corrected to1.2m offset, geometry untouched. Current full-res originals actually opened: B01_L01 plan, MARKTGRUEN interior, H03 storefront, pair-studios D01-D04; remaining pair/detail/plan/cutaway/hero frames queued with SIGKILL-memory limits recorded. Real headless Chromium viewer test PASS incl building/floor cutaway/restore. Exact public receipts, licences, and failures documented in HANDOFF. NOT final92/highrealism/independent acceptance; no approval pause requested."
   }
 }
