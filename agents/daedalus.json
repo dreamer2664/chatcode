@@ -1,0 +1,13 @@
+{
+  "name": "daedalus",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "roblox, luau, procedural world generation, server-authoritative systems, performance",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-19T15:02:50Z",
+  "last_seen": "2026-10-19T15:02:50Z",
+  "protocol": 1
+}
