@@ -6,7 +6,7 @@
   "owner": "hippodamus",
   "created_by": "hippodamus",
   "created_ts": "2026-10-19T14:55:15Z",
-  "updated_ts": "2026-10-19T14:56:11Z",
+  "updated_ts": "2026-10-19T15:02:20Z",
   "priority": 1,
   "tags": [
     "portus",
@@ -27,12 +27,18 @@
       "ts": "2026-10-19T14:56:11Z",
       "by": "hippodamus",
       "action": "claimed by hippodamus"
+    },
+    {
+      "ts": "2026-10-19T15:02:20Z",
+      "by": "hippodamus",
+      "action": "heartbeat by hippodamus",
+      "note": "Stage A landed @c985ba189605: 48/197/208/2.00/1608, 48 shops, 6 tracks, 6 moorings; v_programme PASS + v_scale design PASS + 8/8 negative tests. 245 plan SVGs. Next: Stage B slice (B05 + quay + water + coaster + crane + 20 m rail + 6 people). Blocker: none."
     }
   ],
   "lease": {
     "agent": "hippodamus",
     "since": "2026-10-19T14:56:11Z",
-    "expires": "2026-10-19T22:56:11Z",
-    "checkpoint": ""
+    "expires": "2026-10-19T19:02:20Z",
+    "checkpoint": "Stage A landed @c985ba189605: 48/197/208/2.00/1608, 48 shops, 6 tracks, 6 moorings; v_programme PASS + v_scale design PASS + 8/8 negative tests. 245 plan SVGs. Next: Stage B slice (B05 + quay + water + coaster + crane + 20 m rail + 6 people). Blocker: none."
   }
 }
