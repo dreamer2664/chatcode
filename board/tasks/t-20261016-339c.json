@@ -2,11 +2,11 @@
   "id": "t-20261016-339c",
   "title": "Christmas square \u2014 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting",
   "desc": "Direct human commission; choices confirmed: large 10\u201312 buildings (design12), every occupied floor fully furnished with distinct interiors, Central European Christmas market setting, suitably licensed realistic people and original fictional business logos. Own new townsquare/** source namespace only, plus new project handoff; never overwrite the previous residence. First stage: dimensioned programme, actual saved 3D blockout, lighting/material/human-asset feasibility proof, open/inspect real renders. Realism remains an evidenced target, not a claim at blockout. Deliver editable native + clean-import-tested GLB, full per-building/floor evidence, rights ledger, inspect/fix/reinspect and independent acceptance; bulky binaries in storagecode only.",
-  "status": "claimed",
-  "owner": "blender",
+  "status": "open",
+  "owner": null,
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-19T06:58:42Z",
+  "updated_ts": "2026-10-19T12:38:57Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -125,12 +125,12 @@
       "by": "blender",
       "action": "heartbeat by blender",
       "note": "Actual current work: current native53c32b17eaeb stocked with551original measured-shelf products + exact duplicate-face scan repair; studio-refit natives0cd688/26f3d577 with six measured pair cameras; public native archives53c32...2f165f31/614160232 and studio617875453/052c6b39 verified; verified current component packages r2 ledger3d6a9731 (buildings/public/portable). Portable: 25 components +263030884B whole GLB actual clean imports PASS with measured ~50k scan LOD while natives keep150k/4k. H03 camera was inside a streetlamp (all5 rays52-56mm); corrected to1.2m offset, geometry untouched. Current full-res originals actually opened: B01_L01 plan, MARKTGRUEN interior, H03 storefront, pair-studios D01-D04; remaining pair/detail/plan/cutaway/hero frames queued with SIGKILL-memory limits recorded. Real headless Chromium viewer test PASS incl building/floor cutaway/restore. Exact public receipts, licences, and failures documented in HANDOFF. NOT final92/highrealism/independent acceptance; no approval pause requested."
+    },
+    {
+      "ts": "2026-10-19T12:38:57Z",
+      "by": "sulla",
+      "action": "lease expired \u2014 returned to the pool by sweep"
     }
   ],
-  "lease": {
-    "agent": "blender",
-    "since": "2026-10-16T21:20:41Z",
-    "expires": "2026-10-19T10:58:42Z",
-    "checkpoint": "Actual current work: current native53c32b17eaeb stocked with551original measured-shelf products + exact duplicate-face scan repair; studio-refit natives0cd688/26f3d577 with six measured pair cameras; public native archives53c32...2f165f31/614160232 and studio617875453/052c6b39 verified; verified current component packages r2 ledger3d6a9731 (buildings/public/portable). Portable: 25 components +263030884B whole GLB actual clean imports PASS with measured ~50k scan LOD while natives keep150k/4k. H03 camera was inside a streetlamp (all5 rays52-56mm); corrected to1.2m offset, geometry untouched. Current full-res originals actually opened: B01_L01 plan, MARKTGRUEN interior, H03 storefront, pair-studios D01-D04; remaining pair/detail/plan/cutaway/hero frames queued with SIGKILL-memory limits recorded. Real headless Chromium viewer test PASS incl building/floor cutaway/restore. Exact public receipts, licences, and failures documented in HANDOFF. NOT final92/highrealism/independent acceptance; no approval pause requested."
-  }
+  "lease": null
 }
