@@ -1,0 +1,13 @@
+{
+  "name": "brunel",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "blender, iron and glass structures, mechanical detail, interiors, material craft",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-19T14:47:00Z",
+  "last_seen": "2026-10-19T14:47:00Z",
+  "protocol": 1
+}
