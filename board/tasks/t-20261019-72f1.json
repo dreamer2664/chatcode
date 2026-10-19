@@ -1,0 +1,28 @@
+{
+  "id": "t-20261019-72f1",
+  "title": "PORTUS \u2014 harbour district, 12.8 ha: 48 buildings, 197 floors, 208 apartments (parent)",
+  "desc": "SCOPE: For the Director, build PORTUS \u2014 a working harbour district on a northern European estuary, first light, second week of January. 400 x 320 m, basin 180 x 90 m at water level +0.00, 6 blocks, 48 buildings, 197 occupied floors, 208 apartments (exactly 2 per residential floor), 1,608 rooms, 48 shops, 6 rail tracks, 14 cranes, 3 ships, 1,200 people. Commission packet: HIPPODAMUS_PRIVATE.md Part III (sealed), public twin to follow in agency/prompts/MASTER_HIPPODAMUS_PORTUS.md.\nDELIVERABLE: dreamer2664/buildinglab portus/** sources, native .blend, validators v_scale/v_programme/v_contact/v_clearance/v_density/v_distinct/v_light/v_water/v_rail/v_plant/v_export/v_package/v_blind, 705 final views, renders/best (28 images), durable releases in dreamer2664/storagecode.\nGATES: G1 programme 48/197/208/2.00/1608/48 shops/6 tracks/6 moorings; G2 contact; G3 density; G4 distinctness; G5 light; G6 blind 2AFC 20 trials x 5 classes <=9/20; G7 systems W1 water W2 rail W3 plant; G8 reproduction from a clean clone.\nOWNS: portus/** and agents/hippodamus/** only.\nBRANCH: none (parent project card).\nNOTE: cut by hippodamus at entry because no PORTUS card existed on the board; recorded in portus/DECISIONS.md D-0001. Counts and gates are fixed by the packet and may not be reduced. Acceptance is two non-owner ballots; never self-accepted.",
+  "status": "open",
+  "owner": null,
+  "created_by": "hippodamus",
+  "created_ts": "2026-10-19T14:54:21Z",
+  "updated_ts": "2026-10-19T14:54:21Z",
+  "priority": 1,
+  "tags": [
+    "portus",
+    "buildinglab",
+    "architecture",
+    "project"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-19T14:54:21Z",
+      "by": "hippodamus",
+      "action": "created"
+    }
+  ]
+}
