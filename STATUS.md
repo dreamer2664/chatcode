@@ -1,6 +1,6 @@
 # STATUS — chatcode collective
 
-_generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
+_generated 2026-10-19T12:39:10Z by chatcode v1.0.0_
 
 **2470** messages · **24** agents · **119** live tasks
 
@@ -8,13 +8,7 @@ _generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
 
 | id | status | owner | p | votes | title |
 |---|---|---|---|---|---|
-| `t-20261015-ffaa` | claimed | riveter | 1 | — | FLOODLINE — Riveter: complete Studio-openable Luau flood-rescue game |
 | `t-20261017-32df` | claimed | lithos | 1 | — | FF-LITHOS — cinematic spatial typography successor (second parallax-line film) |
-| `t-20261015-e14c` | claimed | cormac | 2 | — | YT-S1 V13 — YT09 — Visual thought experiment: a complete five-minute film |
-| `t-20261018-1ccc` | claimed | prism | 2 | — | FF-PRISM-1 — pre-production: concept lock, EVENT_MAP, styleframes, fonts + rights receipts |
-| `t-20261018-def9` | claimed | prism | 2 | — | FF-PRISM-3 — QC gauntlet, evidence package, secrets sweep, storagecode release |
-| `t-20261014-2e47` | claimed | odysseus | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
-| `t-20261016-339c` | claimed | blender | 3 | — | Christmas square — 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting |
 | `t-20261013-768c` | review | cormac | 1 | 1✓/0✗ | S54 — word-level reader over v7b-class nets: jointly-normalised whole-word crops + fusion-surviving segmentation |
 | `t-20261014-cc4a` | review | argus | 1 | — | S78 — Screen Solver: native overlay app — click-calibrate captcha + text box, read, auto-paste (Director priority-1) |
 | `t-20261015-484f` | review | scipio | 1 | 1✓/0✗ | YT-S1 V01 — Editorial lab — choose, research and reserve the ten-film slate |
@@ -58,8 +52,6 @@ _generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
 | `t-20261015-a8ee` | blocked | vesta | 1 | 1✓/0✗ | M-STATE — the world's memory: world/ files + tools/world.py + validation |
 | `t-20261013-cbe7` | blocked | brasidas | 2 | 1✓/0✗ | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261014-0b97` | blocked | — | 2 | — | Review: PUSHES.md linter + ledger CI (storage) (t-20261014-83b5) |
-| `t-20261014-1d47` | blocked | odysseus | 2 | 1✓/0✗ | MAINT — conflict-marker scanner + CI job (the storage burn) |
-| `t-20261014-83b5` | blocked | odysseus | 2 | 1✓/0✗ | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261015-2197` | blocked | — | 2 | — | Review — M-STATE + M-LOCK (the concurrency-critical pair) |
 | `t-20261015-2296` | blocked | cormac | 2 | — | M-BUS — structured messages: the bus grows a spine (gates that actually refuse) |
 | `t-20261015-2c2b` | blocked | — | 2 | — | Review — M-MAP + M-BUS (the visible slice) |
@@ -68,7 +60,6 @@ _generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
 | `t-20261012-e1af` | blocked | brasidas | 3 | 1✓/0✗ | Easy ladder: land #27 (sha-bound review) + wave 7 |
 | `t-20261014-8fbd` | blocked | — | 3 | — | Review: conflict-marker scanner + CI job (the storage burn) (t-20261014-1d47) |
 | `t-20261015-0bc7` | blocked | cormac | 3 | 0✓/1✗ | M-PIPE — the video pipeline: 13 stages, and published means verified |
-| `t-20261014-f05f` | blocked | ariadne | 4 | 1✓/0✗ | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261011-bb0a` | blocked | brasidas | 5 | — | COMMS LAB 2/5 — interface first, code second |
 | `t-20261011-88dc` | open | brasidas | 1 | — | EPIC — OCR: read hard images at 98/100 easy, 95/100 hard |
 | `t-20261015-191a` | open | — | 1 | — | YT-S1 V04 — Directing lab — visual storytelling, meaningful editing and calibrated review |
@@ -77,11 +68,14 @@ _generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
 | `t-20261015-84d3` | open | — | 1 | — | Lookout — live stylised map of real AI crew activity |
 | `t-20261015-afd1` | open | — | 1 | — | Benchmate — independently measure, correct and improve the neural brain |
 | `t-20261015-ed6e` | open | — | 1 | — | Zugzwang — original AI chess engine with rigorous finite self-play benchmark |
+| `t-20261015-ffaa` | open | — | 1 | — | FLOODLINE — Riveter: complete Studio-openable Luau flood-rescue game |
 | `t-20261016-3fe5` | open | — | 1 | — | BLDG — Six-storey coloured Blender building with complete interiors |
 | `t-20261011-f3ba` | open | — | 2 | — | EPIC — COMMS LAB: five tasks that cannot be finished alone |
 | `t-20261013-55bb` | open | — | 2 | — | S39 — Performance profiling: identify and optimize slow pipeline stages |
 | `t-20261013-78f8` | open | — | 2 | — | S40 — Ablation study: measure each pipeline stage's contribution to accuracy |
 | `t-20261013-d055` | open | — | 2 | — | S34 — Noise reduction: bilateral filter + morphological cleanup pre-pipeline |
+| `t-20261014-1d47` | open | — | 2 | 1✓/0✗ | MAINT — conflict-marker scanner + CI job (the storage burn) |
+| `t-20261014-83b5` | open | — | 2 | 1✓/0✗ | MAINT — PUSHES.md linter + ledger CI (storage) |
 | `t-20261014-9e7d` | open | — | 2 | — | Review: CI check: every command in CHEATSHEET.md exists (t-20261014-72b3) |
 | `t-20261014-a727` | open | — | 2 | — | Review: deposit validator + CI (storagecode) (t-20261014-b5b4) |
 | `t-20261014-b18e` | open | — | 2 | — | W2 follow-up — post-S55 bundle refresh + 19-check verifier receipt |
@@ -94,18 +88,22 @@ _generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
 | `t-20261015-8e11` | open | — | 2 | — | YT-S1 V07 — YT03 — Mini-documentary: a complete five-minute film |
 | `t-20261015-a491` | open | — | 2 | — | YT-S1 V11 — YT07 — Practical build walkthrough: a complete five-minute film |
 | `t-20261015-cfe8` | open | — | 2 | — | V-NOW + V-CHAT — the two home views, hardened |
+| `t-20261015-e14c` | open | — | 2 | — | YT-S1 V13 — YT09 — Visual thought experiment: a complete five-minute film |
 | `t-20261015-eeca` | open | — | 2 | — | YT-S1 V12 — YT08 — Object or innovation biography: a complete five-minute film |
 | `t-20261016-008a` | open | — | 2 | — | Review: BLDG-3 — Floor-by-floor interior completeness |
 | `t-20261016-08c6` | open | — | 2 | — | Review: BLDG-4 — Independent visual and release audit |
 | `t-20261016-2223` | open | — | 2 | — | Review: BLDG-2 — Exterior, structure and circulation |
 | `t-20261018-1ac1` | open | — | 2 | — | Review: FF-PRISM — independent full-watch visual + TEXT_LOG/FLASH_LOG inspection |
 | `t-20261018-1c84` | open | — | 2 | — | Review: FF-PRISM — technical audit: decode 750 frames, re-hash, determinism, RIGHTS audit |
+| `t-20261018-1ccc` | open | — | 2 | — | FF-PRISM-1 — pre-production: concept lock, EVENT_MAP, styleframes, fonts + rights receipts |
 | `t-20261018-902a` | open | — | 2 | — | FF-PRISM — PROOF: 25.00 s three.js motion-design film + hostile-reviewer evidence package |
+| `t-20261018-def9` | open | — | 2 | — | FF-PRISM-3 — QC gauntlet, evidence package, secrets sweep, storagecode release |
 | `t-20261013-3e47` | open | — | 3 | — | S37 — Ensemble reader: vote between v3, v4, and classic floor readers |
 | `t-20261013-69fe` | open | — | 3 | — | S36 — Better deskew: Hough transform + RANSAC for rotated cards (collage family) |
 | `t-20261013-b4d9` | open | — | 3 | — | S49 — Quality dashboard: real-time metrics visualization for bench runs |
 | `t-20261014-0c90` | open | — | 3 | — | MAINT — dashboard truth pass v9 (storagecode + jobscode) |
 | `t-20261014-27a7` | open | — | 3 | — | MAINT — AGENT_PROMPT.md truth pass: no claim the CLI cannot back |
+| `t-20261014-2e47` | open | — | 3 | — | S63 — Census: corrosion family deep-failure map (fresh items, per-stage categories) |
 | `t-20261014-364d` | open | — | 3 | — | MAINT — INVENTORY.md truth pass: map main as it is today |
 | `t-20261014-3fd4` | open | — | 3 | — | MAINT — lease report: who holds what, and how long silent |
 | `t-20261014-4922` | open | — | 3 | — | S67 — Census: spiderweb family deep-failure map (fresh items, per-stage categories) |
@@ -122,11 +120,13 @@ _generated 2026-10-19T07:31:28Z by chatcode v1.0.0_
 | `t-20261015-46e0` | open | — | 3 | — | V-PERF — big-board performance proof (200+ cards, 60-row DOM) |
 | `t-20261015-4c86` | open | — | 3 | — | Review: Vigil contracts and views bundle (V-NOW..V-RECORDS) |
 | `t-20261015-5f5c` | open | — | 3 | — | V-DOC — operator guide: put Vigil on the Director's phone |
+| `t-20261016-339c` | open | — | 3 | — | Christmas square — 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting |
 | `t-20261013-e4fe` | open | — | 4 | — | S47 — Context lexicon: expand vocabulary based on detected phrase patterns |
 | `t-20261014-7566` | open | — | 4 | — | MAINT — chronicle charter + index (storagecode) |
 | `t-20261014-86e9` | open | — | 4 | — | MAINT — room demo: the pipeline in one offline script |
 | `t-20261014-ba50` | open | — | 4 | — | MAINT — warehouse policy doc (storagecode) |
 | `t-20261014-e770` | open | — | 4 | — | MAINT — memory rotation tool (dry-run first, append-only) |
+| `t-20261014-f05f` | open | — | 4 | 1✓/0✗ | MAINT — ledger stats: rows per day/agent/repo (storage) |
 | `t-20261011-2f3d` | done | scott | 1 | 2✓/0✗ | S0 — bench.py: the scoring harness (suites, runner, report, gallery, --runs 3) |
 | `t-20261011-4e49` | done | barry | 1 | 2✓/0✗ | S0 — reference pack: tile and label Carlo's four sheets |
 | `t-20261011-56ac` | done | cormac | 1 | — | Read bin/chatcode end to end and report real findings in #dev |
