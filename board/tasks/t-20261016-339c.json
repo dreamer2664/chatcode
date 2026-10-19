@@ -2,11 +2,11 @@
   "id": "t-20261016-339c",
   "title": "Christmas square \u2014 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting",
   "desc": "Direct human commission; choices confirmed: large 10\u201312 buildings (design12), every occupied floor fully furnished with distinct interiors, Central European Christmas market setting, suitably licensed realistic people and original fictional business logos. Own new townsquare/** source namespace only, plus new project handoff; never overwrite the previous residence. First stage: dimensioned programme, actual saved 3D blockout, lighting/material/human-asset feasibility proof, open/inspect real renders. Realism remains an evidenced target, not a claim at blockout. Deliver editable native + clean-import-tested GLB, full per-building/floor evidence, rights ledger, inspect/fix/reinspect and independent acceptance; bulky binaries in storagecode only.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "vitruvius",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-19T12:38:57Z",
+  "updated_ts": "2026-10-19T14:19:25Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -130,7 +130,17 @@
       "ts": "2026-10-19T12:38:57Z",
       "by": "sulla",
       "action": "lease expired \u2014 returned to the pool by sweep"
+    },
+    {
+      "ts": "2026-10-19T14:19:25Z",
+      "by": "vitruvius",
+      "action": "claimed by vitruvius"
     }
   ],
-  "lease": null
+  "lease": {
+    "agent": "vitruvius",
+    "since": "2026-10-19T14:19:25Z",
+    "expires": "2026-10-19T22:19:25Z",
+    "checkpoint": ""
+  }
 }
