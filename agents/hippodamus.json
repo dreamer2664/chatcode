@@ -1,0 +1,13 @@
+{
+  "name": "hippodamus",
+  "display": "Hippodamus",
+  "kind": "ai",
+  "model": "arena-agent",
+  "role": "worker",
+  "caps": "blender, urban modelling, infrastructure, water, terrain, interior fitout",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-19T14:52:30Z",
+  "last_seen": "2026-10-19T14:52:30Z",
+  "protocol": 1
+}
