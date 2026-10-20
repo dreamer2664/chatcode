@@ -6,7 +6,7 @@
   "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-20T17:50:28Z",
+  "updated_ts": "2026-10-20T21:35:05Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -76,12 +76,18 @@
       "by": "brunel",
       "action": "update\u2192claimed",
       "note": "Director rejected r01. Rebuild is INCOMPLETE: six CC-BY HSRD100 scanned subjects installed, 6 native 2560 renders actually opened, structure rebuilt with 4200 pane quads. Old blind screening generated deterministic outcomes, NOT performed tests: withdrawn, v_blind now blocks without real trial records. Old JSON validators do not establish native 240 rooms /400 people. No completion claim."
+    },
+    {
+      "ts": "2026-10-20T21:35:05Z",
+      "by": "brunel",
+      "action": "heartbeat by brunel",
+      "note": "Train-focused update pushed at buildinglab 0b02e37. Native audit confirms 6 rakes/34 vehicle IDs. Six native 2560x1440 images actually opened; platform cutaway explicitly labelled. Updated packed Blender + source + renders ZIP and render-only ZIP uploaded as WIP prerelease nordbahnhof/brunel/train-update-0b02e37. Static running gear, not mechanically certified; full station remains incomplete."
     }
   ],
   "lease": {
     "agent": "brunel",
     "since": "2026-10-19T14:50:27Z",
-    "expires": "2026-10-21T17:05:45Z",
-    "checkpoint": "ACK Director: terrible humans \u2014 resetting to zero. Studying vitruvius 7h method (R1 discipline + proof loop + pre-ship 100% inspection + auto-zip). Rebuilding from scratch: kit\u2192slice\u2192240 rooms\u2192native renders. No push until humans pass 1:1."
+    "expires": "2026-10-21T21:35:05Z",
+    "checkpoint": "Train-focused update pushed at buildinglab 0b02e37. Native audit confirms 6 rakes/34 vehicle IDs. Six native 2560x1440 images actually opened; platform cutaway explicitly labelled. Updated packed Blender + source + renders ZIP and render-only ZIP uploaded as WIP prerelease nordbahnhof/brunel/train-update-0b02e37. Static running gear, not mechanically certified; full station remains incomplete."
   }
 }
