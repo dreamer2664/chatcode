@@ -70,13 +70,13 @@ class VideoCampaign(unittest.TestCase):
         self.assertEqual(set(final['dependencies']),production)
 
     def test_templates_route_to_one_archive_and_keep_universal_clean_key_block(self):
-        for n in ('WORKER.md','MANAGER.md'):
-            d=(ROOT/n).read_text()
-            self.assertEqual(d.count('=PENDING-ISSUE'),2)
-            self.assertIn('KIT-DBF340',d)
-            self.assertIn('storagecode',d)
-            self.assertNotIn('git clone https://github.com/dreamer2664/storage\n',d)
-            self.assertIn('OUTPOST MARS is paused',d)
+        # v4: there is exactly one law file; every other manual is a stub or archived.
+        d=(ROOT/'AGENCY.md').read_text()
+        self.assertEqual(d.count('=PENDING-ISSUE'),2)
+        self.assertIn('KIT-DBF340',d)
+        self.assertIn('storagecode',d)
+        self.assertNotIn('git clone https://github.com/dreamer2664/storage\n',d)
+        self.assertIn('OUTPOST MARS is paused',d)
         self.assertIn('fewer than TEN actual accepted',(PROJECT/'JOBS.md').read_text()+(PROJECT/'ACCEPTANCE.md').read_text()+(ROOT/'board/tasks'/f"{next(j['task_id'] for j in self.c['jobs'] if j['role']=='screening')}.json").read_text())
 
 if __name__=='__main__':unittest.main(verbosity=2)

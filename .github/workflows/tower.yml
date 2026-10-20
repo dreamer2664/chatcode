@@ -1,0 +1,40 @@
+name: tower
+
+# The watchtower, rendered by the machine: who is alive, who holds what.
+# Runs every ten minutes from liveness/*.json; a dead agent's leases are
+# visible before anyone has to ask. TOWER.md is generated — never hand-edit.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  push:
+    paths: ["liveness/**", "agents/**", "board/**"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tower
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: render TOWER.md
+        run: python3 bin/chatcode --repo-dir . tower --md TOWER.md > /dev/null
+      - name: commit if it moved
+        run: |
+          set -eu
+          git config user.name "tower"
+          git config user.email "tower@agency.local"
+          if ! git diff --quiet -- TOWER.md; then
+            git add TOWER.md
+            git commit -m "tower: refresh [skip ci]"
+            git push
+          fi

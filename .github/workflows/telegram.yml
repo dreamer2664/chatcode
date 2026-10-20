@@ -23,7 +23,9 @@ permissions:
 
 jobs:
   relay:
-    if: github.event_name == 'push'
+    # LEGACY: one bot per agent. The hive (hive.yml) is the single voice now.
+    # Set the repository variable TELEGRAM_LEGACY_RELAY=1 to bring this back.
+    if: github.event_name == 'push' && vars.TELEGRAM_LEGACY_RELAY == '1'
     runs-on: ubuntu-latest
     concurrency:
       group: telegram-relay
