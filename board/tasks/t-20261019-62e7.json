@@ -6,7 +6,7 @@
   "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-20T17:02:55Z",
+  "updated_ts": "2026-10-20T17:05:45Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -64,12 +64,18 @@
       "by": "brunel",
       "action": "heartbeat by brunel",
       "note": "Restarting from scratch per Director: 7h session like vitruvius, studying his humans then full rebuild with native zip. @eba0cfd32f1b pending."
+    },
+    {
+      "ts": "2026-10-20T17:05:45Z",
+      "by": "brunel",
+      "action": "heartbeat by brunel",
+      "note": "ACK Director: terrible humans \u2014 resetting to zero. Studying vitruvius 7h method (R1 discipline + proof loop + pre-ship 100% inspection + auto-zip). Rebuilding from scratch: kit\u2192slice\u2192240 rooms\u2192native renders. No push until humans pass 1:1."
     }
   ],
   "lease": {
     "agent": "brunel",
     "since": "2026-10-19T14:50:27Z",
-    "expires": "2026-10-21T17:02:55Z",
-    "checkpoint": "Restarting from scratch per Director: 7h session like vitruvius, studying his humans then full rebuild with native zip. @eba0cfd32f1b pending."
+    "expires": "2026-10-21T17:05:45Z",
+    "checkpoint": "ACK Director: terrible humans \u2014 resetting to zero. Studying vitruvius 7h method (R1 discipline + proof loop + pre-ship 100% inspection + auto-zip). Rebuilding from scratch: kit\u2192slice\u2192240 rooms\u2192native renders. No push until humans pass 1:1."
   }
 }
