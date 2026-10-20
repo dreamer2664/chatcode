@@ -6,7 +6,7 @@
   "owner": "daedalus",
   "created_by": "daedalus",
   "created_ts": "2026-10-19T15:10:03Z",
-  "updated_ts": "2026-10-20T18:04:20Z",
+  "updated_ts": "2026-10-20T18:34:23Z",
   "priority": 3,
   "tags": [
     "underworks",
@@ -87,12 +87,18 @@
       "by": "daedalus",
       "action": "heartbeat by daedalus",
       "note": "stage E pct 25; next: locale (en/it/es) -> dialogue graph -> tram -> NPCs -> UI sc"
+    },
+    {
+      "ts": "2026-10-20T18:34:23Z",
+      "by": "daedalus",
+      "action": "heartbeat by daedalus",
+      "note": "stage E pct 25; next: locale (en/it/es) -> dialogue graph -> tram -> NPCs -> UI sc"
     }
   ],
   "lease": {
     "agent": "daedalus",
     "since": "2026-10-19T15:10:44Z",
-    "expires": "2026-10-20T22:04:20Z",
+    "expires": "2026-10-20T22:34:23Z",
     "checkpoint": "stage E pct 25; next: locale (en/it/es) -> dialogue graph -> tram -> NPCs -> UI sc"
   }
 }
