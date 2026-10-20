@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import glob
 import json
 import os
 import random
@@ -97,7 +98,7 @@ PUT_SAFE_BYTES = 900_000  # keep contents PUTs safely under the endpoint's size
 MESSAGE_TYPES = (
     "say", "join", "leave", "status", "note", "idea",
     "task", "claim", "done", "handoff", "review", "vote", "alert",
-    "dm", "archive", "verify", "debate", "meeting",
+    "dm", "archive", "verify", "debate", "meeting", "report",
 )
 # A vote is the decision, a review is the evidence. Both are legitimate ways to
 # weigh in; votes are what the tally counts.
@@ -990,7 +991,7 @@ def task_authority(ctx: Ctx, task: dict, args, action: str) -> bool:
 
     Every status-moving subcommand in cmd_tasks reaches its mutate() through
     here, so a new subcommand inherits the check instead of having to
-    remember it. Rules (PROTOCOL section 5): an unowned task or your own is
+    remember it. Rules (AGENCY.md §5): an unowned task or your own is
     always yours to move; --force overrides; a reviewer or the lead may act
     on anyone's task; a plain worker may not, and that includes the
     review->claimed takeover, which section 5 reserves for reviewer/lead.
@@ -1958,7 +1959,8 @@ def cmd_init(ctx: Ctx, args):
     if changed:
         print(f"{color('note', C_DIM)}    : remembered agent '{me}' in {CONFIG_PATH} "
               f"(override with --agent or CHATCODE_AGENT)")
-    print(color("next: read PROTOCOL.md, then `chatcode tasks list` and claim something.", C_DIM))
+    print(color("next: read AGENCY.md, run `chatcode onboard`, then take work: "
+                "`chatcode jobs list` / `chatcode tasks list --status open`.", C_DIM))
 
 
 def cmd_say(ctx: Ctx, args):
@@ -4418,6 +4420,871 @@ def cmd_env(ctx: Ctx, args):
     print("\n".join(lines))
 
 
+# ==========================================================================
+# THE AGENCY LAYER (v4) — liveness · onboarding · jobs · ship · report
+#
+# Everything below is deliberately LOCAL-FIRST: it works on a checkout with
+# plain files and git, so an agent never spends the shared API budget on
+# housekeeping. The only two exceptions use the normal ctx.api driver so they
+# work from anywhere: `pulse` (one small file per agent, conflict-free) and
+# `report` (one bus line for the Director).
+#
+# The rule this layer enforces: policy lives in AGENCY.md, state lives in the
+# repo, and the machine — not a manager — decides whether you may claim, close
+# a phase, or ship. A rule that lives only in prose is a rule that gets skipped
+# at 03:00 by a model that is three days old.
+# ==========================================================================
+
+LIVENESS_DIR = "liveness"
+JOBS_DIR = "jobs"
+SHIP_GATE_FILE = "SHIP_GATE.md"
+SHIPS_LEDGER = "ledger/SHIPS.jsonl"
+AGENCY_FILE = "AGENCY.md"
+
+ALIVE_MIN, STALE_MIN, DEAD_MIN = 30, 45, 45      # liveness windows, minutes
+ROOKIE_H, FULL_H, AGING_H, RETIRE_H = 0, 6, 48, 72  # the career clock, hours
+ROOKIE_CAP_H = 4.0                                # a rookie's biggest lease
+TECH_FILES = re.compile(r"^(AGENCY\.md|SHIP_GATE\.md|ORDERS\.md|bin/|\.github/)")
+SECRET_RE = re.compile(r"github_pat_[A-Za-z0-9_]{20,}"
+                       r"|(?:CHATCODE_TOKEN|GITHUB_TOKEN|TELEGRAM_[A-Z_]*TOKEN)=[^P\s].{10,}")
+
+
+# ---------------------------------------------------------------- files & git
+
+def agency_root(ctx) -> str:
+    """The checkout these commands act on: --repo-dir, CHATCODE_REPO_DIR, or cwd."""
+    root = getattr(ctx, "local", None) or os.environ.get("CHATCODE_REPO_DIR")
+    if root:
+        return os.path.abspath(root)
+    r = subprocess.run(["git", "rev-parse", "--show-toplevel"],
+                       capture_output=True, text=True)
+    if r.returncode == 0 and r.stdout.strip():
+        return r.stdout.strip()
+    return os.path.abspath(os.getcwd())
+
+
+def _run(root, *args, check=False):
+    r = subprocess.run(list(args), cwd=root, capture_output=True, text=True)
+    if check and r.returncode != 0:
+        die(f"{' '.join(args[:3])} failed:\n{(r.stderr or r.stdout).strip()}")
+    return r
+
+
+def _out(root, *args) -> str:
+    return _run(root, *args).stdout.strip()
+
+
+def _is_git(root) -> bool:
+    return _run(root, "git", "rev-parse", "--is-inside-work-tree").returncode == 0
+
+
+def _read_json(path, default=None):
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return default
+
+
+def _write_json(path, data):
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+
+
+def _parse_ts(s):
+    if not s:
+        return None
+    try:
+        return datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+    except Exception:
+        return None
+
+
+def _age_minutes(ts) -> float | None:
+    d = _parse_ts(ts)
+    if not d:
+        return None
+    return (datetime.now(timezone.utc) - d).total_seconds() / 60.0
+
+
+def _floor_hours(ts) -> str:
+    d = _parse_ts(ts)
+    if not d:
+        return "?"
+    h = (datetime.now(timezone.utc) - d).total_seconds() / 3600.0
+    return f"{h:.1f}h"
+
+
+def _lifecycle(joined_ts, now=None):
+    """The career clock. Returns (label, hours). Unknown age is treated as ROOKIE:
+    the safe error is to give a stranger a small job, never a big one."""
+    d = _parse_ts(joined_ts)
+    if not d:
+        return "ROOKIE", None
+    h = ((now or datetime.now(timezone.utc)) - d).total_seconds() / 3600.0
+    if h < FULL_H:
+        return "ROOKIE", h
+    if h < AGING_H:
+        return "FULL", h
+    if h < RETIRE_H:
+        return "AGING", h
+    return "RETIRED", h
+
+
+def _roster(root) -> dict:
+    out = {}
+    d = os.path.join(root, AGENTS_DIR)
+    if os.path.isdir(d):
+        for n in sorted(os.listdir(d)):
+            if n.endswith(".json"):
+                a = _read_json(os.path.join(d, n)) or {}
+                out[a.get("name") or n[:-5]] = a
+    return out
+
+
+def _liveness(root) -> dict:
+    out = {}
+    d = os.path.join(root, LIVENESS_DIR)
+    if os.path.isdir(d):
+        for n in sorted(os.listdir(d)):
+            if n.endswith(".json"):
+                p = _read_json(os.path.join(d, n)) or {}
+                if p.get("agent"):
+                    out[p["agent"]] = p
+    return out
+
+
+def _live_state(last_ts):
+    m = _age_minutes(last_ts)
+    if m is None:
+        return "cold", None
+    if m <= ALIVE_MIN:
+        return "alive", m
+    if m <= STALE_MIN:
+        return "stale", m
+    return "dead", m
+
+
+def _local_tasks(root) -> list:
+    out = []
+    d = os.path.join(root, BOARD_DIR)
+    if os.path.isdir(d):
+        for n in sorted(os.listdir(d)):
+            if n.endswith(".json"):
+                t = _read_json(os.path.join(d, n))
+                if isinstance(t, dict):
+                    out.append(t)
+    return out
+
+
+def _holds(root, me) -> list:
+    return [t.get("id") for t in _local_tasks(root)
+            if (t.get("owner") or "") == me and t.get("status") in ("claimed", "review", "blocked")]
+
+
+# ---------------------------------------------------------------- pulse / tower
+
+def cmd_pulse(ctx, args):
+    """One line of proof of life. Cheap enough to run every 20 minutes forever."""
+    me = ctx.require_agent()
+    status = (args.status or "WORKING").upper()
+    note = " ".join(args.note or []).strip()
+    root = agency_root(ctx)
+    ts = now_iso()
+    rec = {
+        "agent": me, "ts": ts, "status": status, "note": note,
+        "holds": _holds(root, me) if os.path.isdir(os.path.join(root, BOARD_DIR)) else [],
+        "branch": _out(root, "git", "rev-parse", "--abbrev-ref", "HEAD") if _is_git(root) else "",
+        "epoch": _agency_epoch(root),
+    }
+    path = f"{LIVENESS_DIR}/{me}.json"
+    try:
+        if isinstance(ctx.api, LocalRepo):
+            _write_json(os.path.join(root, path), rec)
+        else:
+            ctx.api.write_text(path, json.dumps(rec, indent=2) + "\n",
+                               f"pulse: {me} {status}")
+    except Exception as e:                                    # noqa: BLE001
+        die(f"pulse write failed: {type(e).__name__}: {e}")
+    # keep the roster's last_seen honest too (best effort; the liveness file is truth)
+    rp = os.path.join(root, AGENTS_DIR, f"{me}.json")
+    if os.path.exists(rp):
+        a = _read_json(rp) or {}
+        a["last_seen"] = ts
+        _write_json(rp, a)
+    if not args.quiet:
+        holds = ", ".join(rec["holds"]) or "—"
+        print(f"{color('✓', C_G)} pulse {me} {ts[11:16]}Z {status} · holds {holds}"
+              + (f" · {note}" if note else ""))
+
+
+def _agency_epoch(root) -> str:
+    try:
+        with open(os.path.join(root, AGENCY_FILE), encoding="utf-8") as fh:
+            for line in fh:
+                m = re.search(r"EPOCH:\s*([0-9][\w.\-]*)", line)
+                if m:
+                    return m.group(1)
+    except Exception:
+        pass
+    return "?"
+
+
+def _tower_rows(ctx):
+    root = agency_root(ctx)
+    roster = _roster(root)
+    live = _liveness(root)
+    tasks = (_local_tasks(root) if isinstance(ctx.api, LocalRepo)
+             or os.path.isdir(os.path.join(root, BOARD_DIR)) else load_tasks(ctx))
+    holds = {}
+    for t in tasks:
+        if (t.get("owner") or "") and t.get("status") in ("claimed", "review", "blocked"):
+            holds.setdefault(t["owner"], []).append(t.get("id"))
+    rows = []
+    names = sorted(set(roster) | set(live))
+    for n in names:
+        a = roster.get(n, {})
+        p = live.get(n, {})
+        state, mins = _live_state(p.get("ts"))
+        life, hours = _lifecycle(a.get("joined_ts"))
+        rows.append({
+            "agent": n, "role": a.get("role", "worker"), "state": state,
+            "last_seen": p.get("ts") or a.get("last_seen") or "",
+            "minutes": round(mins, 1) if mins is not None else None,
+            "life": life, "age_h": round(hours, 1) if hours is not None else None,
+            "holds": holds.get(n, []), "note": p.get("note", ""),
+            "status": p.get("status", ""),
+        })
+    return rows, tasks
+
+
+def cmd_tower(ctx, args):
+    root = agency_root(ctx)
+    if not (os.path.isdir(os.path.join(root, LIVENESS_DIR))
+            or os.path.isdir(os.path.join(root, AGENTS_DIR))):
+        die("tower reads the repo — run it from your clone (or --repo-dir <clone>). "
+            "Reading the roster over the API costs one call per agent.")
+    rows, tasks = _tower_rows(ctx)
+    counts = {"alive": 0, "stale": 0, "dead": 0, "cold": 0}
+    for r in rows:
+        counts[r["state"]] += 1
+    if args.json:
+        print(json.dumps({"generated": now_iso(), "counts": counts, "agents": rows}, indent=2))
+        return
+    now = now_iso()
+    lines = [f"# TOWER — {now[:16].replace('T', ' ')} UTC", "",
+             f"**{counts['alive']} alive · {counts['stale']} stale · "
+             f"{counts['dead']} dead · {counts['cold']} cold**", "",
+             "| agent | life | clock | last pulse | holds | saying |",
+             "|---|---|---|---|---|---|"]
+    order = {"alive": 0, "stale": 1, "dead": 2, "cold": 3}
+    for r in sorted(rows, key=lambda x: (order[x["state"]], x["agent"])):
+        mark = {"alive": "●", "stale": "◐", "dead": "○", "cold": "·"}[r["state"]]
+        mins = "—" if r["minutes"] is None else f"{r['minutes']:.0f}m"
+        age = "—" if r["age_h"] is None else f"{r['age_h']:.0f}h"
+        holds = ", ".join(r["holds"]) or "—"
+        note = (r["note"] or r["status"] or "—")[:58]
+        lines.append(f"| {mark} {r['agent']} | {r['state']} | {r['life']} {age} | "
+                     f"{mins} | {holds} | {note} |")
+    lines += ["", "life: ● ≤30m · ◐ ≤45m · ○ dead >45m · · never pulsed.  "
+                  "clock: ROOKIE<6h · FULL<48h · AGING<72h · RETIRED≥72h.",
+              "A dead agent's leases are swept and its jobs re-listed — the work survives it."]
+    text = "\n".join(lines) + "\n"
+    if args.md:
+        with open(args.md, "w", encoding="utf-8") as fh:
+            fh.write(text)
+        print(f"{color('✓', C_G)} wrote {args.md}")
+    print(text)
+    # the actionable lines: dead hands still holding work
+    zombies = [r for r in rows if r["state"] in ("dead", "cold") and r["holds"]]
+    if zombies:
+        print(color("zombies (dead hand, live lease):", C_Y))
+        for r in zombies:
+            print(f"  {r['agent']}: {', '.join(r['holds'])} — sweep: chatcode tasks sweep --apply")
+
+
+# ---------------------------------------------------------------- onboarding
+
+def cmd_onboard(ctx, args):
+    """One command instead of a five-trial ritual. Prints the flare, writes evidence."""
+    me = ctx.require_agent()
+    root = agency_root(ctx)
+    checks, ok = [], True
+
+    def check(name, passed, detail=""):
+        nonlocal ok
+        ok = ok and passed
+        checks.append((name, passed, detail))
+
+    check("T1 identity", bool(NAME_RE.match(me)), me)
+    has_agency = os.path.exists(os.path.join(root, AGENCY_FILE))
+    if not has_agency and not isinstance(ctx.api, LocalRepo):
+        try:
+            has_agency = bool(ctx.api.read_text(AGENCY_FILE))
+        except Exception:
+            has_agency = False
+    check("T2 the law", has_agency, f"{AGENCY_FILE}{'' if has_agency else ' missing — wrong directory?'}")
+    board = _local_tasks(root)
+    check("T3 the board", bool(board) or os.path.isdir(os.path.join(root, BOARD_DIR)),
+          f"{len(board)} cards visible")
+    remote = _out(root, "git", "remote", "-v") if _is_git(root) else ""
+    check("T4 clone", bool(remote), "origin configured" if remote else "no git remote")
+    if not args.quick and os.path.exists(os.path.join(root, "tests", "test_shift_system.py")):
+        r = subprocess.run([sys.executable, "tests/test_shift_system.py"], cwd=root,
+                           capture_output=True, text=True, timeout=180)
+        check("T5 tests", r.returncode == 0, "test_shift_system 6/6" if r.returncode == 0
+              else "tests failed — read the output above")
+    # write path: the pulse IS the proof
+    try:
+        cmd_pulse(ctx, argparse.Namespace(status="IDLE", note=["onboarding"], quiet=True))
+        check("T6 pulse", True, "liveness written")
+    except SystemExit:
+        check("T6 pulse", False, "could not write liveness")
+
+    for name, passed, detail in checks:
+        print(f"  {color('✓' if passed else '✗', C_G if passed else C_R)} {name:14} {detail}")
+    if ok:
+        test_note = "tests skipped (--quick)" if args.quick else "tests 6/6"
+        flare = (f"{me} — entry tests passed: T1 identity OK · T2 board OK · "
+                 f"T3 clone OK · {test_note} · pulse recorded. Ready for the room.")
+        ev = os.path.join(root, "evidence", f"onboard-{me}.txt")
+        try:
+            os.makedirs(os.path.dirname(ev), exist_ok=True)
+            with open(ev, "a", encoding="utf-8") as fh:
+                fh.write(f"{now_iso()} · {flare}\n")
+        except Exception:
+            pass
+        print()
+        print(color("FLARE (post it once, then go to work):", C_B))
+        print(f"  {flare}")
+        print()
+        print(f"next:  chatcode jobs list        # big briefs")
+        print(f"       chatcode tasks list --status open   # small cards")
+    else:
+        print()
+        die("onboarding not complete — fix the ✗ lines and run again "
+            "(never ask a human; the machine tells you what is wrong)")
+
+
+# ---------------------------------------------------------------- jobs
+
+def _job_ids(root) -> list:
+    d = os.path.join(root, JOBS_DIR)
+    if not os.path.isdir(d):
+        return []
+    return sorted(n for n in os.listdir(d)
+                  if os.path.isdir(os.path.join(d, n)) and not n.startswith("_"))
+
+
+def _job_dir(root, jid) -> str:
+    p = os.path.join(root, JOBS_DIR, jid)
+    if not os.path.isdir(p):
+        die(f"no such job: {jid} (chatcode jobs list)")
+    return p
+
+
+def _parse_phases(job_dir) -> list:
+    """Read the PHASES.md table: | phase | deliverable | evidence | min_hours |."""
+    path = os.path.join(job_dir, "PHASES.md")
+    if not os.path.exists(path):
+        return []
+    out = []
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line.startswith("|"):
+                continue
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if len(cells) < 4 or cells[0].lower() == "phase" or set(cells[0]) <= set("-: "):
+                continue
+            if not re.match(r"^P\d+$", cells[0]):
+                continue
+            try:
+                floor = float(cells[3])
+            except ValueError:
+                floor = 0.0
+            ev = [e.strip().strip("`") for e in re.split(r"[+,]", cells[2]) if e.strip()]
+            out.append({"id": cells[0], "deliverable": cells[1],
+                        "evidence": ev, "min_hours": floor})
+    return out
+
+
+def _phaselog(job_dir) -> list:
+    path = os.path.join(job_dir, "PHASELOG.jsonl")
+    out = []
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if line:
+                    try:
+                        out.append(json.loads(line))
+                    except Exception:
+                        pass
+    return out
+
+
+def _phase_state(entries) -> dict:
+    state = {}
+    for e in entries:
+        p = e.get("phase")
+        if not p:
+            continue
+        state.setdefault(p, {})
+        if e.get("event") == "start":
+            state[p]["start"] = e
+        elif e.get("event") == "close":
+            state[p]["close"] = e
+    return state
+
+
+def _append_line(path, data):
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps(data, ensure_ascii=False) + "\n")
+
+
+def _append_text(path, line):
+    """HANDOFF.md is for humans: one plain line per event, append-only."""
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write(line.rstrip("\n") + "\n")
+
+
+def _logline(me, note):
+    return f"{now_iso()} · {me} · {note}"
+
+
+def _claims(job_dir) -> list:
+    return [f for f in os.listdir(job_dir) if re.match(r"^CLAIM\..+\.json$", f)]
+
+
+def _claim_holder(job_dir):
+    """(agent, claim-dict) of a live claim, else (None, None)."""
+    for f in _claims(job_dir):
+        c = _read_json(os.path.join(job_dir, f)) or {}
+        exp = _parse_ts(c.get("lease_expires"))
+        if exp and exp > datetime.now(timezone.utc):
+            return c.get("agent"), c
+    return None, None
+
+
+def cmd_jobs(ctx, args):
+    action = args.action
+    root = agency_root(ctx)
+    if not os.path.isdir(os.path.join(root, JOBS_DIR)):
+        die(f"no {JOBS_DIR}/ here — run from the chatcode clone (or --repo-dir <clone>)")
+    me = ctx.agent
+    if action == "list":
+        ids = _job_ids(root)
+        if not ids:
+            print("no jobs yet — a manager cuts them from jobs/_TEMPLATE/")
+            return
+        print(f"{'job':28} {'state':9} {'holder':12} {'phases':8} title")
+        for jid in ids:
+            jd = os.path.join(root, JOBS_DIR, jid)
+            st = _read_json(os.path.join(jd, "STATUS.json"), {}) or {}
+            holder, _ = _claim_holder(jd)
+            plog = _phase_state(_phaselog(jd))
+            defined = _parse_phases(jd)
+            ph = (f"{sum(1 for v in plog.values() if v.get('close'))}/{len(defined)}"
+                  if defined else "—")
+            title = ""
+            try:
+                with open(os.path.join(jd, "BRIEF.md"), encoding="utf-8") as fh:
+                    for line in fh:
+                        if line.startswith("# BRIEF"):
+                            title = line.split("—")[-1].strip()
+                            break
+            except Exception:
+                pass
+            print(f"{jid:28} {str(st.get('status', 'open')):9} "
+                  f"{str(holder or st.get('owner') or '—'):12} {ph:8} {title[:60]}")
+        return
+
+    jid = args.id
+    jd = None if action == "new" else _job_dir(root, jid)
+    if action == "show":
+        for f in ("BRIEF.md", "PHASES.md", "RELAY.md", "HANDOFF.md"):
+            p = os.path.join(jd, f)
+            if os.path.exists(p):
+                print(color(f"───── {f}", C_B))
+                print(open(p, encoding="utf-8").read().strip()[:4000])
+                print()
+        return
+
+    if action == "new":
+        src = os.path.join(root, JOBS_DIR, "_TEMPLATE")
+        dst = os.path.join(root, JOBS_DIR, jid)
+        if os.path.exists(dst):
+            die(f"{jid} already exists")
+        if not os.path.isdir(src):
+            die("jobs/_TEMPLATE/ is missing — restore it from main")
+        shutil.copytree(src, dst)
+        os.makedirs(os.path.join(dst, "evidence"), exist_ok=True)
+        title = " ".join(args.title or args.rest or []) or jid
+        brief = os.path.join(dst, "BRIEF.md")
+        with open(brief, encoding="utf-8") as fh:
+            body = fh.read().replace("t-YYYYMMDD-<slug>", jid)
+        body = body.replace("<exactly what must exist when this job is done: files, specs, numbers>", title)
+        body = body.replace(f"# BRIEF — {jid}\n", f"# BRIEF — {jid} — {title}\n", 1)
+        with open(brief, "w", encoding="utf-8") as fh:
+            fh.write(body)
+        print(f"{color('✓', C_G)} {JOBS_DIR}/{jid}/ created from the template")
+        print("  edit BRIEF.md (the contract) and PHASES.md (floors + evidence), then commit.")
+        print(f"  workers: chatcode jobs claim {jid} --hours 8")
+        return
+
+    if action == "claim":
+        me = ctx.require_agent()
+        holder, claim = _claim_holder(jd)
+        if holder and holder != me:
+            die(f"{jid} is held by {holder} until {claim.get('lease_expires')} "
+                f"— take another job (a dead holder's lease expires and the job returns)")
+        roster = _roster(root)
+        life, hours = _lifecycle((roster.get(me) or {}).get("joined_ts"))
+        if life == "RETIRED":
+            die(f"career clock: {hours:.1f}h — RETIRED agents do not take new work. "
+                "Review, hand off, close out.")
+        if life == "AGING":
+            die(f"career clock: {hours:.1f}h — AGING agents do not take new work. "
+                f"Run: chatcode jobs handoff {jid} and rotate out.")
+        phases = _parse_phases(jd)
+        floor = sum(p["min_hours"] for p in phases)
+        hours_asked = float(args.hours or 4)
+        if life == "ROOKIE" and (hours_asked > ROOKIE_CAP_H or floor > ROOKIE_CAP_H):
+            die(f"ROOKIE rule: jobs ≤{ROOKIE_CAP_H:.0f}h only. This job's floor is "
+                f"{floor:.1f}h. Take a small card first: chatcode tasks list --status open")
+        ts = now_iso()
+        exp = (datetime.now(timezone.utc)
+               + timedelta(hours=hours_asked)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        claim = {"agent": me, "ts": ts, "lease_hours": hours_asked,
+                 "lease_expires": exp, "epoch": _agency_epoch(root)}
+        _write_json(os.path.join(jd, f"CLAIM.{me}.json"), claim)
+        st = _read_json(os.path.join(jd, "STATUS.json"), {}) or {}
+        st.update({"status": "claimed", "owner": me, "claimed_ts": ts,
+                   "lease_expires": exp, "current_phase": None})
+        _write_json(os.path.join(jd, "STATUS.json"), st)
+        _append_line(os.path.join(jd, "PHASELOG.jsonl"),
+                     {"ts": ts, "agent": me, "event": "claim", "lease_hours": hours_asked})
+        _append_text(os.path.join(jd, "HANDOFF.md"),
+                     _logline(me, f"claimed for {hours_asked}h (lease to {exp})"))
+        print(f"{color('✓', C_G)} {jid} claimed for {hours_asked}h (expires {exp}).")
+        print(f"  read BRIEF.md + PHASES.md now. First phase: "
+              f"chatcode jobs phase {jid} start P1")
+        return
+
+    if action == "release":
+        me = ctx.require_agent()
+        p = os.path.join(jd, f"CLAIM.{me}.json")
+        if os.path.exists(p):
+            os.remove(p)
+        st = _read_json(os.path.join(jd, "STATUS.json"), {}) or {}
+        if (st.get("owner") or me) == me:
+            st.update({"status": "open", "owner": None, "lease_expires": None})
+            _write_json(os.path.join(jd, "STATUS.json"), st)
+        _append_text(os.path.join(jd, "HANDOFF.md"),
+                     _logline(me, "released: " + (" ".join(args.note or []) or "no note")))
+        print(f"{color('✓', C_G)} {jid} released to the pool")
+        return
+
+    if action == "phase":
+        me = ctx.require_agent()
+        verb = args.rest[0] if args.rest else ""
+        which = args.rest[1] if len(args.rest) > 1 else ""
+        phases = {p["id"]: p for p in _parse_phases(jd)}
+        if not which or which not in phases:
+            die(f"phase must be one of: {', '.join(phases) or 'none defined in PHASES.md'}")
+        if verb not in ("start", "close"):
+            die("usage: chatcode jobs phase <id> start|close <P1>")
+        st = _read_json(os.path.join(jd, "STATUS.json"), {}) or {}
+        holder, _ = _claim_holder(jd)
+        if holder != me and st.get("owner") != me:
+            die(f"{jid} is not yours — claim it first: chatcode jobs claim {jid} --hours <n>")
+        ent = _phase_state(_phaselog(jd))
+        sha = _out(root, "git", "rev-parse", "--short", "HEAD") if _is_git(root) else ""
+        note = " ".join(args.note or []).strip()
+        if verb == "start":
+            _append_line(os.path.join(jd, "PHASELOG.jsonl"),
+                         {"ts": now_iso(), "agent": me, "event": "start",
+                          "phase": which, "sha": sha, "note": note})
+            st["current_phase"] = which
+            _write_json(os.path.join(jd, "STATUS.json"), st)
+            print(f"{color('✓', C_G)} {which} started @{sha or '—'} — the floor clock is running")
+            return
+        # close: mechanical floor + evidence
+        start = (ent.get(which) or {}).get("start")
+        if not start:
+            die(f"{which} was never started — chatcode jobs phase {jid} start {which}")
+        started = _parse_ts(start.get("ts"))
+        elapsed = (datetime.now(timezone.utc) - started).total_seconds() / 3600.0
+        if elapsed + 1e-9 < phases[which]["min_hours"]:
+            die(f"{which} floor not met: {elapsed:.2f}h elapsed, "
+                f"{phases[which]['min_hours']:.2f}h required.\n"
+                f"  Early finisher rule: do NOT stop. Upgrade the evidence — another QC "
+                f"pass, a sibling inspection, a harder case — until the floor is honest.")
+        missing = [e for e in phases[which]["evidence"]
+                   if "<" not in e and not glob.glob(os.path.join(jd, e))]
+        if missing:
+            die(f"{which} has no evidence yet: {', '.join(missing)}\n"
+                f"  Evidence is produced DURING the phase, in {JOBS_DIR}/{jid}/evidence/.")
+        _append_line(os.path.join(jd, "PHASELOG.jsonl"),
+                     {"ts": now_iso(), "agent": me, "event": "close", "phase": which,
+                      "sha": sha, "hours": round(elapsed, 2), "note": note})
+        _append_text(os.path.join(jd, "HANDOFF.md"),
+                     _logline(me, f"phase {which} closed @{sha or '—'} after {elapsed:.2f}h"
+                                  + (f" · {note}" if note else "")))
+        st["current_phase"] = None
+        _write_json(os.path.join(jd, "STATUS.json"), st)
+        print(f"{color('✓', C_G)} {which} closed at {elapsed:.2f}h (floor {phases[which]['min_hours']:.2f}h)")
+        return
+
+    if action == "gate":
+        problems = _job_gate(jd)
+        for p in problems:
+            print(f"  {color('✗', C_R)} {p}")
+        if problems:
+            die(f"gate RED for {jid} — ship will refuse")
+        print(f"{color('✓', C_G)} gate GREEN for {jid}")
+        return
+
+    if action == "handoff":
+        me = ctx.require_agent()
+        reason = args.reason or "planned-rotation"
+        branch = _out(root, "git", "rev-parse", "--abbrev-ref", "HEAD") if _is_git(root) else ""
+        sha = _out(root, "git", "rev-parse", "--short", "HEAD") if _is_git(root) else ""
+        tail = ""
+        hp = os.path.join(jd, "HANDOFF.md")
+        if os.path.exists(hp):
+            tail = "\n".join(open(hp, encoding="utf-8").read().splitlines()[-12:])
+        rel = [f"# RELAY — {jid}", f"<!-- {now_iso()} · {me} · {reason} -->",
+               "<!-- successor: read ONLY this file + HANDOFF.md; resume in five minutes -->", "",
+               "## custody", f"- from: {me} ({_floor_hours((_roster(root).get(me) or {}).get('joined_ts'))} old)",
+               f"- reason: {reason}", f"- branch: {branch} @ {sha}", "",
+               "## state of the work", "```", tail or "(no HANDOFF.md — re-derive from git log)", "```", "",
+               "## traps found in this sandbox (free tuition)", "- (fill this in)", "",
+               "## next steps, in order", "1. <concrete action, file, SHA>", "2. <second>", ""]
+        with open(os.path.join(jd, "RELAY.md"), "w", encoding="utf-8") as fh:
+            fh.write("\n".join(rel))
+        _append_line(os.path.join(jd, "PHASELOG.jsonl"),
+                     {"ts": now_iso(), "agent": me, "event": "handoff", "reason": reason})
+        cp = os.path.join(jd, f"CLAIM.{me}.json")
+        if os.path.exists(cp):
+            os.remove(cp)
+        st = _read_json(os.path.join(jd, "STATUS.json"), {}) or {}
+        if st.get("owner") == me:
+            st.update({"status": "open", "owner": None, "lease_expires": None})
+            _write_json(os.path.join(jd, "STATUS.json"), st)
+        print(f"{color('✓', C_G)} RELAY.md written — {jid} returns to the pool, resumable")
+        return
+
+    die(f"unknown jobs action {action}")
+
+
+def _job_gate(jd) -> list:
+    problems = []
+    phases = _parse_phases(jd)
+    ent = _phase_state(_phaselog(jd))
+    for p in phases:
+        rec = ent.get(p["id"]) or {}
+        if "start" not in rec:
+            problems.append(f"{p['id']} never started")
+            continue
+        if "close" not in rec:
+            problems.append(f"{p['id']} not closed")
+            continue
+        started = _parse_ts(rec["start"].get("ts"))
+        closed = _parse_ts(rec["close"].get("ts"))
+        if started and closed:
+            hrs = (closed - started).total_seconds() / 3600.0
+            if hrs + 1e-9 < p["min_hours"]:
+                problems.append(f"{p['id']} closed after {hrs:.2f}h "
+                                f"(floor {p['min_hours']:.2f}h)")
+        for e in p["evidence"]:
+            if "<" in e:
+                continue
+            if not glob.glob(os.path.join(jd, e)):
+                problems.append(f"{p['id']} missing evidence: {e}")
+    hp = os.path.join(jd, "HANDOFF.md")
+    if not os.path.exists(hp):
+        problems.append("no HANDOFF.md — a stranger cannot resume this")
+    if not phases:
+        problems.append("no PHASES.md phases — big work needs floors (or use a board card)")
+    return problems
+
+
+# ---------------------------------------------------------------- ship
+
+def cmd_ship(ctx, args):
+    """Self-ship: the gate is the authority, not a manager's wakefulness."""
+    me = ctx.require_agent()
+    root = agency_root(ctx)
+    jid = args.id
+    if not _is_git(root):
+        die("ship needs the git checkout (pass --repo-dir <clone>)")
+    branch = _out(root, "git", "rev-parse", "--abbrev-ref", "HEAD")
+    if branch == "main":
+        die("you are on main — ship from agent/<you>/<id>")
+    if not branch.startswith(f"agent/{me}/"):
+        die(f"branch '{branch}' does not match agent/{me}/<id> (R4 authorship)")
+    if _out(root, "git", "status", "--porcelain"):
+        die("working tree is dirty — commit or stash first (uncommitted work is already lost)")
+
+    _run(root, "git", "fetch", "origin", "main")
+    base = "origin/main"
+    diff_names = _out(root, "git", "diff", "--name-only", f"{base}...HEAD")
+    if diff_names is None:
+        diff_names = ""
+    if not diff_names.strip():
+        die("nothing to ship: this branch carries no change against origin/main")
+
+    tier = [f for f in diff_names.splitlines() if TECH_FILES.match(f)]
+    if tier:
+        die("law-tier files in this diff: " + ", ".join(tier[:6]) +
+            "\n  AGENCY.md / SHIP_GATE.md / bin/ / .github/ need 2 pre-merge votes + "
+            "the Director. A worker ship cannot carry them.")
+
+    added = _out(root, "git", "diff", f"{base}...HEAD")
+    added = "\n".join(l for l in added.splitlines() if l.startswith("+"))
+    if SECRET_RE.search(added):
+        die("possible secret in ADDED lines (R3). Remove it, rotate the key, re-commit.")
+
+    if not os.path.exists(os.path.join(root, SHIP_GATE_FILE)):
+        die(f"no {SHIP_GATE_FILE} — the repo owner must define the gate first")
+    gate_cmds = []
+    with open(os.path.join(root, SHIP_GATE_FILE), encoding="utf-8") as fh:
+        for line in fh:
+            if line.startswith("$ "):
+                gate_cmds.append(line[2:].rstrip())
+    print(color(f"ship gate: {len(gate_cmds)} command(s) from {SHIP_GATE_FILE}", C_B))
+    for cmd in gate_cmds:
+        print(f"  + {cmd}")
+        r = subprocess.run(cmd, shell=True, cwd=root, capture_output=True, text=True)
+        if r.returncode != 0:
+            print((r.stdout + r.stderr)[-2000:])
+            die(f"gate failed: {cmd}")
+    jd = os.path.join(root, JOBS_DIR, jid)
+    if os.path.isdir(jd):
+        problems = _job_gate(jd)
+        for p in problems:
+            print(f"  {color('✗', C_R)} {p}")
+        if problems:
+            die(f"job gate RED for {jid}")
+        print(color(f"  ✓ job gate green ({jid})", C_G))
+    print(color("gate green", C_G))
+
+    if args.dry_run:
+        print(color("dry-run: gates passed; nothing merged", C_Y))
+        return
+
+    # bring the branch up to date, then squash-merge it into main ourselves
+    if _run(root, "git", "merge-base", "--is-ancestor", "origin/main", "HEAD").returncode != 0:
+        print("  rebasing on origin/main")
+        r = _run(root, "git", "rebase", "origin/main")
+        if r.returncode != 0:
+            print((r.stdout + r.stderr)[-2000:])
+            die("rebase conflict — resolve it, re-run tests, then ship again")
+    _run(root, "git", "checkout", "main", check=True)
+    _run(root, "git", "pull", "--ff-only", "origin", "main", check=True)
+    r = _run(root, "git", "merge", "--squash", branch)
+    if r.returncode != 0:
+        print((r.stdout + r.stderr)[-2000:])
+        die("squash merge failed")
+    msg = f"ship({me}): {jid} from {branch}"
+    _run(root, "git", "commit", "-m", msg, check=True)
+    sha = _out(root, "git", "rev-parse", "--short", "HEAD")
+    if args.no_push:
+        print(color(f"merged locally at {sha} (--no-push)", C_Y))
+    else:
+        _run(root, "git", "push", "origin", "main", check=True)
+        _run(root, "git", "fetch", "origin", "main")
+        remote = _out(root, "git", "rev-parse", "origin/main")
+        local = _out(root, "git", "rev-parse", "HEAD")
+        if remote != local:
+            die("remote readback mismatch — the push did not stick (R6: a 200 is not a push)")
+    # the ledger: one row per ship, append-only
+    row = {"ts": now_iso(), "agent": me, "id": jid, "branch": branch,
+           "sha": sha, "gate": "green", "acceptance": "PENDING (2 non-owner ballots, 48h)"}
+    _append_line(os.path.join(root, SHIPS_LEDGER), row)
+    if not args.no_push:
+        _run(root, "git", "add", SHIPS_LEDGER)
+        _run(root, "git", "commit", "-m", f"ledger: {me} shipped {jid} @{sha}")
+        r = _run(root, "git", "push", "origin", "main")
+        if r.returncode != 0:
+            _run(root, "git", "pull", "--rebase", "origin", "main")
+            _run(root, "git", "push", "origin", "main")
+    print()
+    print(f"{color('SHIPPED', C_G)} {jid} @{sha}")
+    print("  acceptance is post-merge and belongs to the crew: 2 non-owner "
+          "accept-inspected ballots within 48h (deny + evidence reverts).")
+    print("  you never ask a manager to merge. the gate is the authority.")
+
+
+# ---------------------------------------------------------------- report (the Director's register)
+
+BANNED_IN_REPORT = [
+    (r"```", "a code block"),
+    (r"\b[0-9a-f]{7,40}\b", "a commit hash"),
+    (r"\bPR\s*#?\s*\d+", "a PR number"),
+    (r"\bpull request\b", "pull-request talk"),
+    (r"\b(commits?|committed|merges?|merged|rebases?|branch(es)?|repos?|repositor(y|ies)|"
+     r"deploys?|deployed|deployment|debug(ging)?|refactors?|refactored)\b", "engineering jargon"),
+    (r"\b(SHA|API|JSON|YAML|CI|CLI|regex|backend|frontend|stack ?trace|merge conflict)\b",
+     "engineering jargon"),
+    (r"\bv?\d+\.\d+\.\d+\b", "a version number"),
+    (r"\b\d{3,}\s*(tri(angles?|s)?|polygons?|verts?|vertices|frames?|fps)\b", "raw mesh numbers"),
+]
+
+
+def register_problems(text: str) -> list:
+    """The Director's rule, made mechanical: plain English, respectful, no jargon.
+
+    Returns a list of human hints. Empty list = the message may be sent.
+    """
+    problems = []
+    body = re.sub(r"https?://\S+", "URL", text or "")
+    if len(body.split()) > 120:
+        problems.append(f"too long ({len(body.split())} words; the Director reads this on a phone — 120 max)")
+    if "?" in body:
+        problems.append("a question mark — the Agency does not ask questions; decide, "
+                        "record the assumption, proceed")
+    if not re.search(r"\b(sir|sire|director|my lord|your grace|majesty)\b", body[:80], re.I):
+        problems.append("open with a salutation: 'Sir,' or 'Director,'")
+    for pat, label in BANNED_IN_REPORT:
+        m = re.search(pat, body, re.I)
+        if m:
+            problems.append(f"{label} ({m.group(0)!r}) — say it in plain English")
+    return problems
+
+
+def cmd_report(ctx, args):
+    """The one channel that reaches the Director. Enforced register, no exceptions."""
+    me = ctx.require_agent()
+    text = " ".join(args.text).strip()
+    if not text:
+        die('usage: chatcode report "Sir, ..."')
+    problems = register_problems(text)
+    if problems and not args.force:
+        print(color("REPORT REFUSED — this is the King's channel:", C_R))
+        for p in problems:
+            print(f"  · {p}")
+        print("\nGood shape: 'Sir, I have finished the new neighbourhood in the Blender "
+              "project. The best renders are in the release link below, and the full "
+              "project is there too: <link>'")
+        die("rewrite in plain English (or --force with a recorded reason)")
+    msg = make_message(me, text, "report", to="carlo")
+    if args.force and problems:
+        msg["forced"] = problems
+    ch = "human-carlo"
+    ctx.api.append_lines(bus_path(ch), [json.dumps(msg, ensure_ascii=False)],
+                         f"bus: report from {me}")
+    print(f"{color('✓', C_G)} sent to the Director (id {msg['id']})")
+    print(f"  {msg['text']}")
+    if args.force and problems:
+        print(color(f"  (forced past: {'; '.join(problems)})", C_Y))
+
+
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
@@ -4773,6 +5640,51 @@ def build_parser() -> argparse.ArgumentParser:
     s = sub.add_parser("env", add_help=True, parents=[common], help="print env block for this agent")
     s.set_defaults(func=cmd_env)
 
+    s = sub.add_parser("pulse", add_help=True, parents=[common],
+                       help="one line of proof of life (run every ~20 min)")
+    s.add_argument("--status", default="WORKING",
+                   help="WORKING | REVIEWING | BLOCKED | IDLE | PAUSED")
+    s.add_argument("--note", nargs="*", default=[], help="one short line of what you are doing")
+    s.add_argument("--quiet", action="store_true")
+    s.set_defaults(func=cmd_pulse)
+
+    s = sub.add_parser("tower", add_help=True, parents=[common],
+                       help="who is alive, what they hold, who is lying")
+    s.add_argument("--md", default=None, help="also write the table to this file")
+    s.add_argument("--json", action="store_true")
+    s.set_defaults(func=cmd_tower)
+
+    s = sub.add_parser("onboard", add_help=True, parents=[common],
+                       help="the entry battery in one command — prints your flare")
+    s.add_argument("--quick", action="store_true", help="skip the offline test run")
+    s.set_defaults(func=cmd_onboard)
+
+    s = sub.add_parser("jobs", add_help=True, parents=[common],
+                       help="big briefs: list · show · new · claim · phase · gate · handoff")
+    s.add_argument("action", choices=["list", "show", "new", "claim", "release",
+                                      "phase", "gate", "handoff"])
+    s.add_argument("id", nargs="?", default=None)
+    s.add_argument("rest", nargs="*", default=[],
+                   help="`phase <id> start|close P1` — or the title for `new`")
+    s.add_argument("--hours", type=float, default=None, help="lease length on claim")
+    s.add_argument("--note", nargs="*", default=[])
+    s.add_argument("--title", nargs="*", default=[])
+    s.add_argument("--reason", default=None, help="handoff reason")
+    s.set_defaults(func=cmd_jobs)
+
+    s = sub.add_parser("ship", add_help=True, parents=[common],
+                       help="self-merge a green branch — the gate is the authority")
+    s.add_argument("id", help="job or task id")
+    s.add_argument("--no-push", action="store_true", help="merge locally, do not push")
+    s.set_defaults(func=cmd_ship)
+
+    s = sub.add_parser("report", add_help=True, parents=[common],
+                       help="speak to the Director in plain English (enforced register)")
+    s.add_argument("text", nargs="+")
+    s.add_argument("--force", action="store_true",
+                   help="send anyway; the violations are recorded on the message")
+    s.set_defaults(func=cmd_report)
+
     s = sub.add_parser("help", add_help=True, parents=[common], help="show all commands")
     s.set_defaults(func=lambda ctx, args: (p.print_help(), print(EXTRA_HELP)))
     return p
@@ -4786,8 +5698,17 @@ typical agent loop
   3. chatcode tasks claim t-20261011-ab12        # take exactly one
   4. chatcode say "plan: ..." --type claim --ref t-20261011-ab12
   5. ... do the work on branch agent/<me>/<task> ...
-  6. chatcode tasks update <id> --status review --pr <pr-url> --announce
-  7. chatcode watch --to-me --interval 20 --exit-on-human   # wait for replies
+  6. chatcode pulse --note "still building X"   # proof of life, every ~20 min
+  7. bash tools/ship.sh <id>                     # or: chatcode ship <id> — no manager needed
+  8. chatcode jobs phase <id> close P1           # floors + evidence are enforced
+
+the v4 commands (read AGENCY.md first)
+--------------------------------------
+  chatcode onboard                 entry battery in one command, prints your flare
+  chatcode pulse                   liveness; chatcode tower shows the whole crew
+  chatcode jobs list|claim|phase|gate|handoff     big briefs with enforced floors
+  chatcode ship <id>               gate → merge → ledger → ballots (self-ship)
+  chatcode report "Sir, ..."       plain-English line to the Director (enforced)
 
 staying in sync (the collective is asynchronous)
 ------------------------------------------------

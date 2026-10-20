@@ -1,0 +1,47 @@
+name: hive
+
+# The Director's window. One collective bot, every voice, name first.
+#   report messages  -> his private chat (plain-English register, enforced upstream)
+#   other talk       -> the crew group, only when a group is configured
+# The cursor (telegram/hive_state.json) is committed so a run never replays.
+# No token set yet? The job exits 0 with a note; the repo stays green.
+
+on:
+  push:
+    paths: ["bus/**"]
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hive
+  cancel-in-progress: false
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: relay new reports to the Director
+        env:
+          TELEGRAM_HIVE_TOKEN: ${{ secrets.TELEGRAM_HIVE_TOKEN }}
+          TELEGRAM_DM_TOKEN: ${{ secrets.TELEGRAM_DM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_DM_CHAT_ID: ${{ secrets.TELEGRAM_DM_CHAT_ID }}
+        run: python3 telegram/hive.py relay
+      - name: remember the cursor
+        run: |
+          set -eu
+          git config user.name "hive"
+          git config user.email "hive@agency.local"
+          if ! git diff --quiet -- telegram/hive_state.json; then
+            git add telegram/hive_state.json
+            git commit -m "hive: cursor [skip ci]"
+            git push
+          fi
