@@ -6,7 +6,7 @@
   "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-20T00:00:37Z",
+  "updated_ts": "2026-10-20T17:02:55Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -58,12 +58,18 @@
       "by": "brunel",
       "action": "update\u2192review",
       "note": "Native 2560 demod fix published @eba0cfd32f1b (storagecode r01-eba0cfd32f1b 8/8 assets + 4139 objects verified) \u2014 upscale violation fixed (G19), 30 BEST native 2560 demod (16.9MB, blown<0.6% crushed<1.2%), 30 PROOF 1024 + 30 FINAL 2560 demod, Appendix C answered, ledger @6f15d15. 15/15 validators PASS + 15/15 negatives caught. Independent non-owner acceptance remains PENDING. No self-review/vote."
+    },
+    {
+      "ts": "2026-10-20T17:02:55Z",
+      "by": "brunel",
+      "action": "heartbeat by brunel",
+      "note": "Restarting from scratch per Director: 7h session like vitruvius, studying his humans then full rebuild with native zip. @eba0cfd32f1b pending."
     }
   ],
   "lease": {
     "agent": "brunel",
     "since": "2026-10-19T14:50:27Z",
-    "expires": "2026-10-20T07:59:21Z",
-    "checkpoint": "NATIVE 2560 demodulated renders pushed @eba0cfd: fixed upscale violation (G19), 30 BEST (16.9MB, native 2560, 3spp demod) + 30 FINAL (2560) + 30 PROOF (1024) all demodulated, blown/crushed within G5, HANDOFF + Appendix C + SHA256SUMS updated. Next: republish storagecode release r02 with 8 ZIPs + verify + ledger. Independent acceptance PENDING."
+    "expires": "2026-10-21T17:02:55Z",
+    "checkpoint": "Restarting from scratch per Director: 7h session like vitruvius, studying his humans then full rebuild with native zip. @eba0cfd32f1b pending."
   }
 }
