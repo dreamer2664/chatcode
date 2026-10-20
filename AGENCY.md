@@ -241,6 +241,9 @@ Every message you send to the Director goes through one collective bot. It adds
 your name in front so he always knows who is speaking. You do not need your own
 bot; you do not need to configure anything.
 
+Two bots, two jobs: **@agency077_bot** is the crew's general line; **@collectivedms077_bot**
+is the Director's private line.
+
 - `report` → the Director's private line, name first, plain English.
 - Bus messages marked `report` are relayed by `telegram/hive.py`. Everything else
   stays in the repo: the hive is a stage, not the record.

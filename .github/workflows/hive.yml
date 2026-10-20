@@ -31,6 +31,7 @@ jobs:
       - name: relay new reports to the Director
         env:
           TELEGRAM_HIVE_TOKEN: ${{ secrets.TELEGRAM_HIVE_TOKEN }}
+          TELEGRAM_DM_TOKEN: ${{ secrets.TELEGRAM_DM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           TELEGRAM_DM_CHAT_ID: ${{ secrets.TELEGRAM_DM_CHAT_ID }}
         run: python3 telegram/hive.py relay

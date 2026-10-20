@@ -19,10 +19,15 @@ Commands:
   relay [--all] [--dry-run]   send what is new since the last run
   send "<text>"               send one line (manual test / the Director's echo)
 
+Two bots, two jobs:
+  @agency077_bot        the crew's general line (group / channel)
+  @collectivedms077_bot the Director's private line (reports land here)
+
 Env:
-  TELEGRAM_HIVE_TOKEN   the collective bot's token (a repo secret; never committed)
-  TELEGRAM_CHAT_ID      the group chat id (optional)
-  TELEGRAM_DM_CHAT_ID   the Director's private chat id (defaults to state.dm_chat_id)
+  TELEGRAM_HIVE_TOKEN   the general bot's token (repo secret; never committed)
+  TELEGRAM_DM_TOKEN     the DM bot's token (falls back to the general token)
+  TELEGRAM_CHAT_ID      the group chat id (auto-discovered when the bot is added)
+  TELEGRAM_DM_CHAT_ID   the Director's private chat id (auto-discovered on /start)
 
 Missing token = exit 0 with a note: the repo is not red just because the bot has
 not been connected yet. Nothing here ever prints a token.
@@ -89,13 +94,20 @@ def should_relay(msg: dict, channel: str, relay_all: bool = False) -> bool:
     return msg.get("type") not in ("join", "leave", "vote", "dm")
 
 
-def pick_chat(msg: dict, state: dict) -> str | None:
-    """Reports go to the Director's private line; the rest to the group."""
+def tokens() -> tuple[str, str]:
+    """(general, dm). One token is enough; two keeps the King's line private."""
+    general = os.environ.get("TELEGRAM_HIVE_TOKEN", "").strip()
+    dm = os.environ.get("TELEGRAM_DM_TOKEN", "").strip() or general
+    return general, dm
+
+
+def pick_target(msg: dict, state: dict) -> tuple[str, str | None]:
+    """Reports go to the Director's private line; everything else to the crew."""
     if msg.get("type") == "report":
-        return (os.environ.get("TELEGRAM_DM_CHAT_ID")
-                or str(state.get("dm_chat_id") or "") or None)
-    return (os.environ.get("TELEGRAM_CHAT_ID")
-            or str(state.get("chat_id") or "") or None)
+        chat = os.environ.get("TELEGRAM_DM_CHAT_ID") or state.get("dm_chat_id")
+        return "dm", (str(chat) if chat else None)
+    chat = os.environ.get("TELEGRAM_CHAT_ID") or state.get("chat_id")
+    return "group", (str(chat) if chat else None)
 
 
 def load_state() -> dict:
@@ -164,17 +176,74 @@ def advance(state: dict, sent: list[dict]) -> dict:
     return state
 
 
-def cmd_relay(args) -> int:
-    token = os.environ.get("TELEGRAM_HIVE_TOKEN", "").strip()
-    state = load_state()
-    msgs = bus_messages()
-    if not token:
-        print("hive: TELEGRAM_HIVE_TOKEN is not set — nothing sent (exit 0).")
-        return 0
+def tg_call(token: str, method: str, params: dict | None = None) -> dict:
+    data = urllib.parse.urlencode(params or {}).encode()
+    req = urllib.request.Request(f"{TG}/bot{token}/{method}", data=data)
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read().decode())
 
+
+def _chat_of(update: dict) -> dict:
+    """Any chat mentioned by any kind of update (message, join, channel post)."""
+    for v in update.values():
+        if isinstance(v, dict):
+            c = v.get("chat")
+            if isinstance(c, dict) and c.get("id") is not None:
+                return c
+    return {}
+
+
+def discover(general: str, dm: str, state: dict) -> dict:
+    """Learn the chat ids from the bots themselves: add the bot / press Start."""
+    notes = []
+    for kind, tok in (("group", general), ("dm", dm)):
+        if not tok:
+            continue
+        try:
+            data = tg_call(tok, "getUpdates", {"limit": 50, "timeout": 0})
+        except Exception as e:                              # noqa: BLE001
+            notes.append(f"{kind}: getUpdates failed ({type(e).__name__})")
+            continue
+        for u in data.get("result", []):
+            c = _chat_of(u)
+            if not c:
+                continue
+            if c.get("type") == "private" and kind == "dm":
+                state["dm_chat_id"] = c["id"]
+                state["dm_name"] = c.get("first_name") or c.get("username") or ""
+            elif c.get("type") in ("group", "supergroup", "channel"):
+                state["chat_id"] = c["id"]
+                state["chat_title"] = c.get("title") or ""
+        try:
+            me = tg_call(tok, "getMe", {})["result"]
+            state[f"{kind}_bot"] = me.get("username", "")
+        except Exception:
+            pass
+    if not state.get("dm_chat_id"):
+        notes.append(f"DM not started — open https://t.me/{state.get('dm_bot') or 'collectivedms077_bot'} "
+                     "and press Start")
+    if not state.get("chat_id"):
+        notes.append(f"no group yet — add @{state.get('group_bot') or 'agency077_bot'} "
+                     "to the crew group and send one message")
+    for n in notes:
+        print(f"hive: {n}")
+    return state
+
+
+def cmd_relay(args) -> int:
+    general, dm = tokens()
+    state = load_state()
+    if not general and not dm:
+        print("hive: no bot token set — nothing sent (exit 0).")
+        return 0
+    if not args.no_discover:
+        state = discover(general, dm, state)
+        save_state(state)
+
+    msgs = bus_messages()
     if not state.get("last_ts"):
         # first run: prime on the current head instead of flooding the phone
-        state = advance({"last_ids": []}, msgs[-1:])
+        state = advance(state, msgs[-1:])
         save_state(state)
         print("hive: primed at the current head — new reports will be relayed from now on.")
         return 0
@@ -183,39 +252,66 @@ def cmd_relay(args) -> int:
             if should_relay(m, m.get("_channel", ""), args.all)]
     if args.dry_run:
         for m in todo:
-            print(f"[dry-run] {pick_chat(m, state)} :: {format_line(m)}")
+            kind, chat = pick_target(m, state)
+            print(f"[dry-run] {kind} {chat} :: {format_line(m)}")
         return 0
+
     sent, failed = [], 0
     for m in todo:
-        chat = pick_chat(m, state)
+        kind, chat = pick_target(m, state)
+        tok = dm if kind == "dm" else general
+        if not chat and kind == "dm":
+            # never lose the King's message: fall back to the crew line if there is one
+            kind, chat = "group", state.get("chat_id")
+            tok = general
         if not chat:
-            sent.append(m)          # nowhere to send it; do not replay forever
-            continue
+            print(f"hive: no place to send {m.get('id')} (no chat id yet) — holding it.",
+                  file=sys.stderr)
+            break                      # stop here so nothing is silently skipped
         try:
-            tg_send(token, chat, format_line(m))
+            tg_call(tok, "sendMessage", {
+                "chat_id": chat, "text": format_line(m),
+                "disable_web_page_preview": "true"})
             sent.append(m)
             time.sleep(0.25)
-        except Exception as e:      # noqa: BLE001
+        except Exception as e:         # noqa: BLE001
             failed += 1
             print(f"hive: send failed for {m.get('id')}: {type(e).__name__}: {e}",
                   file=sys.stderr)
+            break                      # retry from this point next run; nothing lost
     save_state(advance(state, sent))
     print(f"hive: relayed {len(sent)} message(s), {failed} failed.")
     return 0
 
 
 def cmd_send(args) -> int:
-    token = os.environ.get("TELEGRAM_HIVE_TOKEN", "").strip()
+    general, dm = tokens()
+    token = dm or general
     if not token:
-        print("hive: TELEGRAM_HIVE_TOKEN is not set — nothing sent (exit 0).")
+        print("hive: no bot token set — nothing sent (exit 0).")
         return 0
     state = load_state()
     chat = os.environ.get("TELEGRAM_DM_CHAT_ID") or state.get("dm_chat_id")
     if not chat:
-        print("hive: no dm_chat_id in telegram/state.json — run the bridge once.")
+        state = discover(general, dm, state)
+        save_state(state)
+        chat = state.get("dm_chat_id")
+    if not chat:
+        print("hive: the Director has not started the DM bot yet — nothing sent.")
         return 0
-    tg_send(token, chat, " ".join(args.text))
+    tg_call(token, "sendMessage", {"chat_id": chat, "text": " ".join(args.text),
+                                   "disable_web_page_preview": "true"})
     print("hive: sent.")
+    return 0
+
+
+def cmd_discover(args) -> int:
+    general, dm = tokens()
+    state = discover(general, dm, load_state())
+    save_state(state)
+    print(json.dumps({k: state.get(k) for k in
+                      ("group_bot", "dm_bot", "chat_id", "chat_title",
+                       "dm_chat_id", "dm_name")}, indent=2))
     return 0
 
 
@@ -226,7 +322,11 @@ def main(argv=None) -> int:
     r.add_argument("--all", action="store_true",
                    help="also mirror general talk to the group (reports always go)")
     r.add_argument("--dry-run", action="store_true")
+    r.add_argument("--no-discover", action="store_true",
+                   help="skip learning chat ids from the bots this run")
     r.set_defaults(func=cmd_relay)
+    d = sub.add_parser("discover", help="learn the chat ids (add the bot / press Start)")
+    d.set_defaults(func=cmd_discover)
     s = sub.add_parser("send", help="send one line to the Director")
     s.add_argument("text", nargs="+")
     s.set_defaults(func=cmd_send)

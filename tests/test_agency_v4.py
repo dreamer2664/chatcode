@@ -308,6 +308,15 @@ class Hive(unittest.TestCase):
                                  "text": "Vitruvius: Sir, the town square is finished."})
         self.assertEqual(line, "Vitruvius — Sir, the town square is finished.")
 
+    def test_two_bots_two_lanes(self):
+        hive = self.load()
+        state = {"chat_id": -100123, "dm_chat_id": 8694771208}
+        self.assertEqual(hive.pick_target({"type": "report"}, state), ("dm", "8694771208"))
+        self.assertEqual(hive.pick_target({"type": "say"}, state), ("group", "-100123"))
+        upd = {"my_chat_member": {"chat": {"id": -100999, "type": "supergroup",
+                                           "title": "Crew"}}}
+        self.assertEqual(hive._chat_of(upd)["id"], -100999)
+
     def test_reports_relay_dms_and_chatter_do_not(self):
         hive = self.load()
         report = {"from": "alice", "type": "report", "text": "Alice: Sir, done."}
