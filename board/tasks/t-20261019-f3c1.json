@@ -6,7 +6,7 @@
   "owner": "hippodamus",
   "created_by": "hippodamus",
   "created_ts": "2026-10-19T14:56:08Z",
-  "updated_ts": "2026-10-20T00:36:20Z",
+  "updated_ts": "2026-10-20T00:36:24Z",
   "priority": 1,
   "tags": [
     "portus",
@@ -27,12 +27,18 @@
       "ts": "2026-10-20T00:36:20Z",
       "by": "hippodamus",
       "action": "claimed by hippodamus"
+    },
+    {
+      "ts": "2026-10-20T00:36:24Z",
+      "by": "hippodamus",
+      "action": "heartbeat by hippodamus",
+      "note": "Stage B close-out 58c7949: v_programme/v_export/v_rail/v_water/v_plant PASS; v_density 5/7, v_contact 3/5 (D-216), v_clearance 8/9 (D-217) OPEN; 1024 proofs re-rendered."
     }
   ],
   "lease": {
     "agent": "hippodamus",
     "since": "2026-10-20T00:36:20Z",
-    "expires": "2026-10-20T06:36:20Z",
-    "checkpoint": ""
+    "expires": "2026-10-20T04:36:24Z",
+    "checkpoint": "Stage B close-out 58c7949: v_programme/v_export/v_rail/v_water/v_plant PASS; v_density 5/7, v_contact 3/5 (D-216), v_clearance 8/9 (D-217) OPEN; 1024 proofs re-rendered."
   }
 }
