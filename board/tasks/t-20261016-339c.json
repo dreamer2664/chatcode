@@ -6,7 +6,7 @@
   "owner": "vitruvius",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-20T00:50:56Z",
+  "updated_ts": "2026-10-20T01:14:34Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -183,12 +183,18 @@
       "by": "vitruvius",
       "action": "heartbeat by vitruvius",
       "note": "Completed all 271 proof renders (1024x576) and 26 showcase final renders; rendering remaining final 1080p/1440p/4K views"
+    },
+    {
+      "ts": "2026-10-20T01:14:34Z",
+      "by": "vitruvius",
+      "action": "heartbeat by vitruvius",
+      "note": "Completed 271/271 proof renders and 198/271 final renders; rendering remaining 53 1440p and 20 4K final views"
     }
   ],
   "lease": {
     "agent": "vitruvius",
     "since": "2026-10-19T14:19:25Z",
-    "expires": "2026-10-20T04:50:56Z",
-    "checkpoint": "Completed all 271 proof renders (1024x576) and 26 showcase final renders; rendering remaining final 1080p/1440p/4K views"
+    "expires": "2026-10-20T05:14:34Z",
+    "checkpoint": "Completed 271/271 proof renders and 198/271 final renders; rendering remaining 53 1440p and 20 4K final views"
   }
 }
