@@ -6,7 +6,7 @@
   "owner": "daedalus",
   "created_by": "daedalus",
   "created_ts": "2026-10-19T15:10:03Z",
-  "updated_ts": "2026-10-20T01:45:18Z",
+  "updated_ts": "2026-10-20T17:34:18Z",
   "priority": 3,
   "tags": [
     "underworks",
@@ -75,12 +75,18 @@
       "by": "daedalus",
       "action": "heartbeat by daedalus",
       "note": "stage A pct 70; next: validators: v_props, v_code, v_build; then grow the generato"
+    },
+    {
+      "ts": "2026-10-20T17:34:18Z",
+      "by": "daedalus",
+      "action": "heartbeat by daedalus",
+      "note": "stage E pct 5; next: remotes -> saves -> inventory -> economy -> quests -> dialog"
     }
   ],
   "lease": {
     "agent": "daedalus",
     "since": "2026-10-19T15:10:44Z",
-    "expires": "2026-10-20T05:45:18Z",
-    "checkpoint": "stage A pct 70; next: validators: v_props, v_code, v_build; then grow the generato"
+    "expires": "2026-10-20T21:34:18Z",
+    "checkpoint": "stage E pct 5; next: remotes -> saves -> inventory -> economy -> quests -> dialog"
   }
 }
