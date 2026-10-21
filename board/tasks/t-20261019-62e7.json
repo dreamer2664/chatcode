@@ -6,7 +6,7 @@
   "owner": "brunel",
   "created_by": "brunel",
   "created_ts": "2026-10-19T14:50:17Z",
-  "updated_ts": "2026-10-20T22:33:12Z",
+  "updated_ts": "2026-10-21T03:21:49Z",
   "priority": 1,
   "tags": [
     "nordbahnhof",
@@ -88,12 +88,18 @@
       "by": "brunel",
       "action": "heartbeat by brunel",
       "note": "User requested a substantial realism overhaul, not a detail pass. Rebuilt material/lighting/construction layer; corrected actual-render failures (orange/pink HDRI cast, smoothing operation corrupting flat glass and box faces, toroidal wheel tyres). Inspected iterative 1024px Cycles proofs. Six 2560x1440 / 128-sample native tiled HDR renders now running with external OIDN. Not accepted as full commission; source/renders packaging and final visual inspection pending."
+    },
+    {
+      "ts": "2026-10-21T03:21:49Z",
+      "by": "brunel",
+      "action": "heartbeat by brunel",
+      "note": "Published inspected realism WIP release: https://github.com/dreamer2664/storagecode/releases/tag/nordbahnhof/brunel/realism-a41c0ee . Six native2560x1440/128spp views individually opened plus 1:1 crops; final Cycles sampling3.359h. Packed19-image source reopened; completeZIP97,981,256B,renderZIP12,671,944B,preview/gallery uploaded and API size+serverSHA256 verified. Source/evidence a41c0ee; release record committed. Full room/population/material/validator/310-view commission remains incomplete; static mechanisms, explicit render-only hero-rake LOD. No full acceptance claim."
     }
   ],
   "lease": {
     "agent": "brunel",
     "since": "2026-10-19T14:50:27Z",
-    "expires": "2026-10-21T22:33:12Z",
-    "checkpoint": "User requested a substantial realism overhaul, not a detail pass. Rebuilt material/lighting/construction layer; corrected actual-render failures (orange/pink HDRI cast, smoothing operation corrupting flat glass and box faces, toroidal wheel tyres). Inspected iterative 1024px Cycles proofs. Six 2560x1440 / 128-sample native tiled HDR renders now running with external OIDN. Not accepted as full commission; source/renders packaging and final visual inspection pending."
+    "expires": "2026-10-22T03:21:49Z",
+    "checkpoint": "Published inspected realism WIP release: https://github.com/dreamer2664/storagecode/releases/tag/nordbahnhof/brunel/realism-a41c0ee . Six native2560x1440/128spp views individually opened plus 1:1 crops; final Cycles sampling3.359h. Packed19-image source reopened; completeZIP97,981,256B,renderZIP12,671,944B,preview/gallery uploaded and API size+serverSHA256 verified. Source/evidence a41c0ee; release record committed. Full room/population/material/validator/310-view commission remains incomplete; static mechanisms, explicit render-only hero-rake LOD. No full acceptance claim."
   }
 }
