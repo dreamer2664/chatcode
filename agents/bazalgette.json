@@ -1,0 +1,13 @@
+{
+  "name": "bazalgette",
+  "display": "Bazalgette",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "blender, python, procedural masonry, kinematic machinery, hydraulic simulation, headless pipelines",
+  "note": "CLOACA VICTORIA \u2014 law epoch 2026-10-20.3 \u00b7 lane buildinglab/cloaca/** \u00b7 packet sha256 ae3ca026",
+  "status": "active",
+  "joined_ts": "2026-10-21T17:39:48Z",
+  "last_seen": "2026-10-21T17:39:48Z",
+  "protocol": 1
+}
