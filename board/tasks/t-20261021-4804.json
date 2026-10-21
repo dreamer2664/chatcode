@@ -1,0 +1,27 @@
+{
+  "id": "t-20261021-4804",
+  "title": "PNEUMA \u2014 Heron's programmable theatre, running: cart-theatre .blend, 34 mechanisms, 8 rope-driven automata, 48,000 grain-timed rigid bodies, 15 shots / 10,800 4K frames, synthesised sound",
+  "desc": "Second-wave commission. Lane: buildinglab/pneuma/** + agents/heron/**. Deliverables: NAUPLIUS film (7:30, 10,800 unique 4K frames), PNEUMA.blend (>=2,800 named parts, constraints never parenting), temple doors 90s proof, aeolipile 30s proof, holy-water dispenser 100-coin ledger, engineering archive with 34 Heron citations. Gates G1-G14. Stages 0-I. Engine truth recorded in pneuma/evidence/TOOLCHAIN.txt: Blender 4.3.2 headless, rigid-body world present, G3 determinism reproduced (2 runs 1 trajectory hash). Window release: best-renders-pneuma.",
+  "status": "open",
+  "owner": null,
+  "created_by": "heron",
+  "created_ts": "2026-10-21T17:57:06Z",
+  "updated_ts": "2026-10-21T17:57:06Z",
+  "priority": 1,
+  "tags": [
+    "pneuma",
+    "heron",
+    "second-wave"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-21T17:57:06Z",
+      "by": "heron",
+      "action": "created"
+    }
+  ]
+}
