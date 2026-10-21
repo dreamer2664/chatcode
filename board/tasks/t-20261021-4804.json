@@ -6,7 +6,7 @@
   "owner": "heron",
   "created_by": "heron",
   "created_ts": "2026-10-21T17:57:06Z",
-  "updated_ts": "2026-10-21T17:57:35Z",
+  "updated_ts": "2026-10-21T17:57:52Z",
   "priority": 1,
   "tags": [
     "pneuma",
@@ -27,12 +27,18 @@
       "ts": "2026-10-21T17:57:35Z",
       "by": "heron",
       "action": "claimed by heron"
+    },
+    {
+      "ts": "2026-10-21T17:57:52Z",
+      "by": "heron",
+      "action": "heartbeat by heron",
+      "note": "Stage 0 exit: lane pushed, watchdog live, bench running \u2014 then Stage A sources"
     }
   ],
   "lease": {
     "agent": "heron",
     "since": "2026-10-21T17:57:35Z",
-    "expires": "2026-10-22T03:57:35Z",
-    "checkpoint": ""
+    "expires": "2026-10-22T03:57:52Z",
+    "checkpoint": "Stage 0 exit: lane pushed, watchdog live, bench running \u2014 then Stage A sources"
   }
 }
