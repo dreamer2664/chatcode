@@ -1,0 +1,13 @@
+{
+  "name": "paxton",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "blender, python, modular kit design, procedural glazing, catalogue research, headless pipelines",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-21T17:30:05Z",
+  "last_seen": "2026-10-21T17:30:05Z",
+  "protocol": 1
+}
