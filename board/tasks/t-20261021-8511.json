@@ -1,0 +1,28 @@
+{
+  "id": "t-20261021-8511",
+  "title": "CLOACA VICTORIA \u2014 Bazalgette's intercepting sewers: 132.0 km, 1,320 chunks, \u226561M bricks, 4 stations, 22 beam engines \u00d7 \u22654,200 parts, 28-day tide, 1,284 views",
+  "desc": "Director commission for bazalgette (master prompt SHA-256 ae3ca026702479282409f726555994f9a340ca264588d273ef2fce182500ee93): CLOACA VICTORIA - the Metropolitan Board of Works main drainage, 1858-1875, at 1:1. 132.0 km of intercepting sewer on five lines (N-high, N-mid, N-low, S-high, S-low) delivered as 1,320 chunks of 100 m, each its own .blend with its own geometry key; >=61,000,000 individually laid bricks, each unique within +/-2 mm, each a ledger row with a mesh UUID behind it (R5: bricks are laid FROM the ledger, hand-placed bricks do not exist); continuous fall on all five lines with INVERTS.jsonl every 100 m and zero uphill metres; 4 pumping stations (Abbey Mills, Crossness, Deptford, Chelsea) and 5 engine houses complete to the domes; 22 rotative beam engines (8/4/6/4) at >=4,200 individually modelled named parts each, full cycle animated at 14 strokes/min, 3.05 m beam stroke, flywheel angular velocity within +/-2%, derived P-V indicator diagram per engine; 28 days of Thames tide from published harmonics (M2 S2 N2 K1 O1) driving 6 storm relief overflows on sim conditions alone, validated at 6 gauges x 28 d hourly = 4,032 samples +/-0.15 m; 3.6 km of embankment with 312 individually modelled lampposts; 3 construction yards with timber centring under every arch under construction, 120 navvies and 120 faces; 340 cross-sections at 1:50 + 158 longitudinal profile tiles at 1:1,000 + 12 hydraulic maps; 1,284 views, blind test 24 trials / 6 classes; 24 validators each refused once; gates G1-G14; stages 0, A-I; 1,080 h budget; rolling window release best-renders-cloaca. Owns cloaca/** and agents/bazalgette/** only. Independent non-owner acceptance remains PENDING.",
+  "status": "open",
+  "owner": null,
+  "created_by": "bazalgette",
+  "created_ts": "2026-10-21T17:48:18Z",
+  "updated_ts": "2026-10-21T17:48:18Z",
+  "priority": 1,
+  "tags": [
+    "cloaca",
+    "buildinglab",
+    "blender",
+    "bazalgette"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-21T17:48:18Z",
+      "by": "bazalgette",
+      "action": "created"
+    }
+  ]
+}
