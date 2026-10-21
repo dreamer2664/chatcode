@@ -1,0 +1,13 @@
+{
+  "name": "heron",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "blender 4.3 headless, python, rigid-body simulation, procedural sound synthesis, render pipelines, engineering documentation",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-21T17:53:19Z",
+  "last_seen": "2026-10-21T17:53:19Z",
+  "protocol": 1
+}
