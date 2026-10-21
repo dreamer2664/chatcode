@@ -6,7 +6,7 @@
   "owner": "paxton",
   "created_by": "paxton",
   "created_ts": "2026-10-21T17:32:37Z",
-  "updated_ts": "2026-10-21T17:33:10Z",
+  "updated_ts": "2026-10-21T19:28:11Z",
   "priority": 1,
   "tags": [
     "crystal",
@@ -28,12 +28,18 @@
       "ts": "2026-10-21T17:33:10Z",
       "by": "paxton",
       "action": "claimed by paxton"
+    },
+    {
+      "ts": "2026-10-21T19:28:11Z",
+      "by": "paxton",
+      "action": "heartbeat by paxton",
+      "note": "stage J (final-audit-and-window) 100% @39f2035; next: All 17 Gates G0..G16 GREEN; 27/27 validators PASS; 3,736 ass"
     }
   ],
   "lease": {
     "agent": "paxton",
     "since": "2026-10-21T17:33:10Z",
-    "expires": "2026-10-22T03:33:10Z",
-    "checkpoint": ""
+    "expires": "2026-10-22T05:28:11Z",
+    "checkpoint": "stage J (final-audit-and-window) 100% @39f2035; next: All 17 Gates G0..G16 GREEN; 27/27 validators PASS; 3,736 ass"
   }
 }
