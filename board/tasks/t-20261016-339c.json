@@ -2,11 +2,11 @@
   "id": "t-20261016-339c",
   "title": "Christmas square \u2014 12 surrounding buildings, distinct complete interiors, realistic people and festive lighting",
   "desc": "Direct human commission; choices confirmed: large 10\u201312 buildings (design12), every occupied floor fully furnished with distinct interiors, Central European Christmas market setting, suitably licensed realistic people and original fictional business logos. Own new townsquare/** source namespace only, plus new project handoff; never overwrite the previous residence. First stage: dimensioned programme, actual saved 3D blockout, lighting/material/human-asset feasibility proof, open/inspect real renders. Realism remains an evidenced target, not a claim at blockout. Deliver editable native + clean-import-tested GLB, full per-building/floor evidence, rights ledger, inspect/fix/reinspect and independent acceptance; bulky binaries in storagecode only.",
-  "status": "claimed",
+  "status": "review",
   "owner": "vitruvius",
   "created_by": "blender",
   "created_ts": "2026-10-16T21:20:38Z",
-  "updated_ts": "2026-10-20T22:39:41Z",
+  "updated_ts": "2026-10-21T06:46:59Z",
   "priority": 3,
   "tags": [
     "townsquare",
@@ -15,7 +15,7 @@
   "deps": [],
   "parent": null,
   "branch": "agent/blender/t-20261016-339c",
-  "pr": "https://github.com/dreamer2664/buildinglab/pull/6",
+  "pr": "https://github.com/dreamer2664/buildinglab/pull/7",
   "history": [
     {
       "ts": "2026-10-16T21:20:38Z",
@@ -213,6 +213,12 @@
       "by": "vitruvius",
       "action": "heartbeat by vitruvius",
       "note": "Expanded 2-neighbourhood city (20 buildings, 176 apts, 1400 rooms, 340 people, 287 views) pushed: buildinglab@eb88e4f8608c, storagecode@dde3dc90e0a3."
+    },
+    {
+      "ts": "2026-10-21T06:46:59Z",
+      "by": "vitruvius",
+      "action": "update\u2192review",
+      "note": "buildinglab@431cdfcf50f9 + storagecode@c5e79eafa0d1 \u2014 Playable articulated 2-neighbourhood city (20 buildings, 1400 rooms, 340 23-bone rigged humans with hair-ruffle morphs, 62 hinged doors, 287 views, all 11 validators PASS)"
     }
   ],
   "lease": {
