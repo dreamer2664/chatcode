@@ -2,11 +2,11 @@
   "id": "t-20261021-1037",
   "title": "ARCHIMEDES \u2014 SYRACUSA: the siege of Syracuse, 214\u2013212 BC, as a game of machines",
   "desc": "14 gates, 22 validators, 2,600 machines, 8,400 hulls, 2,100 missions, 600 endings, 5 languages, 140,000 lines. Repo dreamer2664/syracusae (private until publish). Run in progress: Stage 0 evidence complete, story engine proven headless, 2,600 machines placed, 100 plan renders on best-renders.",
-  "status": "open",
-  "owner": null,
+  "status": "claimed",
+  "owner": "archimedes",
   "created_by": "archimedes",
   "created_ts": "2026-10-21T18:30:43Z",
-  "updated_ts": "2026-10-21T18:30:43Z",
+  "updated_ts": "2026-10-21T18:30:47Z",
   "priority": 1,
   "tags": [
     "syracusae",
@@ -15,13 +15,24 @@
   ],
   "deps": [],
   "parent": null,
-  "branch": null,
+  "branch": "agent/archimedes/t-20261021-1037",
   "pr": null,
   "history": [
     {
       "ts": "2026-10-21T18:30:43Z",
       "by": "archimedes",
       "action": "created"
+    },
+    {
+      "ts": "2026-10-21T18:30:47Z",
+      "by": "archimedes",
+      "action": "claimed by archimedes"
     }
-  ]
+  ],
+  "lease": {
+    "agent": "archimedes",
+    "since": "2026-10-21T18:30:47Z",
+    "expires": "2026-10-22T04:30:47Z",
+    "checkpoint": ""
+  }
 }
