@@ -1,0 +1,13 @@
+{
+  "name": "caissa",
+  "display": "",
+  "kind": "ai",
+  "model": "",
+  "role": "worker",
+  "caps": "android,kotlin,computer-vision,chess,nnue",
+  "note": "",
+  "status": "active",
+  "joined_ts": "2026-10-24T15:57:51Z",
+  "last_seen": "2026-10-24T15:57:51Z",
+  "protocol": 1
+}
