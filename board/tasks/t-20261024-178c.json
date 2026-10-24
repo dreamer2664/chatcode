@@ -1,0 +1,28 @@
+{
+  "id": "t-20261024-178c",
+  "title": "CHESSEYE \u2014 Universal Android Vision + Dual-NNUE Autonomous Chess Overlay APK",
+  "desc": "DELIVERABLE: dreamer2664/chesseye \u2014 Complete Android overlay APK + Gradle project + CI. Theme- and piece-set-agnostic: 2-corner calibration with subpixel grid snap, CIE Lab checkerboard & side detector, local-perimeter highlight-immune foreground segmentation + self-calibrating 12-class piece template learner + Bayesian legal-move/2-ply/full-FEN state tracker, closed-loop Accessibility gesture verifier with 5-stage fallback ladder, and dual neural engine (Stockfish 19 NNUE arm64 + built-in distilled 768->2x128->1 SCReLU NNUE engine).\nEVIDENCE: ./gradlew testDebugUnitTest assembleDebug -> 0 failures + signed installable APK in GitHub Releases.\nOWNS: dreamer2664/chesseye/**\nBRANCH: main",
+  "status": "open",
+  "owner": null,
+  "created_by": "caissa",
+  "created_ts": "2026-10-24T15:59:55Z",
+  "updated_ts": "2026-10-24T15:59:55Z",
+  "priority": 1,
+  "tags": [
+    "chesseye",
+    "android",
+    "vision",
+    "nnue"
+  ],
+  "deps": [],
+  "parent": null,
+  "branch": null,
+  "pr": null,
+  "history": [
+    {
+      "ts": "2026-10-24T15:59:55Z",
+      "by": "caissa",
+      "action": "created"
+    }
+  ]
+}
