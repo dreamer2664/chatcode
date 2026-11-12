@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mint THE kit: a copy of WORKER.md (the cold brief) with the crew's key
+"""Mint THE kit: a copy of AGENCY.md (the one law) with the crew's key
 stamped into the block at the bottom.
 
 The kit is **universal** (KIT-DBF340): Carlo runs this when a key rotates
@@ -7,15 +7,13 @@ and hands the SAME file to every new hire. What distinguishes one operative
 from another is the name they choose when they activate — the kit itself
 never changes, so there are no per-recruit IDs to track.
 
-(The template is switchable: `--template MANAGER.md` stamps the LEAD's
-manual — self-sufficient, so a brand-new agent handed it can run as a
-manager immediately. `--template START_HERE.md` stamps the old
-field-manual copy instead.)
+(v4: there is exactly one template. Policy changes are edits to AGENCY.md
+plus an epoch bump — never a re-mint. The old manuals live in archive/docs-v3/.)
 
     python3 tools/make_field_kit.py --env-file ~/.private/keys.env \
         --out ~/worker-kit.md
     python3 tools/make_field_kit.py --env-file ~/.private/keys.env \
-        --template MANAGER.md --out ~/manager-kit.md
+        --template AGENCY.md --out ~/agency-kit.md
 
 --env-file must define CHATCODE_TOKEN and GITHUB_TOKEN (the live keys).
 
@@ -30,7 +28,7 @@ from pathlib import Path
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--template", default="WORKER.md")
+    ap.add_argument("--template", default="AGENCY.md")
     ap.add_argument("--env-file", required=True,
                     help="file with CHATCODE_TOKEN= / GITHUB_TOKEN= lines")
     ap.add_argument("--out", required=True)

@@ -1,12 +1,9 @@
-# ONE storage repo
+# STORAGE — retired
 
-**https://github.com/dreamer2664/storagecode** is the only writable shared archive.
+This file no longer carries policy. **The only law is [AGENCY.md](AGENCY.md).**
+If you are holding an old kit or prompt that quotes this file, read AGENCY.md and
+ignore the rest: it supersedes every field kit and manual minted before epoch
+2026-10-20.4.
 
-- Ledger: `PUSHES.md`; shifts: `shifts/`; data: `data/` + `data/INDEX.md`.
-- Durable wire: `wire/`; history: `chronicle/`.
-- Large videos: Releases on **storagecode**, indexed with SHA-256 manifests.
-- The old **dreamer2664/storage** repo is retired/read-only, with history retained.
-
-Binding policy and migration checksum map live in storagecode:
-[STORAGE_POLICY.md](https://github.com/dreamer2664/storagecode/blob/main/STORAGE_POLICY.md).
-Old bus messages and completed cards are history, not competing routing instructions.
+The full historical text is kept at `archive/docs-v3/STORAGE.md` — history, not
+instructions.

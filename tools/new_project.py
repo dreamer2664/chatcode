@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Open a project repo the way the pipeline expects (MANAGER.md §2).
+"""Open a project repo the way the pipeline expects (AGENCY.md §5, jobs lane).
 
     set -a; . ~/.private/<you>.env; set +a
     python3 tools/new_project.py <name> "<one-line purpose>" [--private] [--dry-run]
@@ -162,7 +162,7 @@ def main() -> int:
              "scaffold: ignore bytecode and scratch", token)
     print("scaffold : README.md + .github/workflows/record.yml + .gitignore")
     print()
-    print("now cut the jobs (MANAGER.md §3) and announce the room:")
+    print("now cut the jobs (AGENCY.md §5, jobs lane) and announce the room:")
     print(f'  python3 bin/chatcode ping --topic jobs "<idea> — N jobs up: ... — '
           f'take: chatcode tasks list --status open"')
     return 0
